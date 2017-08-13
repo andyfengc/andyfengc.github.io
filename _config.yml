@@ -11,7 +11,7 @@ port : 4003
 
 
 # SNS settings
-RSS: false
+RSS: true
 #weibo_username:     andyfis
 #zhihu_username:     andyfengc
 github_username:    andyfengc
@@ -94,3 +94,7 @@ service-worker: true
 #        href: "http://mida.re/"
 #    }
 #]
+
+# portfolio projects
+projects:
+  quickhelper_server: "https://andyfengc.github.io/QuickHelper-server/"
