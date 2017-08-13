@@ -5,7 +5,7 @@ header-img: img/home-bg.jpg
 email: andyfengc@gmail.com
 description: "Full-stack Developer with 10+ years of experience using .Net, Java, Javascript. I am passionate about new IT technologies."
 keyword: "Andy, simple life, happy life, @andy, Andy的博客, Andy Blog, Blog, Internet, full-stack"
-url: "https://andyfeng.github.io"              # your host, for absolute URL
+url: "https://andyfengc.github.io"              # your host, for absolute URL
 baseurl: ""                             # for example, '/blog' if your blog hosted on 'host/blog'
 port : 4003
 
