@@ -61,7 +61,7 @@ netease_comment: false
 
 # Google Analytics
 ga_track_id: 'UA-104473292-1'            # Format: UA-xxxxxx-xx
-ga_domain: andyfengc.github.io
+ga_domain: auto
 
 
 
