@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Morgage calculator algorithm
+title: Mortgage calculator algorithm
 author: Andy Feng
 categories: [work, algorithm]
 ---
