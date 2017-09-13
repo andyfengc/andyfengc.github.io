@@ -46,6 +46,8 @@ Note:
 - domain在哪里，就在哪里配置name servers (ns)
 - ns是谁的，就在谁那里修改添加A记录、CNAME，添加MX等
 - domain和ns可以分开，也可以在一个服务器上。 e.g. 注册Godaddy的域名，其域名服务器在墙外，然后使用国内免费的DNSPOD配置A记录/CNAME/MX等域名解析，最后在Godaddy处自定义name servers（域名服务器）为DNSPOD的ns
+- 技术架构：github pages + jekyll + godaddy + cloudflare + qq企业邮箱
+- 编辑器：记事本或任何支持markdown的编辑器
 
 ## 0. Prepare hosting via github pages ##
 `znhbjbond.github.io`
