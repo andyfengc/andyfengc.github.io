@@ -28,7 +28,7 @@ author: Andy Feng
 	It lets us write modern JavaScript code that still works in older browsers.
 
 1. Install babel-preset-es2015 - enable babel compile ecma script 2015 syntax
-	`npm install babel-preset-es2015 --save`
+	`npm install babel-preset-es2015 babel-preset-stage-0 --save`
 
 	**we can assume that angularjs 2.x/4.x cli is equivalent the combination of babel, browserify, babelify, watchify, babel-preset-react, babelo-reset-es2015 **
 
