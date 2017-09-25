@@ -59,7 +59,7 @@ author: Andy Feng
 
 1. So far everything is done. Next, how restore the environment
 	1. android studio > activate the emulator again
-	2. run `react-native init start` again
+	2. run `react-native run-android` again
 
 ## Create the first entry component ##
 1. open the project folder use atom or vs code
@@ -103,8 +103,8 @@ author: Andy Feng
 			  return (
 			    <Text>I am header</Text>
 			  )
-			}			
-
+			}		
+			export detault Header;	
 	2. way2, default exports, one per module
 
 			// export component
@@ -112,6 +112,7 @@ author: Andy Feng
 			// import library
 			import React, {Component} from 'react';
 			import { Text } from 'react-native';			
+
 			// create component
 			class Header extends Component{
 			  render(){
