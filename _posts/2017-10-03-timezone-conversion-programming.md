@@ -2,7 +2,7 @@
 layout: post
 title: Timezone conversion in programming
 author: Andy Feng
-categories: [timezone, programming]
+categories: [timezone, programming, c#]
 ---
 
 ## Introduction ##
@@ -95,7 +95,7 @@ Create a timezone utility
 
     public static class TimeZoneEnumExtensions
     {
-        public static TimeZoneEnum ToCode(string timezoneStr)
+        public static TimeZoneEnum ToEnum(string timezoneStr)
         {
             switch (timezoneStr.ToUpper())
             {
