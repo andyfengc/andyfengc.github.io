@@ -9,13 +9,13 @@ author: Andy Feng
 For instance, below information should be logged for every method in our business logic service:
 
 1. entry into a method
-2.parameters passed to the method (name and value)
+1. parameters passed to the method (name and value)
 1. total tima of execution
-2. parameters returned from the method
-3. exit from try block
-4. exit from final block
-5. exceptions
-6. ...
+1. parameters returned from the method
+1. exit from try block
+1. exit from final block
+1. exceptions
+1. ...
 
 Here is a sample to log information mixed with business logic in our class:
 

@@ -21,7 +21,7 @@ The requirement is:
 		var targetTimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
 		var targetTime = TimeZoneInfo.ConvertTime(sourceTime, targetTimeZoneInfo);
 
-The question is, how to constructor the targetTimeZoneInfo object based on abbreviation forms of timezone.
+The question is, how to construct the targetTimeZoneInfo object based on abbreviation forms of timezone.
 
 ## Research ##
 There are tons of lists of timezones over Internet. 
