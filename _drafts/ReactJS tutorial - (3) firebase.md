@@ -104,3 +104,83 @@ author: Andy Feng
 1. due to the websocket machanism of firebase, the app in emulator refreshed immediately automatically
 
 	![](/images/posts/20170925-firebase-7.png)
+
+## Add ReactFire ##
+
+ReactFire provides an easy way to integrate Firebase into React apps. It exposes the ReactFireMixin which extends the functionality of a React component, adding additional Firebase-specific methods to it. These methods allow us to create a one-way data binding from our Firebase database to our component's this.state variable. 
+
+Please note that ReactFire creates a one-way data binding from our database to our component, not the other way around.
+
+1 install reactfire library   
+  `npm install --save reactfire`
+
+  by default, reactfire doesn't suppor es6 and we have to use it like 
+
+	var ReactFireMixin = require('reactfire');
+	var Firebase = require('firebase');
+
+	var Profile = React.createClass({
+	  	mixins: [ReactFireMixin],
+		  componentDidMount: function(){
+		    this.ref = new Firebase('https://amber-fire-5168.firebaseio.com/');
+		    var childRef = this.ref.child(this.props.params.username);
+		    this.bindAsArray(childRef, 'notes');
+		  },
+		componentWillMount: function() {
+		  var ref = firebase.database().ref("items");
+		  this.bindAsArray(ref, "items");
+		},
+		//...
+	});
+
+   in order to add mixin syntax to react, add another library:
+   `npm install --save react-mixin`
+
+1. create a new react component
+
+		import React, {Component} from 'react';
+		import { View, Text } from 'react-native';
+		import firebase from 'firebase';
+		import ReactFireMixin from 'reactfire';
+		import reactMixin from 'react-mixin';
+		
+		export class FirebaseDemo extends Component {
+		  constructor(props, context) {
+		    super(props, context)
+		    this.state = {
+		      title: ''
+		      , tasks: []
+		    };
+		  }
+		
+		  componentWillMount() {
+		    const tasks = firebase.database().ref('task');
+		    this.bindAsArray(tasks, 'tasks');
+		  }
+		
+		  render() {
+		    return (
+		      <View>
+		        <Text>
+		          {this.state.title}
+		          {this.state.tasks.map(task => {
+		            return <Text key={task.key}>{task.title}</Text>;
+		          })}
+		        </Text>
+		      </View>
+		    )
+		  }
+		}
+		reactMixin(FirebaseDemo.prototype, ReactFireMixin);
+
+   Here, 
+
+	{this.state.tasks.map(task => {
+            return <Text key={task.key}>{task.title}</Text>;
+          })}
+
+   is equivalent to 
+
+	{this.state.tasks.map(function(task, index){
+            return task.title;
+          })}
