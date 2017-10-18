@@ -11,10 +11,10 @@ Here are some tips of SQL functions and  all scripts passed under SQL Server 201
 Let's assume we have a [Order] table:
 
 	create table [dbo].[Order](
-	    Id int identity(1,1)
-	    , purchase_order_no nvarchar(50)
-	    , buyer_user_id nvarchar(50)
-	    , amount_paid float
+		Id int identity(1,1)
+		, purchase_order_no nvarchar(50)
+		, buyer_user_id nvarchar(50)
+		, amount_paid float
 		, order_status nvarchar(50)
 		, primary key (Id)
 	)
@@ -55,8 +55,8 @@ It is equivalent to
 	, purchase_order_no
 	, buyer_user_id
 	, order_status
-	  FROM [dbo].[Order]
-	  group by purchase_order_no, buyer_user_id
+	FROM [dbo].[Order]
+	group by purchase_order_no, buyer_user_id, order_status
 
 ## ROW_NUMBER() ##
 
@@ -92,7 +92,7 @@ e.g.
 
 	SELECT ROW_NUMBER() OVER(order by order_status)
 	, order_status
-	  FROM [dbo].[Order]
+	FROM [dbo].[Order]
 
 ![](/images/posts/20171017-sql-4.png)
 
@@ -103,7 +103,7 @@ Please note that here we do not specify PARTICION BY inside OVER(). Therefore, i
 
 	SELECT RANK() OVER(order by order_status)
 	, order_status
-	  FROM [dbo].[Order]
+	FROM [dbo].[Order]
 
 ![](/images/posts/20171017-sql-5.png)
 
@@ -115,7 +115,7 @@ We can avoid those gaps by using DENSE_RANK()
 
 	SELECT DENSE_RANK() OVER(order by order_status)
 	, order_status
-	  FROM [dbo].[Order]
+	FROM [dbo].[Order]
 
 ![](/images/posts/20171017-sql-6.png)
 
