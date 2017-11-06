@@ -19,6 +19,7 @@ author: Andy Feng
 
 1. Install babelify - connect babel with browserify
 	`npm install --save babelify`
+	`npm install babel-core babel-loader --save`
 
 1. Install watchify - instantly compile react jsx files to js files  
 	`npm install --save watchify`
