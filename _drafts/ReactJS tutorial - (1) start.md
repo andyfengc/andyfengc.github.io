@@ -67,3 +67,4 @@ author: Andy Feng
 1. open index.html
 
 	![](/images/posts/20170908-react-4.png)
+

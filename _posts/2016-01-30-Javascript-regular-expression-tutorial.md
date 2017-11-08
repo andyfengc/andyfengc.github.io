@@ -40,16 +40,17 @@ In javascript, regular expression object is consist of regular expression patter
 Regular expression pattern specifies the search pattern. A pattern is composed of simple characters, such as /abc/, or a combination of simple and special characters, such as /ab*c/ or /Chapter (\d+)\.\d*/. 
 
 Pattern table
-![](/images/20151130-regular-expression-pattern.png)
+![](/images/posts/20151130-regular-expression-pattern.png)
 [Adapted from w3schools](http://www.w3schools.com/js/js_regexp.asp)
 
 Modifiers specify if our search should be case-sensitive, global, etc. They are used to perform case-insensitive and global searches:
 
 Modifiers table
-![](/images/20151130-regular-expression-modifier.png)
+![](/images/posts/20151130-regular-expression-modifier.png)
 [Adapted from w3schools](http://www.w3schools.com/jsref/jsref_obj_regexp.asp)
 
 Now we are ready to apply regular expression in js. There are two basic ways to apply regular expression in Javascript
+
 - Using regular expression object
 - Using regular expression for string
 
