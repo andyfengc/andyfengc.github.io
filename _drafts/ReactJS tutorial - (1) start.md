@@ -5,7 +5,7 @@ author: Andy Feng
 ---
 
 ## Prepare environment ##
-
+### Way1: use npm ###
 1. Install tools
 	1. nodejs
 	1. atom + languagebabel (jsx syntax)
@@ -41,11 +41,64 @@ author: Andy Feng
 	![](/images/posts/20170908-react-1.png)
 
 ## Create a simple demo ##
-1. create src\components\list.jsx, src\components\listitem.jsx
+1. create src\main.jsx
 
-1. create src\main.jsx, call list.jsx
+		var React = require('react');
+		var ReactDom = require('react-dom');
+		var List = require('./components/list.jsx');
 
-1. create public\index.html
+		ReactDom.render(<List/>, document.getElementById('persons'));
+
+1. create src\components\list.jsx
+
+		var React = require('react');
+		var ListItem = require('./listitem.jsx');
+		
+		var persons = [
+		  {  "id" : 1, "name" : "kevin"}
+		  , {  "id" : 2, "name" : "andy"}
+		  , {  "id" : 3, "name" : "john"}
+		]
+		
+		var List = React.createClass({
+		  render: function(){
+		    var listitems = persons.map(function(item){
+		      return <ListItem key={item.id} name={item.name}/>;
+		    });
+		
+		    return (<ul>{listitems}</ul>);
+		  }
+		})
+		
+		module.exports = List;
+
+1. create src\components\listitem.jsx
+
+		var React = require('react');
+		var ListItem = React.createClass({
+		  render: function(){
+		    return (
+		      <li>
+		        {this.props.name}
+		      </li>
+		    );
+		  }
+		})
+		
+		module.exports = ListItem;
+
+1. create public\index.html, and public\js folder
+
+	<html>
+	    <head>
+	        <title>React Demo</title>
+	    </head>
+	    <body>
+	        <div id="persons"></div>
+	        <script type="text/javascript" src="js/main.js">            
+	        </script>
+	    </body>
+	</html>
 
 1. modify packet.json, add
 	>
@@ -67,4 +120,56 @@ author: Andy Feng
 1. open index.html
 
 	![](/images/posts/20170908-react-4.png)
+
+## Add another component ##
+
+modify index.html
+	...
+	<div id="persons"></div>	
+
+modify main.jsx
+	
+	...
+	import {List} from './components/list.jsx';
+
+	ReactDom.render(<List/>, document.getElementById('persons'));
+
+add list.jsx
+
+	import React, {Component} from 'react';
+	import {ListItem} from './list-item.jsx';
+	
+	var persons = [
+	    {  "id" : 1, "name" : "kevin"}
+	    , {  "id" : 2, "name" : "andy"}
+	    , {  "id" : 3, "name" : "john"}
+	  ];
+	
+	export class List extends Component{
+	    render(){
+	        var listitems = persons.map(function(item){
+	            return <ListItem key={item.id} name={item.name}/>;
+	        });
+	        return (
+	            <ul>{listitems}</ul>            
+	        )
+	    }
+	}
+	
+	ReactDom.render(<List/>, document.getElementById('persons'));
+
+add list-item.jsx
+	
+	import React, {Component} from 'react';
+	
+	export class ListItem extends Component{
+	    render(){
+	        return (
+	            <li>
+	                {this.props.name}
+	            </li>
+	        )
+	    }
+	}
+
 
