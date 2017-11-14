@@ -140,6 +140,10 @@ This model has two types of branch:
 The main concepts in GitHub Flow are:
 
 - anything in the master branch is deployable
+<<<<<<< HEAD
+=======
+- any new feature or hotfix requirement should be put into dedicated branches
+>>>>>>> b9cfb6e... add git practice posting
 - when we need feedback or help, or we think the branch is ready for merging, open a pull request
 - after someone else has reviewed and signed off the feature, we can merge it into master
 - Once it is merged and pushed to "master" branch, we should deploy immediately
