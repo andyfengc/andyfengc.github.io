@@ -41,7 +41,7 @@ Feature branch is temporary branch and it is created just for complete a specifi
 
 [Gitflow](https://github.com/nvie/gitflow) is a utility encapsulates branching model of Git. It is very well suited to collaboration and scaling the development team. It is essentially a Git extension including a set of commands to simplify the integration operations.
 
-Some graphical Git clients such as [SouceTree](https://www.sourcetreeapp.com), [GitKraken](https://www.gitkraken.com) have built-in support to GitFlow. 
+Some graphical Git clients such as [SouceTree](https://www.sourcetreeapp.com), [GitKraken](https://www.gitkraken.com), [smartgit](http://www.syntevo.com/smartgit/) have built-in support to GitFlow. 
 
 Here are major steps of GitFlow:
 
@@ -126,7 +126,10 @@ Here are major steps of GitFlow:
 
 GitFlow is a classic model and it has a straightforward structure to separate the release and continuous integration. 
 
-However, it is sort of complex and we have to maintain two long-term branches: master and develop. And we have to switch these two branches constantly and it is annoying. There are separate release branch and hotfix branch in serious GitFlow and these conceptions make the model even complex. Also, since master branch is generated from develop branch. There is no big differences between them and we really don't have to maintain two branches in the sense.
+However, there are some drawbacks for this model. 
+
+- It is sort of complex and we have to maintain two long-term branches: master and develop. And we have to switch these two branches constantly and it is annoying. There are separate release branch and hotfix branch in serious GitFlow and these conceptions make the model even complex. 
+- Since master branch is generated from develop branch. There is no big differences between them and we really don't have to maintain two branches in the sense.
 
 # GitHub flow #
 GitHub Flow is proposed by GitHub.com. It is a lightweight, branch-based workflow that supports teams and projects where deployments are made regularly. It could be regarded as a simplified version of GitFlow model. 
@@ -224,6 +227,8 @@ Here are major steps of GitHub Flow:
 GitHub Flow model is a simpler alternative. This model has only feature branches and a master branch. This is very simple and clean. It is also suitable for continuous integration. Master branch is the unique branch to integrate code and make release.
 
 ![](/images/posts/20171109-git-36.png)
+
+However, the drawback is the merge is only done after other developers view and accept the pull request. The merge might be behind the schedule if the pull request not accepted.
 
 ## FAQ ##
 

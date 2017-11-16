@@ -101,6 +101,10 @@ Here are some basic Git commands:
 
 `git clone https://github.com/existing-repository.git`
 
+**Create upstream tracking between remote branch and local branch**
+
+`git branch --set-upstream-to origin/master master`
+
 ### Stage files to Index ###
 
 **stage specified files**
