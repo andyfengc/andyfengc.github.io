@@ -1,7 +1,6 @@
 ---
 layout: post
 title:  Best practice of using Git to integrate teamwork
-categories: [git, best practice, develop, integration, release]
 author: Andy Feng
 ---
 

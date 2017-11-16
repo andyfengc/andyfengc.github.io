@@ -1,7 +1,6 @@
 ---
 layout: post
 title:  Git fundamentals - branch, fork, stash, merge, rebate, squash
-categories: [git, branch, fork, stash, merge, rebate, squash, teamwork]
 author: Andy Feng
 ---
 
