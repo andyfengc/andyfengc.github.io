@@ -36,6 +36,10 @@ Directive is customized HTML markers. It helps us to create new markers to exten
 
 AngularJS comes with a set of built-in directives, such as ng-app, ng-model, ng-class, ng-init, ng-repeat.
 
+## What is controller? ##
+
+Controller is javascript function that used to provide data and implement logic.
+
 ## What is DI? ##
 
 Dependency Injection (DI) is a software design pattern that process how components manage their dependencies.
@@ -163,3 +167,15 @@ Result:
 ![](/images/posts/20171031-angularjs-3.png)
 
 This is a SPA project. When we navigate pages via different links, there is no fresh and no timestamp changes for this page.
+
+## What is promise? ##
+
+AngularJS promise is a mechanism to defer an action to the moment when the promise is resolved. Promises is usually for asynchronous operations. 
+
+## How angular2 is better than angular1? ##
+
+angular2 is Component-Based. It splits the big page into smaller pieces. reusability
+
+typescript syntax, follow the specification of esmascript 6. it supports inheritance, interfaces to make it easier to develop a component. also, typescript supports strongly-type and the compiler can find issues
+
+performance is better
