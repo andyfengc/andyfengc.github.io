@@ -10,7 +10,7 @@ For instance, below information should be logged for every method in our busines
 
 1. entry into a method
 1. parameters passed to the method (name and value)
-1. total tima of execution
+1. total time of execution
 1. parameters returned from the method
 1. exit from try block
 1. exit from final block
