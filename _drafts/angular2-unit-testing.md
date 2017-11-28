@@ -11,6 +11,9 @@ This guide offers tips and techniques for testing Angular v2/v4 applications. Th
 
 Usually, we use **Jasmine** and **Karma** to unit test our application. Jasmine is what we use to create the unit tests, and Karma is what runs them. 
 
+- Karma is the test runner and it loads our application's source code and executes our tests. 
+- Jasmine is unit testing library and it provides functions to help us create tests and make assertions.
+
 Due to Ionic boilerplate doesn't integrate with **Jasmine** and **Karma**, we can add unit testing support via below tutorial. 
 
 ## Set up Jasmine and Karma ##
