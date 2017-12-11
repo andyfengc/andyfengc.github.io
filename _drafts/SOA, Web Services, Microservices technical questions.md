@@ -48,3 +48,5 @@ Essentially, it creates a snapshot of our environment.
 
 ## References ##
 [https://docs.microsoft.com/zh-cn/dotnet/standard/microservices-architecture/](https://docs.microsoft.com/zh-cn/dotnet/standard/microservices-architecture/)
+
+[https://spring.io/guides/gs/rest-service/](https://spring.io/guides/gs/rest-service/)
