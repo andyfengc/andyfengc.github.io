@@ -1,8 +1,23 @@
 ---
 layout: post
-title: ASP.NET SOAP asmx Web Services Tutorial 
+title: ASP.NET SOAP ASMX Web Services Tutorial 
 author: Andy Feng
 ---
+
+## Introduction ##
+
+A web service is a web application which is basically a class consisting of methods that could be used by other applications. Active Server Methods (ASMX) is a solution put forwarded by Microsoft to create web services. ASMX supports Simple Object Access Protocol (SOAP) which is based on HTTP. 
+
+ASMX web services can only be hosted in IIS and must be developed under web project.
+
+Here is a typical senario how we use ASMX webservice to construct our applications.
+
+![](/images/posts/20171221-wcf-service-18.gif)
+
+## Outline ##
+1. create a ASMX web servcie
+2. create a proxy
+3. consume the web service
 
 ## Create a webservice ##
 First, create a web project
@@ -14,14 +29,14 @@ First, create a web project
 
 	need to enable router for asmx, modify App_Start\RouteConfig.cs
 
-	public class RouteConfig
-    {
-        public static void RegisterRoutes(RouteCollection routes)
-        {
-            routes.IgnoreRoute("{*x}", new { x = @".*\.asmx(/.*)?" }); 
-			...
-        }
-    }
+		public class RouteConfig
+	    {
+	        public static void RegisterRoutes(RouteCollection routes)
+	        {
+	            routes.IgnoreRoute("{*x}", new { x = @".*\.asmx(/.*)?" }); 
+				...
+	        }
+	    }
 
 ### Create a asmx webservice ###
 
@@ -51,6 +66,8 @@ Here is the code:
 	        }
 	    }
 	}
+
+Please note:
 
 1. inherit `System.Web.Services.WebService` is optional, but it provides session/application state management, caching features
 1. Namespace is used to diffentiate other webservice with ours
@@ -141,7 +158,7 @@ By default, the result is XML format, we can add `Content-Type=application/json`
 
 ![](/images/posts/20171221-asmx-webservice-5.png)
 
-By default, json result is included in d property
+Please note that **by default, json result is included in d property**
 
 ### Improve endpoint: enable session state ###
 If we need session management, cache feature, pls remember our webservice class has to inherit `System.Web.Services.WebService` class
@@ -194,7 +211,7 @@ In the code, we call global Session object to get the saved state. Session objec
 		public Student GetStudent()
 		{...}
 
-## Consume a webservice ##
+## Consume the webservice ##
 The client could be web application(web forms, mvc), console, windows form or any other applications by other languages.
 
 Here is an example for .NET project (web form, console, windows form)
@@ -284,4 +301,4 @@ Please note that when we click the `Load` button, it creates new a proxy instanc
 ![](/images/posts/20171221-asmx-webservice-11.png)
 
 ## Authentication ##
- todo...
+todo...
