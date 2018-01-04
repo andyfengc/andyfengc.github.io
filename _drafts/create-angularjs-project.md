@@ -10,7 +10,7 @@ author: Andy Feng
 
 Create an empty project folder
 
-### Install npm ###
+### Install via npm ###
 
 Create package.json `npm init`
 
@@ -47,7 +47,7 @@ Edit package.json
 
 ![](/images/posts/20171220-npm-install.png)
 
-### Install bower ###
+### Install via bower ###
 `npm install -g bower`
 
 Create `bower.json`
@@ -80,7 +80,7 @@ Create `.bowerrc`
 
 ![](/images/posts/20171220-npm-install.png)
 
-### Install Karma ###
+### Install Karma unit testing ###
 Create Karma configuration file `karma.conf.js`
 
 //jshint strict: false
