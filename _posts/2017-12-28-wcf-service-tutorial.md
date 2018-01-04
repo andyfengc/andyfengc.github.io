@@ -551,37 +551,79 @@ What ASMX can do are also can be done by WCF. WCF will replace ASMX.
 
 ## FAQ ##
 1. Visual studio complains "Unhandled Exception: System.ServiceModel.AddressAccessDeniedException: HTTP could not register URL  Your process does not have access rights to this namespace (see http://go.microsoft.com/fwlink/?LinkId=70353 for details). ---> System.Net.HttpListenerException: Access is denied"
-> it is because of privilidge, please restart visual studio as administrator
+	> it is because of privilidge, please restart visual studio as administrator
 
 1. IIS cannot provides .NET 4.5 services
-> Make sure that you have set your application-site version from v2.0 to v4.0 in IIS Manager:
-> Application Pools > Your Application > Advanced Settings > .NET Framework Version
-> After that, install your ASP.NET.
-> For 32-Bit OS (Windows):
-> C:\Windows\Microsoft.NET\Framework\v4.0.30319\aspnet_regiis.exe -i
-> For 64-Bit OS (Windows):
-> C:\Windows\Microsoft.NET\Framework64\v4.0.30319\aspnet_regiis.exe -i
-> Restart your application-site in IIS Manager and enjoy.
+	> Make sure that you have set your application-site version from v2.0 to v4.0 in IIS Manager:
+	> Application Pools > Your Application > Advanced Settings > .NET Framework Version
+	> After that, install your ASP.NET.
+	> For 32-Bit OS (Windows):
+	> C:\Windows\Microsoft.NET\Framework\v4.0.30319\aspnet_regiis.exe -i
+	> For 64-Bit OS (Windows):
+	> C:\Windows\Microsoft.NET\Framework64\v4.0.30319\aspnet_regiis.exe -i
+	> Restart your application-site in IIS Manager and enjoy.
 
 1. cannot start tcp/ip service
-> control panel > programs and features > turn windows feature on > install wcf libs
-![](/images/posts/20171221-wcf-service-8.png)
+	> control panel > programs and features > turn windows feature on > install wcf libs
+	![](/images/posts/20171221-wcf-service-8.png)
 
 1. iis reports: Could not load type 'System.ServiceModel.Activation.HttpModule' from assembly 'System.ServiceModel...'
-> This error can occur when there are multiple versions of the .NET Framework on the computer that is running IIS, and IIS was installed after .NET Framework 4.0 or before the Service Model in Windows Communication Foundation was registered.
-> Consider the following scenario. You install the .NET Framework 4.0 such as visual studio 2010+. Then, you install an earlier version of the .NET Framework, or you enable .NET 3.0 WCF HTTP Activation. In this scenario, you may receive this error message
-> 
-> To resolve this issue, cmd > aspnet_regiis.exe /iru
-> 
-> The Aspnet_regiis.exe file can be found in one of the following locations:
-> 
-> - %windir%\Microsoft.NET\Framework\v4.0.30319
-> - %windir%\Microsoft.NET\Framework64\v4.0.30319 (on a 64-bit computer)
-> 
-> then, cmd > iisreset
-> 
-> ![](/images/posts/20171221-wcf-service-9.png)
+	> This error can occur when there are multiple versions of the .NET Framework on the computer that is running IIS, and IIS was installed after .NET Framework 4.0 or before the Service Model in Windows Communication Foundation was registered.
+	> Consider the following scenario. You install the .NET Framework 4.0 such as visual studio 2010+. Then, you install an earlier version of the .NET Framework, or you enable .NET 3.0 WCF HTTP Activation. In this scenario, you may receive this error message
+	> 
+	> To resolve this issue, cmd > aspnet_regiis.exe /iru
+	> 
+	> The Aspnet_regiis.exe file can be found in one of the following locations:
+	> 
+	> - %windir%\Microsoft.NET\Framework\v4.0.30319
+	> - %windir%\Microsoft.NET\Framework64\v4.0.30319 (on a 64-bit computer)
+	> 
+	> then, cmd > iisreset
+	> 
+	> ![](/images/posts/20171221-wcf-service-9.png)
 
+1. enable HTTPS
+
+	> add <service><endpoint ... binding="webHttpBinding" bindingConfiguration="secureHttpBinding"></endpoint></service>
+	> 
+	> add <behavior><serviceMetadata ... httpsGetEnabled="true"/></behavior>
+	> 
+	> add `<bindings><webHttpBinding>
+	> <binding name="secureHttpBinding"><security mode="Transport"><transport clientCredentialType="None"/> </security> </binding>
+	> </webHttpBinding> </bindings>`
+
+	Here is the complete configuration:
+
+		  <system.serviceModel>
+		    <services>
+		      <service name="TweebaaWebApp2.AjaxPages.RegistrationService" behaviorConfiguration="RestServiceBehavior">
+		        <endpoint address="" binding="webHttpBinding" contract="TweebaaWebApp2.AjaxPages.IRegistrationService" 
+				bindingConfiguration="secureHttpBinding" />
+		      </service>
+		    </services>
+		    <behaviors>
+		      <serviceBehaviors>
+		        <behavior name="RestServiceBehavior">
+		          <serviceMetadata httpGetEnabled="true" httpsGetEnabled="true"/>
+		          <serviceDebug includeExceptionDetailInFaults="false" />
+		        </behavior>
+		      </serviceBehaviors>
+		      <endpointBehaviors>
+		        <behavior>
+		          <webHttp />
+		        </behavior>
+		      </endpointBehaviors>
+		    </behaviors>
+		    <bindings>
+		      <webHttpBinding>
+		        <binding name="secureHttpBinding">  
+		          <security mode="Transport">  
+		            <transport clientCredentialType="None"/>  
+		          </security>  
+		        </binding> 
+		      </webHttpBinding>
+		    </bindings>
+		  </system.serviceModel>
 
 ## Reference ##
 [https://msdn.microsoft.com/en-us/library/bb386386.aspx?f=255&MSPPError=-2147217396](https://msdn.microsoft.com/en-us/library/bb386386.aspx?f=255&MSPPError=-2147217396)
