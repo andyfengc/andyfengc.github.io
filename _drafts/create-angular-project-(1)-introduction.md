@@ -11,12 +11,18 @@ The framework consists of several libraries, some of them core and some optional
 
 Steps:
 
+1. Build a project via cli
 1. Create component classes including view logic (.ts files, define properties) and they manage HTML templates(.html files) and component stylesheets(.css files)
 2. Add application logic in services such as HTTP requests, calculations. Call services from components
 3. Box components and services in modules, then import to the root module
 4. Configure routing and import to the root module
 5. Launch the app by bootstrapping the root module.
+1. Debug the project
 
+Environment: 
+
+1. Node.js v8+
+2. Visual Studio Code 
 
 ## Create a sample project via angular/cli ##
 
@@ -177,7 +183,7 @@ Steps:
 	app.module.ts
 
 		...
-		import { AppRoutingModule } from './/app-routing.module';
+		import { AppRoutingModule } from './app-routing.module';
 		
 		@NgModule({
 		  declarations: [
@@ -641,7 +647,53 @@ We could import and declare all components in the root module. Or, we can define
 
 ### Import feature module to root module ###
 
-## Release ##
-Create a build: `ng build`
+## Debug the project ##
+1. Install `Debugger for Chrome` in visual studio code
 
-build in production: `ng build --env=prod`
+	![](/images/posts/20180119-angular-debug-1.png)
+
+1. Create `.vscode/launch.json` file to enable debugger
+
+		{
+		    "version": "0.1.0",
+		    "configurations": [
+		        {
+		            "name": "Launch localhost",
+		            "type": "chrome",
+		            "request": "launch",
+		            "url": "http://localhost:4200",
+		            "webRoot": "${workspaceFolder}/wwwroot"
+		        },
+		        {
+		            "name": "Launch index.html (disable sourcemaps)",
+		            "type": "chrome",
+		            "request": "launch",
+		            "sourceMaps": false,
+		            "file": "${workspaceFolder}/index.html"
+		        },
+		    ]
+		}
+
+	Here, we specify visual studio to open a new Chrome window (request=launch) for debugging purpose. 
+
+1. In visual studio code, we start the serve by Terminal > `ng serve` and add some debug breakpoints
+
+	![](/images/posts/20180119-angular-debug-2.png)
+
+1. Then, click the `Start debuggning` button in debug view. A chrome will be opened automatically, press f12 to open developer tools, then refresh the page.
+
+	![](/images/posts/20180119-angular-debug-3.png)
+	
+## Install lodash ##
+
+`npm install --save lodash`
+
+`npm install --save @types/lodash`
+
+Then, in your .ts file:
+
+`import * as _ from "lodash";`
+
+![](/images/posts/20180125-angular-lodash-1.png)
+
+Next, simply call `_.lodash_function()`
