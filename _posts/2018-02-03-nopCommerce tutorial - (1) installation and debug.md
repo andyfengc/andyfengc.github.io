@@ -1,6 +1,6 @@
 ---
 layout: post
-title: nopCommerce
+title: nopCommerce tutorial 1 - installation and debug
 author: Andy Feng
 ---
 
@@ -64,10 +64,21 @@ author: Andy Feng
 
 	![](/images/posts/20180109-nopcommerce-14.png)
 
-1. zip and open the solution > nop.web project > App_Data > dataSettings.json > change the connection string. Here we assume the nopCommerce tables were already created. If not, follow the installation instruction as previous to initialize the database.
+1. unzip and open the solution > nop.web project > App_Data > create dataSettings.json > change the connection string. 
+
+		{
+		  "DataProvider": "sqlserver",
+		  "DataConnectionString": "Data Source=(local);Initial Catalog=nopCommerce;Integrated Security=true;Persist Security Info=False;",
+		  "RawDataSettings": {}
+		}
 
 	![](/images/posts/20180109-nopcommerce-15.png) 
+
+	Here we assume the nopCommerce database was already created. If not, follow the previous installation instruction to initialize the database tables.
+
+	If you already have a exisitng database, please specify the proper connection string. 
 
 1. visual studio > set nop.web project as startup > run
 	
 	![](/images/posts/20180109-nopcommerce-11.png)
+
