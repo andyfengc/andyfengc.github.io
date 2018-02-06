@@ -680,7 +680,7 @@ We could import and declare all components in the root module. Or, we can define
 
 	![](/images/posts/20180119-angular-debug-2.png)
 
-1. Then, click the `Start debuggning` button in debug view. A chrome will be opened automatically, press f12 to open developer tools, then refresh the page.
+1. Then, click the `Start debugging` button in debug view. A chrome will be opened automatically, press f12 to open developer tools, then refresh the page.
 
 	![](/images/posts/20180119-angular-debug-3.png)
 	
@@ -694,6 +694,6 @@ Then, in your .ts file:
 
 `import * as _ from "lodash";`
 
-![](/images/posts/20180125-angular-lodash-1.png)
+Next, simply call `_.<lodash_function>()`
 
-Next, simply call `_.lodash_function()`
+![](/images/posts/20180125-angular-lodash-1.png)

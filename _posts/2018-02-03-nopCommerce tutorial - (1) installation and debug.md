@@ -18,6 +18,8 @@ author: Andy Feng
 
 1. open iis > root > modules, check aspnetcore module
 
+	![](/images/posts/20180206-aspnetcore-1.png)
+
 	![](/images/posts/20180109-nopcommerce-3.png)
 
 ## Install website without source code ##
