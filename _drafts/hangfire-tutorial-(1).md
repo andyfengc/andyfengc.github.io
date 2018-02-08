@@ -1,15 +1,12 @@
 ---
 layout: post
-title: Hangfire tutorial
+title: Hangfire tutorial (1) Introduction
 author: Andy Feng
 ---
-
-[Download source](/download/angular1-demo.zip)
 
 ## Overview ##
 
 Scheduling jobs in Web applications is a challenge, and we can choose from many job scheduling frameworks. 
-
 
 - [Hangfire](https://www.hangfire.io): an open-source framework that helps us to create, process and manage background jobs
 
@@ -145,10 +142,10 @@ Here, let's create our first job.
 
 	Please note:
 
-	1. we can access the endpoint via: `POST http://hostname:port/test`
+	1. we can call the endpoint via: `POST http://hostname:port/test`
 	2. we sleep the thread on purpose to simulate a long running work
 
-1. Next, we use BankgroundJob of Hangfire to create a fire and forget background job
+1. Next, we use BankgroundJob of Hangfire to create a simple fire and forget background job. It only run once.
 
 		using Hangfire;
 		[RoutePrefix("")]
@@ -177,6 +174,11 @@ Here, let's create our first job.
 	Also, we will get the result after the job is done:
 
 	![](/images/posts/20180206-hangfire-12.png)
+
+## Next ##
+- more job types
+- dashboard
+- performance optimization
 
 ## References ##
 [Hangfire best practices](http://docs.hangfire.io/en/latest/best-practices.html)

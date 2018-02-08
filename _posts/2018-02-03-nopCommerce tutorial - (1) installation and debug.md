@@ -10,7 +10,7 @@ author: Andy Feng
 
 1. control panel > program and features > turn windows feature on/off > IIS > Application Development Features > install all
 	
-	![](/images/posts/20180109-nopcommerce-1.png)
+	![](./images/posts/20180109-nopcommerce-1.png)
 
 1. download and install .NET Core SDK 2.x, Windows Server Hosting (.exe) 2.x at [https://www.microsoft.com/net/download/windows](https://www.microsoft.com/net/download/windows)
 
