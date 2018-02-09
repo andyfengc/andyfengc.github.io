@@ -697,3 +697,43 @@ Then, in your .ts file:
 Next, simply call `_.<lodash_function>()`
 
 ![](/images/posts/20180125-angular-lodash-1.png)
+
+## Install moment.js ##
+
+`npm install moment --save`
+
+`npm install @types/moment --save`
+
+in angular-cli.json
+
+	{
+	  ...
+	  "apps": [
+	     ...
+	     "scripts": [
+	        "../node_modules/moment/min/moment.min.js"
+	     ]
+	     ...
+	  ]
+	  ...
+	}
+
+in my-component.component.ts
+
+	import { Component } from '@angular/core';
+	import * as moment from 'moment';
+	
+	@Component({
+	  selector: 'my-component',
+	  templateUrl: './my-component..component.html',
+	  styleUrls: ['./my-component..component.css']
+	})
+	export class MyComponent {
+	
+	  constructor() {
+	    let now = moment(); 
+	    console.log('hello world', now.format()); 
+	    console.log(now.add(7, 'days').format()); 
+	  }
+	
+	}
