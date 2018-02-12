@@ -96,7 +96,7 @@ Here are major steps how to create our own plugin and add it to nopCommerce.
 
 	![](/images/posts/20180211-nop-6.png)	
 
-Also, nopCommerce provides some specific plugin interfaces derived from IPlugin. We should implement them to develop plugins with appearance and advanced logic. 
+Also, nopCommerce provides some specific plugin interfaces derived from IPlugin. We can move on implementing them to build more plugins with customized appearance and advanced logic. 
 
 - External authentication methods - IExternalAuthenticationMethod interface
 - Widgets - IWidgetPlugin interface
