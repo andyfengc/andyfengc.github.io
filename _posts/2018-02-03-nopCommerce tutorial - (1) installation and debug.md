@@ -1,6 +1,6 @@
 ---
 layout: post
-title: nopCommerce tutorial 1 - installation and debug
+title: nopCommerce tutorial (1) - installation and debug
 author: Andy Feng
 ---
 
