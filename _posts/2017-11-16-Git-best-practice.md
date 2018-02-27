@@ -96,11 +96,11 @@ Here are major steps of GitFlow:
 
 	`git checkout other-feature-branch`
 
-	`do some development`
+	do some development in other feature branch, then switch back to previous feature branch
 
 	`git checkout feature-branch`
 
-	`git stash pop'
+	`git stash pop`
 
 	**Create a version tag**
 	

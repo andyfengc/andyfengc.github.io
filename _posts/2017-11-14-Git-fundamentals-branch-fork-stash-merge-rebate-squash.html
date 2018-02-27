@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+        <style>
+/*--------------------------------------------------------------------------------------------- * Copyright (c) Microsoft Corporation. All rights reserved. * Licensed under the MIT License. See License.txt in the project root for license information. *--------------------------------------------------------------------------------------------*/ body { font-family: "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback"; font-size: 14px; padding: 0 12px; line-height: 22px; word-wrap: break-word; } body.scrollBeyondLastLine { margin-bottom: calc(100vh - 22px); } body.showEditorSelection .code-line { position: relative; } body.showEditorSelection .code-active-line:before, body.showEditorSelection .code-line:hover:before { content: ""; display: block; position: absolute; top: 0; left: -12px; height: 100%; } body.showEditorSelection li.code-active-line:before, body.showEditorSelection li.code-line:hover:before { left: -30px; } .vscode-light.showEditorSelection .code-active-line:before { border-left: 3px solid rgba(0, 0, 0, 0.15); } .vscode-light.showEditorSelection .code-line:hover:before { border-left: 3px solid rgba(0, 0, 0, 0.40); } .vscode-dark.showEditorSelection .code-active-line:before { border-left: 3px solid rgba(255, 255, 255, 0.4); } .vscode-dark.showEditorSelection .code-line:hover:before { border-left: 3px solid rgba(255, 255, 255, 0.60); } .vscode-high-contrast.showEditorSelection .code-active-line:before { border-left: 3px solid rgba(255, 160, 0, 0.7); } .vscode-high-contrast.showEditorSelection .code-line:hover:before { border-left: 3px solid rgba(255, 160, 0, 1); } img { max-width: 100%; max-height: 100%; } a { color: #4080D0; text-decoration: none; } a:focus, input:focus, select:focus, textarea:focus { outline: 1px solid -webkit-focus-ring-color; outline-offset: -1px; } hr { border: 0; height: 2px; border-bottom: 2px solid; } h1 { padding-bottom: 0.3em; line-height: 1.2; border-bottom-width: 1px; border-bottom-style: solid; } h1, h2, h3 { font-weight: normal; } h1 code, h2 code, h3 code, h4 code, h5 code, h6 code { font-size: inherit; line-height: auto; } a:hover { color: #4080D0; text-decoration: underline; } table { border-collapse: collapse; } table > thead > tr > th { text-align: left; border-bottom: 1px solid; } table > thead > tr > th, table > thead > tr > td, table > tbody > tr > th, table > tbody > tr > td { padding: 5px 10px; } table > tbody > tr + tr > td { border-top: 1px solid; } blockquote { margin: 0 7px 0 5px; padding: 0 16px 0 10px; border-left: 5px solid; } code { font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback"; font-size: 14px; line-height: 19px; } body.wordWrap pre { white-space: pre-wrap; } .mac code { font-size: 12px; line-height: 18px; } code > div { padding: 16px; border-radius: 3px; overflow: auto; } /** Theming */ .vscode-light { color: rgb(30, 30, 30); } .vscode-dark { color: #DDD; } .vscode-high-contrast { color: white; } .vscode-light code { color: #A31515; } .vscode-dark code { color: #D7BA7D; } .vscode-light code > div { background-color: rgba(220, 220, 220, 0.4); } .vscode-dark code > div { background-color: rgba(10, 10, 10, 0.4); } .vscode-high-contrast code > div { background-color: rgb(0, 0, 0); } .vscode-high-contrast h1 { border-color: rgb(0, 0, 0); } .vscode-light table > thead > tr > th { border-color: rgba(0, 0, 0, 0.69); } .vscode-dark table > thead > tr > th { border-color: rgba(255, 255, 255, 0.69); } .vscode-light h1, .vscode-light hr, .vscode-light table > tbody > tr + tr > td { border-color: rgba(0, 0, 0, 0.18); } .vscode-dark h1, .vscode-dark hr, .vscode-dark table > tbody > tr + tr > td { border-color: rgba(255, 255, 255, 0.18); } .vscode-light blockquote, .vscode-dark blockquote { background: rgba(127, 127, 127, 0.1); border-color: rgba(0, 122, 204, 0.5); } .vscode-high-contrast blockquote { background: transparent; border-color: #fff; }
+</style>
+<style>
+/* Tomorrow Theme */ /* http://jmblog.github.com/color-themes-for-google-code-highlightjs */ /* Original theme - https://github.com/chriskempson/tomorrow-theme */ /* Tomorrow Comment */ .hljs-comment, .hljs-quote { color: #8e908c; } /* Tomorrow Red */ .hljs-variable, .hljs-template-variable, .hljs-tag, .hljs-name, .hljs-selector-id, .hljs-selector-class, .hljs-regexp, .hljs-deletion { color: #c82829; } /* Tomorrow Orange */ .hljs-number, .hljs-built_in, .hljs-builtin-name, .hljs-literal, .hljs-type, .hljs-params, .hljs-meta, .hljs-link { color: #f5871f; } /* Tomorrow Yellow */ .hljs-attribute { color: #eab700; } /* Tomorrow Green */ .hljs-string, .hljs-symbol, .hljs-bullet, .hljs-addition { color: #718c00; } /* Tomorrow Blue */ .hljs-title, .hljs-section { color: #4271ae; } /* Tomorrow Purple */ .hljs-keyword, .hljs-selector-tag { color: #8959a8; } .hljs { display: block; overflow-x: auto; color: #4d4d4c; padding: 0.5em; } .hljs-emphasis { font-style: italic; } .hljs-strong { font-weight: bold; }
+</style>
+<style>
+ul.contains-task-list { padding-left: 0; } ul ul.contains-task-list { padding-left: 40px; } .task-list-item { list-style-type: none; } .task-list-item-checkbox { vertical-align: middle; }
+</style>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'HelveticaNeue-Light', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+    </head>
+    <body>
+        <hr>
+<h2 id="layout-posttitle-git-fundamentals---branch-fork-stash-merge-rebate-squashauthor-andy-feng">layout: post
+title:  Git fundamentals - branch, fork, stash, merge, rebate, squash
+author: Andy Feng</h2>
+<p>This article introduces Git fundamental knowledge including branch, fork, stash, merge, rebate. It explains major conceptions of Git branching model and workflow for each commands.  These commands are required for next posting - best practice for team development via Git.</p>
+<h2 id="outline">Outline</h2>
+<ol>
+<li>
+<p>Basic commands review</p>
+<ul>
+<li>set up git</li>
+<li>create local repository</li>
+<li>stage file(s)</li>
+<li>commit file(s)</li>
+<li>sync remote repository and local repository</li>
+<li>display git information</li>
+<li>discard changes</li>
+</ul>
+</li>
+<li>
+<p>Branch</p>
+<ul>
+<li>Introduction</li>
+<li>Workflow</li>
+</ul>
+</li>
+<li>
+<p>Fork</p>
+<ul>
+<li>Introduction</li>
+<li>Workflow</li>
+<li>fork vs clone</li>
+<li>fork vs branch</li>
+</ul>
+</li>
+<li>
+<p>Stash</p>
+<ul>
+<li>Introduction</li>
+<li>Workflow</li>
+</ul>
+</li>
+<li>
+<p>Merge, Rebate, Squash</p>
+</li>
+</ol>
+<h2 id="basic-commands-review">Basic commands review</h2>
+<p>This is the git model:</p>
+<p><img src="file:///c%3A/Work/Workspace/andyfengc.github.io/_posts/images/posts/20171109-git-34.png" alt=""></p>
+<p><strong>Remote</strong> represents the remote repository</p>
+<p><strong>Repository</strong> is the local repository</p>
+<p><strong>workspace</strong> is the active branch we currently working on</p>
+<p><strong>Index</strong> is the staging area</p>
+<p>Here are some basic Git commands:</p>
+<h3 id="setup-git">Setup git</h3>
+<p><strong>display git configuration</strong></p>
+<p><code>git config --list</code></p>
+<p><strong>edit git configuration</strong></p>
+<p><code>git config -e [--global]</code></p>
+<p><strong>setup user commit information</strong></p>
+<p><code>git config [--global] user.name &quot;Andy Feng&quot;</code></p>
+<p><code>git config [--global] user.email &quot;andy@email.com&quot;</code></p>
+<h3 id="create-local-git-repository">Create local git repository</h3>
+<p><strong>Setup new git repository</strong></p>
+<p><code>mkdir new-repository</code></p>
+<p><code>cd new-repository</code></p>
+<p><code>git init</code></p>
+<p><code>touch readme</code></p>
+<p><code>git add readme</code></p>
+<p><code>git commit -m &quot;first commit&quot;</code></p>
+<p><code>git remote add origin https://github.com/new-repository.git</code></p>
+<blockquote>
+<p>origin is an alias of remote repository.</p>
+</blockquote>
+<p><code>git push -u origin master</code></p>
+<blockquote>
+<p>master is the name of main branch in local repository
+it is equivalent to <code>git push -u origin/master master</code></p>
+</blockquote>
+<p><strong>Setup existing git repository</strong></p>
+<p><code>cd existing-repository</code></p>
+<p><code>git remote add origin https://github.com/existing-repository.git</code></p>
+<p><code>git push -u origin master</code></p>
+<p><strong>Clone a remote repository</strong></p>
+<p><code>git clone https://github.com/existing-repository.git</code></p>
+<p><strong>Create upstream tracking between remote branch and local branch</strong></p>
+<p><code>git branch --set-upstream-to origin/master master</code></p>
+<h3 id="stage-files-to-index">Stage files to Index</h3>
+<p><strong>stage specified files</strong></p>
+<p><code>git add [file1] [file2]...</code></p>
+<p><strong>stage specified directory</strong></p>
+<p><code>git add [dir]</code></p>
+<p>**stage all files **</p>
+<p><code>git add .</code></p>
+<p><code>git add -A</code></p>
+<p><strong>delete specified files and stage them</strong></p>
+<p><code>git rm [file1] [file2]...</code></p>
+<h3 id="commit-files-to-local-repository">Commit files to local repository</h3>
+<p><strong>commit all staged files to local repository</strong></p>
+<p><code>git commit -m [message]</code></p>
+<p><strong>commit specified staged files to local repository</strong></p>
+<p><code>git commit [file1] [file2] ... -m [message]</code></p>
+<p><strong>display all diff information of commits</strong></p>
+<p><code>git commit -v</code></p>
+<h3 id="sync-remote-repository-and-local-repository">Sync remote repository and local repository</h3>
+<p><strong>Pull all remote changes</strong></p>
+<p><code>git fetch origin</code></p>
+<blockquote>
+<p>origin is the name of remote repository. As a convention, we usually name it as <code>origin</code></p>
+</blockquote>
+<p><strong>Pull all remote changes and merge into a local branch</strong></p>
+<p><code>git pull &lt;remote-branch&gt; &lt;local-branch&gt;</code></p>
+<p>e.g. <code>git pull origin master</code></p>
+<p><strong>Push changes of a local branch to remote repository</strong></p>
+<p><code>git push &lt;remote-branch&gt; &lt;local-branch&gt;</code></p>
+<p><strong>Push all local branches to remote repository</strong></p>
+<p><code>git push &lt;remote-branch&gt; --all</code></p>
+<h3 id="display-git-information">Display git information</h3>
+<p><strong>Display all changed files before commit to local repository</strong></p>
+<p><code>git status</code></p>
+<p><strong>Display the difference between workplace and Index</strong></p>
+<p><code>git diff</code></p>
+<p>** List git commits **</p>
+<p>Get the commit history of current branch</p>
+<p><code>git log</code></p>
+<p>Get the commit history of recent n commits</p>
+<p><code>git log -n</code></p>
+<p>Get the commit history and all files of current branch</p>
+<p><code>git log --state</code></p>
+<p>search git commits</p>
+<p><code>git log -S &lt;keyword&gt;</code></p>
+<p><strong>Display the changed content of commit</strong></p>
+<p><code>git show</code></p>
+<p><code>git show &lt;commit&gt;</code></p>
+<blockquote>
+<p>display a specified commit</p>
+</blockquote>
+<p><strong>Display all configured remote repositories</strong></p>
+<p><code>git remote -v</code></p>
+<h3 id="discard-changes">Discard changes</h3>
+<p><strong>Restore files to Workspace</strong></p>
+<p>Restore specified file from staged area (Index)</p>
+<p><code>git checkout &lt;file&gt;</code></p>
+<p>Restore all files from staged area</p>
+<p><code>git checkout .</code></p>
+<p>Restore from committed files</p>
+<p><code>git checkout &lt;commit&gt; &lt;file&gt;</code></p>
+<blockquote>
+<p>restore operation still keeps the staged or committed files. But the same files will be overwritten by the restored ones and new changes of files will lose. Status of file is not changed for this operation.</p>
+</blockquote>
+<p><strong>Reset files from commits</strong></p>
+<p>Reset specified file from local repository to staged area (Index) until last commit</p>
+<p><code>git reset &lt;committed-file&gt;</code></p>
+<p>Reset from local repository to staged area until specified comit</p>
+<p><code>git reset &lt;commit&gt;</code></p>
+<p>Reset both staged area and workspace until last commit, all changes in workspace lost</p>
+<p><code>git reset --hard</code></p>
+<p>Reset both staged area and workspace until specified commit, all changes in workspace lost</p>
+<p><code>git reset --hard &lt;commit&gt;</code></p>
+<p>Reset to specified commit, and create a new commit for this reset</p>
+<p><code>git revert &lt;commit&gt;</code></p>
+<p>Reset to specified commit, and keep all changes in workspace</p>
+<p><code>git reset --keep &lt;commit&gt;</code></p>
+<blockquote>
+<p>reset operation essentially rollbacks files from previous commit status.
+by default, only the status of file is changed from committed to staged. New changes of files still keep.
+--hard option: both the status of file is reset and the changes of file lose
+--keep option: only reset the status of file but keep the changes of file</p>
+</blockquote>
+<p>e.g. discard all local changes and reset master branch:</p>
+<p>switch the repo to the master branch: <code>git checkout master</code></p>
+<p>pull the latest commits: <code>git fetch origin</code></p>
+<p>reset the repo's local copy of master branch to match the latest version: <code>git reset --hard origin/master</code></p>
+<h2 id="branch">Branch</h2>
+<h3 id="introduction">Introduction</h3>
+<p>A branch represents an independent line of development. When a git repository is created, a default master branch is created. We can create new branches anytime.</p>
+<p>In Git, branch is a part of our everyday development process. When we want to add a new feature or fix a bug — no matter how big or how small — we spawn a new dedicated branch to encapsulate our changes. Then, we clean up the feature’s history before merging it into the main branch.</p>
+<p>The benefit is, branch makes sure that unstable code is never committed to the main code base and keep development activities organized.</p>
+<p><img src="file:///c%3A/Work/Workspace/andyfengc.github.io/_posts/images/posts/20171109-git-1.png" alt=""></p>
+<p>For example, the diagram above visualizes a repository with two isolated lines of development, one for a little feature, and one for a big feature. By developing them in branches, it’s not only possible to work on both of them in parallel, but it also keeps the main master branch free from questionable code.</p>
+<p>Here are some common commands:</p>
+<p><strong>List all branches in local repository</strong></p>
+<p><code>git branch</code></p>
+<p><strong>List all branches in remote repository</strong></p>
+<p><code>git branch -r</code></p>
+<p>**List all local and remote branches **</p>
+<p><code>git branch -a</code></p>
+<p><strong>Create a new branch called <branch>. This does not check out the new branch.</strong></p>
+<p><code>git branch &lt;new-branch&gt;</code></p>
+<p><strong>Switch to another branch</strong></p>
+<p><code>git checkout &lt;existing-branch&gt;</code></p>
+<p><strong>Create and switch to another branch</strong></p>
+<p><code>git checkout -b &lt;new-branch&gt;</code></p>
+<blockquote>
+<p>-b flag tells Git to create the branch if it doesn’t already exist.</p>
+</blockquote>
+<p><strong>Delete a branch</strong></p>
+<p><code>git branch -d &lt;branch&gt;</code></p>
+<blockquote>
+<p>This is a &quot;safe&quot; operation in that Git prevents you from deleting the branch if it has unmerged changes.</p>
+</blockquote>
+<p><code>git branch -D &lt;branch&gt;</code></p>
+<blockquote>
+<p>This is a &quot;force&quot; delete operation and it will permanently delete the specified branch, even if it has unmerged changes.</p>
+</blockquote>
+<p><strong>Rename the current branch to another name <new-branch>.</strong></p>
+<p><code>git branch -m &lt;new-branch&gt;</code></p>
+<p><strong>push a branch to remote server</strong></p>
+<p>push a branch to remote server</p>
+<p><code>git push origin &lt;branch&gt;</code></p>
+<p>push &quot;master&quot; branch to remote server</p>
+<p><code>git push origin master</code></p>
+<p><strong>delete a remote branch</strong></p>
+<p><code>git push origin --delete [branch-name]</code></p>
+<h3 id="workflow">Workflow</h3>
+<p>Here is how Git branching model works:</p>
+<ol>
+<li>
+<p>create a new branch for each new feature/fix</p>
+<p><code>git checkout -b &lt;new-branch&gt;</code></p>
+</li>
+<li>
+<p>work on it</p>
+</li>
+<li>
+<p>merge it back to Master when done</p>
+<p><code>git checkout master</code></p>
+<p><code>git merge &lt;branch&gt;</code></p>
+<p>fix conflicts if has any</p>
+<p><code>git commit</code></p>
+<p>or</p>
+<p><code>git merge &lt;branch&gt; master</code></p>
+</li>
+<li>
+<p>push master branch to remote repository</p>
+<p><code>git push origin master</code></p>
+</li>
+<li>
+<p>delete the feature branch</p>
+<p><code>git branch -d &lt;branch&gt;</code></p>
+</li>
+</ol>
+<h2 id="fork">Fork</h2>
+<h3 id="introduction">Introduction</h3>
+<p>Fork represents a complete copy of a repository. It creates a complete server-side repository copied from the original repository and allows us to freely experiment with changes without affecting the original project.</p>
+<p>There are tons of public repositories over Internet. Usually, we are not the direct contributors. Fork offers an opportunity for us to engage in contribution. Fork allows us to clone these public repositories and create our own server-side repositories from them. Then, we can work on forked repositories exactly like we contribute our own repositories. Later on, we can initiate pull requests to original repositories and notify the owners to accept our contributions. Overall, fork allows the maintainer to accept commits from any developer without giving them write access to the official codebase.</p>
+<p><img src="file:///c%3A/Work/Workspace/andyfengc.github.io/_posts/images/posts/20171109-git-2.png" alt=""></p>
+<p>In forking workflow, the original repository is typically named <strong>upstream</strong> and runs independently. The forked repository (typically named <strong>origin</strong>) and local cloned copy is runs independently too.</p>
+<p>Here are some common commands:</p>
+<p><strong>clone a fork</strong></p>
+<p><code>git clone https://user@bitbucket.org/user/official-repo.git</code></p>
+<p>However, this command has to be executed in the developer's server side or via Github/Bitbucket's API on command line.</p>
+<p>Usually, we make a fork via the fork button of the project and it is quicker and easier</p>
+<p><img src="file:///c%3A/Work/Workspace/andyfengc.github.io/_posts/images/posts/20171109-git-3.png" alt=""></p>
+<p><strong>add remote upstream point</strong></p>
+<p><code>git remote add upstream https://bitbucket.org/maintainer/official-repo</code></p>
+<blockquote>
+<p>Whereas a regular Git workflow uses a single <strong>origin</strong> remote that points to the central repository, the Forking Workflow requires two remotes — one for the official repository(typically called <strong>upstream</strong>), and one for the developer’s personal server-side repository(typically called <strong>origin</strong>).</p>
+</blockquote>
+<p>if our upstream repository has authentication enabled (i.e., it's not open source), we will need to supply a username</p>
+<p><code>git remote add upstream https://user@bitbucket.org/maintainer/official-repo.git</code></p>
+<p>This requires users to supply a valid password before cloning or pulling from the official codebase.</p>
+<p><strong>making &amp; pushing changes</strong></p>
+<p>In the developer's local copy of the forked repository we can edit code, commit changes, and create branches just like in usual Git workflows:</p>
+<p>create a new branch: <code>git checkout -b some-feature</code></p>
+<p>edit some code: <code>git commit -a -m &quot;Add first draft of some feature&quot;</code></p>
+<p>push to forked repository: <code>git push origin</code></p>
+<p><strong>Grab new updates from official repo</strong></p>
+<p><code>git pull upstream master</code></p>
+<p><strong>make a pull request</strong>
+Once a developer is ready to share a new feature, we need to do two things.</p>
+<ol>
+<li>
+<p>First, we have to make the contribution accessible to other developers by pushing it to their public repository: <code>git push origin feature-branch</code></p>
+<p>This merges changes in the origin remote points to the developer’s personal server-side repository, not the main codebase.</p>
+</li>
+<li>
+<p>Next, we need to notify the &quot;official&quot; project maintainer that we want to merge the new feature into the main codebase. We can do this by the &quot;pull request&quot; button and it leads us to a form asking you to specify which branch you want to merge into the official repository. Typically, we want to integrate your feature branch into the upstream remote’s master branch.</p>
+<p><img src="file:///c%3A/Work/Workspace/andyfengc.github.io/_posts/images/posts/20171109-git-8.png" alt=""></p>
+</li>
+</ol>
+<blockquote>
+<p>If I am in a branch of a project, after I made some changes. I send a pull request to the project owner. He receive the pull request and merge my code. Pull request works like an alert to notify the owner it is okay to merge. If I do not send pull request, he can also merge my code.</p>
+</blockquote>
+<h3 id="workflow">Workflow</h3>
+<p>Here is how it works:</p>
+<ol>
+<li>
+<p>There is an official public repository stored on a server and a new developer wants to start working on the project.</p>
+<p><code>https://github.com/i0natan/nodebestpractices</code></p>
+</li>
+<li>
+<p>A developer <strong>&quot;forks&quot;</strong> this official server-side repository. This creates their own server-side copy.</p>
+<p><img src="file:///c%3A/Work/Workspace/andyfengc.github.io/_posts/images/posts/20171109-git-3.png" alt=""></p>
+<p><img src="file:///c%3A/Work/Workspace/andyfengc.github.io/_posts/images/posts/20171109-git-4.png" alt=""></p>
+<p><img src="file:///c%3A/Work/Workspace/andyfengc.github.io/_posts/images/posts/20171109-git-5.png" alt=""></p>
+<p>After fork, we have our own repository <code>https://github.com/myusername/nodebestpractices</code></p>
+</li>
+<li>
+<p>The developer clones the new server-side copy to their local system.</p>
+<p><code>git clone https://github.com/myusername/nodebestpractices</code></p>
+<p><img src="file:///c%3A/Work/Workspace/andyfengc.github.io/_posts/images/posts/20171109-git-6.png" alt=""></p>
+</li>
+<li>
+<p>A Git remote path for the &quot;official&quot; repository is added to the local clone. It is a link with the original repo and called <strong>upstream</strong>.</p>
+<p><code>git remote add upstream https://github.com/i0natan/nodebestpractices</code></p>
+</li>
+<li>
+<p>The developer makes changes on the forked repository as usual.</p>
+</li>
+<li>
+<p>The developer creates new commits for the changes.</p>
+</li>
+<li>
+<p>New changes are pushed to the developer's own server-side copy.</p>
+<p><img src="file:///c%3A/Work/Workspace/andyfengc.github.io/_posts/images/posts/20171109-git-7.png" alt=""></p>
+</li>
+<li>
+<p>The developer opens a <strong>pull request</strong> from the new branch to the &quot;official&quot; repository.</p>
+<p><img src="file:///c%3A/Work/Workspace/andyfengc.github.io/_posts/images/posts/20171109-git-8.png" alt=""></p>
+<p><img src="file:///c%3A/Work/Workspace/andyfengc.github.io/_posts/images/posts/20171109-git-9.png" alt=""></p>
+<p>Select the desired forked/upstream branches at the top, enter message and submit the pull request</p>
+<p><img src="file:///c%3A/Work/Workspace/andyfengc.github.io/_posts/images/posts/20171109-git-10.png" alt=""></p>
+</li>
+<li>
+<p>The pull request gets approved for merge and is merged into the original server-side repository.</p>
+</li>
+<li>
+<p>The contribution is now part of the project, and other developers pull from the official repository to synchronize their local repositories.</p>
+</li>
+<li>
+<p>The developer constantly grab new updates from &quot;official&quot; repository in order to keep synchronizing with it.</p>
+<p><code>git pull upstream master</code></p>
+<p><img src="file:///c%3A/Work/Workspace/andyfengc.github.io/_posts/images/posts/20171109-git-11.png" alt=""></p>
+</li>
+</ol>
+<h3 id="fork-vs-clone">fork vs clone</h3>
+<blockquote>
+<ul>
+<li>Forked repositories can be regarded as &quot;server-side clones&quot; and usually managed and hosted by a 3rd party Git service like Github, Bitbucket.</li>
+<li>A &quot;fork&quot; is a &quot;clone&quot; from official repository to remote repository. It happens in server sides.</li>
+<li>A typical &quot;clone&quot; operation is essentially a copy from a remote repository to local repository. It happens from server side from local side.</li>
+</ul>
+</blockquote>
+<h3 id="fork-vs-branch">fork vs branch</h3>
+<blockquote>
+<ul>
+<li>Fork is just another way to share branches between repositories with other developers</li>
+<li>Developers should still use branches to isolate individual features to their own local and remote repositories</li>
+<li>The major difference is how those branches get shared. In the forking workflow, branches are shared between maintainer's official repository and another developer's remote repository. In the branching Workflow, branches are shared between one developer's repositories.</li>
+</ul>
+</blockquote>
+<h3 id="summary">summary</h3>
+<p>Generally, forks are used to either propose changes to someone else's project or to use someone else's project as a starting point for your own idea. The Forking Workflow is commonly used in public open-source projects. Forking is a git clone operation executed on a server copy of a projects repo. A Forking Workflow is often used in conjunction with a Git hosting service like Github/Bitbucket.</p>
+<p>A brief steps of Forking Workflow is:</p>
+<ol>
+<li>
+<p>We want to contribute to an open source library</p>
+</li>
+<li>
+<p>We create a <strong>fork</strong> of the repo via a Git hosting service i.e. Github, Bitbucket</p>
+</li>
+<li>
+<p>We use git <strong>clone</strong> to get a local copy of the forked repo</p>
+</li>
+<li>
+<p>We create a new feature <strong>branch</strong> in your local repo then work on it</p>
+</li>
+<li>
+<p>Work is done to complete the new feature and git <strong>commit</strong> is executed to save the changes</p>
+</li>
+<li>
+<p>We then <strong>push</strong> the new feature branch to our remote forked repo</p>
+</li>
+<li>
+<p>We use Git hosting service to open up a <strong>pull request</strong> for the new branch against the original repo</p>
+</li>
+</ol>
+<h2 id="stash">Stash</h2>
+<h3 id="introduction">introduction</h3>
+<p><code>Stash</code> temporarily store changes we have made to your working copy so we can work on something else, and then come back and re-apply these changes later on. stash is a great feature for us to work on multiple branches.</p>
+<h4 id="problem">Problem</h4>
+<p>Typically, we create a new branch for each new requirement. After development work is done, we merge the changes back to trunk branch. However, we sometimes have to create new branch or switch to another branch for new urgent tasks before the work of current branch is completed.</p>
+<p>There are some issues for that:</p>
+<ol>
+<li>
+<p>don't commit changes -</p>
+<ol>
+<li>
+<p>Case 1: If we switch to another branch with uncommited changes of new added files in current branch, these uncommited changes will also be carried to the new branch that you switch to. Changes that our next commit will be commited to the newly switched branch.</p>
+</li>
+<li>
+<p>Case 2: If we try to switch to another branch with updated files and we already got another branch updated same files, Git doesn't allow us to switch between branches. The reason is Git finds a conflict between the files from the newly switched branch and the uncommited changes from the current branch. Therefore, we are required to commit or stash changes first before switching branch.</p>
+<p>e.g. We have &quot;stash2.txt&quot; commited new changes in master branch. Also, we currently in develop branch and got &quot;stash2.txt&quot; updated. We cannot switch back to master branch.</p>
+<p><img src="file:///c%3A/Work/Workspace/andyfengc.github.io/_posts/images/posts/20171109-git-23.png" alt=""></p>
+</li>
+</ol>
+</li>
+<li>
+<p>commit changes - If we commit uncompleted changes in current branch, then create new branch and start working on, we might include broken code in current branch.</p>
+</li>
+</ol>
+<p>Obviously, we should always keep changes within current branch and find a good way to cache changes if we prefer not to commit dirty changes when switching branches.</p>
+<h4 id="solution">Solution</h4>
+<p>Stash is a solution for that. Stashing likes a a drawer to store uncommited changes temporarily. It allows us to put aside the dirty changes in your working tree and continue working on other things in a different branch on a clean slate.</p>
+<p>Uncommited changes that are stored in the stash can be taken out and applied to the original branch and other branches as well. It helps us to cache changes and kind of &quot;revert&quot; changes to last commit of current branch. Then we can switch branches safely.</p>
+<p><img src="file:///c%3A/Work/Workspace/andyfengc.github.io/_posts/images/posts/20171109-git-24.png" alt=""></p>
+<h3 id="workflow">workflow</h3>
+<ol>
+<li>
+<p>we are working on one branch(develop) and updated &quot;stash2.txt&quot; file</p>
+</li>
+<li>
+<p>we got &quot;stash2.txt&quot; commited changes in another branch(master)</p>
+</li>
+<li>
+<p>For some reason, we have to create or switch new branch. We prefer not to commit &quot;stash2.txt&quot; file and choose to stash it.</p>
+</li>
+<li>
+<p>stash our changes</p>
+<p><code>git stash</code></p>
+<p>Current branch will revert to last commit.</p>
+</li>
+<li>
+<p>Display stash list:</p>
+<p><code>git stash list</code></p>
+</li>
+<li>
+<p>switch to new branch, do some work</p>
+<p><code>git checkout -b &lt;another-branch&gt;</code></p>
+</li>
+<li>
+<p>pop out changes from git cache. Git will append changes for same files.</p>
+<p><code>git stash pop</code></p>
+<p>With this command, it deletes that stash. Please note that the stash is shared within all branches. Which branch we are currently on, the changes will be popped to that branch.</p>
+</li>
+<li>
+<p>Solve conflicts issue if has any. commit and merge changes to trunk branch</p>
+<p><img src="file:///c%3A/Work/Workspace/andyfengc.github.io/_posts/images/posts/20171109-git-26.png" alt=""></p>
+</li>
+</ol>
+<p>Other commands:</p>
+<p>Apply most recent stashing without removing</p>
+<pre><code>`git stash apply`
+
+apply specified stashing
+
+`git stash apply stash@{stashing_index}` 
+</code></pre>
+<p>Remove most recent stashing</p>
+<pre><code>`git stash drop`
+
+remove specified stashing
+
+`git stash drop stash@{0}`
+</code></pre>
+<p>Clean out the stashing stack</p>
+<pre><code>`git stash clear`
+</code></pre>
+<h2 id="merge-rebase-squash">Merge, Rebase, Squash</h2>
+<p>In Git, there are two main ways to integrate changes from one branch into another: the merge and the rebase.</p>
+<h3 id="merge">Merge</h3>
+<p>merge is the easiest option to merge changes within branches</p>
+<p><strong>merge another branch into current branch</strong></p>
+<p><code>git merge &lt;another-branch&gt;</code></p>
+<p><code>git merge --no-ff &lt;branch&gt;</code></p>
+<blockquote>
+<p>Merge the specified branch into the current branch, but always generate a merge commit (even if it was a fast-forward merge). This is useful for documenting all merges.</p>
+</blockquote>
+<p>e.g. We have a feature branch and hope to merge changes to master branch:</p>
+<p><code>git checkout master</code>
+<code>git merge feature</code></p>
+<p>Or, we can condense this to a one line:</p>
+<p><code>git merge master feature</code></p>
+<p>This creates a new &quot;merge commit&quot; in the feature branch that ties together the histories of both branches, giving us a branch structure that looks like this:</p>
+<p><img src="file:///c%3A/Work/Workspace/andyfengc.github.io/_posts/images/posts/20171109-git-27.png" alt=""></p>
+<p>However, each <code>merge</code> generates a certain merge point when we incorporate changes. If we have many branches and merge happens very often, this can pollute our master branch's history quite a bit.</p>
+<p><img src="file:///c%3A/Work/Workspace/andyfengc.github.io/_posts/images/posts/20171109-git-28.png" alt=""></p>
+<p><code>git checkout feature</code>
+<code>git rebase master</code></p>
+<h3 id="rebase">Rebase</h3>
+<p>As an alternative to merging, we rebase the feature branch onto master branch using the following commands:</p>
+<p><code>git checkout master</code>
+<code>git rebase feature</code></p>
+<p>This moves the entire feature branch to begin on the tip of the master branch by incorporating all of the new commits in master. Instead of creating a merge commit point, rebasing re-writes the project history by creating brand new commits for each commit in the original branch and fast-forwards the commit. Rebasing is essentially fast-forward merge.</p>
+<p><img src="file:///c%3A/Work/Workspace/andyfengc.github.io/_posts/images/posts/20171109-git-29.png" alt=""></p>
+<p>The major benefit of rebasing is that you get a much cleaner project history. It eliminates the unnecessary merge commits created by git merge. However, we lost the context provided by merge commit.</p>
+<p>In practice, if our team members pushed changes prior you in remote branch. We have to use <code>git pull</code> to grab those changes. By default, git use <code>merge</code> option to incorporate changes. In this case, a new merge commit point will be created. We can use <code>rebase</code> option to fast forward to new changes:</p>
+<p><code>git pull --rebase</code></p>
+<p>In most cases, we choose <code>rebase</code> policy for a clearer git history for code review.</p>
+<h3 id="squash">Squash</h3>
+<p>Squash option can produce a &quot;squashed&quot; commit. It compress multiple commits into one single commit and simplify git history. Squash is not a command but an option and it is used together with merge or rebate.</p>
+<h4 id="merge-squash">Merge + Squash</h4>
+<p>e.g. we squash all commits of feature branch and merge to master branch</p>
+<p><code>git checkout master</code>
+<code>git merge --squash</code></p>
+<p>After squash, there is only one commit from feature branch merged to master branch</p>
+<h4 id="rebase-squashfixup">rebase + squash/fixup</h4>
+<p>e.g. we hope to merge git log</p>
+<pre><code>a
+b1
+b2
+b3
+</code></pre>
+<p>to</p>
+<pre><code>a
+b
+</code></pre>
+<ol>
+<li>
+<p>check commit history via <code>git log</code></p>
+</li>
+<li>
+<p>enable rebate interactive editing</p>
+<p>`git rebase -i <SHA-1 of commit a></p>
+</li>
+<li>
+<p>edit the instructions to modify b2, b3 from &quot;pick&quot; to &quot;squash&quot;</p>
+<ul>
+<li>pick: commit</li>
+<li>squash: meld into previous commit</li>
+</ul>
+<p>modify</p>
+<p><img src="file:///c%3A/Work/Workspace/andyfengc.github.io/_posts/images/posts/20171109-git-31.png" alt=""></p>
+<p>to</p>
+<p><img src="file:///c%3A/Work/Workspace/andyfengc.github.io/_posts/images/posts/20171109-git-32.png" alt=""></p>
+<p>esc &gt; :wq &gt; save and exit</p>
+</li>
+<li>
+<p>enter new commit message</p>
+<p><img src="file:///c%3A/Work/Workspace/andyfengc.github.io/_posts/images/posts/20171109-git-33.png" alt=""></p>
+</li>
+</ol>
+<p>Here is the complete commands</p>
+<pre><code>![](/images/posts/20171109-git-30.png)
+</code></pre>
+<p>After squash, the rebate will only keep one commit. Basically, squash option let us to squash commits backwards until recent &quot;pick&quot;.</p>
+<p>fixup option like squash, the only difference is squash keeps all commits' messages but fixup discard all previous commits' messages.</p>
+<h2 id="references">References</h2>
+<p><a href="https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow">Forking Workflow</a></p>
+<p><a href="https://www.atlassian.com/git/tutorials/git-stash">Git stash tutorial</a></p>
+<p><a href="https://www.atlassian.com/git/tutorials/merging-vs-rebasing">Merging vs. Rebasing</a></p>
+<p><a href="https://guides.github.com/introduction/flow/index.html">Understanding the GitHub Flow</a></p>
+
+    </body>
+    </html>

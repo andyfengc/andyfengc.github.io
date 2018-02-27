@@ -64,7 +64,8 @@ ROW_NUMBER is a ranking function and it generates a run-time column in the resul
 
 Here is the syntax:
 
-	ROW_NUMBER() OVER (PARTITION BY col1, col2, ....n ORDER BY col1, col2, ....n)
+	ROW_NUMBER() 
+	OVER (PARTITION BY col1, col2, ....n ORDER BY col1, col2, ....n)
 
 Please note:
 
@@ -123,7 +124,7 @@ We can avoid those gaps by using DENSE_RANK()
 
 **GROUP BY**
 
-GROUP BY modifies the entire query
+GROUP BY is used for aggregation and works on the entire query. When a group by clause is used all the columns in the select list should either be in  group by or should be in an aggregate function. 
 
 e.g.
 
@@ -133,9 +134,9 @@ e.g.
 
 ![](/images/posts/20171017-sql-7.png)
 
-PARTITION BY just works on a window function, like ROW_NUMBER()
-
 **PARTITION_BY**
+
+PARTITION BY works like a window function. With it, aggregation or row number functions don't have the restriction of GROUP BY and they can be calculated alongwith other columns in the select list. Specifically,  PARTITION BY can be used to aggregate together with RANK(), or get sequential numbers together with ROW_NUMBER()/RANK(). 
 
 	SELECT ROW_NUMBER() OVER(partition by order_status order by order_status)
 	, order_status
