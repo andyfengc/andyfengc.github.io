@@ -25,7 +25,7 @@ There is a company need to manage user account for employees. When new employee 
 
 ![](/images/posts/20180213-state-4.png)
 
-# Implementation of state pattern #
+# Solution of state pattern #
 1. Define a context object to manage states. It represents the object to manage states. In this case, it simply keeps the current status.
 
 	    public class Context

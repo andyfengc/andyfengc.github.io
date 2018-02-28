@@ -725,8 +725,8 @@ in my-component.component.ts
 	
 	@Component({
 	  selector: 'my-component',
-	  templateUrl: './my-component..component.html',
-	  styleUrls: ['./my-component..component.css']
+	  templateUrl: './my-component.component.html',
+	  styleUrls: ['./my-component.component.css']
 	})
 	export class MyComponent {
 	
@@ -737,3 +737,32 @@ in my-component.component.ts
 	  }
 	
 	}
+
+## Add scss support ##
+1. Open angular-cli.json, add `styleExt`, add styles
+
+		{
+		  ...,
+		  "project": {
+		    "name": "website"
+		  },
+		  "apps": [
+	  		...,
+			"styles": [
+				"styles.css",
+				"covalent-theme.scss"
+			]
+		  ],
+		  ...,
+		  "defaults": {
+		    "styleExt": "scss",
+		    "component": {}
+		  }
+		}
+
+1. Open src\styles.css
+
+	/* You can add global styles to this file, and also import other style files */
+	@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+	@import './assets/css/bootstrap.min.css'; 
+
