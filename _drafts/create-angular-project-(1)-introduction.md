@@ -9,7 +9,7 @@ Angular is a framework for building client applications in HTML and either JavaS
 
 The framework consists of several libraries, some of them core and some optional. Typically, we build Angular applications by composing HTML templates in markup format.  
 
-Steps:
+Development steps:
 
 1. Build a project via cli
 1. Create component classes including view logic (.ts files, define properties) and they manage HTML templates(.html files) and component stylesheets(.css files)
@@ -19,10 +19,63 @@ Steps:
 5. Launch the app by bootstrapping the root module.
 1. Debug the project
 
+<<<<<<< HEAD:_drafts/create-angular-project.md
+Here is the outline of this tutorial:
+
+1. Fundamental knowledge
+2. Create a sample Angular project
+3. Create a component
+4. Create a model
+5. Create a service
+6. Create routing
+7. Add HTTP service
+8. Define module
+
+## Fundamentals ##
+1. Module
+
+	Angular apps are modular and Angular has its own modularity system called NgModules. Angular app has at least one root module, typically named AppModule. Within module, we can define components, directives, services...
+
+	![](/images/posts/20180102-angular2-cli-14.png)
+
+1. Component
+
+	Component controls a patch of screen and it is a class. We define application logic inside component and component supports the view. 
+
+1. Template
+
+	Template is the view of component. It is a form of HTML that tells Angular how to render the component.
+	
+1. Metadata
+
+	Metadata decorates Angular class and it tells Angular how to process a class. In TypeScript, we attach metadata by using a decorator. E.g. here's some metadata for a Component:
+
+		@Component({
+		  selector:    'app-hero-list',
+		  templateUrl: './hero-list.component.html',
+		  providers:  [ HeroService ],
+		  styleUrls: []
+		})
+		export class HeroListComponent implements OnInit {
+		/* . . . */
+		}
+
+	> - selector: CSS selector that tells Angular to use this component
+	> - templateUrl: module-relative address of this component's HTML template
+	> - providers: array of dependency injection providers for services that the component requires. 
+	> - styleUrls: relative address of stylesheets
+
+1. Two way data binding
+
+	Data binding plays an important role in communication between a template and its component. Two way data binding represents the data value of input box in template syncs with the property of component automatically. Angular processes all data bindings once per JavaScript event cycle
+
+	![](/images/posts/20180102-angular2-cli-15.png)
+=======
 Environment: 
 
 1. Node.js v8+
 2. Visual Studio Code 
+>>>>>>> 865884f58e78227cb7c518ca9f73919255c10555:_drafts/create-angular-project-(1)-introduction.md
 
 ## Create a sample project via angular/cli ##
 
@@ -46,7 +99,7 @@ Environment:
 
 	![](/images/posts/20180102-angular2-cli-3.png)
 
-## Create component ##
+## Create a component ##
 1. create a new component heroes: `ng generate component heroes`
 
 	![](/images/posts/20180102-angular2-cli-4.png)
@@ -121,6 +174,16 @@ Environment:
 		  bootstrap: [AppComponent]
 		})
 		export class AppModule { } 
+
+## Create a new model ##
+	`ng generate class hero`
+
+	hero.ts
+	
+	export class Hero {
+	  id: number;
+	  name: string;
+	}
 
 ## Create a new service ##
 1. `ng generate service services\hero`
@@ -647,6 +710,14 @@ We could import and declare all components in the root module. Or, we can define
 
 ### Import feature module to root module ###
 
+## Make release ##
+Create a build: `ng build`
+
+build in production: `ng build --env=prod`
+
+## References ##
+[https://angular.io](https://angular.io)
+
 ## Debug the project ##
 1. Install `Debugger for Chrome` in visual studio code
 
@@ -736,6 +807,7 @@ in my-component.component.ts
 	    console.log(now.add(7, 'days').format()); 
 	  }
 	
+<<<<<<< HEAD
 	}
 
 ## Add scss support ##
@@ -766,3 +838,6 @@ in my-component.component.ts
 	@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 	@import './assets/css/bootstrap.min.css'; 
 
+=======
+	}
+>>>>>>> a59cb3e437457dde176990a9cf32b915687f6e9e
