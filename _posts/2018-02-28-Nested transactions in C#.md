@@ -124,20 +124,13 @@ transactions of inner and outer are separate
 
 |   inner    |    outer   |                                  |
 |------------|------------|----------------------------------|
-|   commit   |  rollback  |  inner commited, outer rollback  |
+|   commit   |  rollback  |  inner committed, outer rollback |
 |   commit   |  commit    |  all changes are committed       |
 |   rollback |  rollback  |  no changes are committed        |
-|   rollback |  commit    |  inner rokkback, outer commited  |
+|   rollback |  commit    |  inner rollback, outer committed |
 
 ### TransactionScopeOption.Suppress ###
-inner and outer scopes are separate. the transaction with TransactionScopeOption.Suppress option isn't transaction anymore
-
-|   inner    |    outer   |                                  |
-|------------|------------|----------------------------------|
-|   commit   |  rollback  |  inner commited, outer rollback  |
-|   commit   |  commit    |  all changes are committed       |
-|   rollback |  rollback  |  no changes are committed        |
-|   rollback |  commit    |  inner rokkback, outer commited  |
+inner and outer scopes are separate. The transaction with TransactionScopeOption.Suppress option isn't transaction anymore and it always commit.
 
 ## Examples ##
 
