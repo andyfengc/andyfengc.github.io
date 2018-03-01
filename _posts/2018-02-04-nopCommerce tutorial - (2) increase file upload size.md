@@ -60,9 +60,35 @@ Please fix .net core web project > Startup.cs
 	        return services.ConfigureApplicationServices(Configuration);
 	    }
 
+right cick web project > properties > build/debug tab > target x64
+
+![](/images/posts/20180226-file-size-2.png)
+
+![](/images/posts/20180226-file-size-1.png)
+
+## Try ##
+
 Restart IIS. try again and uploading succeeds:
 
+50m
+
 ![](/images/posts/20180203-nopcommerce-file-3.png)
+
+200m
+
+![](/images/posts/20180226-file-size-5.png)
+
+500m
+
+![](/images/posts/20180226-file-size-3.png)
+
+900m
+
+![](/images/posts/20180226-file-size-4.png)
+
+1gb
+
+![](/images/posts/20180226-file-size-5.png)
 
 ## References ##
 

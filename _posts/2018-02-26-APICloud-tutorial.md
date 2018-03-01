@@ -120,7 +120,7 @@ author: Andy Feng
 ## Run the app ##
 There are multiple ways to start and debug the app
 
-### Via WIFI, it is realtime test and recommended ###
+### Via WIFI, it is realtime debugging and recommended ###
 Make sure cellphone and computer is in the same wifi, open studio ide
 
 1. Install AppLoader
