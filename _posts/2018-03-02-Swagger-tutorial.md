@@ -115,10 +115,19 @@ Here is how we use Swashbuckle
 
 1. install swagger package
 
-	- visual studio: nuget > `Install-Package Swashbuckle.AspNetCore`
-	- visual studio code (cli): command line > `dotnet add TodoApi.csproj package Swashbuckle.AspNetCore`
+	- visual studio: 
+		
+		nuget > `Install-Package Swashbuckle.AspNetCore`
 
-	![](/images/posts/20180301-swagger-1.png)
+		![](/images/posts/20180301-swagger-1.png)
+
+	- visual studio code (cli): 
+	
+		command line > `dotnet add myApi.csproj package Swashbuckle.AspNetCore`
+
+		`dotnet restore` to install package
+
+		![](/images/posts/20180301-swagger-6.png)
 
 1. in Startup.cs, add Swagger generator
 
@@ -135,7 +144,7 @@ Here is how we use Swashbuckle
 		    });
 		}
 
-	Here, we can add information such as the author, license, and description 
+	Here, we can add more information such as the author, license, and description 
 
 		services.AddSwaggerGen(c =>
 		{
@@ -146,7 +155,7 @@ Here is how we use Swashbuckle
 		        Description = "A simple example ASP.NET Core Web API",
 		        TermsOfService = "None",
 		        Contact = new Contact { Name = "Andy Feng", Email = "", Url = "https://twitter.com/andyfengc" },
-		        License = new License { Name = "Use under LICX", Url = "https://andyfeng.ga/license" }
+		        License = new License { Name = "Use under License", Url = "https://andyfeng.ga" }
 		    });
 		});
 
@@ -220,8 +229,6 @@ Here is how we use Swashbuckle
 1. Customize Swagger UI.
 	
 	Swagger provides options for documenting the object model and customizing the UI to match our theme. 
-
-	
 
 	add new package Microsoft.AspNetCore.StaticFiles
 

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: ASP.NET Core WebApi Tutorial
+title: ASP.NET Core Tutorial: WebApi
 author: Andy Feng
 ---
 
