@@ -4,7 +4,8 @@ title: ASP.NET Core WebApi Tutorial
 author: Andy Feng
 ---
 
-download source code [here](/images/)
+download source code [here](/images/aspnetcore-webapi.zip)
+
 # Create project via Cli #
 1. Install .net core sdk, .net  core runtime at [https://www.microsoft.com/net/learn/get-started/windows](https://www.microsoft.com/net/learn/get-started/windows) or [https://www.microsoft.com/net/download/windows](https://www.microsoft.com/net/download/windows)
 
@@ -212,6 +213,24 @@ nuget > install Microsoft.EntityFrameworkCore.SqlServer package
 		    return new NoContentResult();
 		}
 
+# Enable cors #
+1. Install package `Microsoft.AspNetCore.Cors` either via nuget in visual studio or command line 
+
+	![](/images/posts/20180228-.netcore-webapi-17.png)
+
+1. Enable cors
+
+	1. way1, enable in middleware. modify Startup.cs
+
+			public void ConfigureServices(IServiceCollection services)
+			{
+			    services.AddCors();
+			}
+
+	2. way2, enable in controller
+
+
+
 # Test #
 
 1. run via `dotnet run`
@@ -231,10 +250,11 @@ nuget > install Microsoft.EntityFrameworkCore.SqlServer package
         "isComplete": true
     }
 
-
 # References #
 [https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api](https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api)
 
 [https://blogs.msdn.microsoft.com/webdev/2017/04/06/jwt-validation-and-authorization-in-asp-net-core/](https://blogs.msdn.microsoft.com/webdev/2017/04/06/jwt-validation-and-authorization-in-asp-net-core/)
 
 [https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-help-pages-using-swagger?tabs=visual-studio](https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-help-pages-using-swagger?tabs=visual-studio)
+
+[https://docs.microsoft.com/en-us/aspnet/core/security/cors](https://docs.microsoft.com/en-us/aspnet/core/security/cors)
