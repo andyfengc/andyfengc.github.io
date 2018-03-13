@@ -1,13 +1,13 @@
 ---
 layout: post
-title: ASP.NET Core WebApi Tutorial
+title: Autofac Tutorial
 author: Andy Feng
 ---
 
 # Introduction #
 
 # Workflow #
-1. add autofac package
+1. add autofac package via nuget
 
 1. create an IOC container
 
