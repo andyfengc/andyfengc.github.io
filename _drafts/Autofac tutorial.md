@@ -11,7 +11,7 @@ author: Andy Feng
 
 1. create an IOC container
 
-		var builder = = new ContainerBuilder();
+		var builder = new ContainerBuilder();
 		var container = builder.Build();
 
 1. register components
