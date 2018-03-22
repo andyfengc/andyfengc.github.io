@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Hangfire tutorial (1) Introduction
+title: Hangfire Tutorial (1) Introduction
 author: Andy Feng
 ---
 
