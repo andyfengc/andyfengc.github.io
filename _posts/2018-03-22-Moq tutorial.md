@@ -47,6 +47,9 @@ Mocking technique is very useful for testing purpose. Moq is a third party frame
 
 		var result = BusinessServiceClassInstance.get(mockObj.Object);
 		Assert.IsTrue(result);
+		//
+		mockObj.Verify(m => m.Method1(It.isAny<ParamDataType>()), Times.Once);
+		mockObj.Verify(m => m.Method2(It.isAny<ParamDataType>()), Times.Exactly(2));
 
 # Demo 1 - Make uniting testing with mock via AAA principle #
 
