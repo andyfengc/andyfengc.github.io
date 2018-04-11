@@ -19,7 +19,6 @@ Development steps:
 5. Launch the app by bootstrapping the root module.
 1. Debug the project
 
-<<<<<<< HEAD:_drafts/create-angular-project.md
 Here is the outline of this tutorial:
 
 1. Fundamental knowledge
@@ -70,12 +69,11 @@ Here is the outline of this tutorial:
 	Data binding plays an important role in communication between a template and its component. Two way data binding represents the data value of input box in template syncs with the property of component automatically. Angular processes all data bindings once per JavaScript event cycle
 
 	![](/images/posts/20180102-angular2-cli-15.png)
-=======
+
 Environment: 
 
 1. Node.js v8+
 2. Visual Studio Code 
->>>>>>> 865884f58e78227cb7c518ca9f73919255c10555:_drafts/create-angular-project-(1)-introduction.md
 
 ## Create a sample project via angular/cli ##
 
