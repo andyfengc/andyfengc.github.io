@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>文档</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <style>
+        .empty {
+            text-align: center;
+            padding: 120px 0;
+        }
+    </style>
+</head>
+
+<body>
+  <div class="text-right"><span id="sender"></span></div>
+  <div id="receiver"></div>
+    <div class="empty">文档 </div>
+    <script type="text/javascript" src="../script/api.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+     <script>
+
+     $(function(){
+
+       apiready = function() {
+
+       var UIChatBox = api.require('UIChatBox');
+       UIChatBox.open({
+           placeholder: '',
+           maxRows: 4,
+           emotionPath: 'widget://image/emotion',
+           texts: {
+               recordBtn: {
+                   normalTitle: '按住说话',
+                   activeTitle: '松开结束'
+               },
+               sendBtn: {
+                   title: 'send'
+               }
+           },
+           styles: {
+               inputBar: {
+                   borderColor: '#d9d9d9',
+                   bgColor: '#f2f2f2'
+               },
+               inputBox: {
+                   borderColor: '#B3B3B3',
+                   bgColor: '#FFFFFF'
+               },
+               emotionBtn: {
+                   normalImg: 'widget://res/img/chatBox_face1.png'
+               },
+               extrasBtn: {
+                   normalImg: 'widget://res/img/chatBox_add1.png'
+               },
+               keyboardBtn: {
+                   normalImg: 'widget://res/img/chatBox_key1.png'
+               },
+               speechBtn: {
+                   normalImg: 'widget://res/img/chatBox_key1.png'
+               },
+               recordBtn: {
+                   normalBg: '#c4c4c4',
+                   activeBg: '#999999',
+                   color: '#000',
+                   size: 14
+               },
+               indicator: {
+                   target: 'both',
+                   color: '#c4c4c4',
+                   activeColor: '#9e9e9e'
+               },
+               sendBtn: {
+                   titleColor: '#4cc518',
+                   bg: '#999999',
+                   activeBg: '#46a91e',
+                   titleSize: 14
+               }
+           },
+           extras: {
+               titleSize: 10,
+               titleColor: '#a3a3a3',
+               btns: [{
+                   title: '图片',
+                   normalImg: 'widget://res/img/chatBox_album1.png',
+                   activeImg: 'widget://res/img/chatBox_album2.png'
+               }, {
+                   title: '拍照',
+                   normalImg: 'widget://res/img/chatBox_cam1.png',
+                   activeImg: 'widget://res/img/chatBox_cam2.png'
+               }]
+           }
+       }, function(ret, err) {
+           if (ret) {
+               //alert(JSON.stringify(ret));
+               if (ret.msg){
+                 console.log(JSON.stringify())
+
+
+                 if (ret.msg[0] =='['){
+
+                   // get emotion mapping
+                   $.getJSON('../image/emotion/emotion.json', function(data){
+                      var pictureName = data.find(x => x.text == ret.msg).name;
+                      $('#sender').append('<br>'+ '<img src="../image/emotion/' +pictureName + '.png">' +'<br>');
+                   })
+                 }
+
+                 else{
+                   //document.getElementById('sender').innerHTML += '<br>' + ret.msg+  '<br>';
+                   $('#sender').append('<br>' +ret.msg+'<br>');
+                 }
+
+
+
+               }
+           } else {
+               alert(JSON.stringify(err));
+           }
+       });
+
+
+
+
+
+
+
+}
+    })
+
+     </script>
+</body>
+
+</html>
