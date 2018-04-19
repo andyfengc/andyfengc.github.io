@@ -1,17 +1,14 @@
 ---
 layout: post
-title: Create Angular v2+ project (9) - rxjs
+title: Asynchronous programming tutorial in Angular
 author: Andy Feng
 ---
-
 # Introduction #
 [Asynchronous programming](https://en.wikipedia.org/wiki/Asynchrony_(computer_programming)) is an important technique to create web applications. It allows units of work to run separately from the primary application thread and makes main application responsive.
 
 [RxJS](http://reactivex.io/rxjs) is a library for reactive programming using Observables. It help us create asynchronous or callback-based applications quicker and easier. [Angular 2+](https://angular.io) uses [RxJS](https://angular.io/guide/rx-library) to implement asynchronous operations.
 
 # Observables in rxjs #
-[RxJS](http://reactivex.io/rxjs) is a library for reactive programming using Observables. It help us create asynchronous or callback-based applications quicker and easier. [Angular 2+](https://angular.io) uses [RxJS](https://angular.io/guide/rx-library) to implement asynchronous operations.
-
 `Observable` provides support for passing messages between publishers and subscribers in our application. It helps us solve event handling, asynchronous programming issues.
 
 > Observable defines a subscriber function to publish events/values to consumers(observers) subscribe to it.
@@ -318,14 +315,6 @@ Angular makes use of observables as an interface to handle a variety of common a
 - The EventEmitter class extends `Observable`, specifically `Subject`
 - The HTTP module uses observables to handle AJAX requests and responses.
 - The Router and Forms modules use observables to listen for and respond to user-input events.
-
-//todo
-
-## Event emitter ##
-## HTTP ##
-## Async pipe ##
-## Router ##
-## Reactive forms ##
 
 # References #
 [reactivex Subject](http://reactivex.io/documentation/subject.html)
