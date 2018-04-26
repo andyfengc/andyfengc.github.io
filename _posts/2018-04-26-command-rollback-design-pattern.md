@@ -1,11 +1,27 @@
 ---
 layout: post
-title: Command/Rollback design pattern practice
+title: Command & Rollback design pattern practice
 author: Andy Feng
 ---
 
+# Outline #
+
+- Introduction
+- Mamonto pattern
+	- Workflow
+	- Benefits
+	- Implementation steps
+	- Sample code
+- Command pattern
+	- Workflow
+	- Benefits
+	- Implementation steps
+	- Sample code
+- Comparison
+- A comprehensive demo
+
 # Introduction #
-In typical software structure, the invoker(caller) and receiver(implementation) are coupled. Invoker(A) calls receiver(B) to do some work. In this case, A initiates an instance of B and keeps a reference of b. However, if we want to record/undo/redo/transact the request from A to B. The coupled design cannot archive this objective. Therefore, we need to decouple the invoke either via IOC container or go further to use design pattern to record the request between invoker and receiver.
+In typical software structure, the invoker(caller) and receiver(implementation) are coupled. Invoker(A) calls receiver(B) to do some work. In this case, A initiates an instance of B and keeps a reference of b. However, if we want to record/undo/redo/transact the communication(i.e. request or command) from A to B. The coupled association cannot archive this objective. Therefore, we need to decouple the invoke either via IOC container or go further to use some design patterns to record the communication between invoker and receiver.
 
 ![](/images/posts/20180423-command-pattern-2.png)
 
@@ -265,13 +281,6 @@ Receiver implementation (i.e. sub service class in real world):
 	    public void doSomething(){  
 	        System.out.println("I am doing something...");  
 	    }  
-	}  
-
-	public abstract class CommandImplCallback implements Callback<String> {
-	    @Override
-	    public void onError(Throwable t) {
-	        t.printStackTrace(System.err);
-	    }
 	}
 
 Invoker class (i.e. service class in real world)
@@ -374,16 +383,21 @@ Here is the major models of this senario:
 - `License service` - receiver
 - `Request` - entity
 
-We hope to move on to persist Commands into database so that we can restore actions on request objects later on. Here is the class diagram for this implementation:
+Typically, Command and Memento patterns are behaviour pattern and they work in runtime. Here, we hope to move on to persist Commands into database so that we can restore actions on request objects later on. This is the class diagram for the implementation:
 
 ![](/images/posts/20180423-command-pattern-8.png)
 
 Here,
 
 - `Task` - command list
-- `TaskDetail` - command
-- `TaskType` - predefined command actions to let us restore command object(s) and generate right association between Command and Receiver service.
-- `Request` - existing data entity
+- `TaskType` - predefiend task action. It enables us to restore the right receiver service(s) for task.
+- `TaskCommand` - command
+- `CommandType` - predefined command actions to let us restore command object(s) and generate right association between Command and Receiver service. It can be regarded as the exact methods of receiver object(s) which will be are called by command object(s).
+- `Request` - existing data entity. It can be replaced by any specific models that command manipulates.
+
+In programming, we also need to add an additional service (TaskService) to play as invoker and restored receiver services(s) - LicenseService to implement the actual logic. 
+
+![](/images/posts/20180423-command-pattern-9.png)
 
 # References #
 [Memento pattern](https://en.wikipedia.org/wiki/Memento_pattern)
