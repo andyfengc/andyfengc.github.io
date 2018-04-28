@@ -126,3 +126,19 @@ and in you template :
 			// some clean up...
 			cleanUp() : void {...}
 		}
+
+# Get hostname #
+In the component/service, inject DOCUMENT class instance
+
+	import {DOCUMENT} from '@angular/platform-browser';
+	...
+	export class SomeComponent{
+	
+		constructor(@Inject(DOCUMENT) private document) {
+		}
+		
+		someMethod() {
+			var url = document.location.protocol + "//" + document.location.host + "/api/orders";
+		}
+	}
+
