@@ -31,6 +31,66 @@ author: Andy Feng
 		var instance1 = container.Resolve<Interface1>();
 		var instance2 = container.Resolve<Interface2>();
  
+# Console demo #
+1. Install autofac package
+
+	![](/images/posts/20180429-autofac-1.png)
+
+1. Create services
+
+	order.cs
+
+	    public class Order
+	    {
+	        public string orderId { get; set; }
+	        public DateTime createdTime { get; set; }
+	        public double totalAmount { get; set; }
+	    }
+
+	order service interface
+	
+		public interface IOrderService
+	    {
+	        void GrabNewOrders(int days);
+	        void ShipOrder(Order order);
+	    }
+
+	order service
+	
+	    public class OrderService : IOrderService
+	    {
+	        public void GrabNewOrders(int days)
+	        {
+	            System.Console.WriteLine("Grabbed 100 new orders within " + days + " days");
+	            System.Console.WriteLine("Saved 100 new orders within " + days + " days");
+	        }
+	
+	        public void ShipOrder(Order order)
+	        {
+	            System.Console.WriteLine(string.Format("ship order id: {0}, amount: {1}", order.orderId, order.totalAmount));
+	        }
+	    }
+
+1. Use autofac to builder the IOC container and register service, then resolve
+
+		// create ioc container builder
+        var builder = new ContainerBuilder();
+        // register service
+        builder.RegisterType<OrderService>().As<IOrderService>().AsSelf();
+        // generate container
+        var container = builder.Build();
+        // resolve service
+        using (var scope = container.BeginLifetimeScope())
+        {
+            var orderService = scope.Resolve<IOrderService>();
+            orderService.GrabNewOrders(10);
+            orderService.ShipOrder(new Order(){orderId = "#001", totalAmount = 100, createdTime = DateTime.Now});
+        }
+
+1. result
+
+	![](/images/posts/20180429-autofac-2.png)
+
 # Webapi demo #
 1. create a .net 4.6 webapi project
 

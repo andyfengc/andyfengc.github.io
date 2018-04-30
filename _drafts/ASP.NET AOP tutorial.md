@@ -4,7 +4,9 @@ title: ASP.NET AOP tutorial
 author: Andy Feng
 ---
 
-## Introduction ##
+# Introduction #
+
+`Aspect-oriented programming (AOP)` is a programming paradigm that aims to increase modularity by allowing the separation of cross-cutting concerns. It does so by adding additional behavior to existing code without modifying the code itself, instead separately specifying which code is modified via a "pointcut".
 
 For instance, below information should be logged for every method in our business logic service:
 
@@ -56,15 +58,33 @@ Actually, the business logic is as simple as this:
             return x + y;
         }
 
-Aspect-object programming(AOP) is a good approach to handle this issue. It can be used to separate the concern of non-business logic from the service class and enable us to programming quicker and easier. AOP is based on the conception of interception. There are multiple AOP solutions in C# such as:
+`Aspect-object programming (AOP)` is a good approach to handle this issue. It can be used to separate the concern of non-business logic from the service class and enable us to programming quicker and easier. 
+
+![](/images/posts/20180428-aop-1.png)
+
+AOP is based on the conception of interception. We can image AOP works like adding additional separated layers to existing business logic. 
+
+![](/images/posts/20180428-aop-2.png)
+
+# AOP frameworks #
+In general, there are two ways of implementaing ASP:
+
+- Dependency injection container
+- Post-compile tools
+
+In C#, dependency injection container includes:
 
 1. Unity: a IOC framework supported by Microsoft
-1. MEF(Managed Extensibility Framework): a framework to extend .NET framework and used to develop plugin systems
 1. Spring.NET: ported from Java Spring framework
 1. Autofac: a new IOC and DI framework, very light and high performance
 1. Ninject: a popular light IOC framework
 
-Here is the structure of Unity and other framworks are pretty similar:
+Post-compile tools
+
+1. PostSharp
+1. MEF(Managed Extensibility Framework): a framework to extend .NET framework and used to develop plugin systems
+
+Here is the structure of Unity. Other DI framworks are pretty similar:
 
 ![](/images/posts/20170928-spring-aop-2.png)
 
@@ -80,42 +100,49 @@ This workflow includes the client application, interception system(non-business 
 2. Inteceptor looks the list of registered behaviors and invokes them through the internal pipeline
 3. After all behaviors completed, the target is invoked and returned
 
-## Prepare business logic ##
+# Prepare business services #
+1. model:
 
-1. create services  
-	interface:
+	    public class Order
+	    {
+	        public string orderId { get; set; }
+	        public DateTime createdTime { get; set; }
+	        public double totalAmount { get; set; }
+	    }
 
-		namespace Console.aop
-		{
-		    public interface IOrderService
-		    {
-		        void GrabNewOrders();
-		    }
-		}
+1. interface:
 
-	implementation:
+	    public interface IOrderService
+	    {
+	        void GrabNewOrders(int days);
+	        void ShipOrder(Order order);
+	    }
 
-		namespace Console.aop
-		{
-		    public class OrderService : IOrderService
-		    {
-		        public void GrabNewOrders()
-		        {
-		            System.Console.WriteLine("Grabbed 100 new orders");
-		            System.Console.WriteLine("Saved 100 new orders");
-		        }
-		    }
-		}
+1. implementation:
 
-## Unity ##
+	    public class OrderService : IOrderService
+	    {
+	        public void GrabNewOrders(int days)
+	        {
+	            System.Console.WriteLine("Grabbed 100 new orders within " + days + " days");
+	            System.Console.WriteLine("Saved 100 new orders within " + days + " days");
+	        }
+	
+	        public void ShipOrder(Order order)
+	        {
+	            System.Console.WriteLine(string.Format("ship order id: {0}, amount: {1}", order.orderId, order.totalAmount));
+	        }
+	    }
 
-### Install Unity ###
+# Unity #
+
+## Install Unity ##
 
 nuget > Unity.Interception
 
 ![](/images/posts/20170928-spring-aop-3.png)
 
-### way1: create logging service via configuration - todo ###
+### way1: create logging service via configuration - not completed ###
 
 	<?xml version="1.0" encoding="utf-8" ?>  
 	<configuration>  
@@ -137,11 +164,11 @@ nuget > Unity.Interception
 	  </unity>
 	</configuration>
 
-### way2: create logging service via fluent api - todo ###
+## way2: create logging service via fluent api - not completed ##
 
-## Sprint.NET ##
+# Sprint.NET #
 
-### Install Spring.net AOP ###
+## Install Spring.net AOP ##
 
 nuget > spring.aop
 
@@ -210,7 +237,7 @@ program.cs
     IOrderService command = (IOrderService)context["orderService"];
     command.GrabNewOrders(); 
 
-### way2: create logging service via fluent syntax ###
+## way2: create logging service via fluent syntax ##
 
 create a LogAroundService
 
@@ -235,8 +262,123 @@ program.cs
     factory.AddAdvice(new LogAroundService());
     IOrderService service = (IOrderService)factory.GetProxy();
     service.GrabNewOrders();
+
+# Autofac #
+1. Update service method to virtual 
+
+	public class OrderService : IOrderService
+    {
+		// change to virtual
+        public virtual void GrabNewOrders(int days)
+        {
+            System.Console.WriteLine("Grabbed 100 new orders within " + days + " days");
+            System.Console.WriteLine("Saved 100 new orders within " + days + " days");
+        }
+		// change to virtual
+        public virtual void ShipOrder(Order order)
+        {
+            System.Console.WriteLine(string.Format("ship order id: {0}, amount: {1}", order.orderId, order.totalAmount));
+        }
+    }
+
+1. Install package via nuget
+
+	autofac 3.x, install `Autofac.Extras.DynamicProxy2`
+
+	![](/images/posts/20180428-aop-3.png)
+
+	autofac 4.x, install `Autofac.Extras.DynamicProxy`
+
+	![](/images/posts/20180429-aop-4.png)
+
+1. Create interceptor, `LogInterceptor.cs`
+
+		using Castle.DynamicProxy;
+		using System;
+		using System.Linq;
+		
+		namespace Console.aop.autofac
+		{
+		    public class LogInterceptor : IInterceptor
+		    {
+		        public void Intercept(IInvocation invocation)
+		        {
+		            System.Console.WriteLine($"{invocation.Method.Name} method invoked with parameters: {string.Join(", ", invocation.Arguments.Select(a => (a ?? "").ToString()).ToArray())}");
+		            try
+		            {
+		                invocation.Proceed();
+		            }
+		            catch (Exception ex)
+		            {
+		                System.Console.WriteLine($"An error has occured: {ex.Message}");
+		            }
+		            System.Console.WriteLine($"{invocation.Method.Name} method finished: result was {invocation.ReturnValue}");
+		        }
+		    }
+		}
+
+1. Register interceptor
+
+	Method 1: via attribute
+
+	update service
+
+		using Autofac.Extras.DynamicProxy;
+
+	    [Intercept(typeof(LogInterceptor))]
+	    public class OrderService : IOrderService
+	    {...}
+
+		or
+
+	    [Intercept(typeof(LogInterceptor))]
+	    public interface IOrderService
+	    {...}	
+
+	register service and interceptor
+
+		// create ioc container builder
+		var builder = new ContainerBuilder();
+		// register service
+		builder.RegisterType<OrderService>()
+		    .As<IOrderService>()
+		    .AsSelf()
+		    .EnableClassInterceptors();
+		builder.Register(c => new LogInterceptor())
+		    .As<Castle.DynamicProxy.IInterceptor>()
+		    .AsSelf();
+		// generate container
+		var container = builder.Build();
+		// resolve service
+	    var orderService = container.Resolve<IOrderService>();
+	    orderService.GrabNewOrders(10);
+	    orderService.ShipOrder(new Order() { orderId = "#001", totalAmount = 100, createdTime = DateTime.Now });
+
+	Method 2: via fluent api - buggy
+
+        // create ioc container builder
+        var builder = new ContainerBuilder();
+        // register service
+        builder.RegisterType<OrderService>()
+            .As<IOrderService>()
+            .AsSelf()
+            .EnableInterfaceInterceptors()
+            .InterceptedBy(typeof(LogInterceptor));
+        builder.RegisterType<LogInterceptor>()
+            .As<Castle.DynamicProxy.IInterceptor>()
+            .AsSelf();
+        // generate container
+        var container = builder.Build();
+        // resolve service
+        var orderService = container.Resolve<OrderService>();
+        orderService.GrabNewOrders(10);
+        orderService.ShipOrder(new Order() { orderId = "#001", totalAmount = 100, createdTime = DateTime.Now });
+
+1. Run
+
+	![](/images/posts/20180429-aop-5.png)
  
-### summary ###
+# Summary #
 the drawback is, we can only get parameter as index of array, e.g. way2
 
 	object[] arguments = invocation.Arguments;
