@@ -63,11 +63,11 @@ nuget > install Microsoft.EntityFrameworkCore.SqlServer package
 
 # Create a simple demo #
 
-1. add data models
+1. add models
 
-	TodoItem model:
+	Models > TodoItem.cs:
 
-		namespace TodoApi.Models
+		namespace Models
 		{
 		    public class TodoItem
 		    {
@@ -76,16 +76,19 @@ nuget > install Microsoft.EntityFrameworkCore.SqlServer package
 		        public bool IsComplete { get; set; }
 		    }
 		}
+
+1. add data
 		
-	Todo2Context db context:
+	Data > TodoContext.cs:
 
 		using Microsoft.EntityFrameworkCore;
-		
+		using Models;
+
 		namespace TodoApi.Models
 		{
-		    public class Todo2Context : DbContext
+		    public class TodoContext : DbContext
 		    {
-		        public Todo2Context(DbContextOptions<Todo2Context> options)
+		        public TodoContext(DbContextOptions<TodoContext> options)
 		            : base(options)
 		        {
 		        }
@@ -113,9 +116,9 @@ nuget > install Microsoft.EntityFrameworkCore.SqlServer package
 
 1. Create a controller: TodoController.cs
 
-		using System.Collections.Generic;
 		using Microsoft.AspNetCore.Mvc;
-		using TodoApi.Models;
+		using Models;
+		using Data;
 		using System.Linq;
 		
 		namespace TodoApi.Controllers
@@ -123,9 +126,9 @@ nuget > install Microsoft.EntityFrameworkCore.SqlServer package
 		    [Route("api/[controller]")]
 		    public class TodoController : Controller
 		    {
-		        private readonly Todo2Context _context;
+		        private readonly TodoContext _context;
 		
-		        public TodoController(Todo2Context context)
+		        public TodoController(TodoContext context)
 		        {
 		            _context = context;
 		
@@ -134,7 +137,7 @@ nuget > install Microsoft.EntityFrameworkCore.SqlServer package
 		                _context.TodoItems.Add(new TodoItem { Name = "Item1" });
 		                _context.SaveChanges();
 		            }
-		        }       
+		        }
 		    }
 		}
 
