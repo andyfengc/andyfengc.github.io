@@ -10,22 +10,22 @@ ASP.NET Core project is actually console application. Our project always contain
 
 1. modify program.cs, add IIS or Kestrel integration
 
-	public class Program
-	{
-	    public static void Main(string[] args)
-	    {
-	        var host = new WebHostBuilder()
-				// kestrel
-	            .UseKestrel()
-	            .UseContentRoot(Directory.GetCurrentDirectory())
-				// iis
-	            .UseIISIntegration()
-	            .UseStartup()
-	            .Build();
-	
-	        host.Run();
-	    }
-	}
+		public class Program
+		{
+		    public static void Main(string[] args)
+		    {
+		        var host = new WebHostBuilder()
+					// kestrel
+		            .UseKestrel()
+		            .UseContentRoot(Directory.GetCurrentDirectory())
+					// iis
+		            .UseIISIntegration()
+		            .UseStartup()
+		            .Build();
+		
+		        host.Run();
+		    }
+		}
 
 1. command line > `dotnet publish`
 
