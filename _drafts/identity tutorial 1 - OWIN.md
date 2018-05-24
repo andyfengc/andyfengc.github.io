@@ -1,169 +1,138 @@
 ---
 layout: post
-title: ASP.NET Identity authentication 1 - add identity framework to mvc project
+title: ASP.NET Identity authentication 1 - OWIN and Katana
 author: Andy Feng
+categories: [OWIN, Katana]
 ---
 
-## Create mvc project ##
-### create new empty web application ###
+# Introduction #
+In the .NET world there hasn't been much choice in web server technology aside from IIS. IIS has been around for a long time now, longer than ASP.NET itself. For a developer, tackles IIS and tons of libraries can be quite a daunting task. Also, System.Web is a monolithic assembly that contains everything under the sun all tightly coupled into one namespace, often being coupled into IIS.
 
-![](/images/posts/20160604-create-project-1.png)
+With more and more processing moving onto the client, servers have stopped processing and returning html and are instead just returning data for the client to parse and present. Modern approaches such as node.js, WebAPI, Spring Boots require minimal effort to act as a web server, containing only what is needed to build the application and nothing else.
 
-![](/images/posts/20160604-create-mvc-project-2.png)
+`Open Web Interface for .NET (OWIN)` defines an abstraction  between .NET web servers and web applications. First, by decoupling the web server from the application, OWIN makes it easier to create middleware for .NET web development. Also, OWIN makes it easier to port web applications to other hosts. We can host our .NET web applications on any web server following OWIN. For example, self-hosting in a Windows service or other process. Prior to OWIN, when we are building ASP.NET application, we are inheritedly bound to IIS due to the heavy dependency on System.Web assembly.
 
-![](/images/posts/20160604-create-mvc-project-3.png)
+`Katana` project is a set of open-source OWIN components developed by Microsoft. These components include both infrastructure components, such as hosts and servers, as well as functional components, such as authentication components and bindings to frameworks such as SignalR and ASP.NET Web API. 
 
-### Add mvc support ###
-Open nuget, install mvc library
-![](/images/posts/20160604-create-mvc-project-4.png)
+Overall, OWIN is a specification and abstraction(interface), not an implementation. It defines how web servers and web applications should be built in order to decouple them. Katana on the other hand, is fully developed framework made to make a bridge between current ASP.NET frameworks and OWIN specification. 
 
-Create App_Start folder, create RouteConfig.cs file and FilterConfig.cs file under this folder. Also, create global.asax file
+In .NET 4.6, Katana has successfully adapted the Web API and SignalR frameworks to OWIN but .NET MVC and Web Forms are still running exclusively via System.Web, and in the long run there is a plan to decouple those as well.
 
-![](/images/posts/20160604-create-mvc-project-5.png)
+# OWIN #
+OWIN specifies the interaction among Web Servers and Web Frameworks and defines the specification decoupling the web server and web applications. It is available at [nuget](https://www.nuget.org/packages/Microsoft.Owin/)
 
-![](/images/posts/20160604-create-mvc-project-6.png)
+![](/images/posts/20180524-owin-1.png)
 
-![](/images/posts/20160604-create-mvc-project-7.png)
+## Environment
+Environment is a dictionary storing all of the state necessary for processing a HTTP request and response:
 
-![](/images/posts/20160604-create-mvc-project-8.png)
+`IDictonary<string, object>`
 
-### quick test ###
+Some of the dictionary keys for a HTTP Request are as follows:
 
-Add Controllers folder, create a new Controller class, HomeController.cs
+![](/images/posts/20180524-owin-2.png)
 
-![](/images/posts/20160604-create-mvc-project-9.png)
+![](/images/posts/20180524-owin-3.png)
 
-Start project, succeed
+# Katana
+Katana is the Microsoft implementation of the OWIN specification and can be self-hosted or integrated with the IIS pipeline. Also, Katana adds some additional features such as authentication framework Identity to make OWIN easier to use. Katana aleady integrated into ASP.NET framework and Katana components use the Microsoft.Owin.* namespace. 
 
-![](/images/posts/20160604-create-mvc-project-10.png)
+The architecture of KATANA is divided into 4 major parts:
+![](/images/posts/20180524-owin-4.png)
 
-## Add identity support ##
+- Host: The host is a process that hosts all of other parts. It can be anything from a simple console application to a windows service or even a traditional IIS. It is responsible for starting everything up. 
+    There are the following three main primary options available for hosting the KATANA based Web Applications:
 
-### add libraries ###
+    > IIS Host: IIS hosting is possible with the same process used in ASP.NET that is by using HttpModule and HttpHandler. IIS acts as a server and as a host. If you want to host by ASP.NET, then you need to write the following command in the Package Manager Console:
+        `install-package Microsoft.Owin.Host.SystemWeb`
+    
+    > Custom Host: Now in KATANA, the developer can host applications with their own custom process. It can be your window service, console application and so on. This is as similar as self-host.
+    
+    > OWIN Host: The OWIN Host is the default hosting server of any web applications. The developer can use this default server rather then using the custom host. OwinHost.exe is used in a KATANA component for hosting. 
 
-Open nuget, install microsoft.owin.host.systemweb library. It installs Owin lib as well
+- Server: The Server responds to any request from any client and sends back response. Sepcifically, the server opens a network socket, listens for requests and sends through the OWIN-pipeline, then invokes the right services and returns response. There are two main implementations of servers of a KATANA project as in the following:
 
-![](/images/posts/20160604-add-identity-1.png)
+    `Microsoft.Owin.Host.SystemWeb` - The SystemWeb registers both ASP.NET HttpModule and HttpHandler to ambush requests so that then the stream is sent through the HTTP pipeline and sent through the OWIN pipeline that is specified by the user.
+    
+    `Microsoft.Owin.Host.HttpListener` - server uses the HttpListener class of the .NET Framework to access a socket and send through the user specified OWIN pipeline. This is by default the server for KATANA self-host API and OWINHost.exe.
 
-Install owin basic security libs: Microsoft.Owin.Security, Microsoft.Owin.Security.OAuth, Microsoft.Owin.Security.Cookies library
+    In IIS, Host and Server are the same thing. However, treading them as two separate pieces gives us more flexibility when we're buidling our solutions.
 
-![](/images/posts/20160604-add-identity-2.png)
+- Middleware: When any server gets a client request, it passes through a pipeline consists of OWIN components. The OWIN components are defined in the startup code of the developer's application. The pipeline components are called Middleware.
+    The OWIN application delegate is implemented by the OWIN middleware components so that it is callable as in the following:
 
-Install identity packages, include Microsoft.AspNet.Identity.Core, Microsoft.AspNet.Identity.Owin, Microsoft.AspNet.Identity.EntityFramework
+    `Func<IDictionary<string, object>, Task>`
 
-![](/images/posts/20160604-add-identity-3.png)
+    The request/response flow acts as a pipeline, with all requests having to pass through the various middleware components before reaching the application. In fact the request may never reach your application, with the middleware responding for you (e.g. when using an authentication middleware component)
 
-Install owin webapi package: Microsoft.AspNet.WebApi.Owin
+    ![](/images/posts/20180524-owin-5.png)
 
-Now, start the project we will get errors. It means we need to configure Owin
+- Application: application is responsible for generating the actual response. Technically speaking, there's no difference between the application and middleware, except for the fact that the application is specially built to generate response and send it back to the client, whereas the middleware is built to pass through on the way to and from the application.  Of course, middleware can return result before the request arrives the application.
 
-![](/images/posts/20160604-add-identity-4.png)
+    If we are using IIS, the application is very similar to HTTP handler.
 
-### Configuration ###
-Create Startup.cs file in the root. 
+The workflow of Katana is:
 
-![](/images/posts/20160604-add-identity-5.png)
+1. Host starts up the application
+1. client sends a http request to Server
+1. Server takes the incoming HTTP request, parses it and breaks it into smaller pieces. Then, server takes pieces and puts them into dictionary of type string objects. 
+1. Server then passes the environment dictionary to the first middleware in the pipeline of middleware components.
+1. Middleware inspects the dictionary and makes whatever changes it is supposed to do based on the information inside the dictionary. Then, pass the dictionary on to the next middleware in the pipeline untile it reaches the application.
+1. Application generates a response based on the information in the dictionary by setting response header and writing result to the response stream. Then send it back to the client if we do not specify middleware to handle respone. otherwire, application passes the dictionary including response to the last middleware in the pipeline.
+1. Optional, middleware can do what it supposes to do, then pass the dictionary back to previous middleware until the beginning of the pipeline. Please note that middleware cannot make any changes to the response headers for return inteception and it can only append things to the response stream. 
+1. Once the dictionary reaches the beginning of the pipeline, the server is notified of the completion of the processing, then server sends response to the client and closes the connection.
 
-	[assembly: OwinStartupAttribute(typeof(IdentityDemo.Startup))]
-	namespace IdentityDemo
-	{
-	    
-	    public class Startup
-	    {
-	        public void Configuration(IAppBuilder app)
-	        {
-	        }
-	    }
-	}
+Please note that in most cases we use web framework to wrap up the pipeline of middlewares and application.
+    ![](/images/posts/20180524-owin-6.png)
 
-Restart project, we will see the success message as previous.
+# Create a OWIN based application #
+1. Create a new empty web application
+    ![](/images/posts/20180524-owin-7.png)
 
-![](/images/posts/20160604-create-mvc-project-10.png)
+    ![](/images/posts/20180524-owin-8.png)
 
-Identity component is added successfully.
+    ![](/images/posts/20180524-owin-9.png)
 
-## Add a basic add user feature ##
+1. Install `Microsoft.Owin.Host.SystemWeb` package
 
-Add connection string in the Web.config, connection name is IdentityDemo
-	
-	<connectionStrings>
-    	<add connectionString="Data Source=(local); Initial Catalog=IdentityDemo; MultipleActiveResultSets=true; Integrated Security=true;" name="IdentityContext" providerName="System.Data.SqlClient"/>
-	</connectionStrings>
+    ![](/images/posts/20180524-owin-10.png)
 
-Modify HomeController.cs
+1. Create Startup.cs in the root to start up OWIN-based application. By default, it requires a public void method Configuration()
 
-	   	[HttpGet]
-		public async Task<IHttpActionResult> User()
-		{
-		    var db = new IdentityDbContext<IdentityUser>("IdentityContext");
-		    var store = new UserStore<IdentityUser>(db);
-		    var manager = new UserManager<IdentityUser>(store);
-		    var email = "andy@gmail.com";
-		    var password = "Pass123";
-		    var user = await manager.FindByEmailAsync(email); 
-		    if (user == null)
-		    {
-		        user = new IdentityUser
-		        {
-		            UserName = email,
-		            Email = email
-		        };
-		        await manager.CreateAsync(user, password);
-		    }
-		    return Json("Create user successfully");
-		}
-
-Please note that by default, password should compost of Upper case, lower case and digits.
-
-![](/images/posts/20160604-add-identity-6.png)
-
-Start project and access this method, we get the success message
-
-![](/images/posts/20160604-add-identity-7.png)
-
-Open Sql Server Management Studio, we will find the IdentityDemo database was created and a new user is inserted.
-
-![](/images/posts/20160604-add-identity-8.png)
-
-## Customize user ##
-
-Create Models folder, add User class which inherits IdentityUser
-
-	public class User : IdentityUser
+```
+    public partial class Startup
     {
-        public string Skype { get; set; }
-        public double Salary { get; set; }
+        public void Configuration(IAppBuilder app)
+        {
+            app.Use(async (context, next) =>
+            {
+                await context.Response.WriteAsync("Hello !");
+            });
+        }
     }
 
-Modify previous code, replace IdentityUser with User
+```
+# Create a middleware #
 
-	public async Task<ActionResult> User()
-        {
-            var db = new IdentityDbContext<User>("IdentityContext");
-            var store = new UserStore<User>(db);
-            var manager = new UserManager<User>(store);
-            var email = "andy@gmail.com";
-            var password = "Pass123";
-            var user = await manager.FindByEmailAsync(email);
-            if (user == null)
-            {
-                user = new User
-                {
-                    UserName = email,
-                    Email = email,
-                    Skype = "andy@skype.com",
-                    Salary = 3000
-                };
-                await manager.CreateAsync(user, password);
-            }
-            return Content("Create user successfully");
-        }
+# Integrate frameworks #
+## Integrate Web Api 
+## Integrate .NET MVC
 
-Drop the database, restart the application
+# Integrate identity
 
-Now the database will be recreated and the customized columns appear
+# FAQ
+1. Could not load file or assembly 'Microsoft.AI.Web' or one of its dependencies
 
-![](/images/posts/20160604-add-identity-9.png)
+    ![](/images/posts/20180524-owin-11.png)
 
-# Reference #
-[https://blog.jayway.com/2014/09/25/securing-asp-net-web-api-endpoints-using-owin-oauth-2-0-and-claims/](https://blog.jayway.com/2014/09/25/securing-asp-net-web-api-endpoints-using-owin-oauth-2-0-and-claims/)
+    Solution: Install nuget: `Install-Package Microsoft.ApplicationInsights.Web`
+
+2. Could not load file or assembly 'Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5' or one of its dependencies.
+
+    ![](/images/posts/20180524-owin-12.png)
+
+    Solution: the project name cannot be OWIN and it conflicts with Katana naming
+    
+# References
+[OWIN](http://owin.org)
+[An Overview of Project Katana](https://docs.microsoft.com/en-us/aspnet/aspnet/overview/owin-and-katana/an-overview-of-project-katana)
