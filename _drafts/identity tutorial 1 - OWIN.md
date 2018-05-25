@@ -79,7 +79,7 @@ The workflow of Katana is:
 1. Server then passes the environment dictionary to the first middleware in the pipeline of middleware components.
 1. Middleware inspects the dictionary and makes whatever changes it is supposed to do based on the information inside the dictionary. Then, pass the dictionary on to the next middleware in the pipeline untile it reaches the application.
 1. Application generates a response based on the information in the dictionary by setting response header and writing result to the response stream. Then send it back to the client if we do not specify middleware to handle respone. otherwire, application passes the dictionary including response to the last middleware in the pipeline.
-1. Optional, middleware can do what it supposes to do, then pass the dictionary back to previous middleware until the beginning of the pipeline. Please note that middleware cannot make any changes to the response headers for return inteception and it can only append things to the response stream. 
+1. Optional, middleware can do what it supposes to do, then pass the dictionary back to previous middleware until the beginning of the pipeline. Please note that middleware cannot make any changes to the response headers for return inteception and it can only append things to the response body stream. 
 1. Once the dictionary reaches the beginning of the pipeline, the server is notified of the completion of the processing, then server sends response to the client and closes the connection.
 
 Please note that in most cases we use web framework to wrap up the pipeline of middlewares and application.
@@ -112,7 +112,41 @@ Please note that in most cases we use web framework to wrap up the pipeline of m
     }
 
 ```
+We get
+    ![](/images/posts/20180524-owin-13.png)
+
 # Create a middleware #
+Owin.dll contains a method
+    `IAppBuilder.Use(object middleware, params object[] args)`
+
+It takes a middleware implementation object and optional data arguments for middleware. The object middleware can be a delegate reference to a middleware implementation method or inline middleware implementation. 
+
+1. Inline implementation
+
+    ```
+        public partial class Startup
+        {
+            public void Configuration(IAppBuilder app)
+            {
+                app.Use(async (context, next) =>
+                {
+                    Debug.WriteLine("Incoming request: " + context.Request.Path);
+                    await next();
+                    Debug.WriteLine("Output response: " + context.Request.Path);
+                });
+                app.Use(async (context, next) =>
+                {
+                    await context.Response.WriteAsync("Hello !");
+                });
+            }
+        }
+
+    ```
+    We get
+    ![](/images/posts/20180524-owin-13.png)
+    ![](/images/posts/20180524-owin-14.png)
+
+1. 
 
 # Integrate frameworks #
 ## Integrate Web Api 
@@ -132,7 +166,7 @@ Please note that in most cases we use web framework to wrap up the pipeline of m
     ![](/images/posts/20180524-owin-12.png)
 
     Solution: the project name cannot be OWIN and it conflicts with Katana naming
-    
+
 # References
 [OWIN](http://owin.org)
 [An Overview of Project Katana](https://docs.microsoft.com/en-us/aspnet/aspnet/overview/owin-and-katana/an-overview-of-project-katana)
