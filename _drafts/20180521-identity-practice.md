@@ -6,7 +6,7 @@ output: word_document
 ---
 
 # Introduction
-## Major challenges
+## Authentication challenges
 Authentication microservice is the fundamentals in tweebaa ecosystem and it determines which users are allowed to access the system components. Tweebaa platform consists of web portal and mobile app, therefore, the first challenge of Authentication microservice is how to effectively authenticate users for multile applications. Also, since the platform is open and extensible, the second issue is how to integrate external third-party services.
 
 Major issues:

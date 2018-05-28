@@ -112,6 +112,8 @@ Please note that in most cases we use web framework to wrap up the pipeline of m
     }
 
 ```
+run F5, start in DEBUG mode
+
 We get
     ![](/images/posts/20180524-owin-13.png)
 
@@ -146,13 +148,373 @@ It takes a middleware implementation object and optional data arguments for midd
     ![](/images/posts/20180524-owin-13.png)
     ![](/images/posts/20180524-owin-14.png)
 
-1. 
+1. External implementation 1
+
+    ```
+        public class GenericMiddleware 
+        {
+            AppFunc _next;
+            public GenericMiddleware(AppFunc next) {
+                _next = next;
+            }
+            
+            public async Task Invoke(IDictionary<string, object> environment)
+            {
+                Debug.WriteLine("generic middleware begins");
+                await this._next(environment);
+                Debug.WriteLine("generic middleware ends");
+            }
+        }
+    ```
+
+1. External implementation 2
+
+    ```
+        public class KatanaMiddleware : OwinMiddleware
+        {
+            public KatanaMiddleware(OwinMiddleware next) : base(next)
+            {
+            }
+
+            public override async Task Invoke(IOwinContext context)
+            {
+                Debug.WriteLine("katana midware begins");
+                await this.Next.Invoke(context);
+                Debug.WriteLine("katana midware ends");
+            }
+    }
+    ```
+
+1. Update `Startup.cs`
+
+    ```
+        public void Configuration(IAppBuilder app)
+        {
+            app.Use(async (context, next) =>
+            {
+                Debug.WriteLine("Incoming request: " + context.Request.Path);
+                await next();
+                Debug.WriteLine("Output response: " + context.Request.Path);
+            });
+            app.Use<GenericMiddleware>();
+            app.Use<KatanaMiddleware>();
+            app.Use(async (context, next) =>
+            {
+                await context.Response.WriteAsync("Hello !");
+            });
+        }
+    ```
+    we will get
+
+    ![](/images/posts/20180524-owin-15.png)
 
 # Integrate frameworks #
 ## Integrate Web Api 
-## Integrate .NET MVC
+1. Install web api package
 
-# Integrate identity
+    `Install-Package Microsoft.AspNet.WebApi.Owin`
+
+    package.json will be upated:
+
+    ```
+    <?xml version="1.0" encoding="utf-8"?>
+    <packages>
+    <package id="Microsoft.AspNet.WebApi.Client" version="5.2.6" targetFramework="net452" />
+    <package id="Microsoft.AspNet.WebApi.Core" version="5.2.6" targetFramework="net452" />
+    <package id="Microsoft.AspNet.WebApi.Owin" version="5.2.6" targetFramework="net452" />
+    <package id="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" version="1.0.0" targetFramework="net452" />
+    <package id="Microsoft.Net.Compilers" version="1.0.0" targetFramework="net452" developmentDependency="true" />
+    <package id="Microsoft.Owin" version="4.0.0" targetFramework="net452" />
+    <package id="Microsoft.Owin.Host.SystemWeb" version="4.0.0" targetFramework="net452" />
+    <package id="Newtonsoft.Json" version="6.0.4" targetFramework="net452" />
+    <package id="Owin" version="1.0" targetFramework="net452" />
+    </packages>
+
+    ```
+
+1. Add a new controller:
+
+    ```
+        [RoutePrefix("api")]
+        public class WebApiController : ApiController
+        {
+            [Route("hello")]
+            [HttpGet]
+            public IHttpActionResult Hello()
+            {
+                return Content(HttpStatusCode.OK, "hello from webapi");
+            }
+        }
+    ```
+
+1. Register web api in the owin pipeline in Startup.cs
+
+        public void Configuration(IAppBuilder app)
+        {
+            // register webapi
+            var config = new HttpConfiguration();
+            config.MapHttpAttributeRoutes();
+            app.UseWebApi(config);
+            // middlewares
+            ...
+        }
+
+    we will get
+
+    ![](/images/posts/20180524-owin-16.png)
+
+## Integrate .NET MVC
+1. Install web api package
+
+    `Install-Package Microsoft.AspNet.Mvc`
+
+    package.json was updated:
+
+    ```
+        <?xml version="1.0" encoding="utf-8"?>
+        <packages>
+        <package id="Microsoft.AspNet.Mvc" version="5.2.6" targetFramework="net452" />
+        <package id="Microsoft.AspNet.Razor" version="3.2.6" targetFramework="net452" />
+        <package id="Microsoft.AspNet.WebApi.Client" version="5.2.6" targetFramework="net452" />
+        <package id="Microsoft.AspNet.WebApi.Core" version="5.2.6" targetFramework="net452" />
+        <package id="Microsoft.AspNet.WebApi.Owin" version="5.2.6" targetFramework="net452" />
+        <package id="Microsoft.AspNet.WebPages" version="3.2.6" targetFramework="net452" />
+        <package id="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" version="1.0.0" targetFramework="net452" />
+        <package id="Microsoft.Net.Compilers" version="1.0.0" targetFramework="net452" developmentDependency="true" />
+        <package id="Microsoft.Owin" version="4.0.0" targetFramework="net452" />
+        <package id="Microsoft.Owin.Host.SystemWeb" version="4.0.0" targetFramework="net452" />
+        <package id="Microsoft.Web.Infrastructure" version="1.0.0.0" targetFramework="net452" />
+        <package id="Newtonsoft.Json" version="6.0.4" targetFramework="net452" />
+        <package id="Owin" version="1.0" targetFramework="net452" />
+        </packages>
+
+    ```
+
+1. Add controller and view 
+
+    ```
+    public class MvcController : Controller
+    {
+        // GET: Mvc
+        public ActionResult Index()
+        {
+            return View();
+        }
+    }
+
+    ```
+
+    ```
+    @inherits System.Web.Mvc.WebViewPage
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Index</title>
+    </head>
+    <body>
+    <div>
+        <h1>Hello from mvc</h1>
+    </div>
+    </body>
+    </html>
+
+    ```
+
+1. Due to ASP.NET MVC couldn't live with inside of the OWIN pipeline, we need to integrate beyond OWIN Startup.cs configuration.
+
+    root > add global.asax
+
+    ```
+    public class Global : System.Web.HttpApplication
+    {
+        protected void Application_Start(object sender, EventArgs e)
+        {
+            RouteTable.Routes.MapRoute(name: "Default"
+                , url: "{controller}/{action}"
+                , defaults: new { controller = "Mvc", action = "Index" });
+        }
+        ...
+    }
+
+    ```
+
+1. we need to disable OWIN middleware returns any response so that ASP.NET MVC can handle request.
+
+    ```
+    public partial class Startup
+    {
+        public void Configuration(IAppBuilder app)
+        {
+            // register webapi
+            var config = new HttpConfiguration();
+            config.MapHttpAttributeRoutes();
+            app.UseWebApi(config);
+            // external middleware
+            app.Use<GenericMiddleware>();
+            // external middleware
+            app.Use<KatanaMiddleware>();
+            // disable owin middleware returns result so that mvc can respond to request
+            //app.Use(async (context, next) =>
+            //{
+            //    await context.Response.WriteAsync("Hello !");
+            //});
+        }
+    }
+    ```
+
+1. run will get
+
+    ![](/images/posts/20180524-owin-18.png)
+
+# Add identity cookie authentication
+1. Add a new secret controller
+    ```
+    [Authorize]
+    public class SecretController : Controller
+    {
+        // GET: Secret
+        public ActionResult Index()
+        {
+            return View();
+        }
+    }
+    ```
+    index view:
+    ```
+    @inherits System.Web.Mvc.WebViewPage
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Index</title>
+    </head>
+    <body>
+        <div>
+            <h1>I am secret</h1>
+        </div>
+    </body>
+    </html>
+    ```
+1. Add a login controller
+    ```
+    public class AccountController : Controller
+    {
+        // GET: Account
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Login(LoginModel model)
+        {
+            if (model.Username == "admin" && model.Password == "admin")
+            {
+                var identity = new ClaimsIdentity("ApplicationCookie");
+                identity.AddClaims(new List<Claim>()
+                {
+                    new Claim(ClaimTypes.NameIdentifier, model.Username),
+                    new Claim(ClaimTypes.Name, model.Username)
+                });
+                HttpContext.GetOwinContext().Authentication.SignIn(identity);
+            }
+            return View();
+        }
+    }
+    ```
+    login model
+    ```
+    public class LoginModel
+    {
+        public string Username { get; set; }
+        public string Password { get; set; }
+    }
+    ```
+
+    login view
+    ```
+    @inherits System.Web.Mvc.WebViewPage<OwinDemo.Models.LoginModel>
+    @using System.Web.Mvc.Html;
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Login</title>
+    </head>
+    <body>
+        <div>
+            @using (var form = Html.BeginForm())
+            {
+                <div>
+                    @Html.LabelFor(x => x.Username)
+                    @Html.TextBoxFor(x => x.Username)
+                </div>
+                <div>
+                    @Html.LabelFor(x => x.Password)
+                    @Html.TextBoxFor(x => x.Password)
+                </div>
+                <div>
+                    <input type="submit" name="name" value="Login" />
+                </div>
+            }
+        </div>
+    </body>
+    </html>
+    ```
+1. Add cookie authentication middleware
+    `Install-Package microsoft.owin.security.cookies`
+
+    two libs will be added to package.json
+
+    ```
+    <package id="Microsoft.Owin.Security" version="4.0.0" targetFramework="net452" />
+    <package id="Microsoft.Owin.Security.Cookies" version="4.0.0" targetFramework="net452" />
+    ```
+
+    Update Startup.cs
+    ```
+    public partial class Startup
+    {
+        public void Configuration(IAppBuilder app)
+        {
+            // cookie authentication 
+            app.UseCookieAuthentication(new Microsoft.Owin.Security.Cookies.CookieAuthenticationOptions()
+            {
+                AuthenticationType = "ApplicationCookie",
+                LoginPath = new PathString("/account/login")
+            });
+            // register webapi
+            var config = new HttpConfiguration();
+            config.MapHttpAttributeRoutes();
+            app.UseWebApi(config);
+        }
+    }
+    ```
+
+1. run the app
+    navigate to /secret, it will redirect to login page
+    ![](/images/posts/20180524-owin-19.png)
+
+    enter admin/admin, will display the result
+     ![](/images/posts/20180524-owin-20.png)
+   
+# Add facebook authentication
+1. register facebook developer, get id and secret
+
+1. Add owin facebook provider
+
+    install package
+    `Install-package microsoft.owin.security.facebook`
+
+    ```
+    app.UseFacebookAuthentication(
+       appId: "",
+       appSecret: "");
+    ```
+1. Configure middle ware with id and secret
+
+1. Create login challenge()
 
 # FAQ
 1. Could not load file or assembly 'Microsoft.AI.Web' or one of its dependencies
@@ -166,6 +528,14 @@ It takes a middleware implementation object and optional data arguments for midd
     ![](/images/posts/20180524-owin-12.png)
 
     Solution: the project name cannot be OWIN and it conflicts with Katana naming
+
+1. Server cannot append header after HTTP headers have been sent.
+
+    ![](/images/posts/20180524-owin-17.png)
+
+    reason : mvc wants to take the request over but owin middleware returns response as well. Both of them returns response and they conflicts
+
+    solution: disable either of them
 
 # References
 [OWIN](http://owin.org)
