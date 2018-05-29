@@ -1,207 +1,8 @@
 ---
 layout: post
-title: ASP.NET Identity authentication 3 - add identity framework to web api
+title: ASP.NET Identity authentication 4 - add token-based authentication
 author: Andy Feng
 ---
-
-# Introduction #
-There are basically two different ways of implementing server side authentication for apps with a frontend and an API:
-
-The most common one, is Cookie-Based Authentication that uses server side cookies to authenticate the user on every request.
-
-A newer approach, Token-Based Authentication, relies on a signed token that is sent to the server on each request.
-
-# Outline #
-- Create web api project
-- Add identity support
-- Add a basic add user feature
-- Add token-based authentication
-
-# Create web api project #
-## create new empty web application ##
-
-![](/images/20160604-create-project-1.png)
-
-![](/images/20160604-create-mvc-project-2.png)
-
-![](/images/20160604-create-mvc-project-3.png)
-
-## Add webapi support ##
-Open nuget, install webapi.core, webapi, webapi cors library
-
-![](/images/20160612-create-webapi-project-1.png)
-
-Create App_Start folder, create WebApiConfig.cs file under this folder. Also, create global.asax file
-
-![](/images/20160612-create-webapi-project-2.png)
-
-![](/images/20160612-create-webapi-project-3.png)
-
-## quick test ##
-
-Add Controllers folder, create a new Controller class, HomeController.cs
-
-![](/images/20160612-create-webapi-project-4.png)
-
-Start project, succeed
-
-![](/images/20160612-create-webapi-project-5.png)
-
-# Add identity support #
-
-## add libraries ##
-
-Open nuget, install microsoft.owin.host.systemweb library. It install Owin lib as well
-
-![](/images/20160604-add-identity-1.png)
-
-Install owin basic security libs: Microsoft.Owin.Security, Microsoft.Owin.Security.OAuth, Microsoft.Owin.Security.Cookies library
-
-![](/images/20160604-add-identity-2.png)
-
-Install identity packages, include Microsoft.AspNet.Identity.Core, Microsoft.AspNet.Identity.Owin, Microsoft.AspNet.Identity.EntityFramework
-
-![](/images/20160604-add-identity-3.png)
-
-Now, start the project we will get errors. It means we need to configure Owin
-
-![](/images/20160604-add-identity-4.png)
-
-## Configuration ##
-Create Startup.cs file. 
-
-![](/images/20160604-add-identity-5.png)
-
-	[assembly: OwinStartupAttribute(typeof(IdentityDemo.Startup))]
-	namespace IdentityDemo
-	{
-	    
-	    public partial class Startup
-	    {
-	        public void Configuration(IAppBuilder app)
-	        {
-	        }
-	    }
-	}
-
-Restart project, we will see the success message as previous.
-
-![](/images/20160604-create-mvc-project-10.png)
-
-Identity component is added successfully.
-
-# Add a basic add user feature #
-
-Add connection string in the Web.config, connection name is IdentityDemo
-	
-	<connectionStrings>
-    	<add connectionString="Data Source=(local); Initial Catalog=IdentityDemo; MultipleActiveResultSets=true; Integrated Security=true;" name="IdentityContext" providerName="System.Data.SqlClient"/>
-	</connectionStrings>
-
-Modify HomeController.cs
-
-	   public async Task<IHttpActionResult> User()
-	    {
-	        var db = new IdentityDbContext<IdentityUser>("IdentityContext");
-	        var store = new UserStore<IdentityUser>(db);
-	        var manager = new UserManager<IdentityUser>(store);
-	        var email = "andy@gmail.com";
-	        var password = "Pass123";
-	        var user = await manager.FindByEmailAsync(email);
-	        if (user == null)
-	        {
-	            user = new IdentityUser
-	            {
-	                UserName = email,
-	                Email = email
-	            };
-	            await manager.CreateAsync(user, password);
-	        }
-	        return Ok("Create user successfully");
-	    }
-
-Please note that by default, password should compost of Upper case, lower case and digits.
-
-![](/images/20160604-add-identity-6.png)
-
-Start project and access this method, we get the success message
-
-![](/images/20160604-add-identity-7.png)
-
-Open Sql Server Management Studio, we will find the IdentityDemo database was created and a new user is inserted.
-
-![](/images/20160604-add-identity-8.png)
-
-## Customize data models ##
-
-Create Models folder
-
-add User class which inherits IdentityUser
-
-	public class ApplicationUser : IdentityUser
-    {
-        public string Skype { get; set; }
-        public double Salary { get; set; }
-    }
-
-add ApplicationRole:
-
-    public class ApplicationRole : IdentityRole
-    {
-    }	
-
-add ApplicationDbContext:
-
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
-    {
-        public ApplicationDbContext()
-            : base("IdentityContext", throwIfV1Schema: false)
-        {
-        }
-        public static ApplicationDbContext Create()
-        {
-            return new ApplicationDbContext();
-        }
-    }
-
-add ApplicationUserManager:
-
-    public class ApplicationUserManager : UserManager<ApplicationUser>
-    {
-        public ApplicationUserManager(IUserStore<ApplicationUser> store) : base(store)
-        {
-        }
-    }
-
-Modify previous code, replace IdentityUser with User
-
-	public async Task<IHttpActionResult> User()
-        {
-            var db = new ApplicationDbContext();
-            var store = new UserStore<ApplicationUser>(db);
-            var manager = new ApplicationUserManager(store);
-            var email = "andy@gmail.com";
-            var password = "Pass123";
-            var user = await manager.FindByEmailAsync(email);
-            if (user == null)
-            {
-                user = new ApplicationUser
-                {
-                    UserName = email,
-                    Email = email
-                };
-                await manager.CreateAsync(user, password);
-            }
-            return Ok("Create user successfully");
-        }
-
-Drop the database, restart the application
-
-Now the database will be recreated and the customized columns appear
-
-![](/images/20160604-add-identity-9.png)
-
-# Add token-based authentication #
 
 ## Add/update data objects ##
 
@@ -399,6 +200,175 @@ Now the database will be recreated and the customized columns appear
 		    }
 		}
 
+1. Create Providers > ApplicationOAuthProvider.cs
+
+	...
+
+
+1. Create Providers > ApplicationRefreshTokenProvider.cs
+
+		using Microsoft.Owin.Security;
+		using Microsoft.Owin.Security.Infrastructure;
+		using System;
+		using System.Collections.Concurrent;
+		using System.Threading.Tasks;
+		using Utility;
+		
+		namespace WebApi.Providers
+		{
+		    public class ApplicationRefreshTokenProvider : AuthenticationTokenProvider
+		    {
+		        public override void Create(AuthenticationTokenCreateContext context)
+		        {
+		            //// Expiration time in seconds
+		            //int expire = Settings.REFRESH_TOKEN_EXPIRATION_MINUTES * 60;
+		            //context.Ticket.Properties.IssuedUtc = DateTime.Now;
+		            //context.Ticket.Properties.ExpiresUtc = new DateTimeOffset(DateTime.Now.AddSeconds(expire));
+		            //context.SetToken(context.SerializeTicket());
+		            //base.Create(context);
+		        }
+		        private static ConcurrentDictionary<string, AuthenticationTicket> _refreshTokens = new ConcurrentDictionary<string, AuthenticationTicket>();
+		        public override Task CreateAsync(AuthenticationTokenCreateContext context)
+		        {
+		            //// Expiration time in seconds
+		            //int expire = Settings.REFRESH_TOKEN_EXPIRATION_MINUTES * 60;
+		            //context.Ticket.Properties.IssuedUtc = DateTime.Now;
+		            //context.Ticket.Properties.ExpiresUtc = new DateTimeOffset(DateTime.Now.AddSeconds(expire));
+		            //context.SetToken(context.SerializeTicket());
+		            //return base.CreateAsync(context);
+		
+		            var guid = Guid.NewGuid().ToString();
+		
+		            // copy all properties and set the desired lifetime of refresh token  
+		            var refreshTokenProperties = new AuthenticationProperties(context.Ticket.Properties.Dictionary)
+		            {
+		                IssuedUtc = context.Ticket.Properties.IssuedUtc,
+		                ExpiresUtc = DateTime.UtcNow.AddSeconds(Settings.REFRESH_TOKEN_EXPIRATION_SECONDS)
+		            };
+		            var refreshTokenTicket = new AuthenticationTicket(context.Ticket.Identity, refreshTokenProperties);
+		
+		            _refreshTokens.TryAdd(guid, refreshTokenTicket);
+		
+		            // consider storing only the hash of the handle  
+		            context.SetToken(guid);
+		            return base.CreateAsync(context);
+		        }
+		
+		        public override void Receive(AuthenticationTokenReceiveContext context)
+		        {
+		            //context.DeserializeTicket(context.Token);
+		            //base.Receive(context);
+		        }
+		
+		        public override Task ReceiveAsync(AuthenticationTokenReceiveContext context)
+		        {
+		            //context.DeserializeTicket(context.Token);
+		            //return base.ReceiveAsync(context);
+		
+		            AuthenticationTicket ticket;
+		            string header = context.OwinContext.Request.Headers["Authorization"];
+		
+		            if (_refreshTokens.TryRemove(context.Token, out ticket))
+		            {
+		                context.SetTicket(ticket);
+		            }
+		            return base.ReceiveAsync(context);
+		        }
+		    }
+		}
+
+
+1. Add root > Startup.cs 
+
+		using Microsoft.Owin;
+		using Owin;
+		
+		[assembly: OwinStartupAttribute(typeof(WebApi.Startup))]
+		namespace WebApi
+		{
+		    public partial class Startup
+		    {
+		        public void Configuration(IAppBuilder app)
+		        {
+		            //enable cors
+		            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+		
+		            ConfigureAuth(app);
+		        }
+		    }
+		}
+
+1. Add App_Start > Startup.Auth.cs
+
+		using Microsoft.Owin;
+		using Microsoft.Owin.Security.OAuth;
+		using Owin;
+		using System;
+		using Utility;
+		using WebApi.Models;
+		using WebApi.Providers;
+		
+		namespace WebApi
+		{
+		    public partial class Startup
+		    {
+		        public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
+		
+		        public static string PublicClientId { get; private set; }
+		
+		        // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
+		        public void ConfigureAuth(IAppBuilder app)
+		        {
+		            // Configure the db context and user manager to use a single instance per request
+		            app.CreatePerOwinContext(ApplicationDbContext.Create);
+		            app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
+		            app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
+		
+		            // Enable the application to use a cookie to store information for the signed in user
+		            // and to use a cookie to temporarily store information about a user logging in with a third party login provider
+		            //app.UseCookieAuthentication(new CookieAuthenticationOptions());
+		            //app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+		
+		            // Configure the application for OAuth based flow
+		            PublicClientId = "self";
+		            OAuthOptions = new OAuthAuthorizationServerOptions
+		            {
+		                TokenEndpointPath = new PathString("/Token"),
+		                Provider = new ApplicationOAuthProvider(PublicClientId),
+		                //AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
+		                AccessTokenExpireTimeSpan = TimeSpan.FromSeconds(Settings.ACCESS_TOKEN_EXPIRATION_SECONDS),
+		                // In production mode set AllowInsecureHttp = false
+		                AllowInsecureHttp = true,
+		                //
+		                RefreshTokenProvider = new ApplicationRefreshTokenProvider()
+		            };
+		
+		            // Enable the application to use bearer tokens to authenticate users
+		            app.UseOAuthBearerTokens(OAuthOptions);
+		
+		            // Uncomment the following lines to enable logging in with third party login providers
+		            //app.UseMicrosoftAccountAuthentication(
+		            //    clientId: "",
+		            //    clientSecret: "");
+		
+		            //app.UseTwitterAuthentication(
+		            //    consumerKey: "",
+		            //    consumerSecret: "");
+		
+		            //app.UseFacebookAuthentication(
+		            //    appId: "",
+		            //    appSecret: "");
+		
+		            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+		            //{
+		            //    ClientId = "",
+		            //    ClientSecret = ""
+		            //});
+		        }
+		    }
+		}
+
+# Add active directory authentication support
 1. Create Providers > ActiveDirectoryDataProvider.cs
 
 		using System;
@@ -455,7 +425,7 @@ Now the database will be recreated and the customized columns appear
 		    }
 		}
 
-1. Create Providers > ApplicationOAuthProvider.cs
+1. Update Providers > ApplicationOAuthProvider.cs with ActiveDirectory data provider
 
 		using Microsoft.AspNet.Identity.Owin;
 		using Microsoft.Owin.Security;
@@ -580,83 +550,13 @@ Now the database will be recreated and the customized columns appear
 		    }
 		}
 
-1. Create Providers > ApplicationRefreshTokenProvider.cs
+# webapi + owin
+web api can integrated with OWIN pipeline
 
-		using Microsoft.Owin.Security;
-		using Microsoft.Owin.Security.Infrastructure;
-		using System;
-		using System.Collections.Concurrent;
-		using System.Threading.Tasks;
-		using Utility;
-		
-		namespace WebApi.Providers
-		{
-		    public class ApplicationRefreshTokenProvider : AuthenticationTokenProvider
-		    {
-		        public override void Create(AuthenticationTokenCreateContext context)
-		        {
-		            //// Expiration time in seconds
-		            //int expire = Settings.REFRESH_TOKEN_EXPIRATION_MINUTES * 60;
-		            //context.Ticket.Properties.IssuedUtc = DateTime.Now;
-		            //context.Ticket.Properties.ExpiresUtc = new DateTimeOffset(DateTime.Now.AddSeconds(expire));
-		            //context.SetToken(context.SerializeTicket());
-		            //base.Create(context);
-		        }
-		        private static ConcurrentDictionary<string, AuthenticationTicket> _refreshTokens = new ConcurrentDictionary<string, AuthenticationTicket>();
-		        public override Task CreateAsync(AuthenticationTokenCreateContext context)
-		        {
-		            //// Expiration time in seconds
-		            //int expire = Settings.REFRESH_TOKEN_EXPIRATION_MINUTES * 60;
-		            //context.Ticket.Properties.IssuedUtc = DateTime.Now;
-		            //context.Ticket.Properties.ExpiresUtc = new DateTimeOffset(DateTime.Now.AddSeconds(expire));
-		            //context.SetToken(context.SerializeTicket());
-		            //return base.CreateAsync(context);
-		
-		            var guid = Guid.NewGuid().ToString();
-		
-		            // copy all properties and set the desired lifetime of refresh token  
-		            var refreshTokenProperties = new AuthenticationProperties(context.Ticket.Properties.Dictionary)
-		            {
-		                IssuedUtc = context.Ticket.Properties.IssuedUtc,
-		                ExpiresUtc = DateTime.UtcNow.AddSeconds(Settings.REFRESH_TOKEN_EXPIRATION_SECONDS)
-		            };
-		            var refreshTokenTicket = new AuthenticationTicket(context.Ticket.Identity, refreshTokenProperties);
-		
-		            _refreshTokens.TryAdd(guid, refreshTokenTicket);
-		
-		            // consider storing only the hash of the handle  
-		            context.SetToken(guid);
-		            return base.CreateAsync(context);
-		        }
-		
-		        public override void Receive(AuthenticationTokenReceiveContext context)
-		        {
-		            //context.DeserializeTicket(context.Token);
-		            //base.Receive(context);
-		        }
-		
-		        public override Task ReceiveAsync(AuthenticationTokenReceiveContext context)
-		        {
-		            //context.DeserializeTicket(context.Token);
-		            //return base.ReceiveAsync(context);
-		
-		            AuthenticationTicket ticket;
-		            string header = context.OwinContext.Request.Headers["Authorization"];
-		
-		            if (_refreshTokens.TryRemove(context.Token, out ticket))
-		            {
-		                context.SetTicket(ticket);
-		            }
-		            return base.ReceiveAsync(context);
-		        }
-		    }
-		}
+1. Install Microsoft.AspNet.WebApi.Owin library
 
-1. Update root > Startup.cs 
+1. Add webapi component as a middleware
 
-		using Microsoft.Owin;
-		using Owin;
-		
 		[assembly: OwinStartupAttribute(typeof(WebApi.Startup))]
 		namespace WebApi
 		{
@@ -664,87 +564,103 @@ Now the database will be recreated and the customized columns appear
 		    {
 		        public void Configuration(IAppBuilder app)
 		        {
-		            //enable cors
+		            // enable cors
 		            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
-		
+		            // add authentication component
 		            ConfigureAuth(app);
+		
+		            // add webapi
+		            HttpConfiguration config = new HttpConfiguration();
+		            config.MapHttpAttributeRoutes();
+		            config.Routes.MapHttpRoute(
+		                name: "DefaultApi",
+		                routeTemplate: "api/{controller}/{id}",
+		                defaults: new { id = RouteParameter.Optional }
+		            );
+		            // add webapi middleware
+		            app.UseWebApi(config); 
 		        }
 		    }
 		}
 
-1. Add App_Start > Startup.Auth.cs
+1. do not include global.asax or App_Start > WebApiConfig 
 
-		using Microsoft.Owin;
-		using Microsoft.Owin.Security.OAuth;
-		using Owin;
-		using System;
-		using Utility;
-		using WebApi.Models;
-		using WebApi.Providers;
-		
+1. Add a webapi controller, test
+
+# autofac + webapi + owin
+
+1. Add libs
+
+	- Autofac
+	- Autofac.Owin
+	- Autofac.WebApi2.Owin
+
+1. Add autofac registration: App_Start > AutofacWebapiConfig.cs
+
+	    public class AutofacWebapiConfig
+	    {
+	        public static ContainerBuilder RegisterServices(ContainerBuilder builder)
+	        {
+	
+	            // register components
+	            builder.RegisterType<ServiceBase>()
+	                .As<IService>()
+	                .AsSelf()
+	                .InstancePerLifetimeScope();
+	            builder.RegisterType<EmployeeService>()
+	                .As<IEmployeeService>()
+	                .AsSelf()
+	                .InstancePerLifetimeScope();
+	            builder.RegisterType<TaskService>()
+	                .As<ITaskService>()
+	                .AsSelf()
+	                .InstancePerLifetimeScope();
+	            return builder;
+	        }
+	    }
+
+1. If autofac need to inject instances to controller, we have to add autofac to webapi
+
+		[assembly: OwinStartupAttribute(typeof(WebApi.Startup))]
 		namespace WebApi
 		{
 		    public partial class Startup
 		    {
-		        public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
-		
-		        public static string PublicClientId { get; private set; }
-		
-		        // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
-		        public void ConfigureAuth(IAppBuilder app)
+		        public void Configuration(IAppBuilder app)
 		        {
-		            // Configure the db context and user manager to use a single instance per request
-		            app.CreatePerOwinContext(ApplicationDbContext.Create);
-		            app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
-		            app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
+		            // enable cors
+		            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+		            // add authentication component
+		            ConfigureAuth(app);
 		
-		            // Enable the application to use a cookie to store information for the signed in user
-		            // and to use a cookie to temporarily store information about a user logging in with a third party login provider
-		            //app.UseCookieAuthentication(new CookieAuthenticationOptions());
-		            //app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+		            // add webapi
+		            HttpConfiguration config = new HttpConfiguration();
+		            config.MapHttpAttributeRoutes();
+		            config.Routes.MapHttpRoute(
+		                name: "DefaultApi",
+		                routeTemplate: "api/{controller}/{id}",
+		                defaults: new { id = RouteParameter.Optional }
+		            );
 		
-		            // Configure the application for OAuth based flow
-		            PublicClientId = "self";
-		            OAuthOptions = new OAuthAuthorizationServerOptions
-		            {
-		                TokenEndpointPath = new PathString("/Token"),
-		                Provider = new ApplicationOAuthProvider(PublicClientId),
-		                //AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
-		                AccessTokenExpireTimeSpan = TimeSpan.FromSeconds(Settings.ACCESS_TOKEN_EXPIRATION_SECONDS),
-		                // In production mode set AllowInsecureHttp = false
-		                AllowInsecureHttp = true,
-		                //
-		                RefreshTokenProvider = new ApplicationRefreshTokenProvider()
-		            };
-		
-		            // Enable the application to use bearer tokens to authenticate users
-		            app.UseOAuthBearerTokens(OAuthOptions);
-		
-		            // Uncomment the following lines to enable logging in with third party login providers
-		            //app.UseMicrosoftAccountAuthentication(
-		            //    clientId: "",
-		            //    clientSecret: "");
-		
-		            //app.UseTwitterAuthentication(
-		            //    consumerKey: "",
-		            //    consumerSecret: "");
-		
-		            //app.UseFacebookAuthentication(
-		            //    appId: "",
-		            //    appSecret: "");
-		
-		            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-		            //{
-		            //    ClientId = "",
-		            //    ClientSecret = ""
-		            //});
+		            // add autofac
+		            var builder = new ContainerBuilder();
+		            // register Web API controller  
+		            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
+		            // setup dependency
+		            var container = AutofacWebapiConfig.RegisterServices(builder).Build();
+		            config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
+		            // add autofac middleware with webapi
+		            app.UseAutofacMiddleware(container);
+		            app.UseAutofacWebApi(config);
+		            // add webapi middleware
+		            app.UseWebApi(config);
 		        }
 		    }
 		}
 
-# add https support #
+# References
+[http://autofac.readthedocs.io/en/latest/integration/aspnet.html](http://autofac.readthedocs.io/en/latest/integration/aspnet.html)
 
-[https://github.com/MikeWasson/LocalAccountsApp](https://github.com/MikeWasson/LocalAccountsApp)
+http://autofac.readthedocs.io/en/latest/integration/webapi.html](http://autofac.readthedocs.io/en/latest/integration/webapi.html)
 
-# Reference #
-[https://github.com/auth0/blog/blob/master/_posts/2014-01-07-angularjs-authentication-with-cookies-vs-token.markdown](https://github.com/auth0/blog/blob/master/_posts/2014-01-07-angularjs-authentication-with-cookies-vs-token.markdown)
+[http://autofac.readthedocs.io/en/latest/integration/owin.html](http://autofac.readthedocs.io/en/latest/integration/owin.html)

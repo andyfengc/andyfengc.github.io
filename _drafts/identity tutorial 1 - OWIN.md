@@ -339,6 +339,8 @@ It takes a middleware implementation object and optional data arguments for midd
 
     ```
 
+    Please note that when web application initializes, global.asax runs before OWIN startup. 
+
 1. we need to disable OWIN middleware returns any response so that ASP.NET MVC can handle request.
 
     ```
@@ -368,7 +370,7 @@ It takes a middleware implementation object and optional data arguments for midd
     ![](/images/posts/20180524-owin-18.png)
 
 # Add identity cookie authentication
-1. Add a new secret controller
+1. Add a new secret controller, modify with [Authorize]
     ```
     [Authorize]
     public class SecretController : Controller
@@ -396,6 +398,11 @@ It takes a middleware implementation object and optional data arguments for midd
     </body>
     </html>
     ```
+
+1. Now, start application and try to access this method
+
+    ![](/images/20160604-add-identity-10.png)
+
 1. Add a login controller
     ```
     public class AccountController : Controller

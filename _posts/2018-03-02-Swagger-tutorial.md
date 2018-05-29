@@ -36,9 +36,11 @@ Here is how we use Swashbuckle
 
 1. Next, we add documentation to endpoints
 
-	project properties > build tab > select the checkbox “XML documentation file:” > get the XML path from Bin folder
+	project properties > build tab > select the checkbox “XML documentation file:” > set the XML path from Bin folder
 
-	![](/images/posts/20180202-swagger-4.png)	
+	![](/images/posts/20180202-swagger-4.png)
+
+	Note that set XML path in both DEBUG and RELEASE mode.
 
 	Now open the Swagger Config file `SwaggerConfig.cs`
 

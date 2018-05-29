@@ -35,10 +35,5 @@ Add Login action method:
             case SignInStatus.LockedOut:
             default:
                 return Content("sign in failed");
-        }
-       
+        }       
     }
-
-## configure webapi ##
-
-Install Microsoft.AspNet.WebApi.Owin library
