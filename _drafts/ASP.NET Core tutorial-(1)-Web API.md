@@ -232,8 +232,6 @@ nuget > install Microsoft.EntityFrameworkCore.SqlServer package
 
 	2. way2, enable in controller
 
-
-
 # Test #
 
 1. run via `dotnet run`
@@ -253,6 +251,18 @@ nuget > install Microsoft.EntityFrameworkCore.SqlServer package
         "isComplete": true
     }
 
+# Add database first entities
+1. Add nuget libraries:
+	```
+	Microsoft.EntityFrameworkCore.SqlServer
+	EntityFrameworkCore.Tools
+	EntityFrameworkCore.SqlServer.Design
+	```
+1. nuget command console
+	`Scaffold-DbContext "Server=(local)\SQLEXPRESS;Database=EFCoreDBFirstDemo;Integrated Security=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Entities`
+
+	it will create a Entities folder with all models from database inside it.
+
 # References #
 [https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api](https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api)
 
@@ -261,3 +271,6 @@ nuget > install Microsoft.EntityFrameworkCore.SqlServer package
 [https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-help-pages-using-swagger?tabs=visual-studio](https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-help-pages-using-swagger?tabs=visual-studio)
 
 [https://docs.microsoft.com/en-us/aspnet/core/security/cors](https://docs.microsoft.com/en-us/aspnet/core/security/cors)
+
+[https://docs.microsoft.com/en-us/aspnet/core/mvc/controllers/filters?view=aspnetcore-2.1](https://docs.microsoft.com/en-us/aspnet/core/mvc/controllers/filters?view=aspnetcore-2.1)
+
