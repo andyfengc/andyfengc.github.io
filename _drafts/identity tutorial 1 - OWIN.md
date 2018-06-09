@@ -40,7 +40,7 @@ Katana is the Microsoft implementation of the OWIN specification and can be self
 The architecture of KATANA is divided into 4 major parts:
 ![](/images/posts/20180524-owin-4.png)
 
-- Host: The host is a process that hosts all of other parts. It can be anything from a simple console application to a windows service or even a traditional IIS. It is responsible for starting everything up. 
+- Host: Manages the process in which the OWIN pipeline runs. The host is a process that hosts all of other parts. It can be anything from a simple console application to a windows service or even a traditional IIS. It is responsible for starting everything up. 
     There are the following three main primary options available for hosting the KATANA based Web Applications:
 
     > IIS Host: IIS hosting is possible with the same process used in ASP.NET that is by using HttpModule and HttpHandler. IIS acts as a server and as a host. If you want to host by ASP.NET, then you need to write the following command in the Package Manager Console:
@@ -50,7 +50,7 @@ The architecture of KATANA is divided into 4 major parts:
     
     > OWIN Host: The OWIN Host is the default hosting server of any web applications. The developer can use this default server rather then using the custom host. OwinHost.exe is used in a KATANA component for hosting. 
 
-- Server: The Server responds to any request from any client and sends back response. Sepcifically, the server opens a network socket, listens for requests and sends through the OWIN-pipeline, then invokes the right services and returns response. There are two main implementations of servers of a KATANA project as in the following:
+- Server: Opens a network socket and listens for requests. The Server responds to any request from any client and sends back response. Sepcifically, the server opens a network socket, listens for requests and sends through the OWIN-pipeline, then invokes the right services and returns response. There are two main implementations of servers of a KATANA project as in the following:
 
     `Microsoft.Owin.Host.SystemWeb` - The SystemWeb registers both ASP.NET HttpModule and HttpHandler to ambush requests so that then the stream is sent through the HTTP pipeline and sent through the OWIN pipeline that is specified by the user.
     
@@ -58,7 +58,7 @@ The architecture of KATANA is divided into 4 major parts:
 
     In IIS, Host and Server are the same thing. However, treading them as two separate pieces gives us more flexibility when we're buidling our solutions.
 
-- Middleware: When any server gets a client request, it passes through a pipeline consists of OWIN components. The OWIN components are defined in the startup code of the developer's application. The pipeline components are called Middleware.
+- Middleware: Processes the HTTP request and response via a pipeline. When any server gets a client request, it passes through a pipeline consists of OWIN components. The OWIN components are defined in the startup code of the developer's application. The pipeline components are called Middleware.
     The OWIN application delegate is implemented by the OWIN middleware components so that it is callable as in the following:
 
     `Func<IDictionary<string, object>, Task>`
