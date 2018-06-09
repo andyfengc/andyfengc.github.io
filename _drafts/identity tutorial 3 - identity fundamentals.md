@@ -5,6 +5,8 @@ author: Andy Feng
 ---
 
 # Introduction #
+All of the Microsoft.Owin.Security.* packages shipping with the new Identity System in Visual Studio (for example: Cookies, Microsoft Account, Google, Facebook, Twitter, Bearer Token, OAuth, Authorization server, JWT, Azure Active directory, and Active directory federation services) are authored as OMCs, and can be used in both self-hosted and IIS-hosted scenarios.
+
 There are basically two different ways of implementing server side authentication for apps with a frontend and an API:
 
 The most common one, is Cookie-Based Authentication that uses server side cookies to authenticate the user on every request.
@@ -187,3 +189,5 @@ Now the database will be recreated and the customized columns appear
 [https://github.com/auth0/blog/blob/master/_posts/2014-01-07-angularjs-authentication-with-cookies-vs-token.markdown](https://github.com/auth0/blog/blob/master/_posts/2014-01-07-angularjs-authentication-with-cookies-vs-token.markdown)
 
 [https://blog.jayway.com/2014/09/25/securing-asp-net-web-api-endpoints-using-owin-oauth-2-0-and-claims/](https://blog.jayway.com/2014/09/25/securing-asp-net-web-api-endpoints-using-owin-oauth-2-0-and-claims/)
+
+[https://docs.microsoft.com/en-us/aspnet/aspnet/overview/owin-and-katana/owin-middleware-in-the-iis-integrated-pipeline](https://docs.microsoft.com/en-us/aspnet/aspnet/overview/owin-and-katana/owin-middleware-in-the-iis-integrated-pipeline)
