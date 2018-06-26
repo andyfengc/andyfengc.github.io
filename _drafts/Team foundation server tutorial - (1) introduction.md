@@ -17,14 +17,16 @@ Version control systems are software that help us track changes we make in our c
 
 - src: source code of the complete solution
 - db: ddl, stored procedure, sql query scripts
-- doc: design document, installation manual, user manual, - references
+- docs: design document, installation manual, user manual, - references
 - resources: 3rd libs, dlls, runtime tools
 
-# Fundamentals
+# TFS Fundamentals
 There are some terminologies of TFS:
 
 `team project` is an indiviaul project of a team.
+
 `collection` is a group of related projects.
+
 ![](/images/posts/20180528-tfs-11.png)
 
 `workspace` is a a mapping of one or more local working folder(s) to one or more source control folder(s) in TFS. TFS syncs the client and the server based on workspace. 
@@ -44,6 +46,7 @@ There are some terminologies of TFS:
 
 1. Connect to a team project    
     select a team project > connect
+
     ![](/images/posts/20180528-tfs-4.png)
 
     Now we've defined our connection to team foundation server. The next thing we need to do is create a workspace so that we can begin performing operations.
@@ -102,59 +105,60 @@ There are some terminologies of TFS:
     Here is a ignore configuration for visual studio project:
 
     ```
-    # User-specific files
-    *.suo
-    *.user
-    *.sln.docstates
 
-    # Build results
-    bin
-    obj
-
-    #include nuget executable
-    !NuGet.exe
-
-    #nuget packages directory
-    packages
-
-    #include package target files which may be required for msbuild
-    !packages/*.targets
-
-    # ReSharper
-    _ReSharper*/
-    *.ReSharper
-
-    # TeamCity
-    _TeamCity*
-
-    # DotCover is a Code Coverage Tool
-    *.dotCover
-
-    # Click-Once directory
-    publish/
-
-    # Publish Web Output
-    *.Publish.xml
-    *.pubxml
-
-    # Backup & report files from converting an old project file to a newer
-    _UpgradeReport_Files/
-    Backup*/
-    UpgradeLog*.XML
-    UpgradeLog*.htm
-
-    # Windows image file caches
-    Thumbs.db
-    ehthumbs.db
-
-    # Folder config file
-    Desktop.ini
-
-    # VS 2015 folder
-    .vs
-
-    # node
-    node_modules/
+	    # User-specific files
+	    *.suo
+	    *.user
+	    *.sln.docstates
+	
+	    # Build results
+	    bin
+	    obj
+	
+	    #include nuget executable
+	    !NuGet.exe
+	
+	    #nuget packages directory
+	    packages
+	
+	    #include package target files which may be required for msbuild
+	    !packages/*.targets
+	
+	    # ReSharper
+	    _ReSharper*/
+	    *.ReSharper
+	
+	    # TeamCity
+	    _TeamCity*
+	
+	    # DotCover is a Code Coverage Tool
+	    *.dotCover
+	
+	    # Click-Once directory
+	    publish/
+	
+	    # Publish Web Output
+	    *.Publish.xml
+	    *.pubxml
+	
+	    # Backup & report files from converting an old project file to a newer
+	    _UpgradeReport_Files/
+	    Backup*/
+	    UpgradeLog*.XML
+	    UpgradeLog*.htm
+	
+	    # Windows image file caches
+	    Thumbs.db
+	    ehthumbs.db
+	
+	    # Folder config file
+	    Desktop.ini
+	
+	    # VS 2015 folder
+	    .vs
+	
+	    # node
+	    node_modules/
 
     ```
 
