@@ -143,6 +143,10 @@ Here is how we use Swashbuckle
 		        c.SwaggerDoc("v1", new Info 
 					{ Title = "My API", Version = "v1" }
 				);
+				// add comment
+				var basePath = PlatformServices.Default.Application.ApplicationBasePath;
+                var xmlPath = Path.Combine(basePath, "WebApi.xml");
+                c.IncludeXmlComments(xmlPath);
 		    });
 		}
 

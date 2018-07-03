@@ -232,6 +232,41 @@ nuget > install Microsoft.EntityFrameworkCore.SqlServer package
 
 	2. way2, enable in controller
 
+# Add lazy loading #
+1. Install package `Microsoft.EntityFrameworkCore.Proxies`
+
+	![](/images/posts/20180628-.netcore-lazy-loading-1.png)
+
+1. Suppose we have a database `EmployeeManagement`, we use database first to generate model classes:
+
+	`Scaffold-DbContext "Server=(local);Database=EmployeeManagement;Integrated Security=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Entities`
+
+	A folder Entities will be created with entities and dbcontext in it
+
+	![](/images/posts/20180628-.netcore-lazy-loading-2.png)
+
+1. Open entity classes, manually set all navigation properties as virtual:
+
+	![](/images/posts/20180628-.netcore-lazy-loading-3.png)	
+
+1. Enable lazy loading, `Startup.cs`
+
+		```
+		...
+		 public void ConfigureServices(IServiceCollection services)
+		        {
+		            // add db optoins
+		            var connection = @"Server=(local);Database=EmployeeManagement;Integrated Security=true;";
+		            services.AddDbContext<EmployeeManagementContext>(opt =>
+		                {
+		                    opt.UseLazyLoadingProxies().UseSqlServer(connection);
+		                }
+		            );
+		            //services.AddEntityFrameworkProxies();
+		            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+		        }
+		```
+
 # Test #
 
 1. run via `dotnet run`

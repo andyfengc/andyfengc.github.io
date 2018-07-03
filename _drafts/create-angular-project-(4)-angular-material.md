@@ -223,6 +223,9 @@ Result
 1. Install Covalent Core module
 
 	npm install --save @covalent/core
+	or
+	npm install --save @covalent/core@2.0.0-beta.1
+
 	## (optional) Additional Covalent Modules installs
 	npm install --save @covalent/http @covalent/highlight @covalent/markdown @covalent/dynamic-forms
 
@@ -510,6 +513,11 @@ Result
 1. result
 
 ![](/images/posts/20180205-angular-material-2.png)
+
+# FAQ
+## Angular v6 reports `has no exported member 'Observable'`
+
+`npm install rxjs-compat --save`
 
 ## References ##
 

@@ -183,19 +183,20 @@ Add connenction string: app.config
 
 
 	```csharp
-    using (var context = new LocalContext())
-    {
-        SqlParameter param1 = new SqlParameter("@Name", "Andy");
-        var blog = context.Database.SqlQuery<Blog>("exec Blog_Search @Name", param1).FirstOrDefault();
-        //var blog = context.Database.SqlQuery<Blog>("select * from dbo.Blogs where name = 'andy'").FirstOrDefault();
-        System.Console.WriteLine(blog);
-        // add a new blog
-        var newBlog = new Blog() {Name = "John", Url = "http://www.john.com"};
-        context.Blogs.Add(newBlog);
-        context.SaveChanges();
-        blog = context.Database.SqlQuery<Blog>("exec Blog_Search @Name", new SqlParameter("@Name", "john")).FirstOrDefault();
-        System.Console.WriteLine(blog);
-    }
+
+	    using (var context = new LocalContext())
+	    {
+	        SqlParameter param1 = new SqlParameter("@Name", "Andy");
+	        var blog = context.Database.SqlQuery<Blog>("exec Blog_Search @Name", param1).FirstOrDefault();
+	        //var blog = context.Database.SqlQuery<Blog>("select * from dbo.Blogs where name = 'andy'").FirstOrDefault();
+	        System.Console.WriteLine(blog);
+	        // add a new blog
+	        var newBlog = new Blog() {Name = "John", Url = "http://www.john.com"};
+	        context.Blogs.Add(newBlog);
+	        context.SaveChanges();
+	        blog = context.Database.SqlQuery<Blog>("exec Blog_Search @Name", new SqlParameter("@Name", "john")).FirstOrDefault();
+	        System.Console.WriteLine(blog);
+	    }
 
 	```
 

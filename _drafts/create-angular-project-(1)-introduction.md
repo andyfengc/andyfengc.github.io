@@ -80,7 +80,15 @@ Environment:
 1. Install node.js
 
 1. install angular/cli
-	` npm install -g @angular/cli`
+	`npm install -g @angular/cli` (angular v6)
+
+	or
+
+	`npm install -g @angular/cli@1.7.4` (angular v5)
+
+	`npm update -g @angular/cli`
+
+1. check version: `ng --version`
 
 1. create a new project
 	`ng new angular-demo`
@@ -101,6 +109,10 @@ Environment:
 1. create a new component heroes: `ng generate component heroes`
 
 	![](/images/posts/20180102-angular2-cli-4.png)
+
+	or
+
+	`ng generate component general-info --module app` (app.module.ts)
 
 1. a new folder heroes will be created with components source code in it 
 
@@ -804,8 +816,6 @@ in my-component.component.ts
 	    console.log('hello world', now.format()); 
 	    console.log(now.add(7, 'days').format()); 
 	  }
-	
-<<<<<<< HEAD
 	}
 
 ## Add scss support ##
@@ -830,12 +840,25 @@ in my-component.component.ts
 		  }
 		}
 
-1. Open src\styles.css
+1. Add external style > open src\styles.css
 
 	/* You can add global styles to this file, and also import other style files */
 	@import "~@angular/material/prebuilt-themes/indigo-pink.css";
-	@import './assets/css/bootstrap.min.css'; 
+	@import './assets/css/xxx.min.css'; 
 
-=======
-	}
->>>>>>> a59cb3e437457dde176990a9cf32b915687f6e9e
+1. Add boostrap: 
+
+	`npm install --save bootstrap`
+
+	way1: add in global root - styles.css / styles.scss
+
+		@import '../node_modules/bootstrap/dist/css/bootstrap.min.css'; 
+
+	way2: add in .angular-cli.json or angular.json:
+
+        "styles": [
+          "src/styles.scss",
+          "./node_modules/bootstrap/dist/css/bootstrap.css"
+        ],
+
+
