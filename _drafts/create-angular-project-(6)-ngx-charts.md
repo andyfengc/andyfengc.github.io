@@ -452,6 +452,7 @@ Besides above pre-made charts, ngx-charts also exports all of the components and
 
 	![](/images/posts/20180208-ngx-chart-2.png)
 
+
 # References #
 
 [Charts with Angular: ngx-charts](https://www.beyondjava.net/blog/charts-with-angular-ngx-charts-formerly-ng2d3/)

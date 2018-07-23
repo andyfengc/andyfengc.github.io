@@ -298,6 +298,84 @@ nuget > install Microsoft.EntityFrameworkCore.SqlServer package
 
 	it will create a Entities folder with all models from database inside it.
 
+# Enable cors
+1. Install `Microsoft.AspNetCore.Cors` package
+
+	![](/images/posts/20180705-.netcore-1.png)
+
+1. Add the CORS services
+
+		public void ConfigureServices(IServiceCollection services)
+	    {
+	        ...
+	        services.AddCors();
+	    } 
+
+1. Enable cors with middleware. Note that the CORS middleware must precede any defined endpoints in your app that you want to support cross-origin requests (ex. before any call to UseMvc).
+
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+		{
+		    loggerFactory.AddConsole();
+		
+		    if (env.IsDevelopment())
+		    {
+		        app.UseDeveloperExceptionPage();
+		    }
+		
+		    // Shows UseCors with CorsPolicyBuilder.
+		    app.UseCors(builder =>
+		       builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+		
+		    ...
+		}
+
+# Model validation
+## Attribute validation
+1. modify properties of model
+
+	![](/images/posts/20180710-.netcore-1.png)
+
+1. We can define our own validation attribute
+
+	    public class TorontoPhoneAttribute : System.ComponentModel.DataAnnotations.ValidationAttribute
+	    { 
+	
+	        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+	        {
+	            if(!value.ToString().StartsWith("647"))
+	            {
+	                return new ValidationResult("this is not 647-xxx-xxxx");
+	            }
+	            return null;
+	        }
+	    }
+
+1. In controller, verify `ModelStatus.IsValid` and return badrequest accordingly
+
+	    [HttpPost("")]
+	    public IActionResult AddCompany([FromBody] TblCompany company)
+	    {
+	        if (ModelState.IsValid)
+	        {
+	            this.employeeManagementV2Context.TblCompany.Add(company);
+	            this.employeeManagementV2Context.SaveChanges();
+	            return Ok();
+	        }
+	        return BadRequest(ModelState);
+	    }
+
+1. POST a request, we will get errors as below
+
+	![](/images/posts/20180710-.netcore-2.png)
+
+## Fluent validation
+1. Install 3rd package 
+	- asp.net core `FluentValidation.AspNetCore`
+	- asp.net mvc `FluentValidation.Mvc5`
+	- asp.net webapi v2 `FluentValidation.WebApi`
+
+
+
 # References #
 [https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api](https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api)
 
@@ -309,3 +387,8 @@ nuget > install Microsoft.EntityFrameworkCore.SqlServer package
 
 [https://docs.microsoft.com/en-us/aspnet/core/mvc/controllers/filters?view=aspnetcore-2.1](https://docs.microsoft.com/en-us/aspnet/core/mvc/controllers/filters?view=aspnetcore-2.1)
 
+[https://fluentvalidation.net](https://fluentvalidation.net)
+
+[https://www.c-sharpcorner.com/article/learn-about-web-api-validation/](https://www.c-sharpcorner.com/article/learn-about-web-api-validation/)
+
+[https://www.jerriepelser.com/blog/validation-response-aspnet-core-webapi/](https://www.jerriepelser.com/blog/validation-response-aspnet-core-webapi/)

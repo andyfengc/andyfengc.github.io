@@ -17,9 +17,9 @@ Angular CLI enables polyfills through the `src/polyfills.ts` file that the CLI c
 ![](/images/posts/20180119-angular-release-4.png)
 
 ## Build and release ##
-Create a build: `ng build`
+Create a dev build: `ng build`
 
-build in production: `ng build --env=prod`
+build in production: `ng build --prod`
 
 ![](/images/posts/20180119-angular-release-1.png)
 
