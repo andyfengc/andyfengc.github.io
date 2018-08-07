@@ -43,7 +43,6 @@ Below projects won't be under our consideration because of following issues:
 
 - Limited UI components
 	- ngx-bootstrap
-	- 
 
 - Technical concerns       
 	- ngx-datatable
