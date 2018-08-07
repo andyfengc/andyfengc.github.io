@@ -444,6 +444,11 @@ Environment:
 
 	All HttpClient methods return an RxJS Observable of something (Hero array).
 
+	Please note
+	1. for angular 6.x, install `rxjs-compat` package
+		
+		`npm install --save rxjs-compat`
+
 1. error handling
 
 	If things go wrong when we're getting data from a remote server. The HeroService.getHeroes() method should catch errors and do something appropriate.
