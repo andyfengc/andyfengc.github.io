@@ -97,9 +97,9 @@ Reactive forms is an Angular technique for creating forms in in Angular template
 
 	Please note: 
 
-	1. Angular automatically creates and attaches an NgForm directive to the <form> tag via `#heroForm="ngForm"`. The NgForm directive supplements the form element with additional features. It holds the controls you created for the elements with an ngModel directive and name attribute, and monitors their properties, including their validity. It also has its own valid property which is true only if every contained control is valid.
+	1. Angular automatically creates and attaches an NgForm directive to the `<form>` tag via `#heroForm="ngForm"`. The NgForm directive supplements the form element with additional features. It holds the controls you created for the elements with an ngModel directive and name attribute, and monitors their properties, including their validity. It also has its own valid property which is true only if every contained control is valid.
 	
-	1. Angular creates `FormControl` instances and registers them with an NgForm directive that Angular attached to the <form> tag. Each FormControl is registered under the name you assigned to the `name` attribute.
+	1. Angular creates `FormControl` instances and registers them with an `NgForm` directive that Angular attached to the `<form>` tag. Each FormControl is registered under the name you assigned to the `name` attribute.
 
 - update application's root module - app.module.ts, import `FormsModule`
 
@@ -142,7 +142,7 @@ e.g. hero-form.component.html
 	  #spy>
 	<br>TODO: remove this: {{spy.className}}
 
-Here, we temporarily add a template reference variable named spy to the Name <input> tag and use it to display the input's CSS classes.
+Here, we temporarily add a template reference variable named spy to the Name `<input>` tag and use it to display the input's CSS classes.
 
 1. We look but don't touch the textbox
 1. Click inside the name box, then click outside it.
@@ -188,6 +188,7 @@ We make some changes to hero-form.component.html
 	</div>
 
 Here, we add
+
 1. a template reference variable called `name` and gave it the value "ngModel". It can access the input box's Angular control from within the template.
 1. a "is required" error message in <div>, which you'll display only if the control is invalid.
 

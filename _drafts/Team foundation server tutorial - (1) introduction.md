@@ -23,7 +23,7 @@ Version control systems are software that help us track changes we make in our c
 # TFS Fundamentals
 There are some terminologies of TFS:
 
-`team project` is an indiviaul project of a team.
+`team project` is an individual project of a team.
 
 `collection` is a group of related projects.
 
@@ -93,6 +93,7 @@ There are some terminologies of TFS:
 
 1. check in changes
     team explorer > pending changes
+
     ![](/images/posts/20180528-tfs-4.png)
 
     add comment > checkin

@@ -319,17 +319,110 @@ Angular makes use of observables as an interface to handle a variety of common a
 - The HTTP module uses observables to handle AJAX requests and responses.
 - The Router and Forms modules use observables to listen for and respond to user-input events.
 
-//todo
-
 ## Event emitter ##
+`EventEmitter`is actually a utility for us to define events within a component. EventEmitter objects can emit an event object via emit() method. Essentially, EventEmitter object is a publisher(observable). When it invokes emit() method, it passes the emitted event object to the next() method of any subscribers(observer). 
+
+source code:
+
+	```
+	export declare class EventEmitter<T> extends Subject<T> {
+	    __isAsync: boolean;
+	    constructor(isAsync?: boolean);
+	    emit(value?: T): void;
+	    subscribe(generatorOrNext?: any, error?: any, complete?: any): any;
+	}	
+	```
+
+Steps:
+
+1. define a component and EventEmitter object in it. Usually, we define an EventEmitter object with `@Output()` decorator. 
+
+		@Component({
+		  selector: 'zippy',
+		  template: `
+		  <div class="zippy">
+		    <div (click)="toggle()">Toggle</div>
+		    <div [hidden]="!visible">
+		      <ng-content></ng-content>
+		    </div>
+		  </div>`})
+		 
+		export class ZippyComponent {
+		  visible = true;
+		  @Output() open = new EventEmitter<any>();
+		  @Output() close = new EventEmitter<any>();
+		 
+		  toggle() {
+		    this.visible = !this.visible;
+		    if (this.visible) {
+		      this.open.emit(null);
+		    } else {
+		      this.close.emit(null);
+		    }
+		  }
+		}
+
+1. In parent component, reference this component
+
+	<zippy (open)="onOpen($event)" (close)="onClose($event)"></zippy>
+
+1. in the parent component .ts file, define two methods `onOpen($event)`, `onClose($event)` to respond to these events.
+
 ## HTTP ##
+HttpClient returns observables from HTTP method calls. For instance, http.get(‘/api’) returns an observable. we can subscribe to it to get result.
+
 ## Async pipe ##
+template: 
+
+	<div><code>observable|async</code>: Time: {{ time | async }}</div>
+
 ## Router ##
+The `ActivatedRoute` is an injected router service that makes use of observables to get information about a route path and parameters. e.g.:
+
+	import { ActivatedRoute } from '@angular/router';
+	 
+	@Component({
+	  ...
+	})
+	export class Routable2Component implements OnInit {
+	  constructor(private activatedRoute: ActivatedRoute) {}
+	 
+	  ngOnInit() {
+	    this.activatedRoute.url
+	      .subscribe(url => console.log('The URL changed to: ' + url));
+	  }
+	}
+
 ## Reactive forms ##
+Reactive forms have properties that use observables to monitor form control values. The `FormControl` properties `valueChanges` and `statusChanges` contain observables that raise change events. 
+
+We can subscribe to an observable form-control property. Then, whenever the form control changes, it triggers the logic of subscribers. e.g.:
+
+	import { FormGroup } from '@angular/forms';
+	 
+	@Component({
+	  ...
+	})
+	export class MyComponent implements OnInit {
+	  nameChangeLog: string[] = [];
+	  heroForm: FormGroup;
+	 
+	  ngOnInit() {
+	    this.logNameChange();
+	  }
+	  logNameChange() {
+	    const nameControl = this.heroForm.get('name');
+	    nameControl.valueChanges.forEach(
+	      (value: string) => this.nameChangeLog.push(value)
+	    );
+	  }
+	}
 
 # References #
 [reactivex Subject](http://reactivex.io/documentation/subject.html)
 
-[Angular observables](https://angular.io/guide/observables)
+[Angular RxJS](https://angular.io/guide/observables)
+
+[Angular observables](https://angular.io/guide/observables-in-angular)
 
 [rxjs operations](https://github.com/btroncone/learn-rxjs/blob/master/operators/complete.md)
