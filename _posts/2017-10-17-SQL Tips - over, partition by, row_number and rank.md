@@ -99,7 +99,7 @@ e.g.
 
 ![](/images/posts/20171017-sql-4.png)
 
-Please note that here we do not specify PARTICION BY inside OVER(). Therefore, it is regarded as a single partition and the sequence number is increased all over the resultset.
+Please note that here we do not specify PARTITION BY inside OVER(). Therefore, it is regarded as a single partition and the sequence number is increased all over the resultset.
 
 **RANK()**
 
@@ -178,7 +178,6 @@ PARTITION BY works like a window function. With it, aggregation or row number fu
 	FROM [dbo].[Order]
 
 ![](/images/posts/20171017-sql-8.png)
-
 
 ## OVER(ORDER BY) vs. OVER(PARTITION BY)  ##
 When we use window function such as `ROW_NUMBER()`/`RANK()`/`DENSE_RANK()` together with OVER():

@@ -63,6 +63,55 @@ if report access denied for `AdventureWorks2012_Data.mdf`, right click > mdf > s
 	WHERE Name BETWEEN 'B' AND 'L'
 	ORDER BY NAME 
 
+## WITH TIES
+It is used to return two or more rows that tie for last place in the resultset.
+
+e.g. 
+
+	CREATE TABLE MyTable(
+			ID INT
+	);
+	
+	INSERT INTO MyTable VALUES (1),(2),(3),(4),(5),(5)
+
+with ties
+
+	SELECT TOP 5 WITH TIES *
+	FROM MyTable 
+	ORDER BY ID;
+
+RESULT - 1 2 3 4 5 5
+
+without ties
+
+	SELECT TOP 5 *
+	FROM MyTable 
+	ORDER BY ID;
+
+RESULT - 1 2 3 4 5
+
+## WITH
+It is used to specify a temporary named result set, also named a common table expression (CTE). It is derived from a simple query and can be defined within the scope of a single SELECT, INSERT, UPDATE,, DELETE statement or in a CREATE VIEW statement as part of defining SELECT statement.
+
+e.g. 
+
+-- Define the CTE expression name and column list.
+  
+	WITH Sales_CTE (SalesPersonID, SalesOrderID, SalesYear)  
+	AS  
+	-- Define the CTE query.  
+	(  
+	    SELECT SalesPersonID, SalesOrderID, YEAR(OrderDate) AS SalesYear  
+	    FROM Sales.SalesOrderHeader  
+	    WHERE SalesPersonID IS NOT NULL  
+	)  
+	-- Define the outer query referencing the CTE name.  
+	SELECT SalesPersonID, COUNT(SalesOrderID) AS TotalSales, SalesYear  
+	FROM Sales_CTE  
+	GROUP BY SalesYear, SalesPersonID  
+	ORDER BY SalesPersonID, SalesYear;  
+	GO  
+
 # DML
 ## truncate
 /*
@@ -249,10 +298,8 @@ equivalent to
 # Index
 An index is an on-disk structure associated with a table or view that speeds retrieval of rows from the table or view. An index contains keys built from one or more columns in the table or view. These keys are stored in a structure (B-tree) that enables database to find the row or rows associated with the key values quickly and efficiently. Index is actually a pointer to data in base table. 
 
-Views are queried like tables and do not accept parameters.
-
 ## Pros and cons ##
-Index on a particular table in our database is to make it faster to search through the table and find the row or rows that we want. Index can be regarded as there is a copy of that column with the sorted data that the database will use to search. The new indexed column was sorted with pointers to the actual rows in base table.   
+Index on a particular table of our database is to make it faster to search through the table and find the row or rows that we want. Index can be regarded as there is a copy of that column with the sorted data that the database will use to search. The new indexed column was sorted with pointers to the actual rows in base table.   
 
 Index has pros and cons. The downside is that indexes make it slower to add rows or make updates to existing rows for that table. So adding indexes can increase read performance and decrease write performance. 
 
@@ -312,6 +359,8 @@ SQL view can be thought of as either a virtual table or a stored query which is 
 The view is essentially a dynamic SELECT query, and if any changes are made to the originating table(s),
 These changes will be reflected in the SQL VIEW automatically. In normal view, we can only exploit indexed columns directly from base tables and cannot create indexes on view. 
 
+Views are queried like tables and do not accept parameters.
+
 Benefits of using a view are as follows:
 
 - Restrict a user to specific rows in a table by filtering row data
@@ -336,7 +385,7 @@ e.g.
 	DROP VIEW Sales.vOrders ;  
 	GO  
 	CREATE VIEW Sales.vOrders  
-	WITH SCHEMABINDING  
+	WITH SCHEMABINDING
 	AS  
 	    SELECT SUM(UnitPrice*OrderQty*(1.00-UnitPriceDiscount)) AS Revenue,  
 	        OrderDate, ProductID, COUNT_BIG(*) AS COUNT  
@@ -348,6 +397,34 @@ e.g.
 	CREATE UNIQUE CLUSTERED INDEX IDX_V1   
 	    ON Sales.vOrders (OrderDate, ProductID);  
 	GO 
+
+Please note
+
+1. `SCHEMABINDING` option can be used with views and stored procedures. It is used to prevent unauthorized or inadvertent  modifications to the objects referenced by the view/stored procedure with `SCHEMABINDING`.
+2. The first index created on a view must be a unique clustered index. After the unique clustered index has been created, we can create more nonclustered indexes.
+3. Creating a unique clustered index on a view improves query performance because the view is stored in the database in the same way a table with a clustered index is stored.
+4. we cannot create indexed view with a CTE. e.g. 
+
+		;WITH cte AS
+		(
+		   SELECT *,
+		         ROW_NUMBER() OVER (PARTITION BY DocumentID ORDER BY DateCreated DESC) AS rn
+		   FROM DocumentStatusLogs
+		)
+		SELECT *
+		FROM cte
+		WHERE rn = 1
+
+5. we cannot create indexed view via derived table. i.e. query inside a from statement. e.g. 
+
+		select another subquery
+
+# Difference between Oracle’s “materialized views” and SQL Server’s “indexed views”? 
+They both persist the results of a query, but how are they different? 
+
+1. SQL Server’s indexed views are always kept up to date. In SQL Server, if a view’s base tables are modified, then the view’s indexes are also kept up to date in the same atomic transaction.
+
+1. Oracle provides something similar called a `materialized view`. If Oracle’s materialized views are created without the REFRESH FAST ON COMMIT option, then the materialized view is not modified when its base tables are. So that’s one major difference. While SQL Server’s indexed views are always kept current, Oracle’s materialized views can be static.
 
 # Stored procedure
 A stored procedure is a collection of SQL statements that applications use to access and manipulate data in a database.
@@ -475,3 +552,9 @@ Triggers are primarily used for referential integrity of data. When creating a t
 [Clustered and Nonclustered Indexes Described](https://docs.microsoft.com/en-us/sql/relational-databases/indexes/clustered-and-nonclustered-indexes-described?view=sql-server-2017)
 
 [Configure permissions on database objects](https://docs.microsoft.com/en-gb/sql/t-sql/lesson-2-configuring-permissions-on-database-objects?view=sql-server-2017)
+
+[Benefits of SCHEMABINDING in SQL Server](https://www.mssqltips.com/sqlservertip/4673/benefits-of-schemabinding-in-sql-server/)
+
+[Create Indexed Views](https://docs.microsoft.com/en-us/sql/relational-databases/views/create-indexed-views?view=sql-server-2017)
+
+[How to select the first/least/max row per group in SQL](https://www.xaprb.com/blog/2006/12/07/how-to-select-the-firstleastmax-row-per-group-in-sql/)

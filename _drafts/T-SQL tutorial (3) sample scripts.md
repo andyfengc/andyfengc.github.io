@@ -4,7 +4,7 @@ title: T-SQL Tutorial (3) - sample scripts
 author: Andy Feng
 ---
 
-# Case 1 #
+# Case 1 - Get top 1 row of each group #
 Each employee could have multiple levels, e.g. CP2, CP3, CP4.... Employee in lower level must report to one and only one  direct manager. e.g. John is in CP2 reports to Michael in CP3. 
 
 ![](/images/posts/20180810-sql-7.png)
@@ -38,6 +38,17 @@ in ERD,
 		WHERE [From] = 
 			(SELECT MAX([From]) FROM dbo.tbl_Employee_Level_Rel AS lr2 
 			WHERE tbl_Employee_Level_Rel.EmployeeID = lr2.EmployeeID)
+
+	way3: 
+
+		WITH cte as
+		(
+		SELECT *, ROW_NUMBER() OVER(PARTITION BY EmployeeID ORDER BY [From] desc) AS rn
+		FROM dbo.tbl_Employee_Level_Rel
+		)
+		SELECT *
+		FROM cte 
+		WHERE rn = 1
 
 1. input an employee id. output a list of all report-to direct managers, need employee_id, employee name
 
