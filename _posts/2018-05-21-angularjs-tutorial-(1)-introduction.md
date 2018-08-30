@@ -1,6 +1,6 @@
 ---
 layout: post
-title: AngularJS v1 tutorial (1) - tutorial
+title: AngularJS v1 tutorial (1) - introduction
 author: Andy Feng
 ---
 
