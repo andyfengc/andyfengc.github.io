@@ -64,7 +64,7 @@ if report access denied for `AdventureWorks2012_Data.mdf`, right click > mdf > s
 	ORDER BY NAME 
 
 ## WITH TIES
-It is used to return two or more rows that tie for last place in the resultset.
+`WITH TIES` specifies that additional rows be returned from the base result set with the same value in the ORDER BY columns appearing as the last of the TOP n (PERCENT) rows. `TOP...WITH TIES` can be specified only in SELECT statements, and only if an ORDER BY clause is specified.
 
 e.g. 
 
@@ -310,6 +310,9 @@ Depending on how we query for data in our application, e want to add indexes on 
 
 If our application has a feature where we search frequently, e.g. we need search for `articles`(3 columns: title, body, and published_at) by their `title`, it might be wise to put an index on the `title` column. This will create a copy of that column where all the articles' titles are sorted.
 
+	-- Create a nonclustered index on a table or view, default is nonclustered index
+	CREATE INDEX i1 ON t1 (col1);  
+
 Indexes can also be useful for foreign key columns when dealing with associations. Let’s say the articles table also contains an `author_id` column that corresponds to the id column on the users table. If we put an index on the `author_id `column, when we query the database for all the articles by a particular author, the results can be found much faster because all articles by that author will be grouped together.
 
 	| author_id | published_at |     title    |     body     |
@@ -415,9 +418,19 @@ Please note
 		FROM cte
 		WHERE rn = 1
 
-5. we cannot create indexed view via derived table. i.e. query inside a from statement. e.g. 
+5. we cannot create indexed view via derived table. i.e. query inside a from statement(subquery). e.g. 
 
-		select another subquery
+		SELECT *
+		FROM [table1name]
+		WHERE [From] = 
+			(SELECT MAX([From]) FROM table2name
+			WHERE table1name.EmployeeID = table2name.EmployeeID)
+
+1. we cannot create indexed view via OVER clause, which includes ranking or aggregate window functions. e.g.
+
+		SELECT TOP 1 WITH TIES *
+		FROM dbo.tbl_Employee_Level_Rel
+		ORDER BY ROW_NUMBER() OVER(PARTITION BY EmployeeID ORDER BY [From] desc)
 
 # Difference between Oracle’s “materialized views” and SQL Server’s “indexed views”? 
 They both persist the results of a query, but how are they different? 
@@ -546,6 +559,30 @@ Triggers are primarily used for referential integrity of data. When creating a t
 	END
 	GO
 
+# Execution plan
+1. way1: sql server management studio > query menu > Include Actual Execution Plan(ctrl + m) > run the query > got an extra tab entitled "Execution plan" appear in the results pane
+
+	![](/images/posts/20180824-sql-3.png)
+
+	![](/images/posts/20180824-sql-4.png)
+
+1. way2: sql server management studio > execute sql 
+
+		SET STATISTICS XML ON
+		GO
+		.....
+		.....
+		SET STATISTICS XML OFF
+		GO
+	
+	![](/images/posts/20180824-sql-2.png)
+
+1. way3: sql server management studio > tools > sql server profiler > Events Selection" > check "Show all events" > check the "Performance" > "Showplan XML" row > run the trace
+
+	run the script > observer the sql server profiler 
+	
+	![](/images/posts/20180824-sql-1.png)
+
 # References #
 [Create Clustered Indexes](https://docs.microsoft.com/en-us/sql/relational-databases/indexes/create-clustered-indexes?view=sql-server-2017)
 
@@ -558,3 +595,5 @@ Triggers are primarily used for referential integrity of data. When creating a t
 [Create Indexed Views](https://docs.microsoft.com/en-us/sql/relational-databases/views/create-indexed-views?view=sql-server-2017)
 
 [How to select the first/least/max row per group in SQL](https://www.xaprb.com/blog/2006/12/07/how-to-select-the-firstleastmax-row-per-group-in-sql/)
+
+[Improving Performance with SQL Server 2008 Indexed Views](https://docs.microsoft.com/en-us/previous-versions/sql/sql-server-2008/dd171921(v=sql.100))

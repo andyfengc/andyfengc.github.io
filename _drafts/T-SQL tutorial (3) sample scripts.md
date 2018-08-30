@@ -50,6 +50,24 @@ in ERD,
 		FROM cte 
 		WHERE rn = 1
 
+	way4:
+
+		SELECT TOP 1 WITH TIES *
+		FROM dbo.tbl_Employee_Level_Rel
+		ORDER BY ROW_NUMBER() OVER(PARTITION BY EmployeeID ORDER BY [From] desc)
+
+	way5:
+
+		SELECT rel.EmployeeID, LevelID, rel.[From]
+		FROM dbo.tbl_Employee_Level_Rel rel
+		JOIN (
+		SELECT EmployeeId, MAX([FROM]) AS [From]
+		FROM dbo.tbl_Employee_Level_Rel
+		GROUP BY EmployeeID
+		) maxFrom 
+		ON rel.EmployeeId = maxFrom.EmployeeId
+		AND rel.[From] = maxFrom.[From]
+
 1. input an employee id. output a list of all report-to direct managers, need employee_id, employee name
 
 	create a stored procedure

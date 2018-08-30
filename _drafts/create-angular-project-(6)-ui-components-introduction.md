@@ -62,10 +62,10 @@ Here are some online demos for these two libraries:
 
 References:
 
-- ANGULAR RESOURCES: https://angular.io/resources 
-- Angular 2 UI components which library: https://stackoverflow.com/questions/39395359/angular-2-ui-components-which-library 
-- 20 Amazing Angular 4 Tables: https://www.angularjs4u.com/tables/20-amazing-angular-4-tables/ 
-- Top 5 jQuery UI Alternatives: https://www.sitepoint.com/top-5-jquery-ui-alternatives/ 
-- Awesome Angular: https://github.com/gdi2290/awesome-angular 
-- Angular FAQ: https://github.com/semlinker/angular-faq 
+- [ANGULAR RESOURCES](https://angular.io/resources)
+- [Angular 2 UI components which library](https://stackoverflow.com/questions/39395359/angular-2-ui-components-which-library)
+- [20 Amazing Angular 4 Tables](https://www.angularjs4u.com/tables/20-amazing-angular-4-tables) 
+- [Top 5 jQuery UI Alternatives](https://www.sitepoint.com/top-5-jquery-ui-alternatives) 
+- [Awesome Angular](https://github.com/gdi2290/awesome-angular) 
+- [Angular FAQ](https://github.com/semlinker/angular-faq)
 

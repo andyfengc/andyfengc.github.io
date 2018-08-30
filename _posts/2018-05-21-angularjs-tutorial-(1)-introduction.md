@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Create AngularJS v1 project
+title: AngularJS v1 tutorial (1) - tutorial
 author: Andy Feng
 ---
 

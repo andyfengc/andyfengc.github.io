@@ -50,7 +50,47 @@ categories: [drive, test, g, g2, ontario]
 # 保险 #
 G牌以后，驾龄5年，年纪25以上，有家庭，跟房屋保险一起，无事故，没有告票，全科证书，这些都是你将来降低保险的条件。
 
+# 提车
+How to open tailgate and engine cover
+how to lock/unlock
+多久保养，换机油，刹车片
+
+核对车辆型号、颜色、配置
+车钥匙
+打开发动机盖，名牌，生产日期3-6月内，照相
+检查漆面，在阳光下，斜45度查看
+检查车辆左右，前后保险杠，车顶
+检查车辆轮胎，胎毛，胎肩，是否有裂纹
+车门接缝
+
+座椅
+内饰中控台
+车辆各种灯
+空调
+音响
+雨刷器，喷水口
+车窗升降
+方向盘锁死不会乱动
+仪表盘亮度
+里程表50公里以内
+后排座椅，儿童安全锁
+随车物品，千斤顶、备胎、
+
+打开发动机盖，启动车辆，怠速听发动机声音
+踩刹车，测试换挡
+
+礼品
+地毯、头枕、遮阳帘、雨伞等
+
+保养
+crv，第一次8k公里
+以后每1w-1.5w公里
+
+
 http://www.yimin.net.cn/jianadayimin/yiminshenghuo/4233.html
 http://post.iask.ca/canadameet/topic/387698
 https://www.baolema.ca/learning-hub/wenzhang/jianadaliuxueshengmaichedeliuchengjieshaojijianyi
 http://auto.yorkbbs.ca/news/2013-09/1390435.html
+
+
+https://www.zhihu.com/question/32318288
