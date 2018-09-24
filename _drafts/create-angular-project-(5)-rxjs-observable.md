@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Create Angular v2+ project (9) - rxjs
+title: Create Angular v2+ project (9) - rxjs & observable
 author: Andy Feng
 ---
 
