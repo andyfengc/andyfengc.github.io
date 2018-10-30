@@ -142,3 +142,92 @@ In the component/service, inject DOCUMENT class instance
 		}
 	}
 
+# resolve ExpressionChangedAfterItHasBeenCheckedError
+It happens when parent component specify property vlue of child component. Also, child component update its property value asynchorously. At that moment, parent component has not aware of property changes of child component. 
+
+Force Change Detection cycle Inside your parent component
+
+	import { Component, Input, ChangeDetectorRef } from '@angular/core';
+	export class ParentComponent{
+		constructor(private cd: ChangeDetectorRef) {
+		}
+		ngAfterViewInit() {
+		    this.cd.detectChanges();	
+		}
+	}
+
+# Add HTTP Interceptor
+1. write a HTTP interceptor
+
+		import { Injectable } from '@angular/core';
+		import {
+		  HttpRequest,
+		  HttpHandler,
+		  HttpEvent,
+		  HttpInterceptor,
+		  HttpResponse,
+		  HttpErrorResponse,
+		} from '@angular/common/http';
+		 
+		import { Observable } from 'rxjs/Observable';
+		import 'rxjs/add/operator/do';
+		 
+		@Injectable()
+		export class RequestInterceptor implements HttpInterceptor {
+		 
+		  constructor() {}
+		 
+		  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+		
+		    return next.handle(request).do((event: HttpEvent<any>) => {}, (err: any) => {
+		      if (err instanceof HttpErrorResponse) {
+		        // do error handling here
+		      }
+		    });
+		  }
+		}
+
+	or
+
+		import { Injectable } from '@angular/core';
+		import { HttpRequest, HttpHandler, HttpEvent,
+		    HttpResponse, HttpErrorResponse } from '@angular/common/http';
+		import { Observable } from 'rxjs';
+		import { tap } from 'rxjs/operators';
+		
+		@Injectable()
+		export class HttpInterceptor implements HttpInterceptor {
+		  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+		    return next.handle(request).pipe(
+		      tap(
+		        event => event instanceof HttpResponse ? 'succeeded' : '',
+		        error => {
+		          if (error instanceof HttpErrorResponse) {
+		            console.log('http error intercepted')
+		          }
+		        })
+		    );
+		  }
+		}
+
+1. modify app.module.ts
+
+		import { RequestInterceptor } from './services/request-interceptor.service';
+		
+		@NgModule({
+		  ...
+		  providers: [
+		    ...
+		    {
+		      provide: HTTP_INTERCEPTORS,
+		      useClass: RequestInterceptor,
+		      multi: true
+		    }
+		  ],
+		  ...
+		})
+		export class AppModule { }
+
+# References
+[Global HTTP error catching in Angular 4.3+
+](https://hackernoon.com/global-http-error-catching-in-angular-4-3-9e15cc1e0a6b)

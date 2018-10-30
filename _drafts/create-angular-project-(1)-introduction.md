@@ -88,7 +88,13 @@ Environment:
 
 	`npm update -g @angular/cli`
 
-1. check version: `ng --version`
+1. check version: 
+	
+	`ng --version`
+
+	or `ng -v`
+
+	or check package.json
 
 1. create a new project
 	`ng new angular-demo`
@@ -790,7 +796,7 @@ Next, simply call `_.<lodash_function>()`
 
 `npm install @types/moment --save`
 
-in angular-cli.json
+in angular-cli.json (Angular 5+)
 
 	{
 	  ...
@@ -801,6 +807,43 @@ in angular-cli.json
 	     ]
 	     ...
 	  ]
+	  ...
+	}
+
+in angular.json (Angular 6+)
+	
+	{
+	  "projects": {
+	    "Web": {
+	      ...
+	      "architect": {
+	        	...
+	            "scripts": []
+	          },
+	          ...
+	        },
+	        "serve": {
+	          ...
+	        },
+	        "test": {
+	        	...
+	            "styles": [
+	              "src/styles.scss",
+	              "./node_modules/bootstrap/dist/css/bootstrap.css"
+	            ],
+	            "scripts": [
+	              "../node_modules/moment/min/moment.min.js"
+	            ],
+	            "assets": [
+	              "src/favicon.ico",
+	              "src/assets"
+	            ]
+	          }
+	        },
+	        ...
+	      }
+	    }
+	  },
 	  ...
 	}
 

@@ -373,5 +373,12 @@ hero-detail.component.ts
 	  name: ['', Validators.required ],
 	});
 
+## Reactive forms vs template-driven forms
+**Reactive forms** are **synchronous** (as you create controls from you code). In reactive forms, you create the entire form control tree in code. You can immediately update a value or drill down through the descendants of the parent form because all controls are always available.
+
+**template-driven forms** are **asynchronous** (as it delegate task of creation of control) Template-driven forms delegate creation of their form controls to directives. To avoid "changed after checked" errors, these directives take more than one cycle to build the entire control tree. That means you must wait a tick before manipulating any of the controls from within the component class. In template driven from we write [NgModel] or [NgForm] (directives) that will take task of creation of your control on web page in htm and the creation is asynchronous.
+
+Therefore, using template-driven form, if we try to access a form control in ngOninit(), the control may not accessible because the component just finished creating itself and subcomponents and may not complete rending views. Only in ngAfterViewInit(), we can confirm the views complete rendering and form controls are accessible. Therears, using reactive form, we can always find control where in Template driven from we cannot.
+
 # References
 [angular built-in validators](https://angular.io/api/forms/Validators)

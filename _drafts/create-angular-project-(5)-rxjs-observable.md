@@ -40,7 +40,8 @@ author: Andy Feng
 	or
 
 		// define a observable instance. It emits values in a sequence to subscribers(consumers)
-		const sequence = Observable.of(...items);
+		const sequence = Observable.of(...items); // angular 5+
+		const sequence = of(...items); // angular 6+
 		
 	or
 

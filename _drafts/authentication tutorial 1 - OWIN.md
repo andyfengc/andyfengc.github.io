@@ -6,7 +6,7 @@ categories: [OWIN, Katana]
 ---
 
 # Introduction #
-In the .NET world there hasn't been much choice in web server technology aside from IIS. IIS has been around for a long time now, longer than ASP.NET itself. For a developer, tackles IIS and tons of libraries can be quite a daunting task. Also, System.Web is a monolithic assembly that contains everything under the sun all tightly coupled into one namespace, often being coupled into IIS.
+In the .NET world there hasn't been much choice in web server technology aside from IIS. IIS has been around for a long time now, longer than ASP.NET itself. For a developer, tackles IIS and tons of libraries can be quite a daunting task. Also, `System.Web` is a monolithic assembly that contains everything and all tightly coupled into one namespace, often being coupled into IIS.
 
 With more and more processing moving onto the client, servers have stopped processing and returning html and are instead just returning data for the client to parse and present. Modern approaches such as node.js, WebAPI, Spring Boots require minimal effort to act as a web server, containing only what is needed to build the application and nothing else.
 
@@ -14,7 +14,7 @@ With more and more processing moving onto the client, servers have stopped proce
 
 `Katana` project is a set of open-source OWIN components developed by Microsoft. These components include both infrastructure components, such as hosts and servers, as well as functional components, such as authentication components and bindings to frameworks such as SignalR and ASP.NET Web API. 
 
-Overall, OWIN is a specification and abstraction(interface), not an implementation. It defines how web servers and web applications should be built in order to decouple them. Katana on the other hand, is fully developed framework made to make a bridge between current ASP.NET frameworks and OWIN specification. 
+Overall, `OWIN` is a specification and abstraction(interface), not an implementation. It defines how web servers and web applications should be built in order to decouple them. `Katana` on the other hand, is fully developed framework made to make a bridge between current ASP.NET frameworks and OWIN specification. 
 
 In .NET 4.6, Katana has successfully adapted the Web API and SignalR frameworks to OWIN but .NET MVC and Web Forms are still running exclusively via System.Web, and in the long run there is a plan to decouple those as well.
 
@@ -38,6 +38,7 @@ Some of the dictionary keys for a HTTP Request are as follows:
 Katana is the Microsoft implementation of the OWIN specification and can be self-hosted or integrated with the IIS pipeline. Also, Katana adds some additional features such as authentication framework Identity to make OWIN easier to use. Katana aleady integrated into ASP.NET framework and Katana components use the Microsoft.Owin.* namespace. 
 
 The architecture of KATANA is divided into 4 major parts:
+
 ![](/images/posts/20180524-owin-4.png)
 
 - Host: Manages the process in which the OWIN pipeline runs. The host is a process that hosts all of other parts. It can be anything from a simple console application to a windows service or even a traditional IIS. It is responsible for starting everything up. 
@@ -99,7 +100,7 @@ Please note that in most cases we use web framework to wrap up the pipeline of m
 
 1. Create Startup.cs in the root to start up OWIN-based application. By default, it requires a public void method Configuration()
 
-```
+	```
     public partial class Startup
     {
         public void Configuration(IAppBuilder app)
@@ -109,9 +110,9 @@ Please note that in most cases we use web framework to wrap up the pipeline of m
                 await context.Response.WriteAsync("Hello !");
             });
         }
-    }
+    }	
+	```
 
-```
 run F5, start in DEBUG mode
 
 We get
@@ -119,6 +120,7 @@ We get
 
 # Create a middleware #
 Owin.dll contains a method
+
     `IAppBuilder.Use(object middleware, params object[] args)`
 
 It takes a middleware implementation object and optional data arguments for middleware. The object middleware can be a delegate reference to a middleware implementation method or inline middleware implementation. 
@@ -214,7 +216,7 @@ It takes a middleware implementation object and optional data arguments for midd
 
     `Install-Package Microsoft.AspNet.WebApi.Owin`
 
-    package.json will be upated:
+    package.json will be updated:
 
     ```
     <?xml version="1.0" encoding="utf-8"?>
@@ -430,7 +432,9 @@ It takes a middleware implementation object and optional data arguments for midd
         }
     }
     ```
+
     login model
+
     ```
     public class LoginModel
     {
@@ -440,6 +444,7 @@ It takes a middleware implementation object and optional data arguments for midd
     ```
 
     login view
+
     ```
     @inherits System.Web.Mvc.WebViewPage<OwinDemo.Models.LoginModel>
     @using System.Web.Mvc.Html;
@@ -470,6 +475,7 @@ It takes a middleware implementation object and optional data arguments for midd
     </html>
     ```
 1. Add cookie authentication middleware
+
     `Install-Package microsoft.owin.security.cookies`
 
     two libs will be added to package.json
@@ -485,7 +491,7 @@ It takes a middleware implementation object and optional data arguments for midd
     {
         public void Configuration(IAppBuilder app)
         {
-            // cookie authentication 
+            // cookie authentication, before webapi integratio
             app.UseCookieAuthentication(new Microsoft.Owin.Security.Cookies.CookieAuthenticationOptions()
             {
                 AuthenticationType = "ApplicationCookie",
@@ -547,3 +553,5 @@ It takes a middleware implementation object and optional data arguments for midd
 # References
 [OWIN](http://owin.org)
 [An Overview of Project Katana](https://docs.microsoft.com/en-us/aspnet/aspnet/overview/owin-and-katana/an-overview-of-project-katana)
+
+[Overview of ASP.NET Core Security](https://docs.microsoft.com/en-us/aspnet/core/security/?view=aspnetcore-2.1)
