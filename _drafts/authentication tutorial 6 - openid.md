@@ -15,9 +15,89 @@ author: Andy Feng
 
 > Please note that OpenID Connect is a very different protocol to OpenID. The later was an XML based protocol, which follows similar approaches and goals to OpenID Connect but in a less developer-friendly way.
 
-OpenID Connect builds on top of OAuth 2.0. The workflow is the same as the OAuth 2.0 flow
+OpenID Connect builds on top of OAuth 2.0. The workflow is very similar to the OAuth 2.0 flow:
 
 ![](/images/posts/20181024-identity-14.png)
+
+## Techminologies ##:
+> **Authorization server (identity server)**: there are a few choices to select an identity server
+>  
+> - Social media identity servers: Google, Facebook, Twitter and so on.
+> - commercial cloud identity servers: Azure Active Directory(AAD), Auth0, okta, Ping identity 
+> - opensource identity server frameworks: IdentityServer4
+> 
+> **Resource server**
+> 
+> **Client**
+> 
+> **Scope**: `scope` is a part of configuration of identity server(authorization server) and represent the individual resources that identity provider protects. When a client connects to the identity provider to authenticate, it tells the identity  provider what scope it is requesting. Then, the identity provider checks the configuration for that client to see if it's intended to access the associated resource. And an end user will experience scopes when using external identity providers like Google or Faceboook in the form of consent screens that confirm what the user that they want to allow the application access to the resources requested. 
+> 
+> **JWT**: `JSON Web Tokens(JWT)` are the format used to encode information about the authenticated user. It includes identity token(ID token), access token and claims what they access in the form of scopes in access tokens.
+> 
+> **Identity Token**: `ID token` represents the identity of the end user or client application
+> 
+> **Access Token**: access token is based on OAuth2 protocol and it specifies what the holder of that token can do with respect to the resources what it is requesting access to (the scope).
+> 
+> A sample of JWT result
+
+	{
+	  "id_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjUzNTk2M0M0RjE0N0VERjk4NUU0MjlDQTRFMjQ4NkEwQkY0NzdGQjUiLCJ0eXAiOiJKV1QiLCJ4NXQiOiJVMWxqeFBGSDdmbUY1Q25LVGlTR29MOUhmN1UifQ.eyJuYmYiOjE1NDIzMTE5ODAsImV4cCI6MTU0MjMxMjI4MCwiaXNzIjoiaHR0cDovL3dmbWxlZ2FjeS5pbnQuYmVsbC5jYS9jZW50cmUiLCJhdWQiOiIwRDQ5Nzg1RUQ0Q0E0RkRFOUI0NjRGOEM3NDI3MDVGNCIsIm5vbmNlIjoiYWY0YjBhYjRlYTgyNDZhM2E2YzY3ODA4OWVkZmRhMDgiLCJpYXQiOjE1NDIzMTE5ODAsImF0X2hhc2giOiJXa3hKVGd4WXRJb2V6WnZ0QkE4M1VBIiwic2lkIjoiZjRhZGU3ZmU3MWQyNTc4OWU0MDlhMzBlMTg3ZTJjNTIiLCJzdWIiOiI2MDk0NjYxIiwiYXV0aF90aW1lIjoxNTQyMzExOTgwLCJpZHAiOiJsb2NhbCIsImFtciI6WyJwd2QiXX0.estpF-qSUvXzsLq0AK7KFSUkVylUktAk9qidHs9cLPh1fx_pSEDW6vaFUsWMPbSIaGdz6b-rsKKRHTtS1Xro3rYu4QogE4dnzZbJcem21eQ6q1TOYG67Ucllc56HuA-PxAjwPRXFwFp4p1UfGcES4Ff5xSNl0MunGRAq7aW7Lwb0gbZAFod4bXbZ4fZHaMQWcXsFujqtG8HgSplV4bevCBCsHrlMtO4OaMUNxoijB40lwQAWaDNn3tUIT9sX7n-mIG1wkMG06tUzy7fO54yJqvArRy5yKqIbDFAX0CvM9SqqzWsRKUiHfouRSjCvQiOd3u-HpxAmvj4RnKzKBQcMiA",
+	  "session_state": "lMQ7teKDw3CseeAU7bVSebS730zIGHuxliXEoIEwINc.1897255fefc9dc9ba4eab08276ba4dda",
+	  "access_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjUzNTk2M0M0RjE0N0VERjk4NUU0MjlDQTRFMjQ4NkEwQkY0NzdGQjUiLCJ0eXAiOiJKV1QiLCJ4NXQiOiJVMWxqeFBGSDdmbUY1Q25LVGlTR29MOUhmN1UifQ.eyJuYmYiOjE1NDIzMTE5ODAsImV4cCI6MTU0MjMxNTU4MCwiaXNzIjoiaHR0cDovL3dmbWxlZ2FjeS5pbnQuYmVsbC5jYS9jZW50cmUiLCJhdWQiOlsiaHR0cDovL3dmbWxlZ2FjeS5pbnQuYmVsbC5jYS9jZW50cmUvcmVzb3VyY2VzIiwiVW5pZmllZEVtcGxveWVlSGllcmFyY2h5QXBpIl0sImNsaWVudF9pZCI6IjBENDk3ODVFRDRDQTRGREU5QjQ2NEY4Qzc0MjcwNUY0Iiwic3ViIjoiNjA5NDY2MSIsImF1dGhfdGltZSI6MTU0MjMxMTk4MCwiaWRwIjoibG9jYWwiLCJzY29wZSI6WyJvcGVuaWQiLCJwcm9maWxlIiwiZW1haWwiLCJyb2xlcyIsIkFTX1JvbGVzIiwiVW5pZmllZEVtcGxveWVlSGllcmFyY2h5QXBpIl0sImFtciI6WyJwd2QiXX0.AFORorcDFy_IVQxm_KEHTpEgYGGLL1vWzK0_hiBYPND6jHMDZwziLs3rfkxqGn0qWriQ9BGuHkL8E6i6-FSpCcMLRrNNtAQqDDwqFdMKNcbBMByUmLWqIgvpqtoPvAhR0Ff5-Th6AgY0hY2HRTHOUeTyDxGbWyPQu90DdgzP1438qmZVHKE6ZyaU2EJZuDlGk4VB5AeEub8aPf5RN6HFl1TtDJavlxRwWLejs3lWLsDJwgs0ir8pzt0aKXfMXjD4Usi03rUdnZGCjzZ2mDfvseAvuM1BDn2Dh8HoKx69c1ggCgYqd8lp_NAsymHgXXFK_1vsPg9RfLncRX3HHqhtzA",
+	  "token_type": "Bearer",
+	  "scope": "openid profile email roles AS_Roles UnifiedEmployeeHierarchyApi",
+	  "profile": {
+	    "sid": "f4ade7fe71d25789e409a30e187e2c52",
+	    "sub": "6094661",
+	    "auth_time": 1542311980,
+	    "idp": "local",
+	    "amr": [
+	      "pwd"
+	    ],
+	    "name": "Feng, Andy",
+	    "locale": "en",
+	    "email": "andy.feng@email.com",
+	    "role": [
+	      "CP2",
+	      "AS_PowerUser",
+	      "AS_PM",
+	      "AS_Admin",
+	      "AS_QualityCoach",
+	      "AS_Analyst",
+	      "AS_Survey",
+	      "AS_Incentive",
+	      "AS_Observation",
+	      "AS_Trainer",
+	      "AS_Communications"
+	    ]
+	  },
+	  "expires_at": 1542315582
+	}
+
+## Benefits of OpenID Connect ##
+
+- Decoupling:
+- Single sign-on: multiple client applications can share the same token
+- Centralized security management:
+
+## OpenID Connect flows ##
+OpenID Connect presents three major flows for authentication. These flows dictate how authentication is handled by the OpenID Connect Provider, including what can be sent to client application and how.
+
+- **Authorization Code Flow**: It returns an authorization code that can then be exchanged for an identity token and/or access token. This requires client authentication using a client id and secret to retrieve the tokens from the back end and has the benefit of not exposing tokens to the user agent (i.e. a web browser). This flow allows for long lived access (through the use of refresh tokens). Clients using this flow must be able to maintain a secret. Typically, client application can save client_id, secret. 
+	- It includes two round trips to the OpenID Connect Provider. First round trip get authenrization code via client_id and secret. Second round trip get access token or refresh token.
+	- This workflow doesn't work for browser-based applications such as Angular, React, Vue because anyone can easily find secret via development tools in browser.
+- **Implicit Flow**: It requests tokens without explicit client authentication, instead using the redirect URI to verify the client identity. Because of this, refresh tokens are not allowed, nor is this flow suitable for long lived access tokens. From the client application's point of view, this is the simplest to implement, as there is only one round trip to the OpenID Connect Provider.
+	- This flow obtains all tokens from the identity server.
+	- Tokens have specific short expiration time and cannot renew via refresh token. 
+	- It is not safe to save all tokens in client side.
+	- It is suitable for browser-based applications such as Angular, React, Vue
+- **Hybrid Flow**: It is a combination of aspects from the previous two. This flow allows the client to make immediate use of an identity token and retrieve an authorization code via one round trip to the authentication server. This can be used for long lived access (again, through the use of refresh tokens). Clients using this flow must be able to maintain a secret.
+	- This flow can obtain an authorization code and tokens from the authorization endpoint, and can also obtain refresh tokens from the token endpoint.
+	- 
+# Architecture of OpenID Connect integration
+
+![](/images/posts/20181031-openid-3.png)
+
 
 # OpenID Connect development in ASP.NET core approach 1
 1. Create a ASP.NET core project
@@ -27,66 +107,66 @@ OpenID Connect builds on top of OAuth 2.0. The workflow is the same as the OAuth
 
 1. Modify `Startup.cs` to configure  middleware
 
-    public class Startup
-    {
-        ...
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
-            ...
-            services.AddAuthentication(options =>
-                {
-                    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
-                    options.DefaultAuthenticateScheme = OpenIdConnectDefaults.AuthenticationScheme;
-                })
-                .AddOpenIdConnect(o =>
-                {
-                    o.ClientId = _clientId;
-                    o.ClientSecret = _secret;
-                    o.Authority = _authority;
-                    o.ResponseType = "code id_token";
-                    o.RequireHttpsMetadata = false;
-                    o.Scope.Add("openid profile roles email AS_Roles OI_Roles");
-                    o.SaveTokens = true;
-                    o.GetClaimsFromUserInfoEndpoint = true;
-                    o.CallbackPath = _callBackPath;
-                    o.Events.OnRedirectToIdentityProvider = redirectContext => RedirectToIdentityProvider(redirectContext);
-                    o.Events.OnUserInformationReceived = userInformationReceivedContext => OnUserInformationReceived(userInformationReceivedContext);
+	    public class Startup
+	    {
+	        ...
+	        // This method gets called by the runtime. Use this method to add services to the container.
+	        public void ConfigureServices(IServiceCollection services)
+	        {
+	            ...
+	            services.AddAuthentication(options =>
+	                {
+	                    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+	                    options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+	                    options.DefaultAuthenticateScheme = OpenIdConnectDefaults.AuthenticationScheme;
+	                })
+	                .AddOpenIdConnect(o =>
+	                {
+	                    o.ClientId = _clientId;
+	                    o.ClientSecret = _secret;
+	                    o.Authority = _authority;
+	                    o.ResponseType = "code id_token";
+	                    o.RequireHttpsMetadata = false;
+	                    o.Scope.Add("openid profile roles email AS_Roles OI_Roles");
+	                    o.SaveTokens = true;
+	                    o.GetClaimsFromUserInfoEndpoint = true;
+	                    o.CallbackPath = _callBackPath;
+	                    o.Events.OnRedirectToIdentityProvider = redirectContext => RedirectToIdentityProvider(redirectContext);
+	                    o.Events.OnUserInformationReceived = userInformationReceivedContext => OnUserInformationReceived(userInformationReceivedContext);
+	
+	                })
+	                .AddCookie();
+	            services.AddSession(options => {
+	                options.IdleTimeout = TimeSpan.FromDays(1);
+	            });
+	        }
+	
+	        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+	        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+	        {
+	            ...
+	            app.UseSession();
+	            app.UseAuthentication();
+	            app.UseMvc();
+	        }
+	
+	        private async Task RedirectToIdentityProvider(RedirectContext redirectContext)
+	        {
+	            redirectContext.ProtocolMessage.RedirectUri = _returnUri;
+	            await Task.FromResult(0);
+	        }
+	
+	        private async Task OnUserInformationReceived(UserInformationReceivedContext userInformationReceivedContext)
+	        {
+	            userInformationReceivedContext.HttpContext.Session.Set("EmployeeNo", Encoding.ASCII.GetBytes(userInformationReceivedContext.User["sub"].ToString()));
+	            userInformationReceivedContext.HttpContext.Session.Set("EmployeeName", Encoding.ASCII.GetBytes(userInformationReceivedContext.User["name"].ToString()));
+	            userInformationReceivedContext.HttpContext.Session.Set("EmployeeEmail", Encoding.ASCII.GetBytes(userInformationReceivedContext.User["email"].ToString()));
+	            await Task.FromResult(0);
+	        }
+	
+	    }
 
-                })
-                .AddCookie();
-            services.AddSession(options => {
-                options.IdleTimeout = TimeSpan.FromDays(1);
-            });
-        }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {
-            ...
-            app.UseSession();
-            app.UseAuthentication();
-            app.UseMvc();
-        }
-
-        private async Task RedirectToIdentityProvider(RedirectContext redirectContext)
-        {
-            redirectContext.ProtocolMessage.RedirectUri = _returnUri;
-            await Task.FromResult(0);
-        }
-
-        private async Task OnUserInformationReceived(UserInformationReceivedContext userInformationReceivedContext)
-        {
-            userInformationReceivedContext.HttpContext.Session.Set("EmployeeNo", Encoding.ASCII.GetBytes(userInformationReceivedContext.User["sub"].ToString()));
-            userInformationReceivedContext.HttpContext.Session.Set("EmployeeName", Encoding.ASCII.GetBytes(userInformationReceivedContext.User["name"].ToString()));
-            userInformationReceivedContext.HttpContext.Session.Set("EmployeeEmail", Encoding.ASCII.GetBytes(userInformationReceivedContext.User["email"].ToString()));
-            await Task.FromResult(0);
-        }
-
-    }
-
-# ASP.NET Core approach 2
+# ASP.NET Core approach 2 - todo 
 1. install `IdentityServer4.AccessTokenValidation`
 
 	![](/images/posts/20181031-openid-1.png)
@@ -155,18 +235,18 @@ OpenID Connect builds on top of OAuth 2.0. The workflow is the same as the OAuth
 
 1. Inject the OidcFacade in our Component
 
-	...
-	export class HomeComponent {
-	  constructor(private oidcFacade: OidcFacade) {}
-	
-	  loginPopup() {
-	    this.oidcFacade.signinPopup();
-	  }
-	
-	  logoutPopup() {
-	    this.oidcFacade.signoutPopup();
-	  }
-	}
+		...
+		export class HomeComponent {
+		  constructor(private oidcFacade: OidcFacade) {}
+		
+		  loginPopup() {
+		    this.oidcFacade.signinPopup();
+		  }
+		
+		  logoutPopup() {
+		    this.oidcFacade.signoutPopup();
+		  }
+		}
 
 1. Create a new directory called static below the src folder, to serve the static callback HTML sites.
 
