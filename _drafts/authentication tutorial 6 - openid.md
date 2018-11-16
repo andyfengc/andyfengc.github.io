@@ -3,16 +3,10 @@ layout: post
 title: ASP.NET Identity authentication 8 - OpenID Connect
 author: Andy Feng
 ---
-# Outline
-- OAuth
-- OAuth development
-- OpenID Connect
-- OpenID Connect development
-
 
 # OpenID Connect
 `Open ID Connect` adds an additional layer on top of the OAuth 2.0 protocol. It uses the same underlying REST protocol, but adds consistency and additional security on top of the OAuth protocol.
-
+o
 > Please note that OpenID Connect is a very different protocol to OpenID. The later was an XML based protocol, which follows similar approaches and goals to OpenID Connect but in a less developer-friendly way.
 
 OpenID Connect builds on top of OAuth 2.0. The workflow is very similar to the OAuth 2.0 flow:
@@ -83,21 +77,21 @@ OpenID Connect builds on top of OAuth 2.0. The workflow is very similar to the O
 ## OpenID Connect flows ##
 OpenID Connect presents three major flows for authentication. These flows dictate how authentication is handled by the OpenID Connect Provider, including what can be sent to client application and how.
 
-- **Authorization Code Flow**: It returns an authorization code that can then be exchanged for an identity token and/or access token. This requires client authentication using a client id and secret to retrieve the tokens from the back end and has the benefit of not exposing tokens to the user agent (i.e. a web browser). This flow allows for long lived access (through the use of refresh tokens). Clients using this flow must be able to maintain a secret. Typically, client application can save client_id, secret. 
-	- It includes two round trips to the OpenID Connect Provider. First round trip get authenrization code via client_id and secret. Second round trip get access token or refresh token.
+- **Authorization Code Flow**: It is designed to traditional native/server-side apps. This flow returns an authorization code that can then be exchanged for an identity token and/or access token. It requires client authentication using a client id and secret to retrieve the tokens from the identity server and has the benefit of not exposing tokens to the user agent (i.e. a web browser). 
+	- This flow allows for long lived access (through the use of refresh tokens). Clients using this flow must be able to maintain a secret. Typically, client application can save client_id, secret. 
+	- It includes two round trips to the OpenID Connect Provider. The first round trip get authenrization code via client_id and secret. The second round trip get ID token, access token or refresh token.
 	- This workflow doesn't work for browser-based applications such as Angular, React, Vue because anyone can easily find secret via development tools in browser.
-- **Implicit Flow**: It requests tokens without explicit client authentication, instead using the redirect URI to verify the client identity. Because of this, refresh tokens are not allowed, nor is this flow suitable for long lived access tokens. From the client application's point of view, this is the simplest to implement, as there is only one round trip to the OpenID Connect Provider.
+- **Implicit Flow**: It is designed for browse-based apps. It requests tokens without explicit client authentication, instead using the redirect URI to verify the client identity. Because of this, refresh tokens are not allowed, nor is this flow suitable for long lived access tokens. From the client application's point of view, this is the simplest to implement, as there is only one round trip to the OpenID Connect Provider.
 	- This flow obtains all tokens from the identity server.
 	- Tokens have specific short expiration time and cannot renew via refresh token. 
 	- It is not safe to save all tokens in client side.
 	- It is suitable for browser-based applications such as Angular, React, Vue
-- **Hybrid Flow**: It is a combination of aspects from the previous two. This flow allows the client to make immediate use of an identity token and retrieve an authorization code via one round trip to the authentication server. This can be used for long lived access (again, through the use of refresh tokens). Clients using this flow must be able to maintain a secret.
+- **Hybrid Flow**: It is a combination of aspects from the previous two and rarely used. This flow allows the client to make immediate use of an identity token and retrieve an authorization code via one round trip to the authentication server. This can be used for long lived access (again, through the use of refresh tokens). Clients using this flow must be able to maintain a secret.
 	- This flow can obtain an authorization code and tokens from the authorization endpoint, and can also obtain refresh tokens from the token endpoint.
 	- 
 # Architecture of OpenID Connect integration
 
 ![](/images/posts/20181031-openid-3.png)
-
 
 # OpenID Connect development in ASP.NET core approach 1
 1. Create a ASP.NET core project
@@ -166,7 +160,7 @@ OpenID Connect presents three major flows for authentication. These flows dictat
 	
 	    }
 
-# ASP.NET Core approach 2 - todo 
+# OpenID Connect development in ASP.NET core approach 2 - todo 
 1. install `IdentityServer4.AccessTokenValidation`
 
 	![](/images/posts/20181031-openid-1.png)
@@ -237,7 +231,7 @@ OpenID Connect presents three major flows for authentication. These flows dictat
 
 		...
 		export class HomeComponent {
-		  constructor(private oidcFacade: OidcFacade) {}
+		  constructor(protected oidcFacade: OidcFacade) {}
 		
 		  loginPopup() {
 		    this.oidcFacade.signinPopup();
@@ -489,10 +483,6 @@ OAuth 2.0 is very loose in it's requirements for implementation. There are many 
 OpenID Connect is kind of a “super-set” of OAuth 2.0 and always recommended against using OAuth.
 
 # References
-[https://docs.microsoft.com/en-us/aspnet/core/security/authentication/social/?view=aspnetcore-2.0](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/social/?view=aspnetcore-2.0)
-
-[https://docs.microsoft.com/en-us/aspnet/mvc/overview/security/create-an-aspnet-mvc-5-app-with-facebook-and-google-oauth2-and-openid-sign-on](https://docs.microsoft.com/en-us/aspnet/mvc/overview/security/create-an-aspnet-mvc-5-app-with-facebook-and-google-oauth2-and-openid-sign-on)
-
 [https://github.com/IdentityModel/oidc-client-js](https://github.com/IdentityModel/oidc-client-js)
 
 [https://openid.net/specs/openid-connect-core-1_0.html](https://openid.net/specs/openid-connect-core-1_0.html)

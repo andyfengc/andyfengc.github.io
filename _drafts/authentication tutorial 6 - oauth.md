@@ -3,8 +3,16 @@ layout: post
 title: ASP.NET Identity authentication 8 - OAuth
 author: Andy Feng
 ---
+
 # Introduction
-OAuth and OpenID Connect are the modern technologies for authenticating users. These techniques allow users to participate single-sign-on experience across one or more applications in the federated ecosystems. There are quite a few libs in the market.
+Traditionally, applications create a local database for the users' accounts and credentials. Then, implement local authentication internally. However, local authentication can be bad for business:
+
+- sign up and create account for each application is tedious.
+- For enterprises with many apps, maintenance of separate user databases can easily become an administrative and security nightmare. 
+
+A better solution to these problems is to delegate user authentication and provisioning to a dedicated, purpose-built service, called an Identity Provider (IdP).
+
+OAuth and OpenID Connect are the modern technologies for authenticating users. These techniques allow users to participate single-sign-on experience across one or more applications in the federated ecosystems. There are quite a few libs in the market. Also, Google, Facebook and Twitter, where many people on the internet are registered, offer such IdP services for their users. A consumer website can greatly streamline user onboarding by integrating login with these IdPs. Moreover, inside a enterprise, this would ideally be one internal IdP service, for employees and contractors to log into the internal applications. Centralisation has considerable benefits, such as easier administration and potentially faster development cycles for new apps. 
 
 # Outline
 - OAuth
@@ -179,7 +187,6 @@ OpenID Connect builds on top of OAuth 2.0. The workflow is the same as the OAuth
 1. 
 
 
-
 # OpenID vs. OAuth
 OAuth 2.0 is fundamentally an authorization protocol, not an authentication protocol. It's entire design is based around providing access to some protected resource (e.g. Facebook Profile, or Photos) to a third party (e.g. our application). OpenID is kind of authentication protocol.
 
@@ -192,6 +199,6 @@ OpenID Connect is kind of a “super-set” of OAuth 2.0 and always recommended 
 
 [https://docs.microsoft.com/en-us/aspnet/mvc/overview/security/create-an-aspnet-mvc-5-app-with-facebook-and-google-oauth2-and-openid-sign-on](https://docs.microsoft.com/en-us/aspnet/mvc/overview/security/create-an-aspnet-mvc-5-app-with-facebook-and-google-oauth2-and-openid-sign-on)
 
-[https://github.com/IdentityModel/oidc-client-js](https://github.com/IdentityModel/oidc-client-js)
+[https://oauth.net/2/](https://oauth.net/2/)
 
-[https://openid.net/specs/openid-connect-core-1_0.html](https://openid.net/specs/openid-connect-core-1_0.html)
+[https://www.ibm.com/support/knowledgecenter/en/SS4J57_6.2.2.6/com.ibm.tivoli.fim.doc_6226/config/concept/OAuth20Workflow.html](https://www.ibm.com/support/knowledgecenter/en/SS4J57_6.2.2.6/com.ibm.tivoli.fim.doc_6226/config/concept/OAuth20Workflow.html)
