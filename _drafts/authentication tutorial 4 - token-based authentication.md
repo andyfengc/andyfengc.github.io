@@ -658,9 +658,43 @@ web api can integrated with OWIN pipeline
 		    }
 		}
 
+# Access token
+## DPAPI ##
+Access token can be generated and encrypted or signed via multiple algorithms. 
+
+By default, if in IIS mode (SystemWeb), the encryption and signing is done via the "decryptionKey" and "validationKey" key values in machineKey node of app.config. e.g.
+
+	<?xml version="1.0" encoding="utf-8" ?>
+	<configuration>
+	  <startup>
+	    <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.6.1" />
+	  </startup>
+	  <system.web>
+	    <compilation debug="true" targetFramework="4.6.1" />
+	    <machineKey decryptionKey="B7EFF1C5839A624E3F97D0268917EDE82F408D2ECBFAC817" validation="SHA1" validationKey="C2B8DF31AB9624D69428066DFDA1A479542825F3B48865C4E47AF6A026F22D853DEC2B3248DF268599BF89EF78B9E86CA05AC73577E0D5A14C45E0267588850B" />
+	  </system.web>
+	</configuration>
+
+Be default, if running as a self-host OWIN application, the encryption uses the `DPAPI` to protect it and that actually uses the 3DES algorithm. To decrypt it we need to invoke this code in our controller action method (not necessary but if we want to see what inside this encrypted token). Then, We can easily decrypt the bear token using: 
+
+	Microsoft.Owin.Security.AuthenticationTicket ticket= Startup.OAuthBearerOptions.AccessTokenFormat.Unprotect(token);
+
+e.g. 
+![](/images/posts/20181120-jwt-2.png)
+![](/images/posts/20181120-jwt-1.png)
+
+## JWT ##
+We can configure authentication server to issue JWT signed tokens so we can deconde them using public oline tool such as Google JWT decoder to get the information.
+
+
+
+
+
 # References
 [http://autofac.readthedocs.io/en/latest/integration/aspnet.html](http://autofac.readthedocs.io/en/latest/integration/aspnet.html)
 
 http://autofac.readthedocs.io/en/latest/integration/webapi.html](http://autofac.readthedocs.io/en/latest/integration/webapi.html)
 
 [http://autofac.readthedocs.io/en/latest/integration/owin.html](http://autofac.readthedocs.io/en/latest/integration/owin.html)
+
+[http://bitoftech.net/2014/10/27/json-web-token-asp-net-web-api-2-jwt-owin-authorization-server/](http://bitoftech.net/2014/10/27/json-web-token-asp-net-web-api-2-jwt-owin-authorization-server/)
