@@ -684,11 +684,20 @@ e.g.
 ![](/images/posts/20181120-jwt-1.png)
 
 ## JWT ##
-We can configure authentication server to issue JWT signed tokens so we can deconde them using public oline tool such as Google JWT decoder to get the information.
+We can configure authentication server to issue JWT signed tokens so we can decode them using public online tools such as [https://jwt.io/](https://jwt.io/) or decrypt by coding to get the information.
 
+One approach to decrype JWT token in C#:
 
+1. Install nuget library: `System.IdentityModel.Tokens.Jwt`
 
+	![](/images/posts/20181120-jwt-3.png)
 
+1. Parse 
+	
+        string accessToken =
+            "eyJhbGciOiJSUzI1NiIsImtpZCI6IjUzNTk2M0M0RjE0N0VERjk4NUU0MjlDQTRFMjQ4NkEwQkY0NzdGQjUiLCJ0eXAiOiJKV1QiLCJ4NXQiOiJVMWxqeFBGSDdmbUY1Q25LVGlTR29MOUhmN1UifQ.eyJuYmYiOjE1NDI0MDM5ODksImV4cCI6MTU0MjQwNzU4OSwiaXNzIjoiaHR0cDovL3dmbWxlZ2FjeS5pbnQuYmVsbC5jYS9jZW50cmUiLCJhdWQiOlsiaHR0cDovL3dmbWxlZ2FjeS5pbnQuYmVsbC5jYS9jZW50cmUvcmVzb3VyY2VzIiwiVW5pZmllZEVtcGxveWVlSGllcmFyY2h5QXBpIl0sImNsaWVudF9pZCI6IjBENDk3ODVFRDRDQTRGREU5QjQ2NEY4Qzc0MjcwNUY0Iiwic3ViIjoiNjA5NDY2MSIsImF1dGhfdGltZSI6MTU0MjM4NjAwOSwiaWRwIjoibG9jYWwiLCJzY29wZSI6WyJvcGVuaWQiLCJwcm9maWxlIiwiZW1haWwiLCJyb2xlcyIsIkFTX1JvbGVzIiwiVW5pZmllZEVtcGxveWVlSGllcmFyY2h5QXBpIl0sImFtciI6WyJwd2QiXX0.p90Ei7YZhUSOs59v5TwqpnT_E3iq5jeqRjc0d_WLxpn3FaJaOgEysgB9hYqOoW300ECdcLQCbyDqtrkgzGxnLus1mBxplBngRrIfDTnZ82Iv4EZbePaEiyqm1baTkklTTddSYm8JPX_E3o2j55rtZteiTPKb7_SproAS5K9tBMrXxD76n4eiTEHOXYyiCMrKK3EwgaxBFr2hmELHt9WqFBq6VYKLMG4eJ1va-f6biK36Ur6Z9vfvToO2ZOb0Ncsxf0sc5m_CYo0eZEbpN5tmba_8TSnQakmCDXkCmsiwmc5ah_NSIijpUh2_tve6Q-ooezpbrTKCOMVsFZO9wcWzAA";
+        var jwt = new JwtSecurityToken(accessToken);
+        var sub = jwt.Claims.First(c => c.Type == "sub").Value;
 
 # References
 [http://autofac.readthedocs.io/en/latest/integration/aspnet.html](http://autofac.readthedocs.io/en/latest/integration/aspnet.html)

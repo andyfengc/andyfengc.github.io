@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Team foundation server tutorial (1)
+title: Team foundation server tutorial (1) - Introduction
 author: Andy Feng
 ---
 
