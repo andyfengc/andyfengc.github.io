@@ -10,8 +10,6 @@ author: Andy Feng
 [RxJS](http://reactivex.io/rxjs) is a library for reactive programming using Observables. It help us create asynchronous or callback-based applications quicker and easier. [Angular 2+](https://angular.io) uses [RxJS](https://angular.io/guide/rx-library) to implement asynchronous operations.
 
 # Observables in rxjs #
-[RxJS](http://reactivex.io/rxjs) is a library for reactive programming using Observables. It help us create asynchronous or callback-based applications quicker and easier. [Angular 2+](https://angular.io) uses [RxJS](https://angular.io/guide/rx-library) to implement asynchronous operations.
-
 `Observable` provides support for passing messages between publishers and subscribers in our application. It helps us solve event handling, asynchronous programming issues.
 
 > Observable defines a subscriber function to publish events/values to consumers(observers) subscribe to it.
@@ -87,26 +85,36 @@ If we want each subscription of observer(consumer) get the same value, we need m
 
 We make some changes in above steps. When we subscribe observer to the observable, we add observers to an array(list):
 
-		function multicastSequenceSubscriber() {
-		  const seq = [1, 2, 3];
-		  // Keep track of each observer (one for every active subscription)
-		  const observers = [];
-		
-		  // Return the subscriber function (runs when subscribe()
-		  // function is invoked)
-		  return (observer) => {
-		    observers.push(observer);
-		    return {
-		      unsubscribe() {
-		        // Remove from the observers array so it's no longer notified
-		        observers.splice(observers.indexOf(observer), 1);
-		      }
-		    };
-		  };
-		}
+	function multicastSequenceSubscriber() {
+	  const seq = [1, 2, 3];
+	  // Keep track of each observer (one for every active subscription)
+	  const observers = [];
+	
+	  // Return the subscriber function (runs when subscribe()
+	  // function is invoked)
+	  return (observer) => {
+	    observers.push(observer);
+	    return {
+	      unsubscribe() {
+	        // Remove from the observers array so it's no longer notified
+	        observers.splice(observers.indexOf(observer), 1);
+	      }
+	    };
+	  };
+	}
 
-		// Create a new Observable that will deliver the above sequence
-		const multicastSequence = new Observable(multicastSequenceSubscriber);
+	// Create a new Observable that will deliver the above sequence
+	const multicastSequence = new Observable(multicastSequenceSubscriber);
+
+	// multiple observers subscribe 
+	multicastSequence.subscribe({
+	  next(num) { console.log('1st subscribe: ' + num); },
+	  complete() { console.log('1st sequence finished.'); }
+	});
+	multicastSequence.subscribe({
+	    next(num) { console.log('2nd subscribe: ' + num); },
+	    complete() { console.log('2nd sequence finished.'); }
+	  });
 
 # RxJS #
 [Reactive programming](https://en.wikipedia.org/wiki/Reactive_programming) is an asynchronous programming paradigm concerned with data streams and the propagation of change. It assumes all events published as a stream and listenable, e.g. keystrokes, an HTTP response, or an interval timer.
