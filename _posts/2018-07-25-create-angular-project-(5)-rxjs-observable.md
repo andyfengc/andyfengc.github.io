@@ -28,6 +28,11 @@ author: Andy Feng
 
 ![](/images/posts/20180411-rxjs-2.png)
 
+# Observables vs Observers vs Subscriptions #
+- An observable is a function that produces a stream of values to an observer over time. 
+- When you subscribe to an observable, you are an observer.
+- An observable can have multiple observers.
+
 ## Steps to use observable/observer ##
 
 1. create an `Observable` instance
@@ -45,6 +50,15 @@ author: Andy Feng
 
 		//Converts its argument to an Observable instance. This method is commonly used to convert an array to an observable.
 		const sequence = Observable.from(iterable)
+
+	or
+
+	Observable.create(function subscribe(observer) {
+            observer.next(item1);
+            observer.next(item2);
+			observer.next(itemx);
+			observer.complete();
+        })
 
 		
 1. we define a subscriber function inside this instance. this function accepts observer object and put into a list
@@ -266,7 +280,7 @@ Steps to use Subject:
 In typical senario, we have the source `Observable` and many `observers`, and multiple observers share the same Observable execution.
 
 # Subject demo #
-We will have a textbox. when we enter something inside the textbox, it bounds x seconds and display the result.
+We will have a textbox. when we enter something inside the textbox, it debounces x seconds and display the result.
 
 1. template: `ng2.component.html`
 
@@ -280,7 +294,7 @@ We will have a textbox. when we enter something inside the textbox, it bounds x 
 	
 		@Component({
 		  selector: 'app-ng2',
-		  templateUrl: './ng2.component.html',
+ 
 		  styleUrls: ['./ng2.component.scss']
 		})
 		export class Ng2Component implements OnInit, OnDestroy {
