@@ -46,15 +46,15 @@ Here are major steps of GitFlow:
 
 ![](/images/posts/20171109-git-20.png)
 
-1. Create a new repo with master branch
+1. Create a new repo with `master` branch
 
-1. Create develop branch
+1. Create `develop` branch based on `master` branch
 	
 	**create develop branch from master branch**
 	
 	`git checkout -b develop master`
 
-	**pull new changes from master to develop**
+	**merge new changes from master to develop**
 
 	`git checkout develop`
 
@@ -66,13 +66,15 @@ Here are major steps of GitFlow:
 
 	`git checkout -b <feature-branch> develop`
 
-1. Do some development in feature branch
+	> naming convention: andy-api-jira-1235
+
+1. Do some development in feature branch.
 
 1. Constantly pull changes from remote repo/master and merge to feature branch
 
 	`git pull origin <feature-branch>`
 
-1. Merge changes from feature branch to develop branch
+1. Merge changes from feature branch to `develop` branch
 
 	**feature is completed, add commits and merge/rebate changes**
 
@@ -83,12 +85,16 @@ Here are major steps of GitFlow:
 	commit changes: `git commit --verbose`
 	> --verbose option will list all diff result
 
+	push feature branch to remote git server: `git push origin <feature-branch>`
+
 	switch to develop branch: `git checkout develop`
 
-	merge changes from feature branch: `git merge --no-ff <feature-branch>`	
+	pull possible changes of other team members for develop branch: `git pull origin develop`
+
+	merge changes from feature branch: `git merge --no-ff <feature-branch>`	or `git merge develop <feature-branch>`
 	> --no-ff: disable the default fast-forward merge
 
-	delete feature branch: `git branch -d <feature-branch>`
+	delete feature branch(optional): `git branch -d <feature-branch>`
 
 	**feature is not completed, stash**
 	
@@ -106,9 +112,9 @@ Here are major steps of GitFlow:
 	
 	`git tag -a 1.2.1`
 
-1. Continuous integration in develop branch
+1. Continuous integration and beta release in develop branch
 
-1. Merge changes from develop branch to master branch and make a release
+1. Merge changes from develop branch to master branch and make a formal release
 	
 	**merge changes**
 

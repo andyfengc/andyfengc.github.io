@@ -142,7 +142,7 @@ In the component/service, inject DOCUMENT class instance
 		}
 	}
 
-# resolve ExpressionChangedAfterItHasBeenCheckedError
+# Resolve ExpressionChangedAfterItHasBeenCheckedError
 It happens when parent component specify property vlue of child component. Also, child component update its property value asynchorously. At that moment, parent component has not aware of property changes of child component. 
 
 Force Change Detection cycle Inside your parent component
@@ -228,6 +228,63 @@ Force Change Detection cycle Inside your parent component
 		})
 		export class AppModule { }
 
+# How to Import json into TypeScript
+## way1: make a simple http get request ##
+1. make sure import HttpModule in app.module.ts
+
+		import { NgModule }      from '@angular/core';
+		import { BrowserModule } from '@angular/platform-browser';
+		import { HttpModule }      from '@angular/http';
+		import { AppComponent }   from './app.component';
+		 
+		@NgModule({
+		  imports:      [ BrowserModule, HttpModule ],
+		  declarations: [ AppComponent],
+		  bootstrap:    [ AppComponent ]
+		})
+		export class AppModule { }
+
+1. put your JSON file in a location accessible via Http, for example, `/data` folder. Then, use `http.get()`
+
+		import {Http} from '@angular/http';
+		import { Component } from '@angular/core';
+		 
+		@Component({
+		  selector: 'my-app',
+		  template: ``,
+		})
+		export class AppComponent { 	 
+		    data;	 
+		    constructor(private http:Http) {
+		        this.http.get('data/data.json')
+		                .subscribe(res => this.data = res.json());
+		    }
+		}
+
+## way2 ##
+1. add "your-json-dir" into angular.json file (optional)
+
+		"assets": [
+		  "src/assets",
+		  "src/your-json-dir"
+		]
+
+1. create or edit typings.d.ts file (at your project root)
+
+	![](/images/posts/20181122-angular-1.png)
+
+		declare module "*.json" {
+		    const value: any;
+		    export default value;
+		}
+
+1. Then, in our code, simply import the file by using this relative path:
+
+		import * as data from './example.json'; 
+		const value = (<any>data).key;
+		console.log(value); 
+
 # References
-[Global HTTP error catching in Angular 4.3+
-](https://hackernoon.com/global-http-error-catching-in-angular-4-3-9e15cc1e0a6b)
+[Global HTTP error catching in Angular 4.3+](https://hackernoon.com/global-http-error-catching-in-angular-4-3-9e15cc1e0a6b)
+
+[https://hackernoon.com/import-json-into-typescript-8d465beded79](https://hackernoon.com/import-json-into-typescript-8d465beded79)
