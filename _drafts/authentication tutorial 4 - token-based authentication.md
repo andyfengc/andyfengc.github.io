@@ -550,6 +550,34 @@ author: Andy Feng
 		    }
 		}
 
+	Here, `ApplicationOAuthProvider` inherits from class `OAuthAuthorizationServerProvider`, we’ve overridden two methods `ValidateClientAuthentication` and `GrantResourceOwnerCredentials`.
+
+	- `ValidateClientAuthentication` method is responsible for validating the `Client`, in our case we have only one client so we’ll always return that its validated successfully.
+	- `GrantResourceOwnerCredentials` is responsible to validate the username and password sent to the authorization server’s token endpoint. We can use dbcontext to find user and check if the username and password are valid.
+
+		 context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
+
+            using (AuthRepository _repo = new AuthRepository())
+            {
+                IdentityUser user = await _repo.FindUser(context.UserName, context.Password);
+
+                if (user == null)
+                {
+                    context.SetError("invalid_grant", "The user name or password is incorrect.");
+                    return;
+                }
+            }
+
+	- In GrantResourceOwnerCredentials, if the credentials are valid we’ll create `ClaimsIdentity` class and pass the authentication type to it, e.g. bearer token, then we’ll add claims (e.g. “sub”,”role”) and those will be included in the signed token. We can add different claims here but the token size will increase for sure.
+
+			var identity = new ClaimsIdentity(context.Options.AuthenticationType);
+            identity.AddClaim(new Claim("sub", context.UserName));
+            identity.AddClaim(new Claim("role", "user"));
+	
+	- Finally, in GrantResourceOwnerCredentials, we can generate the token happens behind the scenes when we call “context.Validated(identity)”.
+
+            context.Validated(identity);
+
 # webapi + owin
 web api can integrated with OWIN pipeline
 
@@ -686,9 +714,10 @@ e.g.
 ## JWT ##
 We can configure authentication server to issue JWT signed tokens so we can decode them using public online tools such as [https://jwt.io/](https://jwt.io/) or decrypt by coding to get the information.
 
+### decrypt JWT token ###
 One approach to decrype JWT token in C#:
 
-1. Install nuget library: `System.IdentityModel.Tokens.Jwt`
+1. Install nuget library: `System.IdentityModel.Tokens.Jwt` 
 
 	![](/images/posts/20181120-jwt-3.png)
 
@@ -699,6 +728,11 @@ One approach to decrype JWT token in C#:
         var jwt = new JwtSecurityToken(accessToken);
         var sub = jwt.Claims.First(c => c.Type == "sub").Value;
 
+### Add JWT support ###
+1. Install nuget library: `Microsoft.Owin.Security.Jwt`, `System.IdentityModel.Tokens.Jwt` 4.x
+
+1. 
+
 # References
 [http://autofac.readthedocs.io/en/latest/integration/aspnet.html](http://autofac.readthedocs.io/en/latest/integration/aspnet.html)
 
@@ -707,3 +741,5 @@ http://autofac.readthedocs.io/en/latest/integration/webapi.html](http://autofac.
 [http://autofac.readthedocs.io/en/latest/integration/owin.html](http://autofac.readthedocs.io/en/latest/integration/owin.html)
 
 [http://bitoftech.net/2014/10/27/json-web-token-asp-net-web-api-2-jwt-owin-authorization-server/](http://bitoftech.net/2014/10/27/json-web-token-asp-net-web-api-2-jwt-owin-authorization-server/)
+
+[http://bitoftech.net/2014/06/01/token-based-authentication-asp-net-web-api-2-owin-asp-net-identity/](http://bitoftech.net/2014/06/01/token-based-authentication-asp-net-web-api-2-owin-asp-net-identity/)
