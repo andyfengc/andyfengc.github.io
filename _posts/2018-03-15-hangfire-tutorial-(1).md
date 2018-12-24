@@ -4,7 +4,7 @@ title: Hangfire Tutorial (1) Introduction
 author: Andy Feng
 ---
 
-## Overview ##
+# Overview #
 
 Scheduling jobs in Web applications is a challenge, and we can choose from many job scheduling frameworks. 
 
@@ -18,14 +18,14 @@ Scheduling jobs in Web applications is a challenge, and we can choose from many 
 
 - and more
 
-## Hangfire Introduction ##
+# Hangfire Introduction #
 Hangfire is  an open source job scheduling framework to schedule fire-and-forget, recurring tasks in Web applications sans the need of a Windows Service. It takes advantage of the request processing pipeline of ASP.Net for processing and executing jobs. 
 
 Hangfire is not limited to Web applications; we can also use it in your Console applications. The documentation for Hangfire is very detailed and well structured, and the best feature is its built-in dashboard. The Hangfire dashboard shows detailed information on jobs, queues, status of jobs, and so on.
 
 ![](/images/posts/20180206-hangfire-1.png)
 
-## Hangfire architecture ##
+# Hangfire architecture #
 
 There are three major components in Hangfire: client, storage and server.
 
@@ -35,7 +35,7 @@ There are three major components in Hangfire: client, storage and server.
 
 ![](/images/posts/20180206-hangfire-2.png)
 
-## Installation ##
+# .net 4.5 Installation #
 1. Create a web project: Scheduler
 
 	![](/images/posts/20180206-hangfire-3.png)
@@ -101,7 +101,51 @@ There are three major components in Hangfire: client, storage and server.
 
 	Please note that we have one server running and ready for running jobs.
 
-## Create a simple job ##
+# .net core Installation #
+1. Create a web project: Scheduler
+
+	![](/images/posts/20181218-hangfire-1.png)
+
+1. Install `Hangfire` nuget package
+
+1. modify `startup.cs`
+
+		namespace Scheduler
+		{
+		    public class Startup
+		    {
+		        public void ConfigureServices(IServiceCollection services)
+		        {
+		            services.AddHangfire(x =>
+		                x.UseSqlServerStorage(
+		                    "Data Source=servername; Initial Catalog=Scheduler; MultipleActiveResultSets=True; User Id=username; Password=password"));
+		        }
+		
+		        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+		        {
+		            if (env.IsDevelopment())
+		            {
+		                app.UseDeveloperExceptionPage();
+		            }
+		            app.UseHangfireServer();
+		            app.UseHangfireDashboard();
+		            app.Run(async (context) =>
+		            {
+		                await context.Response.WriteAsync("Hello World!");
+		            });
+		        }
+		    }
+		}
+
+1. Start the project. Please note that when Hangfire starts, it will automatically create and populate relevant tables/stored procedures for us.
+
+	![](/images/posts/20180206-hangfire-9.png)
+
+	navigate to http://hostname:port/hangfire to view dashboard
+
+	![](/images/posts/20180206-hangfire-8.png)
+
+# Create a simple job #
 Now we are ready to create long running tasks and drop them to Hangfire as jobs. These tasks should be independent without interacting any external resources. 
 
 Typically, they are void methods and encapsulate contextual details such as database access, 3rd api calls. Also, it should only accept primitive data types or serializable objects as inputs. Here is an example.
@@ -175,7 +219,7 @@ Here, let's create our first job.
 
 	![](/images/posts/20180206-hangfire-12.png)
 
-## Next ##
+# Next #
 - more job types
 - dashboard
 - performance optimization

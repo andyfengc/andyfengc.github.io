@@ -31,7 +31,30 @@ OAuth 1.0 was first released in 2007, was conceived as an authentication method 
 
 ## Workflow of OAuth 2.0:
 
-There are two versions of OAuth 2.0, 3-legged and 2-legged.
+There are 4 major players in OAuth2:
+
+![](/images/posts/20181223-owin-1.png)
+
+- authentication server: the server that generates access token
+- resource server: the backend that feeds data
+- client: the software that is used to access the backend data via token
+- resource owner: the human that owns the backend data
+
+There are 4 major workflows of OAuth2:
+
+- Authorization code flow
+- Implicit flow
+- Resource owner credential flow
+- Client credential flow
+
+These workflows can be categorized into two types: 
+
+- 3-legged with user interaction
+	- Authorization code flow
+	- Implicit flow
+- 2-legged without user interaction 
+	- Resource owner credential flow
+	- Client credential flow
 
 ### 3-legged with user involvement
 Workflow of OAuth 2.0 (3-legged with user involvement):

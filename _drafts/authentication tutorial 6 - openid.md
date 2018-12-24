@@ -13,12 +13,12 @@ OpenID Connect builds on top of OAuth 2.0. The workflow is very similar to the O
 
 ![](/images/posts/20181024-identity-14.png)
 
-## Techminologies ##:
+## Techminologies ##
 > **Authorization server (identity server)**: there are a few choices to select an identity server
 >  
 > - Social media identity servers: Google, Facebook, Twitter and so on.
 > - commercial cloud identity servers: Azure Active Directory(AAD), Auth0, okta, Ping identity 
-> - opensource identity server frameworks: IdentityServer4
+> -  opensource identity server frameworks: IdentityServer4
 > 
 > **Resource server**
 > 
@@ -476,11 +476,30 @@ OpenID Connect presents three major flows for authentication. These flows dictat
 	- errors$ : Observable<ErrorState> - returns an Observable to Errors caught from oidc-client
 
 # OpenID vs. OAuth
-OAuth 2.0 is fundamentally an authorization protocol, not an authentication protocol. It's entire design is based around providing access to some protected resource (e.g. Facebook Profile, or Photos) to a third party (e.g. our application). OpenID is kind of authentication protocol.
+1. OAuth2 is not designed for authentication but OpenID does
 
-OAuth 2.0 is very loose in it's requirements for implementation. There are many subtly different implementations across various providers. Each of those providers requires some degree of customisation aside from specifying urls and secrets. Each one returns data in a different format and must have the returned Claims parsed. OpenID Connect is far more rigid in its requirements, which allows a great deal of interoperability.
+	OAuth 2.0 is fundamentally an authorization protocol, not an authentication protocol. It's entire design is based around providing access to some protected resource (e.g. Facebook Profile, or Photos) to a third party (e.g. our application). OAuth2 is designed for authorizing resources by endpoints. It is endpoint-oriented and anyone who got access token via OAuth2 can access that specific resource later on. 
 
-OpenID Connect is kind of a “super-set” of OAuth 2.0 and always recommended against using OAuth.
+	OAuth2 essentially is a way we request access token from Authorization server, then we use access token to talk to backend server. It is focus on Authorization process.
+	
+	However, OpenID is kind of authentication protocol. It is just used for authenticating user without touching any resources. Anyone got access token via OpenID cannot access any resources at all. The user is just authenticated (logged in). The user has to ask additional access token in order to access any resources later on. 
+
+1. OAuth2 is very general but OpenID is specific in authenticating
+
+	OAuth 2.0 is very loose in it's requirements for implementation. There are many subtly different implementations across various providers. Each of those providers requires some degree of customisation aside from specifying urls and secrets. Each one returns data in a different format and must have the returned Claims parsed.
+
+	OpenID Connect is far more rigid in its requirements, which allows a great deal of interoperability. Any implementions using OpenID Connect is exactly the same logic and can be replaced without code modification; it doesn't have the drawback of OAuth2 implementations - subtle differences between implementations.
+
+	OpenID Connect is kind of a “super-set” of OAuth 2.0 and always recommended against using OAuth2. Via OpenID, we request a token from authentication server and it can be used to validate user's identity. It not necessarily access a backend service. OpenID is focus on authentication process. Maybe later, we can use OAuth to get another token in order to access a backend service. 
+
+	OpenID Connect use two major flows of OAuth2
+	- Authorization code flow for server based applications
+	- Implicit flow for client-based applications
+
+	OpenID Connect add some new concepts over OAuth2. such as		
+	- ID token - for client to make validation before sending request with access token
+	- User info endpoint
+	- additional protocols. e.g. discovery& dynamic registration, session management(login/logout)
 
 # References
 [https://github.com/IdentityModel/oidc-client-js](https://github.com/IdentityModel/oidc-client-js)

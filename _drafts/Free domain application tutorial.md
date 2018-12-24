@@ -9,22 +9,25 @@ author: Andy Feng
 
 1. Apply a domain `andyfeng.ga` at freenom
 
-2.1. Use freenom's DNS parsing service to add DNS parsing support to convert domain server(freenom) to hosting server(github)
+2. Add domain
 
-	- use default name servers
-	- add A record
-	- add CNAME
+	1. Use freenom's DNS parsing service to add DNS parsing support to convert domain server(freenom) to hosting server(github)
 
-2.2 Use godaddy's DNS parsing service
+		- use default name servers
+		- add A record
+		- add CNAME
 
-	- add an Off-site DNS in godaddy
-	- add A record in godaddy
-	- add CNAME in godaddy
-	- login current domain provider(freenom), modify its name servers(ns) to godaddy's
+	2. Use godaddy's DNS parsing service
+	
+		- add an Off-site DNS in godaddy
+		- add A record in godaddy
+		- add CNAME in godaddy
+		- login current domain provider(freenom), modify its name servers(ns) to godaddy's
 
 3. Add email server under the new domain, email format `name@andyfeng.ga`
 
 4. Add SSL support by cloudflare
+
 	- login current domain provider, modify name servers(ns) to cloudflare's
 	- we can also use cloudflase free dns service to add A record and CNAME
 
@@ -146,7 +149,7 @@ Note:
 
 	![](/images/posts/20170830-free-domain-1.png)
 
-1. dns > add dna hosting 
+1. dns > add dns hosting 
 
 	![](/images/posts/20170830-free-domain-2.png)
 	

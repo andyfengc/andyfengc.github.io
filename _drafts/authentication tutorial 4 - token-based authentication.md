@@ -728,6 +728,17 @@ One approach to decrype JWT token in C#:
         var jwt = new JwtSecurityToken(accessToken);
         var sub = jwt.Claims.First(c => c.Type == "sub").Value;
 
+or
+
+		var validationParams = new TokenValidationParameters{
+			ValidaIssuer = "xxx",
+			AllowedAudience = "xxx",
+			SigningToken = "xxx"
+		}
+		var handler = new JWTSecurityTokenHandler();
+		// return all claims like issuer, audience, expiration, subject
+		var principal = handler.ValidateToken(token, validationParams);
+
 ### Add JWT support ###
 1. Install nuget library: `Microsoft.Owin.Security.Jwt`, `System.IdentityModel.Tokens.Jwt` 4.x
 
