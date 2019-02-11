@@ -4,7 +4,7 @@ title: nopCommerce tutorial (1) - installation and debug
 author: Andy Feng
 ---
 
-## Prepare environment ##
+# Prepare environment 
 
 1. operating system windows 7+, sql server 2008+
 
@@ -12,9 +12,15 @@ author: Andy Feng
 	
 	![](./images/posts/20180109-nopcommerce-1.png)
 
-1. download and install .NET Core SDK 2.x, Windows Server Hosting (.exe) 2.x at [https://www.microsoft.com/net/download/windows](https://www.microsoft.com/net/download/windows)
+1. download and install .NET Core SDK 2.x, Runtime 2.x, Windows Server Hosting (.exe) 2.x at [https://www.microsoft.com/net/download/windows](https://www.microsoft.com/net/download/windows)
 
 	![](/images/posts/20180109-nopcommerce-2.png)
+
+	Alternatively, we can install the Runtime & Hosting Bundle
+		
+	![](/images/posts/20190130-nop-3.png)
+
+	![](/images/posts/20190130-nop-2.png)
 
 1. open iis > root > modules, check aspnetcore module
 
@@ -22,7 +28,7 @@ author: Andy Feng
 
 	![](/images/posts/20180109-nopcommerce-3.png)
 
-## Install website without source code ##
+# Install website without source code 
 
 1. download nopCommerce - Web (no source) at [https://www.nopcommerce.com/downloads.aspx](https://www.nopcommerce.com/downloads.aspx)
 
@@ -58,7 +64,7 @@ author: Andy Feng
 
 	![](/images/posts/20180109-nopcommerce-13.png) 
 
-## Install the website with source code ##
+# Install the website with source code 
 
 1. Install visual studio 2017
 
@@ -83,4 +89,13 @@ author: Andy Feng
 1. visual studio > set nop.web project as startup > run
 	
 	![](/images/posts/20180109-nopcommerce-11.png)
+
+# FAQ
+1. if it keeps reporting `HTTP Error 500.19 - Internal server Error`
+
+![](/images/20190130-nop-1.png)
+
+try to install URL write extension for iis
+
+
 

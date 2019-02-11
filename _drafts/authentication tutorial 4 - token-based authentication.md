@@ -277,7 +277,6 @@ author: Andy Feng
 		    }
 		}
 
-
 1. Add root > Startup.cs 
 
 		using Microsoft.Owin;
@@ -367,6 +366,105 @@ author: Andy Feng
 		        }
 		    }
 		}
+
+# Add authentication logic
+1. Install library
+
+	`Microsoft.Owin.Host.SystemWeb`
+	`Microsoft.Owin.Security.OAuth`
+	`Microsoft.Owin.Cors`
+
+	here, "Microsoft Owin" is responsible for regenerating and verifying the tokens.
+
+1. Create `ConfigureAuth()` in Startup.cs
+
+    public partial class Startup
+    {
+        public void ConfigureAuth(IAppBuilder app)
+        {
+			var myProvider = new ApplicationOAuthProvider();
+            OAuthAuthorizationServerOptions options = new OAuthAuthorizationServerOptions
+            {
+                AllowInsecureHttp = true,
+                TokenEndpointPath = new PathString("/token"),
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(60),
+                Provider = myProvider,
+                RefreshTokenProvider = new RefreshTokenProvider()
+            };
+            app.UseOAuthAuthorizationServer(options);
+            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());                        
+        }
+	}
+
+	Please note `ApplicationOAuthProvider`, `RefreshTokenProvider` in the above sample:
+
+	ApplicationOAuthProvider: it is the custom class which is inherited from the class `OAuthorizationServiceProvider` and overrides methods of it. Some of the methods:
+
+		- ValidateClientAuthentication():  Called to validate the client(clientId), if context.Validated is not called the request will not proceed further.
+		- GrantResourceOwnerCredentials(): This will validate the users credentials.
+		- GrantRefreshToken():  it is used to change authentication ticket for refresh token requests. It means to issue new claim and generate new access token with updated claims
+	
+	RefreshTokenProvider: this class is inherited from `IAuthenticationTokenProvider `interface and provides implementation for creating the refresh token and regenerate the new access token, if it is expired.
+
+		- CreateAsync(): This method is responsible for creating the new refresh token and added to authentication ticket
+		- ReceiveAsync(): This method is responsible for regenerate the new access token by using existing  refresh token, if the access token is expired.
+
+1. Add `ApplicationOAuthProvider.cs`
+
+	[EnableCors(origins: "*", headers: "*", methods: "*")]  
+    public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider  
+    {  
+        public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)  
+        {  
+            context.Validated(); //   
+        }  
+  		// check owner's credentials and add claims
+        public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)  
+        {  
+            var identity = new ClaimsIdentity(context.Options.AuthenticationType);  
+            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });  
+  
+            using (var db = new TESTEntities())  
+            {  
+                if (db != null)  
+                {  
+                    var empl = db.Employees.ToList();  
+                    var user = db.Users.ToList();  
+                    if (user != null)  
+                    {  
+                        if (!string.IsNullOrEmpty(user.Where(u => u.UserName == context.UserName && u.Password == context.Password).FirstOrDefault().Name))  
+                        {  
+                            identity.AddClaim(new Claim("Age", "16"));  
+  
+                            var props = new AuthenticationProperties(new Dictionary<string, string>  
+                            {  
+                                {  
+                                    "userdisplayname", context.UserName  
+                                },  
+                                {  
+                                     "role", "admin"  
+                                }  
+                             });  
+  
+                            var ticket = new AuthenticationTicket(identity, props);  
+                            context.Validated(ticket);  
+                        }  
+                        else  
+                        {  
+                            context.SetError("invalid_grant", "Provided username and password is incorrect");  
+                            context.Rejected();  
+                        }  
+                    }  
+                }  
+                else  
+                {  
+                    context.SetError("invalid_grant", "Provided username and password is incorrect");  
+                    context.Rejected();  
+                }  
+                return;  
+            }  
+        }  
+    }  
 
 # Add active directory authentication support
 1. Create Providers > ActiveDirectoryDataProvider.cs
@@ -581,7 +679,9 @@ author: Andy Feng
 # webapi + owin
 web api can integrated with OWIN pipeline
 
-1. Install Microsoft.AspNet.WebApi.Owin library
+1. Install library
+
+	`Microsoft.AspNet.WebApi.Owin`
 
 1. Add webapi component as a middleware
 
@@ -717,7 +817,7 @@ We can configure authentication server to issue JWT signed tokens so we can deco
 ### decrypt JWT token ###
 One approach to decrype JWT token in C#:
 
-1. Install nuget library: `System.IdentityModel.Tokens.Jwt` 
+1. Install nuget library: `System.IdentityModel.Tokens`, `System.IdentityModel.Tokens.Jwt`, `Microsoft.IdentityModel.Tokens`
 
 	![](/images/posts/20181120-jwt-3.png)
 
@@ -740,9 +840,74 @@ or
 		var principal = handler.ValidateToken(token, validationParams);
 
 ### Add JWT support ###
-1. Install nuget library: `Microsoft.Owin.Security.Jwt`, `System.IdentityModel.Tokens.Jwt` 4.x
+There is no direct support for issuing JWT in ASP.NET Web API,  so in order to start issuing JWTs we need to implement this manually by implementing the interface “ISecureDataFormat” and implement the method “Protect”.
 
-1. 
+1. Install nuget library: 
+
+	`Microsoft.IdentityModel.Tokens` - Includes types that provide support for SecurityTokens, Cryptographic operations: Signing, Verifying Signatures, Encryption.
+	`Microsoft.Owin.Security.Jwt` - Middleware that enables an application to protect and validate JSON Web Tokens.
+	`System.IdentityModel.Tokens.Jwt` - Includes types that provide support for creating, serializing and validating JSON Web Tokens. used forgenerating and validating jwt tokens
+	`Thinktecture.IdentityModel.Core`
+
+1. We can use `System.IdentityModel.Tokens.Jwt`(or even another package) to generate the token. Typically, we use HMACSHA256 with SymmetricKey:
+
+		private const string SecretBase64 = "db3OIsj+BXE9NZDy0t8W3TcNekrF+2d/1sFnWG4HnV8TZY30iTOdtVWJG8abWvB1GlOgJuQZdcF2Luqm/hccMw==";
+		
+		    public static string GenerateToken(string username, int expireMinutes = 20)
+		    {
+		        var symmetricKey = Convert.FromBase64String(SecretBase64);
+		        var tokenHandler = new JwtSecurityTokenHandler();
+		
+		        var now = DateTime.UtcNow;
+		        var tokenDescriptor = new SecurityTokenDescriptor
+		        {
+		            Subject = new ClaimsIdentity(new[]
+		                    {
+		                        new Claim(ClaimTypes.Name, username)
+		                    }),	
+		            Expires = now.AddMinutes(Convert.ToInt32(expireMinutes)),	
+		            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(symmetricKey), SecurityAlgorithms.HmacSha256Signature)
+		        };
+		
+		        var stoken = tokenHandler.CreateToken(tokenDescriptor);
+		        var token = tokenHandler.WriteToken(stoken);
+		
+		        return token;
+		    }
+
+	or
+
+		using System;
+		using System.IdentityModel.Tokens;
+		using System.IdentityModel.Tokens.Jwt;
+		using System.Text;
+		
+		public void GenerateToken() {
+		    const string sec = "401b09eab3c013d4ca54922bb802bec8fd5318192b0a75f201d8b3727429090fb337591abd3e44453b954555b7a0812e1081c39b740293f765eae731f5a65ed1";
+		    var now = DateTime.UtcNow;
+		    var securityKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(Encoding.Default.GetBytes(sec));
+		    var signingCredentials = new Microsoft.IdentityModel.Tokens.SigningCredentials(
+		        securityKey,
+		        SecurityAlgorithms.HmacSha256Signature);
+		
+		    var header = new JwtHeader(signingCredentials);
+		
+		    var payload = new JwtPayload
+		    {
+		            {"iss", "a5fgde64-e84d-485a-be51-56e293d09a69"},
+		            {"scope", "https://example.com/ws"},
+		            {"aud", "https://example.com/oauth2/v1"},
+		            {"iat", now},
+		        };
+		
+		    var secToken = new JwtSecurityToken(header, payload);
+		
+		    var handler = new JwtSecurityTokenHandler();
+		    var tokenString = handler.WriteToken(secToken);
+		    Console.WriteLine(tokenString);
+		}
+
+
 
 # References
 [http://autofac.readthedocs.io/en/latest/integration/aspnet.html](http://autofac.readthedocs.io/en/latest/integration/aspnet.html)
@@ -754,3 +919,7 @@ http://autofac.readthedocs.io/en/latest/integration/webapi.html](http://autofac.
 [http://bitoftech.net/2014/10/27/json-web-token-asp-net-web-api-2-jwt-owin-authorization-server/](http://bitoftech.net/2014/10/27/json-web-token-asp-net-web-api-2-jwt-owin-authorization-server/)
 
 [http://bitoftech.net/2014/06/01/token-based-authentication-asp-net-web-api-2-owin-asp-net-identity/](http://bitoftech.net/2014/06/01/token-based-authentication-asp-net-web-api-2-owin-asp-net-identity/)
+
+[Enable OAuth Refresh Tokens in AngularJS App using ASP .NET Web API 2, and Owin](http://bitoftech.net/2014/07/16/enable-oauth-refresh-tokens-angularjs-app-using-asp-net-web-api-2-owin/)
+
+[https://blogs.ibs.com/2017/11/22/token-based-authentication-in-asp-net-using-jwts-part-1/](https://blogs.ibs.com/2017/11/22/token-based-authentication-in-asp-net-using-jwts-part-1/)
