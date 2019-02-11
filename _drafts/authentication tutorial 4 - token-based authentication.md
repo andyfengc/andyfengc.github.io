@@ -830,14 +830,27 @@ One approach to decrype JWT token in C#:
 
 or
 
-		var validationParams = new TokenValidationParameters{
-			ValidaIssuer = "xxx",
-			AllowedAudience = "xxx",
-			SigningToken = "xxx"
-		}
-		var handler = new JWTSecurityTokenHandler();
+		string issuer = "https://tweebaa.com";
+		var audience = "tweebaa";
+		var secretBase64 = "xxxxxxxx";
+		var secretBase64Bytes = Encoding.UTF8.GetBytes(secretBase64);
+		var signingKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(secretBase64Bytes);
+		var validationParams = new TokenValidationParameters
+		{
+			IssuerSigningKey = signingKey,
+			ValidIssuer = issuer,
+			ValidAudience = audience,
+			//	ValidateLifetime = true,
+			//	ValidateIssuerSigningKey = true,
+			//	ValidateIssuer = false,
+			//	ValidateAudience = false,
+		};
+		var handler = new JwtSecurityTokenHandler();
 		// return all claims like issuer, audience, expiration, subject
-		var principal = handler.ValidateToken(token, validationParams);
+		Microsoft.IdentityModel.Tokens.SecurityToken validatedToken;
+		var principal = handler.ValidateToken(accessToken, validationParams, out validatedToken);
+		validatedToken.Dump();
+		principal.Dump();
 
 ### Add JWT support ###
 There is no direct support for issuing JWT in ASP.NET Web API,  so in order to start issuing JWTs we need to implement this manually by implementing the interface “ISecureDataFormat” and implement the method “Protect”.
