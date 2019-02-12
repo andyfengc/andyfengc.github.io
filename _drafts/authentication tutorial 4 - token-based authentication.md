@@ -4,7 +4,7 @@ title: ASP.NET Identity authentication 4 - add token-based authentication
 author: Andy Feng
 ---
 
-## Add/update data objects ##
+# Add/update data objects #
 
 1. Add ApplicationUser.cs
 
@@ -200,83 +200,6 @@ author: Andy Feng
 		    }
 		}
 
-1. Create Providers > ApplicationOAuthProvider.cs
-
-	...
-
-
-1. Create Providers > ApplicationRefreshTokenProvider.cs
-
-		using Microsoft.Owin.Security;
-		using Microsoft.Owin.Security.Infrastructure;
-		using System;
-		using System.Collections.Concurrent;
-		using System.Threading.Tasks;
-		using Utility;
-		
-		namespace WebApi.Providers
-		{
-		    public class ApplicationRefreshTokenProvider : AuthenticationTokenProvider
-		    {
-		        public override void Create(AuthenticationTokenCreateContext context)
-		        {
-		            //// Expiration time in seconds
-		            //int expire = Settings.REFRESH_TOKEN_EXPIRATION_MINUTES * 60;
-		            //context.Ticket.Properties.IssuedUtc = DateTime.Now;
-		            //context.Ticket.Properties.ExpiresUtc = new DateTimeOffset(DateTime.Now.AddSeconds(expire));
-		            //context.SetToken(context.SerializeTicket());
-		            //base.Create(context);
-		        }
-		        private static ConcurrentDictionary<string, AuthenticationTicket> _refreshTokens = new ConcurrentDictionary<string, AuthenticationTicket>();
-		        public override Task CreateAsync(AuthenticationTokenCreateContext context)
-		        {
-		            //// Expiration time in seconds
-		            //int expire = Settings.REFRESH_TOKEN_EXPIRATION_MINUTES * 60;
-		            //context.Ticket.Properties.IssuedUtc = DateTime.Now;
-		            //context.Ticket.Properties.ExpiresUtc = new DateTimeOffset(DateTime.Now.AddSeconds(expire));
-		            //context.SetToken(context.SerializeTicket());
-		            //return base.CreateAsync(context);
-		
-		            var guid = Guid.NewGuid().ToString();
-		
-		            // copy all properties and set the desired lifetime of refresh token  
-		            var refreshTokenProperties = new AuthenticationProperties(context.Ticket.Properties.Dictionary)
-		            {
-		                IssuedUtc = context.Ticket.Properties.IssuedUtc,
-		                ExpiresUtc = DateTime.UtcNow.AddSeconds(Settings.REFRESH_TOKEN_EXPIRATION_SECONDS)
-		            };
-		            var refreshTokenTicket = new AuthenticationTicket(context.Ticket.Identity, refreshTokenProperties);
-		
-		            _refreshTokens.TryAdd(guid, refreshTokenTicket);
-		
-		            // consider storing only the hash of the handle  
-		            context.SetToken(guid);
-		            return base.CreateAsync(context);
-		        }
-		
-		        public override void Receive(AuthenticationTokenReceiveContext context)
-		        {
-		            //context.DeserializeTicket(context.Token);
-		            //base.Receive(context);
-		        }
-		
-		        public override Task ReceiveAsync(AuthenticationTokenReceiveContext context)
-		        {
-		            //context.DeserializeTicket(context.Token);
-		            //return base.ReceiveAsync(context);
-		
-		            AuthenticationTicket ticket;
-		            string header = context.OwinContext.Request.Headers["Authorization"];
-		
-		            if (_refreshTokens.TryRemove(context.Token, out ticket))
-		            {
-		                context.SetTicket(ticket);
-		            }
-		            return base.ReceiveAsync(context);
-		        }
-		    }
-		}
-
 1. Add root > Startup.cs 
 
 		using Microsoft.Owin;
@@ -376,23 +299,36 @@ author: Andy Feng
 
 	here, "Microsoft Owin" is responsible for regenerating and verifying the tokens.
 
+1. Add 
+
 1. Create `ConfigureAuth()` in Startup.cs
 
     public partial class Startup
     {
         public void ConfigureAuth(IAppBuilder app)
         {
-			var myProvider = new ApplicationOAuthProvider();
-            OAuthAuthorizationServerOptions options = new OAuthAuthorizationServerOptions
+			...
+			// Configure the application for OAuth based flow
+            var PublicClientId = "self";
+            OAuthAuthorizationServerOptions oauthServerOptions = new OAuthAuthorizationServerOptions
             {
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(60),
-                Provider = myProvider,
+				// dpapi
+                Provider = new ApplicationOAuthProvider(PublicClientId), // implement authorization - verify users
                 RefreshTokenProvider = new RefreshTokenProvider()
             };
-            app.UseOAuthAuthorizationServer(options);
-            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());                        
+
+			// way1, Enable the application to use bearer tokens to authenticate users
+			//creates both the token server and the middleware to validate tokens for requests in the same application
+			app.UseOAuthBearerTokens(oauthServerOptions);
+
+			// way2, enable middleware separately
+            //app.UseOAuthAuthorizationServer(oauthServerOptions); // authorization server middleware, included in UseOAuthBearerTokens()
+			//app.UseOAuthBearerAuthentication(ApplicationOAuthBearerProvider); // application bearer token middleware, i.e. ApplicationOAuthBearerProvider=new OAuthBearerAuthenticationOptions(), included in UseOAuthBearerTokens()
+			//app.UseOAuthBearerAuthentication(ExternalOAuthBearerProvider); // external bearer token middleware, included in UseOAuthBearerTokens()
+			...
         }
 	}
 
@@ -409,15 +345,16 @@ author: Andy Feng
 		- CreateAsync(): This method is responsible for creating the new refresh token and added to authentication ticket
 		- ReceiveAsync(): This method is responsible for regenerate the new access token by using existing  refresh token, if the access token is expired.
 
-1. Add `ApplicationOAuthProvider.cs`
+1. Create Providers > `ApplicationOAuthProvider.cs`
 
 	[EnableCors(origins: "*", headers: "*", methods: "*")]  
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider  
     {  
         public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)  
         {  
-            context.Validated(); //   
+            context.Validated(); // don't verify client id, accept any client
         }  
+
   		// check owner's credentials and add claims
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)  
         {  
@@ -430,13 +367,14 @@ author: Andy Feng
                 {  
                     var empl = db.Employees.ToList();  
                     var user = db.Users.ToList();  
+					// verify user
                     if (user != null)  
                     {  
                         if (!string.IsNullOrEmpty(user.Where(u => u.UserName == context.UserName && u.Password == context.Password).FirstOrDefault().Name))  
                         {  
                             identity.AddClaim(new Claim("Age", "16"));  
-  
-                            var props = new AuthenticationProperties(new Dictionary<string, string>  
+  							// generate token data
+                            var properties = new AuthenticationProperties(new Dictionary<string, string>  
                             {  
                                 {  
                                     "userdisplayname", context.UserName  
@@ -446,7 +384,7 @@ author: Andy Feng
                                 }  
                              });  
   
-                            var ticket = new AuthenticationTicket(identity, props);  
+                            var ticket = new AuthenticationTicket(identity, properties);  
                             context.Validated(ticket);  
                         }  
                         else  
@@ -460,11 +398,116 @@ author: Andy Feng
                 {  
                     context.SetError("invalid_grant", "Provided username and password is incorrect");  
                     context.Rejected();  
-                }  
-                return;  
-            }  
-        }  
+                }                
+	            // grant claims set
+	            ClaimsIdentity oAuthIdentity = new ClaimsIdentity(context.Options.AuthenticationType);
+	            ClaimsIdentity cookiesIdentity = new ClaimsIdentity(context.Options.AuthenticationType);
+	            AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
+	            context.Validated(ticket);
+	            context.Request.Context.Authentication.SignIn(cookiesIdentity);
+	
+	            // grant claims set 2
+	            //var identity = new ClaimsIdentity(context.Options.AuthenticationType);
+	            //identity.AddClaim(new Claim("sub", context.UserName));
+	            //identity.AddClaim(new Claim("password", context.Password));
+	            //context.Validated(identity);
+            }
+        }
+
+		// generate access token using the refresh token
+        // issue new claim and generate new access token with new claim
+        public override Task GrantRefreshToken(OAuthGrantRefreshTokenContext context)
+        {
+            // Change auth ticket(add a new claim) for refresh token requests
+            var newIdentity = new ClaimsIdentity(context.Ticket.Identity);
+            newIdentity.AddClaim(new Claim("newClaim", "newValue"));
+
+            var newTicket = new AuthenticationTicket(newIdentity, context.Ticket.Properties);
+            context.Validated(newTicket);
+
+            return Task.FromResult<object>(null);
+        }
     }  
+
+1. Create Providers > ApplicationRefreshTokenProvider.cs
+
+		using Microsoft.Owin.Security;
+		using Microsoft.Owin.Security.Infrastructure;
+		using System;
+		using System.Collections.Concurrent;
+		using System.Threading.Tasks;
+		using Utility;
+		
+		namespace WebApi.Providers
+		{
+		    public class ApplicationRefreshTokenProvider : AuthenticationTokenProvider
+		    {
+		        public override void Create(AuthenticationTokenCreateContext context)
+		        {
+					// do nothing
+		            //// Expiration time in seconds
+		            //int expire = Settings.REFRESH_TOKEN_EXPIRATION_MINUTES * 60;
+		            //context.Ticket.Properties.IssuedUtc = DateTime.Now;
+		            //context.Ticket.Properties.ExpiresUtc = new DateTimeOffset(DateTime.Now.AddSeconds(expire));
+		            //context.SetToken(context.SerializeTicket());
+		            //base.Create(context);
+		        }
+
+				// should save refresh token in db for users
+		        private static ConcurrentDictionary<string, AuthenticationTicket> _refreshTokens = new ConcurrentDictionary<string, AuthenticationTicket>();
+
+				// create refresh token
+		        public override Task CreateAsync(AuthenticationTokenCreateContext context)
+		        {
+		            //// Expiration time in seconds
+		            //int expire = Settings.REFRESH_TOKEN_EXPIRATION_MINUTES * 60;
+		            //context.Ticket.Properties.IssuedUtc = DateTime.Now;
+		            //context.Ticket.Properties.ExpiresUtc = new DateTimeOffset(DateTime.Now.AddSeconds(expire));
+		            //context.SetToken(context.SerializeTicket());
+		            //return base.CreateAsync(context);
+		
+		            var guid = Guid.NewGuid().ToString();
+		
+		            // copy all properties and set the desired lifetime of refresh token  
+		            var refreshTokenProperties = new AuthenticationProperties(context.Ticket.Properties.Dictionary)
+		            {
+		                IssuedUtc = context.Ticket.Properties.IssuedUtc,
+		                ExpiresUtc = DateTime.UtcNow.AddSeconds(Settings.REFRESH_TOKEN_EXPIRATION_SECONDS)
+		            };
+		            var refreshTokenTicket = new AuthenticationTicket(context.Ticket.Identity, refreshTokenProperties);
+		
+		            _refreshTokens.TryAdd(guid, refreshTokenTicket);
+		
+		            // consider storing only the hash of the handle  
+		            context.SetToken(guid);
+		            return base.CreateAsync(context);
+		        }
+		
+		        public override void Receive(AuthenticationTokenReceiveContext context)
+		        {
+					// do nothing
+		            //context.DeserializeTicket(context.Token);
+		            //base.Receive(context);
+		        }
+
+		        // generate access token using the refresh token
+		        // receive the refresh token and verify it against the refresh token saved in db for the user
+		        public override Task ReceiveAsync(AuthenticationTokenReceiveContext context)
+		        {
+		            //context.DeserializeTicket(context.Token);
+		            //return base.ReceiveAsync(context);
+		
+		            AuthenticationTicket ticket;
+		            string header = context.OwinContext.Request.Headers["Authorization"];
+		
+		            if (_refreshTokens.TryRemove(context.Token, out ticket))
+		            {
+		                context.SetTicket(ticket);
+		            }
+		            return base.ReceiveAsync(context);
+		        }
+		    }
+		}
 
 # Add active directory authentication support
 1. Create Providers > ActiveDirectoryDataProvider.cs
@@ -811,10 +854,10 @@ e.g.
 ![](/images/posts/20181120-jwt-2.png)
 ![](/images/posts/20181120-jwt-1.png)
 
-## JWT ##
+# JWT #
 We can configure authentication server to issue JWT signed tokens so we can decode them using public online tools such as [https://jwt.io/](https://jwt.io/) or decrypt by coding to get the information.
 
-### decrypt JWT token ###
+## decrypt JWT token ##
 One approach to decrype JWT token in C#:
 
 1. Install nuget library: `System.IdentityModel.Tokens`, `System.IdentityModel.Tokens.Jwt`, `Microsoft.IdentityModel.Tokens`
@@ -852,7 +895,7 @@ or
 		validatedToken.Dump();
 		principal.Dump();
 
-### Add JWT support ###
+## Add JWT support ##
 There is no direct support for issuing JWT in ASP.NET Web API,  so in order to start issuing JWTs we need to implement this manually by implementing the interface “ISecureDataFormat” and implement the method “Protect”.
 
 1. Install nuget library: 
@@ -860,9 +903,8 @@ There is no direct support for issuing JWT in ASP.NET Web API,  so in order to s
 	`Microsoft.IdentityModel.Tokens` - Includes types that provide support for SecurityTokens, Cryptographic operations: Signing, Verifying Signatures, Encryption.
 	`Microsoft.Owin.Security.Jwt` - Middleware that enables an application to protect and validate JSON Web Tokens.
 	`System.IdentityModel.Tokens.Jwt` - Includes types that provide support for creating, serializing and validating JSON Web Tokens. used forgenerating and validating jwt tokens
-	`Thinktecture.IdentityModel.Core`
 
-1. We can use `System.IdentityModel.Tokens.Jwt`(or even another package) to generate the token. Typically, we use HMACSHA256 with SymmetricKey:
+	We can use `System.IdentityModel.Tokens.Jwt`(or even another package) to generate the token. Typically, we use HMACSHA256 with SymmetricKey:
 
 		private const string SecretBase64 = "db3OIsj+BXE9NZDy0t8W3TcNekrF+2d/1sFnWG4HnV8TZY30iTOdtVWJG8abWvB1GlOgJuQZdcF2Luqm/hccMw==";
 		
@@ -920,7 +962,263 @@ There is no direct support for issuing JWT in ASP.NET Web API,  so in order to s
 		    Console.WriteLine(tokenString);
 		}
 
+1. Create authorization/resource server
 
+    public partial class Startup
+    {
+        public void ConfigureAuth(IAppBuilder app)
+        {
+			...
+			// Configure the application for OAuth based flow
+            var PublicClientId = "self";
+            OAuthAuthorizationServerOptions oauthServerOptions = new OAuthAuthorizationServerOptions
+            {
+                AllowInsecureHttp = true,
+                TokenEndpointPath = new PathString("/token"),
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(60),
+                // jwt
+                Provider = new JwtApplicationOAuthProvider(PublicClientId),
+                AccessTokenFormat = new JwtFormat("https://tweebaa.com"),
+                RefreshTokenProvider = new RefreshTokenProvider()
+            };
+
+			// use jwt for authorization server, only used for authorization server
+            app.UseOAuthAuthorizationServer(oauthServerOptions); 
+			
+			// user jwt for resource server, used for consume jwt token
+			var issuer = "https://tweebaa.com";
+            var audience = "tweebaa"; // audience id
+            var secretBase64 = "secret-key-base64"; // audience secret
+            var secretBase64Bytes = Encoding.UTF8.GetBytes(secretBase64);
+            var signingKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(secretBase64Bytes);
+			// Api controllers with an [Authorize] attribute will be validated with JWT
+            app.UseJwtBearerAuthentication(new JwtBearerAuthenticationOptions
+            {
+                AuthenticationMode = AuthenticationMode.Active,
+                AllowedAudiences = new[] { audience },
+                //IssuerSecurityKeyProviders = new IIssuerSecurityKeyProvider[]
+                //{
+                //    new SymmetricKeyIssuerSecurityKeyProvider(issuer, secretBase64Bytes),
+                //},
+                TokenValidationParameters = new TokenValidationParameters
+                {
+                    IssuerSigningKey = signingKey,
+                    //IssuerSigningToken =  new sign
+                    ValidIssuer = issuer,
+                    ValidAudience = audience,
+                    //ValidateLifetime = true,
+                    //ValidateIssuerSigningKey = true,
+                    //ClockSkew = TimeSpan.FromMinutes(0)
+                }
+            });
+        }
+	}
+
+1. Create `JwtApplicationOAuthProvider` to verify user
+
+	    public class JwtApplicationOAuthProvider : ApplicationOAuthProvider
+	    {
+	        public JwtApplicationOAuthProvider(string publicClientId): base(publicClientId)
+	        {
+	        }
+	        // validate audience by client_id
+	        public async override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
+	        {
+	            string clientId = string.Empty;
+	            string clientSecret = string.Empty;
+	            string symmetricKeyAsBase64 = string.Empty;
+	
+	            if (!context.TryGetBasicCredentials(out clientId, out clientSecret))
+	            {
+	                context.TryGetFormCredentials(out clientId, out clientSecret);
+	            }
+	
+	            if (context.ClientId == null)
+	            {
+	                context.SetError("invalid_clientId", "client_Id is not set");
+	            }
+	            // validate audience
+	            //var audience = AudiencesStore.FindAudience(context.ClientId);
+	
+	            //if (audience == null)
+	            //{
+	            //    context.SetError("invalid_clientId", string.Format("Invalid client_id '{0}'", context.ClientId));
+	            //    return Task.FromResult<object>(null);
+	            //}
+	
+	            context.Validated();
+	        }
+	        // validate resource owner's credentials, create claims
+	        public async override Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
+	        {
+	            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
+	            //Dummy check here, you need to do your DB checks against memebrship system
+	            if (context.UserName != context.Password)
+	            {
+	                context.SetError("invalid_grant", "The user name or password is incorrect");
+	                return;
+	            }
+	
+	            var identity = new ClaimsIdentity("JWT");
+	            //identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
+	            //identity.AddClaim(new Claim("sub", context.UserName));
+	            //identity.AddClaim(new Claim(ClaimTypes.Role, "Manager"));
+	            //identity.AddClaim(new Claim(ClaimTypes.Role, "Supervisor"));
+	
+	            var props = new AuthenticationProperties(new Dictionary<string, string>
+	            {
+	                {
+	                    "audience", (context.ClientId == null) ? string.Empty : context.ClientId
+	                }
+	            });
+	
+	            var ticket = new AuthenticationTicket(identity, props);
+	            context.Validated(ticket);
+	        }
+	    }
+
+1. create a JwtFormat class to format jwt token
+
+    public class JwtFormat : ISecureDataFormat<AuthenticationTicket>
+    {
+        private const string AudiencePropertyKey = "tweebaa";
+        //private static readonly byte[] _secret = TextEncodings.Base64Url.Decode("IxrAjDoa2FqElO7IhrSrUJELhUckePEPVpaePlS_Xaw");
+        //private static readonly byte[] _secret = TextEncodings.Base64Url.Decode("secret-to-string");
+        //private static readonly byte[] _secret = Encoding.UTF8.GetBytes("#asf09%dfG9ns");
+        private static readonly byte[] _secret = Encoding.UTF8.GetBytes("I2FzZjA5JWRmRzlucw==");
+        private readonly string _issuer;
+
+        public JwtFormat(string issuer)
+        {
+            _issuer = issuer;
+        }
+        // generate jwt
+        public string Protect(AuthenticationTicket data)
+        {
+            if (data == null)
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+
+            // read the audience (client id)
+            //string audienceId = data.Properties.Dictionary.ContainsKey(AudiencePropertyKey) ? data.Properties.Dictionary[AudiencePropertyKey] : null;
+            //if (string.IsNullOrWhiteSpace(audienceId)) throw new InvalidOperationException("AuthenticationTicket.Properties does not include audience");
+            //Audience audience = AudiencesStore.FindAudience(audienceId);
+
+            // create signing key
+            string symmetricKeyAsBase64 = Convert.ToBase64String(_secret);
+            var keyByteArray = TextEncodings.Base64Url.Decode(symmetricKeyAsBase64);
+            //var keyByteArray = _secret;
+            //var signingKey = new HmacSigningCredentials(keyByteArray);
+
+            var signingKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(_secret);//symmetric key
+            var signingCredentials = new Microsoft.IdentityModel.Tokens.SigningCredentials(
+                signingKey, Microsoft.IdentityModel.Tokens.SecurityAlgorithms.HmacSha256);
+            //var signingCredentials = new Microsoft.IdentityModel.Tokens.SigningCredentials(
+            //    signingKey, 
+            //    System.IdentityModel.Tokens.SecurityAlgorithms.HmacSha256Signature,
+            //    System.IdentityModel.Tokens.SecurityAlgorithms.Sha256Digest);
+
+            var issued = data.Properties.IssuedUtc;
+            var expires = data.Properties.ExpiresUtc;
+
+            // way1, create jwt via issuer, audience, user claims, issue date, expiry date, signing key
+            var token = new JwtSecurityToken(issuer: _issuer, audience: "tweebaa", claims: data.Identity.Claims, notBefore: null, expires: expires.Value.UtcDateTime, signingCredentials: signingCredentials);
+
+            // way2, create jwt via header, payload
+            //var header = new JwtHeader(signingCredentials: signingCredentials);
+            //var payload = new JwtPayload(issuer: _issuer, audience: "tweebaa", claims: data.Identity.Claims, notBefore: null, expires: expires.Value.UtcDateTime);
+            //var token = new JwtSecurityToken(header, payload);
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            //var token = tokenHandler.CreateToken(securityTokenDescriptor);
+            var jwt = tokenHandler.WriteToken(token);
+
+            return jwt;
+        }
+
+        public AuthenticationTicket Unprotect(string protectedText)
+        {
+            return null;
+        }
+    }
+
+1. create a refresh token provider
+
+    public class RefreshTokenProvider : IAuthenticationTokenProvider
+    {
+        private static ICollection<RefreshToken> refreshTokens = new List<RefreshToken>();
+        public void Create(AuthenticationTokenCreateContext context)
+        {
+            throw new NotImplementedException();
+        }
+        // create refresh token
+        public async Task CreateAsync(AuthenticationTokenCreateContext context)
+        {
+            var refreshTokenId = Guid.NewGuid().ToString("n");
+
+            var refreshTokenLifeTime = context.OwinContext.Get<string>("as:clientRefreshTokenLifeTime");
+
+            var token = new RefreshToken()
+            {
+                Id = Helper.GetHash(refreshTokenId),
+                Subject = context.Ticket.Identity.Name,
+                IssuedUtc = DateTime.UtcNow,
+                ExpiresUtc = DateTime.UtcNow.AddYears(1)
+            };
+
+            context.Ticket.Properties.IssuedUtc = token.IssuedUtc;
+            context.Ticket.Properties.ExpiresUtc = token.ExpiresUtc;
+
+            token.ProtectedTicket = context.SerializeTicket();
+
+            context.SetToken(refreshTokenId);
+
+            // save refresh tokens
+            refreshTokens.Add(token);
+        }
+        public void Receive(AuthenticationTokenReceiveContext context)
+        {
+            throw new NotImplementedException();
+        }
+        // generate access token using the refresh token
+        // 1. receive the refresh token
+        public async Task ReceiveAsync(AuthenticationTokenReceiveContext context)
+        {
+            //context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "" });
+            string hashedTokenId = Helper.GetHash(context.Token);
+            // query saved refresh tokens and verify
+            var refreshToken = refreshTokens.FirstOrDefault(t => t.Id == hashedTokenId);
+            if (refreshToken != null)
+            {
+                //Get protectedTicket from refreshToken class
+                context.DeserializeTicket(refreshToken.ProtectedTicket);
+            }
+        }
+    }
+
+    public class RefreshToken
+    {
+        public string Id { get; set; }
+        public string Subject { get; set; }
+        public DateTime IssuedUtc { get; set; }
+        public DateTime ExpiresUtc { get; set; }
+        public string ProtectedTicket { get; set; }
+    }
+
+    public class Helper
+    {
+        public static string GetHash(string input)
+        {
+            HashAlgorithm hashAlgorithm = new SHA256CryptoServiceProvider();
+
+            byte[] byteValue = System.Text.Encoding.UTF8.GetBytes(input);
+
+            byte[] byteHash = hashAlgorithm.ComputeHash(byteValue);
+
+            return Convert.ToBase64String(byteHash);
+        }
+    }
 
 # References
 [http://autofac.readthedocs.io/en/latest/integration/aspnet.html](http://autofac.readthedocs.io/en/latest/integration/aspnet.html)
