@@ -167,97 +167,97 @@ Then we can use as
 # AuthorizeAttribute #
 In webapi, System.Web.Http.AuthorizeAttribute.cs
 
-```csharp```
-public class AuthorizeAttribute : AuthorizationFilterAttribute
-{
-    private string _roles;
-    private string[] _rolesSplit = _emptyArray;
-    private string _users;
-    private string[] _usersSplit = _emptyArray;
-
-    // Gets or sets the authorized roles.
-    public string Roles
-    {
-        get { return _roles ?? String.Empty; }
-        set
-        {
-            _roles = value;
-            _rolesSplit = SplitString(value);
-        }
-    }
-
-    // Gets or sets the authorized users.
-    public string Users
-    {
-        get { return _users ?? String.Empty; }
-        set
-        {
-            _users = value;
-            _usersSplit = SplitString(value);
-        }
-    }
-
-    // Determines whether access for this particular request is authorized. This method uses the user <see cref="IPrincipal"/>
-    protected virtual bool IsAuthorized(HttpActionContext actionContext)
-    {
-        if (actionContext == null)
-        {
-            throw Error.ArgumentNull("actionContext");
-        }
-
-        IPrincipal user = actionContext.ControllerContext.RequestContext.Principal;
-        if (user == null || user.Identity == null || !user.Identity.IsAuthenticated)
-        {
-            return false;
-        }
-
-        if (_usersSplit.Length > 0 && !_usersSplit.Contains(user.Identity.Name, StringComparer.OrdinalIgnoreCase))
-        {
-            return false;
-        }
-
-        if (_rolesSplit.Length > 0 && !_rolesSplit.Any(user.IsInRole))
-        {
-            return false;
-        }
-
-        return true;
-    }
-
-    // Called when an action is being authorized. This method uses the user <see cref="IPrincipal"/>
-    public override void OnAuthorization(HttpActionContext actionContext)
-    {
-        if (actionContext == null)
-        {
-            throw Error.ArgumentNull("actionContext");
-        }
-
-        if (SkipAuthorization(actionContext))
-        {
-            return;
-        }
-
-        if (!IsAuthorized(actionContext))
-        {
-            HandleUnauthorizedRequest(actionContext);
-        }
-    }
-
-    internal static string[] SplitString(string original)
-    {
-        if (String.IsNullOrEmpty(original))
-        {
-            return _emptyArray;
-        }
-
-        var split = from piece in original.Split(',')
-                    let trimmed = piece.Trim()
-                    where !String.IsNullOrEmpty(trimmed)
-                    select trimmed;
-        return split.ToArray();
-    }
-}
-```csharp```
+	```csharp
+	public class AuthorizeAttribute : AuthorizationFilterAttribute
+	{
+	    private string _roles;
+	    private string[] _rolesSplit = _emptyArray;
+	    private string _users;
+	    private string[] _usersSplit = _emptyArray;
+	
+	    // Gets or sets the authorized roles.
+	    public string Roles
+	    {
+	        get { return _roles ?? String.Empty; }
+	        set
+	        {
+	            _roles = value;
+	            _rolesSplit = SplitString(value);
+	        }
+	    }
+	
+	    // Gets or sets the authorized users.
+	    public string Users
+	    {
+	        get { return _users ?? String.Empty; }
+	        set
+	        {
+	            _users = value;
+	            _usersSplit = SplitString(value);
+	        }
+	    }
+	
+	    // Determines whether access for this particular request is authorized. This method uses the user <see cref="IPrincipal"/>
+	    protected virtual bool IsAuthorized(HttpActionContext actionContext)
+	    {
+	        if (actionContext == null)
+	        {
+	            throw Error.ArgumentNull("actionContext");
+	        }
+	
+	        IPrincipal user = actionContext.ControllerContext.RequestContext.Principal;
+	        if (user == null || user.Identity == null || !user.Identity.IsAuthenticated)
+	        {
+	            return false;
+	        }
+	
+	        if (_usersSplit.Length > 0 && !_usersSplit.Contains(user.Identity.Name, StringComparer.OrdinalIgnoreCase))
+	        {
+	            return false;
+	        }
+	
+	        if (_rolesSplit.Length > 0 && !_rolesSplit.Any(user.IsInRole))
+	        {
+	            return false;
+	        }
+	
+	        return true;
+	    }
+	
+	    // Called when an action is being authorized. This method uses the user <see cref="IPrincipal"/>
+	    public override void OnAuthorization(HttpActionContext actionContext)
+	    {
+	        if (actionContext == null)
+	        {
+	            throw Error.ArgumentNull("actionContext");
+	        }
+	
+	        if (SkipAuthorization(actionContext))
+	        {
+	            return;
+	        }
+	
+	        if (!IsAuthorized(actionContext))
+	        {
+	            HandleUnauthorizedRequest(actionContext);
+	        }
+	    }
+	
+	    internal static string[] SplitString(string original)
+	    {
+	        if (String.IsNullOrEmpty(original))
+	        {
+	            return _emptyArray;
+	        }
+	
+	        var split = from piece in original.Split(',')
+	                    let trimmed = piece.Trim()
+	                    where !String.IsNullOrEmpty(trimmed)
+	                    select trimmed;
+	        return split.ToArray();
+	    }
+	}
+	```csharp
 
 # Reference #
 [Attributes](https://docs.microsoft.com/en-us/dotnet/csharp/tutorials/attributes)
