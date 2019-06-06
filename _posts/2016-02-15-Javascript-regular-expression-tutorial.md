@@ -7,7 +7,7 @@ author: Andy Feng
 
 This article introduces the basics of applying regular expression in Javascript.
 
-## Introduction ##
+# Introduction #
 
 What Is a Regular Expression? 
 
@@ -15,7 +15,7 @@ A regular expression is a sequence of characters that forms a search pattern. Th
 
 In JavaScript, everything is object and so does with regular expression. Regular expressions are patterns used to match character combinations in strings. These patterns are used with the exec() and test() methods of RegExp, and with the match, replace, search, and split methods of String. It can be used to perform all types of text search and text replace operations.
 
-## Preview ##
+# Preview #
 Here is a simple Javascript regular expression:
 
     var pattern = /example/i
@@ -24,14 +24,14 @@ Here is a simple Javascript regular expression:
 example  is a pattern (to be used in a search).
 i  is a modifier (modifies the search to be case-insensitive).
 
-## Steps to use regular expression ##
+# Steps to use regular expression #
 - Javascript regular expression preparation
 	- regular expression pattern
 	- regular expression modifier
 - Using regular expression object
 - Using regular expression for string	
 
-### Javascript regular expression preparation ###
+## Javascript regular expression preparation ##
 
 In javascript, regular expression object is consist of regular expression pattern and modifiers. Syntax is like: 
 
@@ -54,9 +54,9 @@ Now we are ready to apply regular expression in js. There are two basic ways to 
 - Using regular expression object
 - Using regular expression for string
 
-### Using regular expression object ###
+## Using regular expression object ##
 
-#### Create a regular expression object ####
+### Create a regular expression object ###
 
 A regular expression object describes a pattern of characters.  It is used to perform pattern-matching.  There are two ways to construct a regular expression object
 
@@ -72,7 +72,7 @@ way2 - calling the constructor function of the RegExp object, as follows:
 
 Using the constructor function provides runtime compilation of the regular expression. Use the constructor function when you know the regular expression pattern will be changing, or you don't know the pattern and are getting it from another source, such as user input.
 
-#### Regular expression object methods ####
+### Regular expression object methods ###
 First, let's get familiar with some common methods of regular expression object :
 
 	compile()	Deprecated in version 1.5. Compiles a regular expression
@@ -82,7 +82,7 @@ First, let's get familiar with some common methods of regular expression object 
 
 Examples
 
-#### Using test() ####
+### Using test() ###
 The test() method is a RegExp expression method. It searches a string for a pattern, and returns true or false, depending on the result.
 
 The following example searches a string for the character "e":
@@ -98,7 +98,7 @@ You don't have to put the regular expression in a variable first. The two lines 
 
 	/e/.test("The best things in life are free!");
 
-#### Using exec() ####
+### Using exec() ###
 The exec() method is a RegExp expression method. It searches a string for a specified pattern, and returns the found text. If no match is found, it returns null.
 
 The following example searches a string for the character "e":
@@ -109,7 +109,7 @@ Since there is an "e" in the string, the output of the code above will be:
 	
 	.e
 
-### Using regular expression for string  ###
+## Using regular expression for string  ##
 In JavaScript, regular expressions can also be used with the two string methods: search() and replace(). They are used to handle two fundamental operations - make search and replace functions on text.
 
 > The search() method uses an expression to search for a match, and returns the position of the match.
@@ -147,8 +147,22 @@ The replace() method will also accept a string as search argument:
 var str = "Visit Microsoft!";
 var res = str.replace("Microsoft", "W3Schools");
 
-## More information ##
+# FAQ #
+1. convert characters to uppercase
 
+	the \U will cause all following chars to be upper
+	
+	the \E will turn off the \U
+
+	e.g. 
+
+	text: `test this sentence`
+
+	replace: `\([^ ]*\) \(.*\)`  with: `\U\1\E \2`
+
+	result will be: `TEST this sentence`
+
+# More information #
 [Regular Expressions Cheat Sheet](https://www.debuggex.com/cheatsheet/regex/javascript)
 
 [Introductory Guide to regular expressions](http://www.javascriptkit.com/javatutors/re.shtml)
@@ -156,3 +170,4 @@ var res = str.replace("Microsoft", "W3Schools");
 [Regular Expressions patterns](http://www.javascriptkit.com/javatutors/redev2.shtml)
 
 [Regular Expressions methods and usage](http://www.javascriptkit.com/javatutors/redev3.shtml)
+

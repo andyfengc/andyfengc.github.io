@@ -584,7 +584,7 @@ author: Andy Feng
 		    public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
 		    {
 		        private readonly string _publicClientId;
-		
+ 
 		        public ApplicationOAuthProvider(string publicClientId)
 		        {
 		            if (publicClientId == null)
@@ -655,8 +655,8 @@ author: Andy Feng
 		            }
 		            return Task.FromResult<object>(null);
 		        }
-		
-		        public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
+				
+				// In practice, we usually save client ids in db and query clientid here.         public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
 		        {
 		            // Resource owner password credentials does not provide a client ID.
 		            if (context.ClientId == null)
@@ -895,7 +895,7 @@ or
 		validatedToken.Dump();
 		principal.Dump();
 
-## Add JWT support ##
+## Add JWT support in WebApi ##
 There is no direct support for issuing JWT in ASP.NET Web API,  so in order to start issuing JWTs we need to implement this manually by implementing the interface “ISecureDataFormat” and implement the method “Protect”.
 
 1. Install nuget library: 
@@ -1220,6 +1220,106 @@ There is no direct support for issuing JWT in ASP.NET Web API,  so in order to s
         }
     }
 
+## Add JWT support in .net core ##
+add JWT bearer authentication to your ASP.NET Core application using `Microsoft.AspNetCore.Authentication.JwtBearer` package. It provides middleware to allow validating and extracting JWT bearer tokens from a header. 
+
+There is currently no built-in mechanism for generating the tokens from your application, but if you need that functionality, there are a number of possible projects and solutions to enable that such as IdentityServer 4. Alternatively, you could create your own token middleware as is shown below.
+
+1. Add middleware to application in Startup.cs
+
+		app.UseJwtBearerAuthentication(new JwtBearerOptions
+		{
+		    AutomaticAuthenticate = true,
+		    AutomaticChallenge = true,
+		    TokenValidationParameters = new TokenValidationParameters
+		    {
+		        ValidateIssuer = true,
+		        ValidIssuer = "https://issuer.example.com",
+		
+		        ValidateAudience = true,
+		        ValidAudience = "https://yourapplication.example.com",
+		
+		        ValidateLifetime = true,
+		    }
+		});
+
+# Summary #
+Token technique is the fundamental techniques to implement decoupled authentication architecture such as OAuth 2.0. We can have the client application such as mobile App, a stand alone Authorization Server such as Identity server, and a stand alone Resource Server which contains all protected resources such as API. 
+
+Whenever user(resource owner) wants to use the client application to access his account. Client app connects Authorization server and get access token. Then, the client application connects the Resource Server using the access token. The Resource server understand only the access tokens issued from the Authorization Server.
+
+![](/images/posts/20190213-auth-1.jpg)
+
+Two major workflows to implement this architecture.
+
+## Register client apps in Authentication server ##
+1. a new client register basic information of in the Authorization server. such as
+
+	- Application name
+	- An icon for the application
+	- URL to the application’s home page
+	- A short description of the application
+	- A link to the application’s privacy policy
+	- A list of redirect URLs
+
+1. the Authorization server issue new client_id, secret, save them in db and return back
+
+	The client_id refers to the client application that will be requesting resources from the Resource Server. It is the client app identifier recognized by the authentication server.
+
+	> the client_id is a unique string representing the registration information provided by the client. [Client Identifier](https://tools.ietf.org/html/rfc6749#section-2.2). Typically, we use `System.Guid` and trim `-`, or we can use guid + systemTime. Also, we can hash it, encrypt it or generate any unique identifer defined by ourselves.
+	> 
+	> some examples client IDs from services that support OAuth 2.0:
+	> 
+	> - Foursquare: ZYDPLLBWSK3MVQJSIYHB1OR2JXCY0X2C5UJ2QAR2MAAIT5Q
+	> - Github: 6779ef20e75817b79602
+	> - Google: 292085223830.apps.googleusercontent.com
+	> - Instagram: f2a1ed52710d4533bde25be6da03b6e3
+	> - SoundCloud: 269d98e4922fb3895e9ae2108cbb5064
+	> - Windows Live: 00000000400ECB04
+	
+	secret is a secret known only to the client app and the authorization server. It must be sufficiently random to not be guessable, which means you should avoid using common UUID libraries which often take into account the timestamp or MAC address of the server generating it. A great way to generate a secure secret is to use a cryptographically-secure library to generate a 256-bit value and converting it to a hexadecimal representation.
+
+	the secret should be a cryptographically strong random string. We can generate one like this:
+	
+		RandomNumberGenerator cryptoRandomDataGenerator = new RNGCryptoServiceProvider();
+		byte[] buffer = new byte[length];
+		cryptoRandomDataGenerator.GetBytes(buffer);
+		string uniq = Convert.ToBase64String(buffer);
+		return uniq;
+
+	> Also we can use cryptographic hash functions() to hash GUID + SystemTime + somthingelse to implement it ourselves.
+
+	client/secret like the user credentials of client app in the Authentication server
+
+## Client app connects Resource server via authentication ##
+![](/images/posts/20190211-jwt-3.png)
+
+1. The user(resource owner) uses client app to access resource server.
+
+1. The Client app (e.g. IOS app) requests a token (e.g. JWT) from the Authorization Server. 
+	
+	In doing so, it passes it's client_id and client_secret along with any user credentials that may be required. The Authorization Server validates the client using the client_id and client_secret and returns a token.
+
+1. the Authorization Server verifies the client app and issue access token (e.g. jwt) and refresh token (long expiration date), save the refresh token/ProtectedTicket(context.SerializeTicket()) in db, then return.
+
+1. the Client app saves the access token and refresh token locally, then connects the Resource server with the access token. 
+
+1. the Resource server accept the access token and verify the information. For JWT, the audience of the Resource server must be in the audience list array of JWT.  
+
+1. If the access token expired, the Client app request new access token using refresh token from the Authorization Server; or request new one using client_id/secret.
+
+## More ##
+The JWT token returned from the Authorization server contains some additional standard claims. such as
+
+- `audience` claim. It refers to the Resource server(s) that should accept the token - the intended recipient of the token. It is application specific, which means per audience per resource application.
+	 
+	> The audience value is a string - typically, the base address of the resource being accessed, such as "https://tweebaa-customer-care.com".
+	> If the "aud" contains "www.myfunwebapp.com", but the client app tries to connect the Resource server using the JWT with "aud" contains "www.supersecretwebapp.com", then access will be denied because that Resource Server will see that the JWT was not meant for it. see [ID tokens](https://docs.microsoft.com/en-gb/azure/active-directory/develop/id-tokens)
+
+- `issuer` claim. It refers to the token issuers. i.e. the Authorization server
+
+- client_id vs. audience: The "client_id" identifies the client application which the token is issued for. The "aud" (audience) claim identifies the recipients that the JWT is intended for. 
+
 # References
 [http://autofac.readthedocs.io/en/latest/integration/aspnet.html](http://autofac.readthedocs.io/en/latest/integration/aspnet.html)
 
@@ -1234,3 +1334,6 @@ http://autofac.readthedocs.io/en/latest/integration/webapi.html](http://autofac.
 [Enable OAuth Refresh Tokens in AngularJS App using ASP .NET Web API 2, and Owin](http://bitoftech.net/2014/07/16/enable-oauth-refresh-tokens-angularjs-app-using-asp-net-web-api-2-owin/)
 
 [https://blogs.ibs.com/2017/11/22/token-based-authentication-in-asp-net-using-jwts-part-1/](https://blogs.ibs.com/2017/11/22/token-based-authentication-in-asp-net-using-jwts-part-1/)
+
+[How to implement custom Authorize attribute for the following case?](https://stackoverflow.com/questions/11493873/how-to-implement-custom-authorize-attribute-for-the-following-case)
+

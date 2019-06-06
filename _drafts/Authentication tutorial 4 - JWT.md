@@ -82,7 +82,8 @@ There are multiple libraries across different technologies allow us to decode, v
 
 	![](/images/posts/20180303-jwt-3.png)
 
-# Demo
+# WebApi Demo
+## Demo1 ##
 1. Create an endpoint to issue JWT token when user enter username/password
 
 		public class TokenController : ApiController
@@ -149,9 +150,9 @@ There are multiple libraries across different technologies allow us to decode, v
 		    }
 		}
 
-1. Now, we are ready to validate the JWT when the request comes. We have multiple ways to do so. e.g.create a filter implements `IAuthenticationFilter`, create middleware in .net core, create interceptor of `DelegatingHandler`
+1. Now, we are ready to validate the JWT when the request comes. We have multiple ways to do so. e.g.create a filter implements `IAuthenticationFilter`, create middleware in .net core, or create interceptor of `DelegatingHandler`
 
-	Here, we create a `AuthenticationFilter` to implement `IAuthenticationFilter`
+	**Way1, we create a `AuthenticationFilter` to implement `IAuthenticationFilter`**
 
 	**How to create an authentication filter?**
 
@@ -287,6 +288,553 @@ There are multiple libraries across different technologies allow us to decode, v
 			}
 		}
 	
+## Demo 2 ##
+Way 2, create JwtAuthHandler inherits `DelegatingHandler` class which handles the processing of HTTP response messages to another handler, called the inner handler.
+
+1. create `JwtAuthHandler`
+	
+		using System;
+		using System.Collections;
+		using System.Collections.Generic;
+		using System.Linq;
+		using System.Net;
+		using System.Net.Http;
+		using System.Security.Claims;
+		using System.Threading;
+		using System.Threading.Tasks;
+		using System.Web;
+		using System.Web.Configuration;
+		using System.Web.Script.Serialization;
+		using JWT;
+		
+		namespace MyApp.JWT
+		
+		{
+		    public class JwtAuthHandler:DelegatingHandler
+		    {
+		        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
+		                    CancellationToken cancellationToken)
+		        {
+		            HttpResponseMessage errorResponse = null;
+		
+		            try
+		            {
+		                IEnumerable<string> authHeaderValues;
+		                request.Headers.TryGetValues("Authorization", out authHeaderValues);
+		
+		
+		                if (authHeaderValues == null)
+		                    return base.SendAsync(request, cancellationToken); // cross fingers
+		
+		                var bearerToken = authHeaderValues.ElementAt(0);
+		                var token = bearerToken.StartsWith("Bearer ") ? bearerToken.Substring(7) : bearerToken;
+		                var secret = WebConfigurationManager.AppSettings.Get("jwtKey");
+		                Thread.CurrentPrincipal = ValidateToken(
+		                    token,
+		                    secret,
+		                    true
+		                    );
+		                
+		                if (HttpContext.Current != null)
+		                {
+		                    HttpContext.Current.User = Thread.CurrentPrincipal;
+		                }
+		            }
+		            catch (SignatureVerificationException ex)
+		            {
+		                errorResponse = request.CreateErrorResponse(HttpStatusCode.Unauthorized, ex.Message);
+		            }
+		            catch (Exception ex)
+		            {
+		                errorResponse = request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+		            }
+		
+		
+		            return errorResponse != null
+		                ? Task.FromResult(errorResponse)
+		                : base.SendAsync(request, cancellationToken);
+		        }
+		        private static ClaimsPrincipal ValidateToken(string token, string secret, bool checkExpiration)
+		        {
+		            var jsonSerializer = new JavaScriptSerializer();
+		            var payloadJson = JsonWebToken.Decode(token, secret);
+		            var payloadData = jsonSerializer.Deserialize<Dictionary<string, object>>(payloadJson);
+		
+		
+		            object exp;
+		            if (payloadData != null && (checkExpiration && payloadData.TryGetValue("exp", out exp)))
+		            {
+		                var validTo = FromUnixTime(long.Parse(exp.ToString()));
+		                if (DateTime.Compare(validTo, DateTime.UtcNow) <= 0)
+		                {
+		                    throw new Exception(
+		                        string.Format("Token is expired. Expiration: '{0}'. Current: '{1}'", validTo, DateTime.UtcNow));
+		                }
+		            }
+		
+		            var subject = new ClaimsIdentity("Federation", ClaimTypes.Name, ClaimTypes.Role);
+		
+		            var claims = new List<Claim>();
+		
+		            if (payloadData != null)
+		                foreach (var pair in payloadData)
+		                {
+		                    var claimType = pair.Key;
+		
+		                    var source = pair.Value as ArrayList;
+		
+		                    if (source != null)
+		                    {
+		                        claims.AddRange(from object item in source
+		                                        select new Claim(claimType, item.ToString(), ClaimValueTypes.String));
+		
+		                        continue;
+		                    }
+		
+		                    switch (pair.Key)
+		                    {
+		                        case "name":
+		                            claims.Add(new Claim(ClaimTypes.Name, pair.Value.ToString(), ClaimValueTypes.String));
+		                            break;
+		                        case "surname":
+		                            claims.Add(new Claim(ClaimTypes.Surname, pair.Value.ToString(), ClaimValueTypes.String));
+		                            break;
+		                        case "email":
+		                            claims.Add(new Claim(ClaimTypes.Email, pair.Value.ToString(), ClaimValueTypes.String));
+		                            break;
+		                        case "role":
+		                            claims.Add(new Claim(ClaimTypes.Role, pair.Value.ToString(), ClaimValueTypes.String));
+		                            break;
+		                        case "userId":
+		                            claims.Add(new Claim(ClaimTypes.UserData, pair.Value.ToString(), ClaimValueTypes.Integer));
+		                            break;
+		                        default:
+		                            claims.Add(new Claim(claimType, pair.Value.ToString(), ClaimValueTypes.String));
+		                            break;
+		                    }
+		                }
+		
+		            subject.AddClaims(claims);
+		            return new ClaimsPrincipal(subject);
+		        }
+		
+		        private static DateTime FromUnixTime(long unixTime)
+		        {
+		            var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+		            return epoch.AddSeconds(unixTime);
+		        }
+		    }
+		}
+
+1. In the `WebApiConfig` class, you have to register the message handler to use the `JWTAuthHandler` class.
+
+	config.MessageHandlers.Add(new JwtAuthHandler());
+
+1. Create `JWTManager`. After creating the JwtAuthHandler class, add the JWTManager class that just creates the token when ever a user is signing in and returns the token as the response.
+	
+		using System;
+		using System.Collections.Generic;
+		using System.Web.Configuration;
+		
+		namespace MyApp.JWT
+		{
+		    public class JwtManager
+		    {
+		        /// <summary>
+		        /// Create a Jwt with user information
+		        /// </summary>
+		        /// <param name="user"></param>
+		        /// <param name="dbUser"></param>
+		        /// <returns></returns>
+		        public static string CreateToken(User user, out object dbUser)
+		        {
+		
+		            var unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+		            var expiry = Math.Round((DateTime.UtcNow.AddMinutes(45) - unixEpoch).TotalSeconds);
+		            var issuedAt = Math.Round((DateTime.UtcNow - unixEpoch).TotalSeconds);
+		            var notBefore = Math.Round((DateTime.UtcNow.AddMonths(6) - unixEpoch).TotalSeconds);
+		            
+		
+		            var payload = new Dictionary<string, object>
+		            {
+		                {"email", user.Email},
+		                {"userId", user.Id},
+		                {"role", user.UserRoles},
+		                {"sub", user.Id},
+		                {"nbf", notBefore},
+		                {"iat", issuedAt},
+		                {"exp", expiry}
+		            };
+		
+		            var secret = WebConfigurationManager.AppSettings.Get("jwtKey"); //secret key
+		            dbUser = new { user.Email, user.Id };
+		            var token = JsonWebToken.Encode(payload, secret, JwtHashAlgorithm.HS256);
+		            return token;
+		        }
+		    }
+		}
+	
+		public class User
+		{
+		   
+		 public int Id { get; set; }
+		
+		 [DataType(DataType.EmailAddress)]
+		 [RegularExpression(@"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*", ErrorMessage = "Invalid email address")]
+		 public string Email { get; set; }
+		
+		 public string UserRoles { get; set; }
+		}
+
+3. Decode token. The next thing is creating a class that decodes the token from the request header and read the information like the user id and the name and uses the information to get data from the database.
+
+		using System.Collections.Generic;
+		using System.Web.Configuration;
+		using System.Web.Script.Serialization;
+		public class JwtDecoder
+	    {
+	        /// <summary>
+	        /// Get the userid from the token if the token is not expired
+	        /// </summary>
+	        /// <param name="token"></param>
+	        /// <returns></returns>
+	        public static int? GetUserIdFromToken(string token)
+	        {
+	            string key = WebConfigurationManager.AppSettings.Get("jwtKey");
+	            var jsonSerializer = new JavaScriptSerializer();
+	            var decodedToken = JsonWebToken.Decode(token, key);
+	            var data = jsonSerializer.Deserialize<Dictionary<string, object>>(decodedToken);
+	            object userId,exp;
+	            data.TryGetValue("userId", out userId);
+	            data.TryGetValue("exp", out exp);
+	            var validTo = FromUnixTime(long.Parse(exp.ToString()));
+	            if (DateTime.Compare(validTo, DateTime.UtcNow) <= 0)
+	            {
+	                return null;
+	            }
+	            return (int) userId;
+	        }
+	
+	        private static DateTime FromUnixTime(long unixTime)
+	        {
+	            var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+	            return epoch.AddSeconds(unixTime);
+	        }
+	    }
+
+1. We can use now authorize a web API controller class and methods. For example, any request made to the user profile has to be authorized
+
+        [HttpGet]
+        [Route("account/profile")]
+        [Authorize]
+        public async Task<IHttpActionResult> Profile()
+        {
+            var userId = JwtDecoder.GetUserIdFromToken(Request.Headers.Authorization.Scheme); //decode the token
+
+            var user = await _uow.Repository<User>().GetAsync(u => u.Id == userId); //Get the user by id
+            
+            return Ok(user);
+        }
+
+# MVC demo #
+Here, we build a custom class the extends the authorization filter class for authentication in Asp.Net MVC. We use `HttpClient`
+
+1. Creating the JWTAuthorize custom attribute class
+
+	using System;
+	using System.Collections.Generic;
+	using System.Web;
+	using System.Web.Mvc;
+	using System.Web.Script.Serialization;
+	using CommonLibs;
+
+	public class JwtAuthorizeAttribute:AuthorizeAttribute
+	{
+	
+	    private readonly IApiConsumer _apiConsumer;
+	
+	    public JwtAuthorizeAttribute()
+	    {
+	        _apiConsumer = new ApiConsumer();
+	    }
+	
+	    protected override bool AuthorizeCore(HttpContextBase httpContext)
+	    {
+	        if (base.AuthorizeCore(httpContext))
+	        {
+	            return false;
+	        }
+	        return IsTokenValid();
+	        //return base.AuthorizeCore(httpContext);
+	    }
+	
+	    /// <summary>
+	    /// If a token is present on the client side, the the request is authenticated
+	    /// </summary>
+	    /// <returns></returns>
+	    private bool IsAuthenticated()
+	    {
+	        try
+	        {
+	            var token =  HttpContext.Current.Request.Cookies.Get("lc_token").Value;
+	            return token != null;
+	        }
+	        catch (NullReferenceException)
+	        {
+	            return false;
+	        }
+	    }
+	
+	    /// <summary>
+	    /// Checks if the token is valid
+	    /// </summary>
+	    /// <returns></returns>
+	    private bool IsTokenValid()
+	    {
+	        try
+	        {
+	            if (IsAuthenticated()) //If token is found in cookie
+	            {
+	                //check expiry date
+	                var jsonSerializer = new JavaScriptSerializer();
+	                var payloadJson = JsonWebToken.Decode(Utils.GetCookie("lc_token"),
+	                    "token");
+	
+	                var payloadData = jsonSerializer.Deserialize<Dictionary<string, object>>(payloadJson);
+	                object expiration;
+	                payloadData.TryGetValue("exp", out expiration);
+	                var validTo = FromUnixTime(long.Parse(expiration.ToString()));
+	                if (DateTime.Compare(validTo, DateTime.UtcNow) <= 0)
+	                {
+	                    return false;
+	                }
+	                return true;
+	            }
+	            return false;
+	        }
+	        catch (NullReferenceException)
+	        {
+	            return false;
+	        }
+	    }
+	
+	    private static DateTime FromUnixTime(long unixTime)
+	    {
+	        var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+	        return epoch.AddSeconds(unixTime);
+	    }  
+	}
+
+	Please note the IsAuthenticated() method checks if the token is found in the cookie. The IsTokenValid() method decodes the token and checks if the token has expired. These are just the right steps for validating a token on the client side.
+
+1. Adding the filter on the Action Method
+
+	The “api/v1/profile” is a protected resource. That means you will need to provide the token for authorization. With the custom attribute class, you don’t need to start writing tedious and boring codes, all you need to do is this 
+
+		public class DashboardController : Controller
+		{
+		    private static IApiConsumer _apiConsumer;
+		    private const string BaseUri = "http://localhost:45432/";
+		    //private Identity _identity;
+		
+		    public DashboardController(IApiConsumer apiConsumer)
+		    {
+		        _apiConsumer = apiConsumer;
+		        _apiConsumer.BaseUri = new Uri(BaseUri);
+		       // _identity = new Identity();
+		    }
+		
+		    [JwtAuthorize]
+		    public async Task<ActionResult> Index()
+		    {
+		
+		        var token = Session["lc_token"].ToString();
+		        var usid = int.Parse(Session["lc_usid"].ToString());
+		
+		        _apiConsumer.ContentType = ApiConsumer.ApplicationJson;
+		        _apiConsumer.ResourcePath = "v1/api/user/" + usid;
+		        var headers = new List<KeyValuePair<string, string>>
+		        {
+		            new KeyValuePair<string, string>("Authorization", token)
+		        };
+		        var response = await _apiConsumer.GetAsync(headers);
+		        if (response.IsSuccessStatusCode)
+		        {
+		            var user = await response.Content.ReadAsAsync<dynamic>();
+		            return View(user);
+		        }
+		        return RedirectToAction("SignOut", "Account");
+		
+		    }
+		}
+
+	Note: The ApiConsumer class is a custom class I created that wraps the HttpClient class. You can use the default class if you want to. The code for the class is listed below:
+
+1. Create apiconsumer
+		
+		using System;
+		using System.Collections.Generic;
+		using System.Net.Http;
+		using System.Net.Http.Headers;
+		using System.Threading.Tasks;
+		
+		namespace CommonLibs
+		{
+		    public interface IApiConsumer
+		    {
+		        /// <summary>
+		        /// The base uri of the resource
+		        /// </summary>
+		        Uri BaseUri { get; set; }
+		
+		        /// <summary>
+		        /// The request uri of the resource
+		        /// </summary>
+		        string ResourcePath { get; set; }
+		
+		        /// <summary>
+		        /// The resource content type
+		        /// </summary>
+		        string ContentType { get; set; }
+		
+		        /// <summary>
+		        /// Send a Get request. Pass header information in the parameter if any
+		        /// </summary>
+		        /// <returns></returns>
+		        Task<HttpResponseMessage> GetAsync(IEnumerable<KeyValuePair<string, string>> headers = null);
+		
+		        /// <summary>
+		        /// Send a post request
+		        /// </summary>
+		        /// <param name="content"></param>
+		        /// <returns></returns>
+		        Task<HttpResponseMessage> PostAsync(HttpContent content);
+		    }
+		
+		    /// <summary>
+		    /// A class for consuming web api from a.net client
+		    /// </summary>
+		    public class ApiConsumer : IApiConsumer
+		    {
+		        /// <summary>
+		        /// The base uri of the resource
+		        /// </summary>
+		        public Uri BaseUri { get; set; }
+		
+		        /// <summary>
+		        /// The request uri of the resource
+		        /// </summary>
+		        public string ResourcePath { get; set; }
+		
+		        /// <summary>
+		        /// The resource content type
+		        /// </summary>
+		        public string ContentType { get; set; }
+		
+		        public static string ApplicationXml = "application/xml";
+		        public static string TextXml = "text/xml";
+		        public static string ApplicationJson = "application/json";
+		        public static string TextJson = "text/json";
+		
+		        /// <summary>
+		        /// Configure the client to consume the Api
+		        /// </summary>
+		        /// <returns></returns>
+		        private HttpClient ConfigureClient(IEnumerable<KeyValuePair<string, string>> headers=null)
+		        {
+		            var client = new HttpClient
+		            {
+		                BaseAddress = new Uri(BaseUri.AbsoluteUri)
+		
+		            };
+		            if (headers != null)
+		                foreach (var items in headers)
+		                {
+		                    client.DefaultRequestHeaders.Add(items.Key, items.Value);
+		
+		                }
+		            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(ContentType));
+		            return client;
+		        }
+		
+		        /// <summary>
+		        /// Send a Get request. Pass header information in the parameter if any
+		        /// </summary>
+		        /// <returns></returns>
+		        public async Task<HttpResponseMessage> GetAsync(IEnumerable<KeyValuePair<string, string>> headers = null)
+		        {
+		            var client = ConfigureClient(headers);
+		            var response = await client.GetAsync(ResourcePath);
+		            return response;
+		        }
+		
+		        /// <summary>
+		        /// Send a post request
+		        /// </summary>
+		        /// <param name="content"></param>
+		        /// <returns></returns>
+		        public async Task<HttpResponseMessage> PostAsync(HttpContent content)
+		        {
+		            var client = ConfigureClient();
+		            var response = await client.PostAsync(ResourcePath, content);
+		            return response;
+		        }
+		
+		    }
+		}
+
+1. Using OWIN For Authentication
+
+	The website will work properly because we are using IIS. But in a scenario where we want to use OWIN, which is not dependent on the System.Web, we have to modify the JwtAuthHandler class and comment or remove the SendAsyn overridden method and create the owin Startup class. If you don't, you would get the "Authorization has been denied for this request" error message. So, the modification is displayed below:
+
+		public static void OnAuthenticateRequest(IOwinContext context)
+		{
+		    var requestHeader = context.Request.Headers.Get("Authorization");
+			if (requestHeader != null)
+			
+			        {
+			    int userId = Convert.ToInt32(JwtDecoder.GetUserIdFromToken(requestHeader).ToString());
+			    var identity = new GenericIdentity(userId.ToString(), "StakersClubOwinAuthentication");
+			    //context.Authentication.User = new ClaimsPrincipal(identity);
+			
+			    var token = requestHeader.StartsWith("Bearer ") ? requestHeader.Substring(7) : requestHeader;
+			    var secret = WebConfigurationManager.AppSettings.Get("jwtKey");
+			    Thread.CurrentPrincipal = ValidateToken(
+			        token,
+			        secret,
+			        true
+			        );
+			    context.Authentication.User = (ClaimsPrincipal) Thread.CurrentPrincipal;
+			    //if (HttpContext.Current != null)
+			    //{
+			    //    HttpContext.Current.User = Thread.CurrentPrincipal;
+			    //}
+			}
+		}
+
+	The OWIN Startup class
+
+		public class Startup
+		{
+		    public void Configuration(IAppBuilder app)
+		    {
+		        var config = new HttpConfiguration();
+		
+		        app.Use((context, next) =>
+		        {
+		            JwtAuthHandler.OnAuthenticateRequest(context); //the new method
+		            return next.Invoke();
+		        });
+		        app.UseStageMarker(PipelineStage.Authenticate);            
+		        WebApiConfig.Register(config);//Remove or comment the config.MessageHandlers.Add(new JwtAuthHandler()) section it would not be triggered on execution.
+		
+		       
+		        app.UseWebApi(config);
+		    }
+		}
+
+Please note that there are some difference between MVC and Web Api. For MVC, besides issue token, we can also use a login form and create a session using cookies. For Web Api, there is no session and we have to use the token technique to login user in.
+
 # References #
 [https://jwt.io/introduction/](https://jwt.io/introduction/)
 
@@ -296,3 +844,9 @@ There are multiple libraries across different technologies allow us to decode, v
 
 refresh token
 [https://auth0.com/docs/tokens/refresh-token/current](https://auth0.com/docs/tokens/refresh-token/current)
+
+[5 Easy Steps to Understanding JSON Web Tokens (JWT)](https://medium.com/vandium-software/5-easy-steps-to-understanding-json-web-tokens-jwt-1164c0adfcec)
+
+[https://stackoverflow.com/questions/40281050/jwt-authentication-for-asp-net-web-api](https://stackoverflow.com/questions/40281050/jwt-authentication-for-asp-net-web-api)
+
+[https://stackoverflow.com/questions/38661090/token-based-authentication-in-web-api-without-any-user-interface](https://stackoverflow.com/questions/38661090/token-based-authentication-in-web-api-without-any-user-interface)
