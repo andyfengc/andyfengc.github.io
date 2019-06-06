@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Create Angular v2+ project (3) - router
+title: Create Angular v2+ project (4) - router
 author: Andy Feng
 ---
 
@@ -947,6 +947,47 @@ add the resolver to module config
 	  ]
 	})
 	export class ItemModule { }
+
+# FAQ #
+1. [routerLink] vs. routerLink
+
+	When we use brackets, it means we're passing a bindable property (a variable).
+
+		<a [routerLink]="routerLinkVariable"></a>
+	
+		<a [routerLink]="['employee-detail', employeeId]"></a>
+
+		<a [routerLink]="['/update-employee', employeeId, 'site']"><i class="normal material-icons cls-material-icon">edit</i></a>
+	
+	So this variable (routerLinkVariable) could be defined inside our class and it should have a value like below:
+
+		export class myComponent {
+	    public routerLinkVariable = "/home"; // the value of the variable is string!
+
+	Where as without brackets we're passing string only and we can't change it, it's hard coded and it'll be like that throughout our app.
+
+		<a routerLink="/home"></a>
+		
+		<a routerLink="/employee-detail/{{employeeId}}"></a>
+
+		<a routerLink="/update-employee/{{employeeId}}/site"><i class="normal material-icons cls-material-icon">edit</i></a>
+
+	ex1:
+
+		<a [routerLink]="['/update-employee/1001/level', {'key1' : 'value1', redirectUrl: '/employee-detail/1001'}]"><i class="normal material-icons cls-material-icon">edit</i></a>
+
+	will be translated to
+
+		<a _ngcontent-c3="" ng-reflect-router-link="/update-employee/1001/level," href="/update-employee/130438/level;key1=value1;redirectUrl=%2Femployee-detail-compact%2F1001"><i _ngcontent-c3="" class="normal material-icons cls-material-icon">edit</i></a>
+
+	ex2:
+
+		<a [routerLink]="['/update-employee', employeeId, 'site']"><i
+              class="normal material-icons cls-material-icon">edit</i></a>
+
+	will be translated to
+
+		<a _ngcontent-c3="" ng-reflect-router-link="/update-employee,1001,level" href="/update-employee/1001/level"><i _ngcontent-c3="" class="normal material-icons cls-material-icon">edit</i></a>
 
 # References #
 [Routing & Navigation](https://angular.io/guide/router)

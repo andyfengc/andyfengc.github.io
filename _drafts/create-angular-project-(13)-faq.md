@@ -284,7 +284,163 @@ Force Change Detection cycle Inside your parent component
 		const value = (<any>data).key;
 		console.log(value); 
 
+# Use cookie #
+1. install `npm install ngx-cookie-service --save`
+
+1. Add to our module, `app.module.ts`: 
+
+		import { BrowserModule } from '@angular/platform-browser';
+		import { NgModule } from '@angular/core';
+		import { FormsModule } from '@angular/forms';
+		import { HttpModule } from '@angular/http';	 
+		import { AppComponent } from './app.component';
+		...
+		import { CookieService } from 'ngx-cookie-service';
+		 
+		@NgModule({
+		  declarations: [ AppComponent ],
+		  imports: [ BrowserModule, FormsModule, HttpModule ],
+		  providers: [ CookieService ],
+		  bootstrap: [ AppComponent ]
+		})
+		export class AppModule { }
+
+1. import and inject it into a component:
+
+		import { Component, OnInit } from '@angular/core';
+		import { CookieService } from 'ngx-cookie-service';
+		 
+		@Component({
+		  selector: 'demo-root',
+		  templateUrl: './app.component.html',
+		  styleUrls: [ './app.component.scss' ]
+		})
+		export class AppComponent implements OnInit {
+		  cookieValue = 'UNKNOWN';
+		 
+		  constructor( private cookieService: CookieService ) { }
+		 
+		  ngOnInit(): void {
+		    this.cookieService.set( 'Test', 'Hello World' );
+		    this.cookieValue = this.cookieService.get('Test');
+		  }
+		}
+
+# How to inject service into model class #
+1. declare class as injectable
+
+	add `@Injectable()` to MyClass and provide MyClass like `providers: [MyClass]` in a component or NgModule.
+	
+	When you then inject MyClass somewhere, a MyService instance gets passed to MyClass when it is instantiated by DI (before it is injected the first time).
+
+1. configure a custom injector like
+ 
+		export class MyClass{
+			constructor(private injector:Injector) { 
+			  let resolvedProviders = ReflectiveInjector.resolve([MyClass]);
+			  let childInjector = ReflectiveInjector.fromResolvedProviders(resolvedProviders, this.injector);
+			
+			  let myClass : MyClass = childInjector.get(MyClass);
+			}
+		}
+
+	This way myClass will be a MyClass instance, instantiated by Angulars DI, and myService will be injected to MyClass when instantiated.
+
+1. create the instance yourself:
+
+	constructor(ms:myService)
+	let myClass = new MyClass(ms);
+
+1. declare a factory service to generate model objects. Then use it to create new objects
+
+		// Component needing model objects
+		@Component(...)
+		class SomeComponent {
+		    constructor(factory: FactoryService){
+		        const sell = factory.getNewModelObject();
+		}
+	
+		// factory
+		@Injectable()
+		class FactoryService {
+		    constructor(private _userService: UserService){ 
+		    }
+		
+		    getNewModelObject(){
+		       const model = new Model();
+		       model.userId = this._userService.id;
+		       return model;
+		    }
+		}
+		
+		// Your sell class remains dumb (btw Sale would be a much better name for a model)
+		export class Model {
+		  userId: string;
+		  price: number;
+		}
+
+1. change the service to static methods. In model class, call static methods directly.
+
+# How to call a component method from service #
+Usually, we cannot do this directly. We cannot inject the component inside a service constructor or any other component's constructor. 
+
+But we can have some solutions to call a method of component from service
+
+1. Use `Subject` or `BehaviorSubject` in service and then subscribe to it from the component.
+
+	e.g. 
+
+	service
+	
+		@Injectable()
+		export class AuthGuardService implements CanActivate {
+		    private authorized: Subject<boolean> = new Subject<boolean>();
+			public authorized$ : this.authorized.asObservable();
+		
+		    constructor(private authService: AuthenticationService) {
+		
+		    }
+		    
+		    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
+		        if (...) {
+		            this.authorized.next(true);
+		            return true;
+		        }
+		        else {
+		            this.authorized.next(false);
+		            return false;
+		        }
+		    }
+		}
+
+	component
+
+		export class AppComponent{
+		
+		  constructor(
+		    ...
+		    , public authGuardService: AuthGuardService
+		  ) {
+		    this.authGuardService.authorized$.subscribe(authorized => {
+		      if (!authorized) this.showUnthorized();
+		    })
+		  }
+		  private showUnthorized(): void {
+		    this.openDialog(new DialogModel('Warning', "Sorry, you are not authorized to access because ..."));
+		  }		
+		}
+
+service.ts
+
 # References
 [Global HTTP error catching in Angular 4.3+](https://hackernoon.com/global-http-error-catching-in-angular-4-3-9e15cc1e0a6b)
 
 [https://hackernoon.com/import-json-into-typescript-8d465beded79](https://hackernoon.com/import-json-into-typescript-8d465beded79)
+
+[How to inject Service into class (not component)](https://stackoverflow.com/questions/41432388/how-to-inject-service-into-class-not-component)
+
+[Getting dependency from Injector manually inside a directive](https://stackoverflow.com/questions/40536409/getting-dependency-from-injector-manually-inside-a-directive/40537194#40537194)
+
+[How to call component method from service? (angular2)](https://stackoverflow.com/questions/40788458/how-to-call-component-method-from-service-angular2)
+
+[Component Interaction](https://angular.io/guide/component-interaction#!#bidirectional-service)

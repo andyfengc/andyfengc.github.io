@@ -909,4 +909,74 @@ in my-component.component.ts
           "./node_modules/bootstrap/dist/css/bootstrap.css"
         ],
 
+# Create pipe #
+we can write a custom pipe by implementing `PipeTransform` interface
 
+for example, a pipe to filter employee object via `factId` property
+
+1. write employee-fact-filter.pipe.ts
+
+		import { PipeTransform, Pipe } from "@angular/core";
+		import { Employee } from "../models/employee.model";
+		
+		@Pipe({name: 'employeeFactFilter'})
+		export class EmployeeFactFilterPipe implements PipeTransform{
+		    transform(value: Employee, factId : number) : Employee {
+		        if (factId == null) value.TblEmployeeFactRel = [];
+		        else value.TblEmployeeFactRel = value.TblEmployeeFactRel.filter(fact => fact.FactId == factId);
+		        return value;
+		    }
+		
+		}
+
+	Please note
+	
+	- A pipe is a class decorated with pipe metadata. the name must by camel case e.g. `employeeFactFilter` instead of separated by comma e.g. `employee-fact-filter`(wrong)
+	- the transform method accepts an input value followed by optional parameters and returns the transformed value.
+	There will be one additional argument to the transform method for each parameter passed to the pipe. Your pipe has one such parameter: the exponent.
+	
+1. include the pipe in the declarations array of the AppModule, `app.module.ts`
+
+		import { BrowserModule } from '@angular/platform-browser';
+		import { NgModule } from '@angular/core';
+		import { FormsModule } from '@angular/forms';
+		import { HttpModule } from '@angular/http';
+		
+		import { AppComponent } from './app.component';
+		import { EmployeeFactFilterPipe } from './employee-fact-filter.pipe.ts';
+		
+		@NgModule({
+		  declarations: [
+		    AppComponent,
+		    EmployeeFactFilterPipe
+		  ],
+		  imports: [
+		    BrowserModule,
+		    FormsModule,
+		    HttpModule
+		  ],
+		  providers: [],
+		  bootstrap: [AppComponent]
+		})
+		export class AppModule { }
+
+	Please note if we choose to inject your pipe into a class, we must provide it in the providers array of your NgModule.
+
+1. In template, we use this custom pipe:
+
+	<tr *ngFor="let factRel of (employee | employeeFactFilter: factId).GetFactRelByDate(from, to)">
+    </tr>
+
+If we use multiple parameters, it will be defined like
+
+	@Pipe({name: 'uselessPipe'})
+	export class uselessPipe implements PipeTransform {
+	  transform(value: string, before: string, after: string): string {
+	    let newStr = `${before} ${value} ${after}`;
+	    return newStr;
+	  }
+	}
+
+call it like that:
+
+	{{ user.name | uselessPipe:"Mr.":"the great" }}

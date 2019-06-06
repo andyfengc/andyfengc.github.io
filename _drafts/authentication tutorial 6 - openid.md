@@ -88,7 +88,7 @@ OpenID Connect presents three major flows for authentication. These flows dictat
 	- It is suitable for browser-based applications such as Angular, React, Vue
 - **Hybrid Flow**: It is a combination of aspects from the previous two and rarely used. This flow allows the client to make immediate use of an identity token and retrieve an authorization code via one round trip to the authentication server. This can be used for long lived access (again, through the use of refresh tokens). Clients using this flow must be able to maintain a secret.
 	- This flow can obtain an authorization code and tokens from the authorization endpoint, and can also obtain refresh tokens from the token endpoint.
-	- 
+	
 # Architecture of OpenID Connect integration
 
 ![](/images/posts/20181031-openid-3.png)
@@ -165,7 +165,7 @@ OpenID Connect presents three major flows for authentication. These flows dictat
 
 	![](/images/posts/20181031-openid-1.png)
 
-# OpenID Connect development in Angular
+# OpenID Connect development in Angular, use ng-oidc-client lib
 1. Create a Angular project via angular-cli
 1. install oidc lib: 
 
@@ -475,6 +475,107 @@ OpenID Connect presents three major flows for authentication. These flows dictat
 	- identity$ : Observable<OidcUser> - returns an Observable to the obtained identity and is identical to User from oidc-client
 	- errors$ : Observable<ErrorState> - returns an Observable to Errors caught from oidc-client
 
+# OpenID Connect development in Angular, use angular-oauth2-oidc lib
+1. prepare an identity server. e.g. `okra`
+	
+	register a developer account
+	
+	![](/images/posts/20190412-okra-1.png)
+
+	Create an OIDC App in Okta > Log in to Okta Developer account > Applications > Add Application > Web > Give the app a name you’ll remember > set Login redirect URI e.g. http://localhost:4200 > Click Done. Edit your app after creating it and specify Logout redirect URI. 
+	
+	![](/images/posts/20190412-okra-2.png)
+
+	![](/images/posts/20190412-okra-3.png)
+
+	![](/images/posts/20190412-okra-4.png)
+
+1. Create a Angular project via angular-cli
+1. Install lib:
+
+	`npm install --save angular-oauth2-oidc`
+
+1. Open `src/app/app.module.ts` and import `OAuthModule`, `HttpClientModule`.
+
+		import { HttpClientModule } from '@angular/common/http';
+		import { OAuthModule } from 'angular-oauth2-oidc';
+		
+		@NgModule({
+		  declarations: [
+		    AppComponent
+		  ],
+		  imports: [
+		    BrowserModule,
+		    AppRoutingModule,
+		    HttpClientModule,
+		    OAuthModule.forRoot()
+		  ],
+		  providers: [],
+		  bootstrap: [AppComponent]
+		})
+		export class AppModule { }
+
+1. Modify `src/app/app.component.ts` to import `OAuthService` and configure it to use your Okta application settings. Also, add `login()` and `logout()` methods
+
+		import { Component } from '@angular/core';
+		import { AuthConfig, OAuthService, JwksValidationHandler } from 'angular-oauth2-oidc';
+		
+		export const authConfig: AuthConfig = {
+		  issuer: 'https://dev-622559.okta.com/oauth2/default',
+		  redirectUri: window.location.origin,
+		  clientId: '{yourClientId}'
+		};
+		
+		@Component({
+		  selector: 'app-root',
+		  templateUrl: './app.component.html',
+		  styleUrls: ['./app.component.scss']
+		})
+		export class AppComponent {
+		  title = 'ng-secure';
+		  constructor(private oauthService: OAuthService){
+		    this.oauthService.configure(authConfig);
+		    this.oauthService.tokenValidationHandler = new JwksValidationHandler();
+		    this.oauthService.loadDiscoveryDocumentAndTryLogin();
+		  }
+		  login() {
+		    this.oauthService.initImplicitFlow();
+		  }
+		
+		  logout() {
+		    this.oauthService.logOut();
+		  }
+		  
+		  get givenName() {
+		    const claims = this.oauthService.getIdentityClaims();
+		    if (!claims) {
+		      return null;
+		    }
+		    return claims['name'];
+		  }
+		}
+
+1. update `app.component.html`
+
+		<h1>Welcome to {{ title }}!</h1>
+		
+		<div *ngIf="givenName">
+		  <h2>Hi, {{givenName}}!</h2>
+		  <button (click)="logout()">Logout</button>
+		</div>
+		
+		<div *ngIf="!givenName">
+		  <button (click)="login()">Login</button>
+		</div>
+		
+		<router-outlet></router-outlet>
+
+1. Restart your app and you should see a login button. Click the login button, sign in to your Okta account, and you should see your name with a logout button.
+
+	![](/images/posts/20190412-okra-5.png)
+
+	![](/images/posts/20190412-okra-6.png)
+
 # OpenID vs. OAuth
 1. OAuth2 is not designed for authentication but OpenID does
 
@@ -509,3 +610,5 @@ OpenID Connect presents three major flows for authentication. These flows dictat
 [ng-oidc-client-server](https://github.com/Fileless/ng-oidc-client-server)
 
 [ng-oidc-client](https://github.com/fileless/ng-oidc-client)
+
+[https://developer.okta.com/blog/2018/12/04/angular-7-oidc-oauth2-pkce#create-an-oidc-app-in-okta](https://developer.okta.com/blog/2018/12/04/angular-7-oidc-oauth2-pkce#create-an-oidc-app-in-okta)
