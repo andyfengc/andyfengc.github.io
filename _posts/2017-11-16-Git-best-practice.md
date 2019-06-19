@@ -95,7 +95,14 @@ Here are major steps of GitFlow:
 
 	pull possible changes of other team members for develop branch: `git pull origin develop`
 
-	merge changes from feature branch: `git merge --no-ff <feature-branch>`	or `git merge develop <feature-branch>`
+	merge changes from feature branch: 
+
+	`git merge --no-ff <feature-branch>`
+
+	`git merge develop <feature-branch>` 
+
+	`git pull origin <feature-branch>`
+
 	> --no-ff: disable the default fast-forward merge
 
 	delete feature branch(optional): `git branch -d <feature-branch>`
