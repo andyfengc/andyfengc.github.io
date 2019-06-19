@@ -334,6 +334,123 @@ We will have a textbox. when we enter something inside the textbox, it debounces
 
 	![](/images/posts/20180411-rxjs-3.png)
 
+## BehaviorSubject vs. ReplaySubject vs. AsyncSubject ##
+All of these derives from `Subject` and used for multicasting `Observables`. But they behaves slightly differently.
+
+1. `BehaviorSubject` - It needs an initial value as it always return a value on subscription even if it hasn’t received a next(). At any point, we can retrieve the last value of the subject in a non-observable code using the `getValue()` method or `value` property.
+	
+		export declare class BehaviorSubject<T> extends Subject<T> {
+		    private _value;
+		    constructor(_value: T);
+		    readonly value: T;
+		    getValue(): T;
+		    next(value: T): void;
+		}
+	
+	e.g. 
+	
+		import * as Rx from "rxjs";
+		
+		const subject = new Rx.BehaviorSubject();
+		
+		// subscriber 1
+		subject.subscribe((data) => {
+		    console.log('Subscriber A:', data);
+		});
+		
+		subject.next(Math.random());
+		subject.next(Math.random());
+		
+		console.log(subject.value)
+		
+		// output
+		// Subscriber A: 0.24957144215097515
+		// Subscriber A: 0.8751123892486292
+		// Subscriber A: 0.1901322109907977
+		// 0.1901322109907977
+	
+	We can also create BehaviorSubjects with an initial value:
+	
+		import * as Rx from "rxjs";
+		
+		const subject = new Rx.BehaviorSubject(Math.random());
+		
+		// subscriber 1
+		subject.subscribe((data) => {
+		    console.log('Subscriber A:', data);
+		});
+		
+		// output
+		// Subscriber A: 0.24957144215097515
+
+	Note that BehaviorSubject always sends the current(latest) value to observers.
+
+1. `ReplaySubject` can send “old” values to new subscribers. It has the extra characteristic that it can record a part of the observable execution and store multiple old values and “replay” them to new subscribers.
+
+	When creating the ReplaySubject we can specify how much values we want to store and for how long we want to store them. e.g. “I want to store the last 2 values, that have been executed in the last second prior to a new subscription”
+
+		import * as Rx from "rxjs";
+		
+		const subject = new Rx.ReplaySubject(2);
+		
+		// subscriber 1
+		subject.subscribe((data) => {
+		    console.log('Subscriber A:', data);
+		});
+		
+		subject.next(Math.random())
+		subject.next(Math.random())
+		subject.next(Math.random())
+		
+		// subscriber 2
+		subject.subscribe((data) => {
+		    console.log('Subscriber B:', data);
+		});
+		
+		// Subscriber A: 0.3541746356538569
+		// Subscriber A: 0.12137498878080955
+		// Subscriber A: 0.531935186034298
+		// Subscriber B: 0.12137498878080955
+		// Subscriber B: 0.531935186034298
+
+	Note that when We start subscribing with Subscriber B. The `ReplaySubject` object stores 2 values and it will immediately emit last 2 values to Subscriber B and Subscriber B will log those.
+
+	We can also specify for how long we wanna to store values in the replay subject: 
+
+		`const subject = new Rx.ReplaySubject(2, 100);`
+
+	Here, we only want to store the last 2 values, but no longer than a 100 ms
+
+1. `AsyncSubject`
+
+	While the `BehaviorSubject` and `ReplaySubject` both store values, `BehaviorSubject` stores the lastest value and `ReplaySubject` stores recent values, the `AsyncSubject` works a bit different. It emits the last value of the Observable execution is sent to its subscribers, and only when the execution completes. 
+
+		import * as Rx from "rxjs";
+		
+		const subject = new Rx.AsyncSubject();
+		
+		// subscriber 1
+		subject.subscribe((data) => {
+		    console.log('Subscriber A:', data);
+		});
+		
+		subject.next(Math.random())
+		subject.next(Math.random())
+		subject.next(Math.random())
+		
+		// subscriber 2
+		subject.subscribe((data) => {
+		    console.log('Subscriber B:', data);
+		});
+		
+		subject.next(Math.random());
+		subject.complete(); // only the complete() method triggers the response of observers
+		
+		// Subscriber A: 0.4447275989704571
+		// Subscriber B: 0.4447275989704571
+
+	Note that the `AsyncSubject` object emits values multiple times. But only the emitt when it completes can lead subscribers to respond.
+
 # Observables in Angular #
 
 Angular makes use of observables as an interface to handle a variety of common asynchronous operations. e.g.

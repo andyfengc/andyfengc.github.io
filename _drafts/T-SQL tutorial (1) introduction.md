@@ -362,7 +362,7 @@ SQL view can be thought of as either a virtual table or a stored query which is 
 The view is essentially a dynamic SELECT query, and if any changes are made to the originating table(s),
 These changes will be reflected in the SQL VIEW automatically. In normal view, we can only exploit indexed columns directly from base tables and cannot create indexes on view. 
 
-Views are queried like tables and do not accept parameters.
+Views are queried like tables and do not accept parameters. An alternative solution is to implement a stored function
 
 Benefits of using a view are as follows:
 
@@ -438,6 +438,35 @@ They both persist the results of a query, but how are they different?
 1. SQL Server’s indexed views are always kept up to date. In SQL Server, if a view’s base tables are modified, then the view’s indexes are also kept up to date in the same atomic transaction.
 
 1. Oracle provides something similar called a `materialized view`. If Oracle’s materialized views are created without the REFRESH FAST ON COMMIT option, then the materialized view is not modified when its base tables are. So that’s one major difference. While SQL Server’s indexed views are always kept current, Oracle’s materialized views can be static.
+
+# Stored function #
+User-defined function in SQL Server accepts parameters, performs an action, such as a complex calculation, and returns the result of that action as a value. The return value can either be a scalar (single) value or a table. 
+
+e.g. create a function named “getFormattedDate”. This function accepts a datetime type value and returns a varchar value which is actually our formatted date.
+
+	CREATE FUNCTION getFormattedDate
+	 (
+	 @DateValue AS DATETIME
+	 )
+	RETURNS VARCHAR(MAX)
+	AS
+	BEGIN
+		RETURN
+		  DATENAME(DW, @DateValue)+ ', '+
+		  DATENAME(DAY, @DateValue)+ ' '+
+		  DATENAME(MONTH, @DateValue) +', '+
+		  DATENAME(YEAR, @DateValue)	 
+	END
+
+Test it
+
+	SELECT
+	 name,
+	 [dbo].[getFormattedDate](DOB)
+	FROM student
+
+![](/images/posts/20190524-sql-1.png)
+ 
 
 # Stored procedure
 A stored procedure is a collection of SQL statements that applications use to access and manipulate data in a database.
