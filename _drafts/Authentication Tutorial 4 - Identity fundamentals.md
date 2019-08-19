@@ -1,6 +1,6 @@
 ---
 layout: post
-title: ASP.NET Identity authentication 2 - identity framework fundamentals
+title: ASP.NET Identity authentication (2) - identity framework fundamentals
 author: Andy Feng
 ---
 

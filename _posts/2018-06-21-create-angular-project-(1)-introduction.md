@@ -980,3 +980,6 @@ If we use multiple parameters, it will be defined like
 call it like that:
 
 	{{ user.name | uselessPipe:"Mr.":"the great" }}
+
+# References #
+[Angular Playground](https://stackblitz.com/angular/dlynpyeolkm)

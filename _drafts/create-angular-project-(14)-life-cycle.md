@@ -459,12 +459,12 @@ Therefore, we need listen to the changes of the `list` and `model` property. Bec
 
 ## Models ##
 
-	class Component{
+	export class Component{
 		private item$ = BehaviorSubject(null);
 		private list$ = BehaviorSubject([]);
 		@Input() model(model){ if (model != null) this.item$.next(model.item) }
-		@Input() listParam1(val){ if (val != null) this.loadList() }
-		@Input() listParam2(val){ if (val != null) this.loadList() }
+		@Input() listParam1(val){ if (val != null) this.loadList(val) }
+		@Input() listParam2(val){ if (val != null) this.loadList(val) }
 		ngAfterViewInit() {
 			combineLatest(this.list$, this.item$)
 			  .subscribe(([list, item]) => {
@@ -485,7 +485,7 @@ Principle
 1. If the component included in parent component, parent shouldn't call the same entrance triggered by multiple different events. per entrance per parent.
 	> If there are multiple events in parent invoke the same entrance, each event will trigger the change of `$item` or `$list` and will reselect the item from the list followed by setting the model. That means each event of parent might change the model of component. It is very likely some of events are caused by other children components in parent. In this case, we might have to consider the event sequence in parent in order to ensure some actions go first and some go later. As we know, it is very hard to arrange the execution or subscribe sequence of events. It is very hard to maintain.
 
-1. if a parent pre-rendering method() depends on a child component, we cannot use *ngIf to the child component. Angular might throw `ExpressionChangedAfterItHasBeenCheckedError` error 
+1. if a parent pre-rendering method() depends on a child component, we cannot use `*ngIf` to the child component. Angular might throw `ExpressionChangedAfterItHasBeenCheckedError` error 
 
 	e.g.
 
@@ -563,7 +563,7 @@ atomic.component.ts
 		private list$ = new BehaviorSubject([]);
 		
 		private _listParam1 : any;
-		@Input() listParam1(val : any)
+		@Input() set listParam1(val : any) // set only, uni-direction
 		{ 
 			if (val != null) { 
 				this._listParam1 = val;

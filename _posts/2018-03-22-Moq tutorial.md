@@ -105,12 +105,14 @@ In unit test project
                 );
 
 1. Act- Execute the logic with mock
+
 		// create mock data
 		var mailer = new DefaultMailer() { From = "from@mail.com", To = "to@mail.com", Subject = "Using Moq", Body = "Moq is awesome" };
 		// use mock to send email
 		mailer.SendMail(mockMailClient.Object);
 
 1. Assert - Verify the system interaction
+
 		// we expect client.SendMail() method is called at least once
 		mockMailClient.Verify(client => client.SendMail(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.AtLeastOnce);
 

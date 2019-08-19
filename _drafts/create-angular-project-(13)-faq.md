@@ -430,7 +430,50 @@ But we can have some solutions to call a method of component from service
 		  }		
 		}
 
-service.ts
+
+# How to pass string literal to the Input() property of component #
+we have a `PageNavComponent` component
+
+	import { Component, Input,OnInit } from '@angular/core';
+	@Component({
+	  selector: 'app-page-nav',
+	  templateUrl: './page-nav.component.html',
+	  styleUrls: ['./page-nav.component.scss']
+	})
+	export class PageNavComponent implements OnInit {
+		@Input() title: string;
+		constructor(
+			public uiService : UiService
+		) { 
+		}
+	}
+
+In another component who references to this:
+
+method 1:
+
+	<app-page-nav title="{{uiService.getLabelAsync('backup.title') | async}}"></app-page-nav>
+
+method 2: 
+
+	<app-page-nav title="string"></app-page-nav>
+
+method 3: 
+
+	<app-page-nav [title]="'string'"></app-page-nav>
+
+# Upgrade 7.x to 8.x #
+
+`ng update @angular/cli @angular/core`
+
+Upgrading Angular Material
+
+`ng update @angular/material`
+
+Replace /deep/ with ::ng-deep in `styles.scss`
+
+If you use `ViewChild` or `ContentChild`, change all of them to `@ViewChild('foo', {static: false}) foo : ElementRef;`.
+
 
 # References
 [Global HTTP error catching in Angular 4.3+](https://hackernoon.com/global-http-error-catching-in-angular-4-3-9e15cc1e0a6b)

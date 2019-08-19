@@ -26,6 +26,7 @@ Here are some popular UI libraries and frameworks for UI development in Angular:
 -	[ng-select](https://github.com/basvandenberg/ng-select) , relatively simple
 -	[ng-select](https://github.com/ng-select/ng-select), good
 -	[angular-calendar](https://github.com/mattlewis92/angular-calendar)
+-	[mdbbootstrap](https://mdbootstrap.com/docs/angular/getting-started/quick-start/)
 
 Considering on our requirements:
 

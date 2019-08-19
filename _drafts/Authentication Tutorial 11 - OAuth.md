@@ -88,7 +88,7 @@ For instance, here is the 2-legged OAuth workflow of Google apps:
 
 OAuth is very useful for many senarios. For instance, Youku application tries to access user's QQ account. Groupon tries to access PayPal, Facebook tries to access Google and so on. 
 
-# add auth2 support to our application access google account #
+# add OAuth 2.0 support to our application access google account #
 
 - create a mvc project, use individual authentication (form authentication)
 - 
@@ -145,64 +145,63 @@ OpenID Connect builds on top of OAuth 2.0. The workflow is the same as the OAuth
 
 1. Modify `Startup.cs` to configure  middleware
 
-    public class Startup
-    {
-        ...
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
-            ...
-            services.AddAuthentication(options =>
-                {
-                    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
-                    options.DefaultAuthenticateScheme = OpenIdConnectDefaults.AuthenticationScheme;
-                })
-                .AddOpenIdConnect(o =>
-                {
-                    o.ClientId = _clientId;
-                    o.ClientSecret = _secret;
-                    o.Authority = _authority;
-                    o.ResponseType = "code id_token";
-                    o.RequireHttpsMetadata = false;
-                    o.Scope.Add("openid profile roles email AS_Roles OI_Roles");
-                    o.SaveTokens = true;
-                    o.GetClaimsFromUserInfoEndpoint = true;
-                    o.CallbackPath = _callBackPath;
-                    o.Events.OnRedirectToIdentityProvider = redirectContext => RedirectToIdentityProvider(redirectContext);
-                    o.Events.OnUserInformationReceived = userInformationReceivedContext => OnUserInformationReceived(userInformationReceivedContext);
-
-                })
-                .AddCookie();
-            services.AddSession(options => {
-                options.IdleTimeout = TimeSpan.FromDays(1);
-            });
-        }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {
-            ...
-            app.UseSession();
-            app.UseAuthentication();
-            app.UseMvc();
-        }
-
-        private async Task RedirectToIdentityProvider(RedirectContext redirectContext)
-        {
-            redirectContext.ProtocolMessage.RedirectUri = _returnUri;
-            await Task.FromResult(0);
-        }
-
-        private async Task OnUserInformationReceived(UserInformationReceivedContext userInformationReceivedContext)
-        {
-            userInformationReceivedContext.HttpContext.Session.Set("EmployeeNo", Encoding.ASCII.GetBytes(userInformationReceivedContext.User["sub"].ToString()));
-            userInformationReceivedContext.HttpContext.Session.Set("EmployeeName", Encoding.ASCII.GetBytes(userInformationReceivedContext.User["name"].ToString()));
-            userInformationReceivedContext.HttpContext.Session.Set("EmployeeEmail", Encoding.ASCII.GetBytes(userInformationReceivedContext.User["email"].ToString()));
-            await Task.FromResult(0);
-        }
-
-    }
+	    public class Startup
+	    {
+	        ...
+	        // This method gets called by the runtime. Use this method to add services to the container.
+	        public void ConfigureServices(IServiceCollection services)
+	        {
+	            ...
+	            services.AddAuthentication(options =>
+	                {
+	                    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+	                    options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+	                    options.DefaultAuthenticateScheme = OpenIdConnectDefaults.AuthenticationScheme;
+	                })
+	                .AddOpenIdConnect(o =>
+	                {
+	                    o.ClientId = _clientId;
+	                    o.ClientSecret = _secret;
+	                    o.Authority = _authority;
+	                    o.ResponseType = "code id_token";
+	                    o.RequireHttpsMetadata = false;
+	                    o.Scope.Add("openid profile roles email AS_Roles OI_Roles");
+	                    o.SaveTokens = true;
+	                    o.GetClaimsFromUserInfoEndpoint = true;
+	                    o.CallbackPath = _callBackPath;
+	                    o.Events.OnRedirectToIdentityProvider = redirectContext => RedirectToIdentityProvider(redirectContext);
+	                    o.Events.OnUserInformationReceived = userInformationReceivedContext => OnUserInformationReceived(userInformationReceivedContext);
+	
+	                })
+	                .AddCookie();
+	            services.AddSession(options => {
+	                options.IdleTimeout = TimeSpan.FromDays(1);
+	            });
+	        }
+	
+	        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+	        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+	        {
+	            ...
+	            app.UseSession();
+	            app.UseAuthentication();
+	            app.UseMvc();
+	        }
+	
+	        private async Task RedirectToIdentityProvider(RedirectContext redirectContext)
+	        {
+	            redirectContext.ProtocolMessage.RedirectUri = _returnUri;
+	            await Task.FromResult(0);
+	        }
+	
+	        private async Task OnUserInformationReceived(UserInformationReceivedContext userInformationReceivedContext)
+	        {
+	            userInformationReceivedContext.HttpContext.Session.Set("EmployeeNo", Encoding.ASCII.GetBytes(userInformationReceivedContext.User["sub"].ToString()));
+	            userInformationReceivedContext.HttpContext.Session.Set("EmployeeName", Encoding.ASCII.GetBytes(userInformationReceivedContext.User["name"].ToString()));
+	            userInformationReceivedContext.HttpContext.Session.Set("EmployeeEmail", Encoding.ASCII.GetBytes(userInformationReceivedContext.User["email"].ToString()));
+	            await Task.FromResult(0);
+	        }	
+	    }
 
 # OpenID Connect development in Angular
 1. Create a Angular project via angular-cli

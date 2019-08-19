@@ -9,7 +9,7 @@ author: Andy Feng
 o
 > Please note that OpenID Connect is a very different protocol to OpenID. The later was an XML based protocol, which follows similar approaches and goals to OpenID Connect but in a less developer-friendly way.
 
-OpenID Connect builds on top of OAuth 2.0. The workflow is very similar to the OAuth 2.0 flow:
+OpenID Connect builds on top of OAuth 2.0. The workflow is very similar to the OAuth 2.0 2-legs flow:
 
 ![](/images/posts/20181024-identity-14.png)
 
@@ -20,11 +20,11 @@ OpenID Connect builds on top of OAuth 2.0. The workflow is very similar to the O
 > - commercial cloud identity servers: Azure Active Directory(AAD), Auth0, okta, Ping identity 
 > -  opensource identity server frameworks: IdentityServer4
 > 
-> **Resource server**
+> **Resource server**: the server which provides data/logic services
 > 
-> **Client**
+> **Client**: the actor who consumes services
 > 
-> **Scope**: `scope` is a part of configuration of identity server(authorization server) and represent the individual resources that identity provider protects. When a client connects to the identity provider to authenticate, it tells the identity  provider what scope it is requesting. Then, the identity provider checks the configuration for that client to see if it's intended to access the associated resource. And an end user will experience scopes when using external identity providers like Google or Faceboook in the form of consent screens that confirm what the user that they want to allow the application access to the resources requested. 
+> **Scope**: `scope` is a part of configuration of identity server(authorization server) and represents the individual resources that identity provider protects. When a client connects to the identity provider to authenticate, it tells the identity provider what scope it is requesting. Then, the identity provider checks the configuration for that client to see if it's intended to access the associated resource. And an end user will experience scopes when using external identity providers like Google or Faceboook in the form of consent screens that confirm what the user that they want to allow the application access to the resources requested. 
 > 
 > **JWT**: `JSON Web Tokens(JWT)` are the format used to encode information about the authenticated user. It includes identity token(ID token), access token and claims what they access in the form of scopes in access tokens.
 > 
@@ -81,11 +81,13 @@ OpenID Connect presents three major flows for authentication. These flows dictat
 	- This flow allows for long lived access (through the use of refresh tokens). Clients using this flow must be able to maintain a secret. Typically, client application can save client_id, secret. 
 	- It includes two round trips to the OpenID Connect Provider. The first round trip get authenrization code via client_id and secret. The second round trip get ID token, access token or refresh token.
 	- This workflow doesn't work for browser-based applications such as Angular, React, Vue because anyone can easily find secret via development tools in browser.
+	
 - **Implicit Flow**: It is designed for browse-based apps. It requests tokens without explicit client authentication, instead using the redirect URI to verify the client identity. Because of this, refresh tokens are not allowed, nor is this flow suitable for long lived access tokens. From the client application's point of view, this is the simplest to implement, as there is only one round trip to the OpenID Connect Provider.
 	- This flow obtains all tokens from the identity server.
 	- Tokens have specific short expiration time and cannot renew via refresh token. 
 	- It is not safe to save all tokens in client side.
 	- It is suitable for browser-based applications such as Angular, React, Vue
+	
 - **Hybrid Flow**: It is a combination of aspects from the previous two and rarely used. This flow allows the client to make immediate use of an identity token and retrieve an authorization code via one round trip to the authentication server. This can be used for long lived access (again, through the use of refresh tokens). Clients using this flow must be able to maintain a secret.
 	- This flow can obtain an authorization code and tokens from the authorization endpoint, and can also obtain refresh tokens from the token endpoint.
 	

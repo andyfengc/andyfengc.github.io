@@ -558,6 +558,45 @@ We can subscribe to an observable form-control property. Then, whenever the form
 	  }
 	}
 
+# HttpInterceptor #
+`HttpInterceptor` was introduced with Angular 4.3. It provides a way to intercept HTTP requests and responses to transform or handle them before passing them along.
+
+1. create a class to implement `HttpInterceptor` interface
+
+	interface HttpInterceptor {
+	  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>
+	}
+
+	Most interceptors transform the outgoing request before passing it to the next interceptor in the chain, by calling next.handle(transformedReq). An interceptor may transform the response event stream as well, by applying additional RxJS operators on the stream returned by next.handle().
+	
+	More rarely, an interceptor may handle the request entirely, and compose a new event stream instead of invoking next.handle(). This is an acceptable behavior, but keep in mind that further interceptors will be skipped entirely.
+
+	e.g.
+
+		import { Injectable } from "@angular/core";
+		import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
+		import { Observable } from "rxjs";
+		import { finalize } from "rxjs/operators";
+		import { LoaderService } from '../services/loader.service';
+		@Injectable()
+		export class LoaderInterceptor implements HttpInterceptor {
+		    constructor(public loaderService: LoaderService) { }
+		    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+		        this.loaderService.show();
+		        return next.handle(req).pipe(
+		            finalize(() => this.loaderService.hide())
+		        );
+		    }
+		}
+
+1. Add `HttpInterceptor` to app.module.ts
+
+		providers: [
+		    ...
+		    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
+		]
+
+
 # References #
 [reactivex Subject](http://reactivex.io/documentation/subject.html)
 

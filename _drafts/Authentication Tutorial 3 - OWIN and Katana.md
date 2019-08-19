@@ -1,6 +1,6 @@
 ---
 layout: post
-title: ASP.NET Identity authentication 1 - OWIN and Katana
+title: ASP.NET Identity authentication (1) - OWIN and Katana
 author: Andy Feng
 categories: [OWIN, Katana]
 ---
@@ -121,32 +121,33 @@ We get
 # Create a middleware #
 Owin.dll contains a method
 
-    `IAppBuilder.Use(object middleware, params object[] args)`
+    IAppBuilder.Use(object middleware, params object[] args)
 
 It takes a middleware implementation object and optional data arguments for middleware. The object middleware can be a delegate reference to a middleware implementation method or inline middleware implementation. 
 
 1. Inline implementation
 
-    ```
-        public partial class Startup
-        {
-            public void Configuration(IAppBuilder app)
-            {
-                app.Use(async (context, next) =>
-                {
-                    Debug.WriteLine("Incoming request: " + context.Request.Path);
-                    await next();
-                    Debug.WriteLine("Output response: " + context.Request.Path);
-                });
-                app.Use(async (context, next) =>
-                {
-                    await context.Response.WriteAsync("Hello !");
-                });
-            }
-        }
-
-    ```
+	    ```
+	        public partial class Startup
+	        {
+	            public void Configuration(IAppBuilder app)
+	            {
+	                app.Use(async (context, next) =>
+	                {
+	                    Debug.WriteLine("Incoming request: " + context.Request.Path);
+	                    await next();
+	                    Debug.WriteLine("Output response: " + context.Request.Path);
+	                });
+	                app.Use(async (context, next) =>
+	                {
+	                    await context.Response.WriteAsync("Hello !");
+	                });
+	            }
+	        }
+	
+	    ```
     We get
+
     ![](/images/posts/20180524-owin-13.png)
     ![](/images/posts/20180524-owin-14.png)
 
@@ -236,7 +237,7 @@ It takes a middleware implementation object and optional data arguments for midd
 
 1. Add a new controller:
 
-    ```
+	    ```
         [RoutePrefix("api")]
         public class WebApiController : ApiController
         {
@@ -247,7 +248,7 @@ It takes a middleware implementation object and optional data arguments for midd
                 return Content(HttpStatusCode.OK, "hello from webapi");
             }
         }
-    ```
+	    ```
 
 1. Register web api in the owin pipeline in Startup.cs
 
@@ -373,32 +374,35 @@ It takes a middleware implementation object and optional data arguments for midd
 
 # Add identity cookie authentication
 1. Add a new secret controller, modify with [Authorize]
-    ```
-    [Authorize]
-    public class SecretController : Controller
-    {
-        // GET: Secret
-        public ActionResult Index()
-        {
-            return View();
-        }
-    }
-    ```
+
+	    ```
+	    [Authorize]
+	    public class SecretController : Controller
+	    {
+	        // GET: Secret
+	        public ActionResult Index()
+	        {
+	            return View();
+	        }
+	    }
+	    ```
+
     index view:
-    ```
-    @inherits System.Web.Mvc.WebViewPage
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta name="viewport" content="width=device-width" />
-        <title>Index</title>
-    </head>
-    <body>
-        <div>
-            <h1>I am secret</h1>
-        </div>
-    </body>
-    </html>
+
+	    ```
+	    @inherits System.Web.Mvc.WebViewPage
+	    <!DOCTYPE html>
+	    <html>
+	    <head>
+	        <meta name="viewport" content="width=device-width" />
+	        <title>Index</title>
+	    </head>
+	    <body>
+	        <div>
+	            <h1>I am secret</h1>
+	        </div>
+	    </body>
+	    </html>
     ```
 
 1. Now, start application and try to access this method
