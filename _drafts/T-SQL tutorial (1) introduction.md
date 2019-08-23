@@ -91,7 +91,7 @@ without ties
 RESULT - 1 2 3 4 5
 
 ## WITH
-It is used to specify a temporary named result set, also named a common table expression (CTE). It is derived from a simple query and can be defined within the scope of a single SELECT, INSERT, UPDATE,, DELETE statement or in a CREATE VIEW statement as part of defining SELECT statement.
+It is used to specify a temporary named result set, also named a common table expression (CTE). It is derived from a simple query and can be defined within the scope of a single SELECT, INSERT, UPDATE, DELETE statement or in a CREATE VIEW statement as part of defining SELECT statement.
 
 e.g. 
 
