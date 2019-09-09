@@ -315,6 +315,7 @@ author: Andy Feng
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(60),
+				AllowInsecureHttp = true //Don't do this in production ONLY FOR DEVELOP purpose
 				// dpapi
                 Provider = new ApplicationOAuthProvider(PublicClientId), // implement authorization - verify users
                 RefreshTokenProvider = new RefreshTokenProvider()
@@ -656,7 +657,8 @@ author: Andy Feng
 		            return Task.FromResult<object>(null);
 		        }
 				
-				// In practice, we usually save client ids in db and query clientid here.         public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
+				// In practice, we usually save client ids in db and query clientid here.
+				public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
 		        {
 		            // Resource owner password credentials does not provide a client ID.
 		            if (context.ClientId == null)
@@ -982,7 +984,8 @@ There is no direct support for issuing JWT in ASP.NET Web API,  so in order to s
                 RefreshTokenProvider = new RefreshTokenProvider()
             };
 
-			// use jwt for authorization server, only used for authorization server
+			// setup our custom authorization server provider. 
+
             app.UseOAuthAuthorizationServer(oauthServerOptions); 
 			
 			// user jwt for resource server, used for consume jwt token
@@ -991,7 +994,9 @@ There is no direct support for issuing JWT in ASP.NET Web API,  so in order to s
             var secretBase64 = "secret-key-base64"; // audience secret
             var secretBase64Bytes = Encoding.UTF8.GetBytes(secretBase64);
             var signingKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(secretBase64Bytes);
+
 			// Api controllers with an [Authorize] attribute will be validated with JWT
+			// Used for accepting bearer token and setting the IClaimsPrincipal according to the token.
             app.UseJwtBearerAuthentication(new JwtBearerAuthenticationOptions
             {
                 AuthenticationMode = AuthenticationMode.Active,
@@ -1337,3 +1342,4 @@ http://autofac.readthedocs.io/en/latest/integration/webapi.html](http://autofac.
 
 [How to implement custom Authorize attribute for the following case?](https://stackoverflow.com/questions/11493873/how-to-implement-custom-authorize-attribute-for-the-following-case)
 
+[https://www.c-sharpcorner.com/article/asp-net-mvc-oauth-2-0-rest-web-api-authorization-using-database-first-approach/](https://www.c-sharpcorner.com/article/asp-net-mvc-oauth-2-0-rest-web-api-authorization-using-database-first-approach/)

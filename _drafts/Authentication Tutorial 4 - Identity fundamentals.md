@@ -5,11 +5,11 @@ author: Andy Feng
 ---
 
 # Introduction #
-ASP.NET Core Identity is a membership system that adds login functionality to ASP.NET Core apps. We can create an account with the login information stored in Identity or they can use an external login provider. Supported external login providers include Facebook, Google, Microsoft Account, and Twitter.
+ASP.NET Identity is a membership system that adds login functionality to ASP.NET apps. We can create an account with the login information stored in Identity or they can use an external login provider. Supported external login providers include Facebook, Google, Microsoft Account, and Twitter.
 
 Identity can be configured using a SQL Server database to store user names, passwords, and profile data. Alternatively, another persistent store can be used, for example, Azure Table Storage.
 
-All of the Microsoft.Owin.Security.* packages shipping with the new Identity System in Visual Studio (for example: Cookies, Microsoft Account, Google, Facebook, Twitter, Bearer Token, OAuth, Authorization server, JWT, Azure Active directory, and Active directory federation services) are authored as OMCs, and can be used in both self-hosted and IIS-hosted scenarios.
+All of the `Microsoft.Owin.Security.*` packages shipping with the new Identity System in Visual Studio (for example: Cookies, Microsoft Account, Google, Facebook, Twitter, Bearer Token, OAuth, Authorization server, JWT, Azure Active directory, and Active directory federation services) are authored as OMCs, and can be used in both self-hosted and IIS-hosted scenarios.
 
 There are two major techniques of implementing server side authentication for apps with a frontend and an API:
 
@@ -19,7 +19,7 @@ There are two major techniques of implementing server side authentication for ap
 
 There are also other techniques to implement authentication. For instance, filters. this is beyond identity framework.
 
-# Outline #n
+# Outline #
 - Create web project skeleton (ASP.NET, .NET CORE)
 - Add identity support
 - Add a basic add user feature

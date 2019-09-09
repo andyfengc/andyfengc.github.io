@@ -13,7 +13,13 @@ OpenID Connect builds on top of OAuth 2.0. The workflow is very similar to the O
 
 ![](/images/posts/20181024-identity-14.png)
 
-## Techminologies ##
+## Benefits of OpenID Connect ##
+
+- Decoupling:
+- Single sign-on: multiple client applications can share the same token
+- Centralized security management:
+- 
+## Terminologies ##
 > **Authorization server (identity server)**: there are a few choices to select an identity server
 >  
 > - Social media identity servers: Google, Facebook, Twitter and so on.
@@ -68,16 +74,10 @@ OpenID Connect builds on top of OAuth 2.0. The workflow is very similar to the O
 	  "expires_at": 1542315582
 	}
 
-## Benefits of OpenID Connect ##
-
-- Decoupling:
-- Single sign-on: multiple client applications can share the same token
-- Centralized security management:
-
 ## OpenID Connect flows ##
 OpenID Connect presents three major flows for authentication. These flows dictate how authentication is handled by the OpenID Connect Provider, including what can be sent to client application and how.
 
-- **Authorization Code Flow**: It is designed to traditional native/server-side apps. This flow returns an authorization code that can then be exchanged for an identity token and/or access token. It requires client authentication using a client id and secret to retrieve the tokens from the identity server and has the benefit of not exposing tokens to the user agent (i.e. a web browser). 
+- **Authorization Code Flow**: It is designed to traditional native/server-side web applications such as desktop applications. This flow returns an authorization code that can then be exchanged for an identity token and/or access token. It requires client authentication using a client id and secret to retrieve the tokens from the identity server. This flow has the benefit of not exposing tokens to the user agent (i.e. a web browser). 
 	- This flow allows for long lived access (through the use of refresh tokens). Clients using this flow must be able to maintain a secret. Typically, client application can save client_id, secret. 
 	- It includes two round trips to the OpenID Connect Provider. The first round trip get authenrization code via client_id and secret. The second round trip get ID token, access token or refresh token.
 	- This workflow doesn't work for browser-based applications such as Angular, React, Vue because anyone can easily find secret via development tools in browser.
@@ -90,12 +90,22 @@ OpenID Connect presents three major flows for authentication. These flows dictat
 	
 - **Hybrid Flow**: It is a combination of aspects from the previous two and rarely used. This flow allows the client to make immediate use of an identity token and retrieve an authorization code via one round trip to the authentication server. This can be used for long lived access (again, through the use of refresh tokens). Clients using this flow must be able to maintain a secret.
 	- This flow can obtain an authorization code and tokens from the authorization endpoint, and can also obtain refresh tokens from the token endpoint.
+
+**Authorization Code Flow vs. Implicit Flow vs. Hybrid Flow**
+
+1. The characteristics of the three flows are summarized in the following non-normative table. The table is intended to provide some guidance on which flow to choose in particular contexts.
+
+	![](/images/posts/20190630-openid-1.png)
+
+1. The flow used is determined by the response_type value contained in the Authorization Request. These response_type values are different for three flows:
+
+	![](/images/posts/20190630-openid-2.png)	
 	
 # Architecture of OpenID Connect integration
 
 ![](/images/posts/20181031-openid-3.png)
 
-# OpenID Connect development in ASP.NET core approach 1
+# OpenID Connect resource server development in ASP.NET core approach 1
 1. Create a ASP.NET core project
 1. nuget > install `Microsoft.AspNetCore.Authentication.OpenIdConnect` lib
 
@@ -162,12 +172,126 @@ OpenID Connect presents three major flows for authentication. These flows dictat
 	
 	    }
 
-# OpenID Connect development in ASP.NET core approach 2 - todo 
+# OpenID Connect development in ASP.NET core approach 2
+develop resource server
+ 
 1. install `IdentityServer4.AccessTokenValidation`
 
 	![](/images/posts/20181031-openid-1.png)
 
-# OpenID Connect development in Angular, use ng-oidc-client lib
+1. setup identity server authentication
+
+	Startup.cs
+
+		public void ConfigureServices(IServiceCollection services)
+        {
+            ...
+            services.AddAuthentication(
+                    IdentityServerAuthenticationDefaults.AuthenticationScheme)
+                .AddIdentityServerAuthentication(options =>
+                {
+                    options.Authority = "http://www.auth-server-url.com"; // Auth Server
+                    options.RequireHttpsMetadata = false; // only for development
+                    options.ApiName = "UnifiedEmployeeHierarchyApi"; // API Resource Id
+                });
+			...
+		}
+
+	or
+
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        {
+            //more code....
+
+            //add this configuration for the middleware needed to validate the tokens
+            app.UseIdentityServerAuthentication(new IdentityServerAuthenticationOptions
+            {
+                Authority = "http://localhost:50151",
+                RequireHttpsMetadata = false,
+                ApiName = "scope.readaccess"
+            });
+
+            //more code...
+        }   
+
+1. In API, add [Attribute] and check the scope permission
+
+        [HttpGet]
+        public IEnumerable<string> Get()
+        {
+            //this is a basic code snippet to validate the scope inside the API
+            bool userHasRightScope = User.HasClaim("scope", "scope.name.in.client.of.auth.server");
+            if (userHasRightScope == false)
+            {
+                throw new Exception("Invalid scope");
+            }
+            return new string[] { "value1", "value2" };
+        }
+
+develop client
+
+1. create a console project
+
+1. add `System.IdentityModel.Tokens.Jwt` lib
+
+1. request jwt token from server
+
+		static void Main(string[] args)
+		{
+		    //authorization server parameters owned from the client
+		    //this values are issued from the authorization server to the client through a separate process (registration, etc...)
+		    Uri authorizationServerTokenIssuerUri = new Uri("http://localhost:50151/connect/token");
+		    string clientId = "ClientIdThatCanOnlyRead";    
+		    string clientSecret = "secret1";
+		    string scope = "scope.readaccess";
+		
+		    //access token request
+		    string rawJwtToken = RequestTokenToAuthorizationServer(
+		         authorizationServerTokenIssuerUri,
+		         clientId, 
+		         scope, 
+		         clientSecret)
+		        .GetAwaiter()
+		        .GetResult();
+		
+		    //...some more code
+		}
+
+        private static async Task<string> RequestTokenToAuthorizationServer(Uri uriAuthorizationServer, string clientId, string scope, string clientSecret)
+        {
+            HttpResponseMessage responseMessage;
+            using (HttpClient client = new HttpClient())
+            {
+                HttpRequestMessage tokenRequest = new HttpRequestMessage(HttpMethod.Post, uriAuthorizationServer);
+                HttpContent httpContent = new FormUrlEncodedContent(
+                    new[]
+                    {
+                    new KeyValuePair<string, string>("grant_type", "client_credentials"),
+                    new KeyValuePair<string, string>("client_id", clientId),
+                    new KeyValuePair<string, string>("scope", scope),
+                    new KeyValuePair<string, string>("client_secret", clientSecret)
+                    });
+                tokenRequest.Content = httpContent;
+                responseMessage = await client.SendAsync(tokenRequest);
+            }
+            return await responseMessage.Content.ReadAsStringAsync();
+        }
+
+1. Call the secured WebAPI providing the JWT token
+	Now we have the token, and we can use it to perform a request to the WebAPI.
+
+		private static async Task<string> RequestValuesToSecuredWebApi(AuthorizationServerAnswer authorizationServerToken)
+		{
+		    HttpResponseMessage responseMessage;
+		    using (HttpClient httpClient = new HttpClient())
+		    {
+		        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authorizationSauthorizationServerTokenerverToken.access_token);
+		        HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:56087/api/values");
+		        responseMessage = await httpClient.SendAsync(request);
+		    }		
+		    return await responseMessage.Content.ReadAsStringAsync();
+		}
+# OpenID Connect client development in Angular, use ng-oidc-client lib
 1. Create a Angular project via angular-cli
 1. install oidc lib: 
 
@@ -477,7 +601,7 @@ OpenID Connect presents three major flows for authentication. These flows dictat
 	- identity$ : Observable<OidcUser> - returns an Observable to the obtained identity and is identical to User from oidc-client
 	- errors$ : Observable<ErrorState> - returns an Observable to Errors caught from oidc-client
 
-# OpenID Connect development in Angular, use angular-oauth2-oidc lib
+# OpenID Connect client development in Angular, use angular-oauth2-oidc lib
 1. prepare an identity server. e.g. `okra`
 	
 	register a developer account
@@ -585,7 +709,7 @@ OpenID Connect presents three major flows for authentication. These flows dictat
 
 	OAuth2 essentially is a way we request access token from Authorization server, then we use access token to talk to backend server. It is focus on Authorization process.
 	
-	However, OpenID is kind of authentication protocol. It is just used for authenticating user without touching any resources. Anyone got access token via OpenID cannot access any resources at all. The user is just authenticated (logged in). The user has to ask additional access token in order to access any resources later on. 
+	However, OpenID is kind of authentication protocol. It is just used for authenticating user without touching any resources. Although anyone got access token via OpenID can be authenticated but not authorized - user cannot access any resources at all. The user is just authenticated (logged in). The user has to ask additional access token in order to access any resources later on. 
 
 1. OAuth2 is very general but OpenID is specific in authenticating
 
@@ -593,7 +717,8 @@ OpenID Connect presents three major flows for authentication. These flows dictat
 
 	OpenID Connect is far more rigid in its requirements, which allows a great deal of interoperability. Any implementions using OpenID Connect is exactly the same logic and can be replaced without code modification; it doesn't have the drawback of OAuth2 implementations - subtle differences between implementations.
 
-	OpenID Connect is kind of a “super-set” of OAuth 2.0 and always recommended against using OAuth2. Via OpenID, we request a token from authentication server and it can be used to validate user's identity. It not necessarily access a backend service. OpenID is focus on authentication process. Maybe later, we can use OAuth to get another token in order to access a backend service. 
+
+
 
 	OpenID Connect use two major flows of OAuth2
 	- Authorization code flow for server based applications
@@ -614,3 +739,9 @@ OpenID Connect presents three major flows for authentication. These flows dictat
 [ng-oidc-client](https://github.com/fileless/ng-oidc-client)
 
 [https://developer.okta.com/blog/2018/12/04/angular-7-oidc-oauth2-pkce#create-an-oidc-app-in-okta](https://developer.okta.com/blog/2018/12/04/angular-7-oidc-oauth2-pkce#create-an-oidc-app-in-okta)
+
+[https://openid.net/specs/openid-connect-core-1_0.html#Authentication](https://openid.net/specs/openid-connect-core-1_0.html#Authentication)
+
+[OpenID Connect FAQ and Q&As](https://openid.net/connect/faq/)
+
+[OpenID Connect Playground](https://openidconnect.net/#)
