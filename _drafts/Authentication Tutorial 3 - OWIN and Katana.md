@@ -273,7 +273,7 @@ It takes a middleware implementation object and optional data arguments for midd
 
     package.json was updated:
 
-    ```
+    	```
         <?xml version="1.0" encoding="utf-8"?>
         <packages>
         <package id="Microsoft.AspNet.Mvc" version="5.2.6" targetFramework="net452" />
@@ -291,82 +291,82 @@ It takes a middleware implementation object and optional data arguments for midd
         <package id="Owin" version="1.0" targetFramework="net452" />
         </packages>
 
-    ```
+    	```
 
 1. Add controller and view 
 
-    ```
-    public class MvcController : Controller
-    {
-        // GET: Mvc
-        public ActionResult Index()
-        {
-            return View();
-        }
-    }
+	    ```
+	    public class MvcController : Controller
+	    {
+	        // GET: Mvc
+	        public ActionResult Index()
+	        {
+	            return View();
+	        }
+	    }
+	
+	    ```
 
-    ```
+	view
 
-    ```
-    @inherits System.Web.Mvc.WebViewPage
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta name="viewport" content="width=device-width" />
-        <title>Index</title>
-    </head>
-    <body>
-    <div>
-        <h1>Hello from mvc</h1>
-    </div>
-    </body>
-    </html>
-
-    ```
+	    ```
+	    @inherits System.Web.Mvc.WebViewPage
+	    <!DOCTYPE html>
+	    <html>
+	    <head>
+	        <meta name="viewport" content="width=device-width" />
+	        <title>Index</title>
+	    </head>
+	    <body>
+	    <div>
+	        <h1>Hello from mvc</h1>
+	    </div>
+	    </body>
+	    </html>	
+	    ```
 
 1. Due to ASP.NET MVC couldn't live with inside of the OWIN pipeline, we need to integrate beyond OWIN Startup.cs configuration.
 
     root > add global.asax
 
-    ```
-    public class Global : System.Web.HttpApplication
-    {
-        protected void Application_Start(object sender, EventArgs e)
-        {
-            RouteTable.Routes.MapRoute(name: "Default"
-                , url: "{controller}/{action}"
-                , defaults: new { controller = "Mvc", action = "Index" });
-        }
-        ...
-    }
-
-    ```
+	    ```
+	    public class Global : System.Web.HttpApplication
+	    {
+	        protected void Application_Start(object sender, EventArgs e)
+	        {
+	            RouteTable.Routes.MapRoute(name: "Default"
+	                , url: "{controller}/{action}"
+	                , defaults: new { controller = "Mvc", action = "Index" });
+	        }
+	        ...
+	    }	
+	    ```
 
     Please note that when web application initializes, global.asax runs before OWIN startup. 
 
 1. we need to disable OWIN middleware returns any response so that ASP.NET MVC can handle request.
 
-    ```
-    public partial class Startup
-    {
-        public void Configuration(IAppBuilder app)
-        {
-            // register webapi
-            var config = new HttpConfiguration();
-            config.MapHttpAttributeRoutes();
-            app.UseWebApi(config);
-            // external middleware
-            app.Use<GenericMiddleware>();
-            // external middleware
-            app.Use<KatanaMiddleware>();
-            // disable owin middleware returns result so that mvc can respond to request
-            //app.Use(async (context, next) =>
-            //{
-            //    await context.Response.WriteAsync("Hello !");
-            //});
-        }
-    }
-    ```
+	    ```
+	    public partial class Startup
+	    {
+	        public void Configuration(IAppBuilder app)
+	        {
+	            // register webapi
+	            var config = new HttpConfiguration();
+	            config.MapHttpAttributeRoutes();
+	            app.UseWebApi(config);
+	            // external middleware
+	            app.Use<GenericMiddleware>();
+	            // external middleware
+	            app.Use<KatanaMiddleware>();
+	            // disable owin middleware returns result so that mvc can respond to request
+	            //app.Use(async (context, next) =>
+	            //{
+	            //    await context.Response.WriteAsync("Hello !");
+	            //});
+	        }
+	    }
+	    ```
 
 1. run will get
 
@@ -403,13 +403,14 @@ It takes a middleware implementation object and optional data arguments for midd
 	        </div>
 	    </body>
 	    </html>
-    ```
+    	```
 
 1. Now, start application and try to access this method
 
     ![](/images/20160604-add-identity-10.png)
 
 1. Add a login controller
+
     ```
     public class AccountController : Controller
     {
@@ -439,45 +440,46 @@ It takes a middleware implementation object and optional data arguments for midd
 
     login model
 
-    ```
-    public class LoginModel
-    {
-        public string Username { get; set; }
-        public string Password { get; set; }
-    }
+	    ```
+	    public class LoginModel
+	    {
+	        public string Username { get; set; }
+	        public string Password { get; set; }
+	    }
     ```
 
     login view
 
-    ```
-    @inherits System.Web.Mvc.WebViewPage<OwinDemo.Models.LoginModel>
-    @using System.Web.Mvc.Html;
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta name="viewport" content="width=device-width" />
-        <title>Login</title>
-    </head>
-    <body>
-        <div>
-            @using (var form = Html.BeginForm())
-            {
-                <div>
-                    @Html.LabelFor(x => x.Username)
-                    @Html.TextBoxFor(x => x.Username)
-                </div>
-                <div>
-                    @Html.LabelFor(x => x.Password)
-                    @Html.TextBoxFor(x => x.Password)
-                </div>
-                <div>
-                    <input type="submit" name="name" value="Login" />
-                </div>
-            }
-        </div>
-    </body>
-    </html>
-    ```
+	    ```
+	    @inherits System.Web.Mvc.WebViewPage<OwinDemo.Models.LoginModel>
+	    @using System.Web.Mvc.Html;
+	    <!DOCTYPE html>
+	    <html>
+	    <head>
+	        <meta name="viewport" content="width=device-width" />
+	        <title>Login</title>
+	    </head>
+	    <body>
+	        <div>
+	            @using (var form = Html.BeginForm())
+	            {
+	                <div>
+	                    @Html.LabelFor(x => x.Username)
+	                    @Html.TextBoxFor(x => x.Username)
+	                </div>
+	                <div>
+	                    @Html.LabelFor(x => x.Password)
+	                    @Html.TextBoxFor(x => x.Password)
+	                </div>
+	                <div>
+	                    <input type="submit" name="name" value="Login" />
+	                </div>
+	            }
+	        </div>
+	    </body>
+	    </html>
+	    ```
+
 1. Add cookie authentication middleware
 
     `Install-Package microsoft.owin.security.cookies`
@@ -490,23 +492,24 @@ It takes a middleware implementation object and optional data arguments for midd
     ```
 
     Update Startup.cs
-    ```
-    public partial class Startup
-    {
-        public void Configuration(IAppBuilder app)
-        {
-            // cookie authentication, before webapi integratio
-            app.UseCookieAuthentication(new Microsoft.Owin.Security.Cookies.CookieAuthenticationOptions()
-            {
-                AuthenticationType = "ApplicationCookie",
-                LoginPath = new PathString("/account/login")
-            });
-            // register webapi
-            var config = new HttpConfiguration();
-            config.MapHttpAttributeRoutes();
-            app.UseWebApi(config);
-        }
-    }
+
+	    ```
+	    public partial class Startup
+	    {
+	        public void Configuration(IAppBuilder app)
+	        {
+	            // cookie authentication, before webapi integratio
+	            app.UseCookieAuthentication(new Microsoft.Owin.Security.Cookies.CookieAuthenticationOptions()
+	            {
+	                AuthenticationType = "ApplicationCookie",
+	                LoginPath = new PathString("/account/login")
+	            });
+	            // register webapi
+	            var config = new HttpConfiguration();
+	            config.MapHttpAttributeRoutes();
+	            app.UseWebApi(config);
+	        }
+	    }
     ```
 
 1. run the app
