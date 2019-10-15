@@ -118,7 +118,6 @@ Please note that at first startup, IdentityServer will create a developer signin
 
 	"applicationUrl": "http://localhost:5002"
 
-
 	![](/images/posts/20190629-identity-server-6.png)
 
 1. Create a new controller resource with [Authorize] protected
@@ -159,14 +158,12 @@ Please note that at first startup, IdentityServer will create a developer signin
 	            if (env.IsDevelopment())
 	            {
 	                app.UseDeveloperExceptionPage();
-	            }
-	
+	            }	
 	
 	            app.UseAuthentication();
 	
 	            app.UseMvc();
-	
-	
+		
 	            app.Run(async (context) =>
 	            {
 	                await context.Response.WriteAsync("Hello World!");

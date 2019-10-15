@@ -97,7 +97,9 @@ Multiple Parameters: just need to list each parameter and the data type separate
 	USE AdventureWorks
 	GO
 	
-	CREATE PROCEDURE dbo.uspGetAddress @City nvarchar(30) = NULL, @AddressLine1 nvarchar(60) = NULL
+	CREATE PROCEDURE dbo.uspGetAddress
+		@City nvarchar(30) = NULL, 
+		@AddressLine1 nvarchar(60) = NULL
 	AS
 	SELECT *
 	FROM Person.Address
@@ -145,7 +147,9 @@ Also, to save the value of the parameter in a variable that can be used in the c
 
 e.g. define `OUTPUT` parameter in sp
 
-	CREATE PROCEDURE dbo.uspGetAddressCount @City nvarchar(30), @AddressCount int OUT
+	CREATE PROCEDURE dbo.uspGetAddressCount
+		@City nvarchar(30), 
+		@AddressCount int OUT
 	AS
 	SELECT @AddressCount = count(*) 
 	FROM AdventureWorks.Person.Address 

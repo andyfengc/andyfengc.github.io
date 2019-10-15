@@ -168,14 +168,13 @@ OpenID Connect presents three major flows for authentication. These flows dictat
 	            userInformationReceivedContext.HttpContext.Session.Set("EmployeeName", Encoding.ASCII.GetBytes(userInformationReceivedContext.User["name"].ToString()));
 	            userInformationReceivedContext.HttpContext.Session.Set("EmployeeEmail", Encoding.ASCII.GetBytes(userInformationReceivedContext.User["email"].ToString()));
 	            await Task.FromResult(0);
-	        }
-	
+	        }	
 	    }
 
-# OpenID Connect development in ASP.NET core approach 2
+# OpenID Connect resource development in ASP.NET core approach 2
 develop resource server
  
-1. install `IdentityServer4.AccessTokenValidation`
+1. install `IdentityServer4.AccessTokenValidation` 2.x (for .net core 2.x), 3.x for (.net core 3.x)
 
 	![](/images/posts/20181031-openid-1.png)
 
@@ -192,7 +191,7 @@ develop resource server
                 {
                     options.Authority = "http://www.auth-server-url.com"; // Auth Server
                     options.RequireHttpsMetadata = false; // only for development
-                    options.ApiName = "UnifiedEmployeeHierarchyApi"; // API Resource Id
+                    options.ApiName = "UnifiedEmployeeHierarchyApi"; // API Resource Id(audience) in authentication server
                 });
 			...
 		}
@@ -228,8 +227,7 @@ develop resource server
             return new string[] { "value1", "value2" };
         }
 
-develop client
-
+# OpenID Connect client development in .NET
 1. create a console project
 
 1. add `System.IdentityModel.Tokens.Jwt` lib
@@ -291,6 +289,7 @@ develop client
 		    }		
 		    return await responseMessage.Content.ReadAsStringAsync();
 		}
+
 # OpenID Connect client development in Angular, use ng-oidc-client lib
 1. Create a Angular project via angular-cli
 1. install oidc lib: 
@@ -728,6 +727,15 @@ develop client
 	- ID token - for client to make validation before sending request with access token
 	- User info endpoint
 	- additional protocols. e.g. discovery& dynamic registration, session management(login/logout)
+
+# FAQ
+1. scope vs. claim vs. audience?
+
+	Claims are specific attributes about a user. Claims are name/value pairs. It is prepared by the authorization server; it is just for list user's info and not aim for control access.
+	
+	Scope is used to control client's access to resource. your server may allow or reject this. Typically, scopes are space-separated lists of identifiers used to specify what access privileges are being requested. e.g. OIDC has some built-in scopes: openid, profile, email, address, phone
+	
+	Audience identifies the recipients that the JWT token intended for. It represents the OAuth 2.0 resource server that consumes the access tokens.
 
 # References
 [https://github.com/IdentityModel/oidc-client-js](https://github.com/IdentityModel/oidc-client-js)
