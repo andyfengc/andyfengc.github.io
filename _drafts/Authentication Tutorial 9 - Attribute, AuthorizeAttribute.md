@@ -147,10 +147,10 @@ Two ways to use Attribute:
 - At compiling time, used by compiler
 - At runtime, we need to use reflection. e.g.
 
-	TypeInfo typeInfo = typeof(MyClass).GetTypeInfo();
-	var attrs = typeInfo.GetCustomAttributes(); // get a collection of 	Attribute objects
-	foreach(var attr in attrs)
-	    Console.WriteLine("Attribute on MyClass: " + attr.GetType().Name);
+		TypeInfo typeInfo = typeof(MyClass).GetTypeInfo();
+		var attrs = typeInfo.GetCustomAttributes(); // get a collection of 	Attribute objects
+		foreach(var attr in attrs)
+		    Console.WriteLine("Attribute on MyClass: " + attr.GetType().Name);
 
 ## Create custom attribute ##
 
@@ -264,6 +264,7 @@ In webapi, System.Web.Http/AuthorizeAttribute.cs
 
 
 System.Web.Mvc/AuthorizeAttribute.cs
+
 	```csharp
     public class AuthorizeAttribute : FilterAttribute, IAuthorizationFilter
     {

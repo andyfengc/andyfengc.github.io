@@ -1,6 +1,6 @@
 ---
 layout: post
-title: T-SQL Tutorial (3) - sample scripts
+title: T-SQL Tutorial (4) - sample scripts
 author: Andy Feng
 ---
 

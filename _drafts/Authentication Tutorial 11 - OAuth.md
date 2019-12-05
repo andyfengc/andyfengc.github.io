@@ -67,7 +67,7 @@ The fundamental workflow derives 4 major workflows(grant types) :
 - Client credential flow
 
 ### Authorization code flow
-grant_type=authorization_code
+`grant_type=authorization_code`
 
 It is suitable for classic desktop web applications, need the application is in a safe environment and a little complex(3-legged).
 
@@ -78,7 +78,7 @@ The client need to maintain client secret, access token and refresh token.
 Please note that traditionally, the client must have both a front-end and a back-end, the reason is that the client secret must be stored in a safe place, i.e. back-end. This means a pure Front-end application (Javascript, React, Angular) cannot implement this flow but can use the Implicit grant one. However, some new specification ignore client secret and it enables the front-end can use this flow. Because it has an authorization code step, this flow is safer than implicit flow.
 
 ### Implicit flow
-grant_type=implicit
+`grant_type=implicit`
 
 It is suitable for mobile app or browser-based apps. The OAuth client is usually a browser and don't have to maintain secret. The client must also be able to receive incoming requests through redirection from the authorization server.
 
@@ -87,9 +87,9 @@ It is suitable for mobile app or browser-based apps. The OAuth client is usually
 This flow is commonly used in browser-based apps or mobile apps.
 
 ### Resource owner credential flow
-grant_type=password
+`grant_type=password`
 
-It is designed for legacy applications. It is suitable in cases where the resource owner has a trust relationship with the client as the user credentials will go through the client when reach the authorization server. In this flow, user enters their username and password in the client application and not in the Authorization Server. This fact implies that users must fully trust the client application, to connect the Authorization Server by storing and passing their credentials. 
+It is designed for legacy applications. It is suitable in cases where the resource owner has a trust relationship with the client as the user credentials will go through the client when reach the authorization server. In this flow, user enters their username and password in the client application. This fact implies that users must fully trust the client application, to connect the Authorization Server by storing and passing their credentials. 
 
 ![](/images/posts/20190830-oauth-2.gif)
 
@@ -98,13 +98,13 @@ You can only use this grant type when the OAuth client has obtained the credenti
 In summary, the username/password will be used to exchange for access token via this flow. It has limited usage and not recommended.
 
 ### Client credential flow
-grant_type=client_credentials
+`grant_type=client_credentials`
 
 It is suitable for classic desktop web applications or backend-only applications. It is used when the OAuth client requests an access token using only its client credentials. 
 
 The client need to maintain client secret, access token. It is 2-legged and simplier than Authorization code flow. 
 
-Different from resource owner credential flow, Client credential flow only authenticates the client, not the user.
+Different from resource owner credential flow, Client credential flow only authenticates the client, not the user. Only client and no user interaction are involved in this workflow.
 
 ![](/images/posts/20190830-oauth-3.gif)
 
@@ -120,7 +120,7 @@ These workflows can be categorized into two types:
 	- Client credential flow
 
 ### 3-legged with user involvement
-3-legged with user involvement, client app + user + authorization/resource server:
+3-legged with user involvement, client app + user + authorization/resource server. Here is the typical procedure:
 
 ![](/images/posts/20190830-oauth-4.gif)
 

@@ -132,7 +132,7 @@ Local temp tables are only available to the user who created the connection,
 and once the connection terminates, the temp table is automatically deleted. On the other hand, a global temp table once created is available to any user by any connection 
 It can only be deleted when all connections that have referenced to them have closed.
 
-When disconnecting from the server or restrating the services, all temp tables will be dropped. Note when creating Temporary tables in a the tempdb, this causes overhead and can causes performance issues 
+When disconnecting from the server or restrating the services, all temp tables will be dropped. Note when creating Temporary tables in the tempdb, this causes overhead and can causes performance issues 
 
 -- Create a local temp table with a single # sign
 
