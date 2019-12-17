@@ -116,7 +116,7 @@ composite.component.ts
 	    styleUrls: ['./composite-info.component.scss']
 	})
 	export class CompositeInfoComponent implements OnInit {
-	    private _model: Employee = new Employee();
+	    private _model: Employee = new Employee(); // class statement
 	    @Input() set model(val: Employee) {
 	        this.loadEmployee(val);
 	    }
@@ -141,19 +141,21 @@ First loading:
 
 1. constructor
 
-3. composite panel component
+1. class statement
+
+1. composite panel parent component
 	Input() properties
 	ngOnInit()
 	
-1. composite component
+1. composite child component
 	Input()
 	ngOnInit() 
 
-1. basic component
+1. basic grandchild component
 	Input()
 	ngOnInit() 
 
-1. general component
+1. general grandchild component
 	Input()
 	ngOnInit() 
 

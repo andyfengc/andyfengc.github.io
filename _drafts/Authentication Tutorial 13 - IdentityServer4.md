@@ -5,15 +5,29 @@ author: Andy Feng
 ---
 
 # Introduction
-`IdentityServer4` is a great implementation of OpenID Connect and OAuth 2. In contrast to IdentityServer3, it supports ASP.NET Core 2.
+`IdentityServer4` is a .NET implementation of OpenID Connect and OAuth 2.0. In contrast to IdentityServer3, it supports ASP.NET Core 2.
 
 # Outline
 1. Implementation of client credential workflow in OAuth 2.0
+	- Identity server: add API resource, add client(client id, secret, grant type=ClientCredentials, allowed scope of API)
+	- API: add controller endpoints, add authentication middleware to pipeline
+	- Client: use HttpClient to call API with client id, secret, scope of API
+
 1. Implement resource owner password workflow in OAuth 2.0
-1. Add interactive user authentication with the OpenID Connect protocol to the authorization server
+	- Identity server: add TestUser, update client(grant type=ResourceOwnerPassword)
+	- Client: add username, password
+	
+1. Add interactive user authentication with the implicit workflow of OpenID Connect protocol to the authorization server
+	- MVC client: Add OpenIdConnect lib; config workflow middleware to pipeline
+	- Identity Server: add identity resource, add users, add MVC client with redirect urls & allowed scope
+	
+1. Add external authentication support to the authorization server
+	- add more external authentication services	
+
+# Fundamentals
+`IdentityServer` is a combination of middleware and services. 
 
 # Tutorial 1: Implementation of client credential workflow in OAuth 2.0
-
 ## Create Authorization server
 1. list all templates:
 
@@ -350,6 +364,7 @@ Based on the client credential implementation, below changes should be made:
 	The presence (or absence) of the sub claim lets the API distinguish between calls on behalf of clients and calls on behalf of users.
 
 # Tutorial 3: Add interactive user authentication with the OpenID Connect protocol to the authorization server
+
 First, we should already started with an empty web application, added identityserver and configured the resources, clients and users.
 
 1. cmd > switch to authorization server folder `cd IdentityServer` > create UI project from template
@@ -835,6 +850,10 @@ Here, we integrate some demo services into identity server. It can enable us to 
 	click `Demo IdentityServer x` button to login
 
 	![](/images/posts/20191203-identity-server-14.png)
+
+# Tutorial 5: Add refresh token to the authorization server
+1. modify the client configuration in Identity server
+
 
 
 # References
