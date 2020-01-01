@@ -132,7 +132,7 @@ Local temp tables are only available to the user who created the connection,
 and once the connection terminates, the temp table is automatically deleted. On the other hand, a global temp table once created is available to any user by any connection 
 It can only be deleted when all connections that have referenced to them have closed.
 
-When disconnecting from the server or restrating the services, all temp tables will be dropped. Note when creating Temporary tables in a the tempdb, this causes overhead and can causes performance issues 
+When disconnecting from the server or restrating the services, all temp tables will be dropped. Note when creating Temporary tables in the tempdb, this causes overhead and can causes performance issues 
 
 -- Create a local temp table with a single # sign
 
@@ -442,7 +442,9 @@ They both persist the results of a query, but how are they different?
 # Stored function #
 User-defined function in SQL Server accepts parameters, performs an action, such as a complex calculation, and returns the result of that action as a value. The return value can either be a scalar (single) value or a table. 
 
-e.g. create a function named “getFormattedDate”. This function accepts a datetime type value and returns a varchar value which is actually our formatted date.
+1. Scalar function
+
+e.g. create a function named “getFormattedDate”. This function accepts a datetime type value and returns a varchar value which is actually our formatted date. default schema is `dbo`
 
 	CREATE FUNCTION getFormattedDate
 	 (
@@ -461,11 +463,80 @@ e.g. create a function named “getFormattedDate”. This function accepts a dat
 Test it
 
 	SELECT
-	 name,
-	 [dbo].[getFormattedDate](DOB)
+		name,
+		[dbo].[getFormattedDate](DOB)
 	FROM student
 
 ![](/images/posts/20190524-sql-1.png)
+
+1. Table-Valued function
+
+A table-valued function is a user-defined function that returns data of a table type. The return type of a table-valued function is a table, therefore, we can use the table-valued function just like we would use a table.
+
+e.g. creates a function that returns a list of products including product name, model year and the list price for a specific year:
+
+	CREATE FUNCTION udfProductInYear (
+	    @model_year INT
+	)
+	RETURNS TABLE
+	AS
+	RETURN
+	    SELECT 
+	        product_name,
+	        model_year,
+	        list_price
+	    FROM
+	        production.products
+	    WHERE
+	        model_year = @model_year;
+
+Test it:
+
+	SELECT 
+	    product_name,
+	    list_price
+	FROM 
+	    udfProductInYear(2018);
+
+![](/images/posts/20190913-sql-1.png)
+
+A multi-statement table-valued function(MSTVF) is a table-valued function that returns the result of multiple statements. It is very useful because we execute multiple queries within the function and aggregate results into the returned table.
+
+To define a multi-statement table-valued function, you use a table variable as the return value. Inside the function, we execute one or more queries and insert data into this table variable. e.g. The following udfContacts() function combines staffs and customers into a single contact list:
+
+	CREATE FUNCTION udfContacts()
+	    RETURNS @contacts TABLE (
+	        first_name VARCHAR(50),
+	        last_name VARCHAR(50),
+	        email VARCHAR(255),
+	        phone VARCHAR(25),
+	        contact_type VARCHAR(20)
+	    )
+	AS
+	BEGIN
+	    INSERT INTO @contacts
+	    SELECT 
+	        first_name, 
+	        last_name, 
+	        email, 
+	        phone,
+	        'Staff'
+	    FROM
+	        sales.staffs;
+	 
+	    INSERT INTO @contacts
+	    SELECT 
+	        first_name, 
+	        last_name, 
+	        email, 
+	        phone,
+	        'Customer'
+	    FROM
+	        sales.customers;
+	    RETURN;
+	END;
+
+We typically use table-valued functions as parameterized views. In comparison with stored procedures, the table-valued functions are more flexible because we can use them wherever tables are used.
 
 # Stored procedure
 A stored procedure is a collection of SQL statements that applications use to access and manipulate data in a database.
@@ -610,6 +681,50 @@ Triggers are primarily used for referential integrity of data. When creating a t
 	run the script > observer the sql server profiler 
 	
 	![](/images/posts/20180824-sql-1.png)
+
+# Cursor
+SQL cursor is a database object which is used to retrieve data from a result set one row at a time. It is used when data needs to be updated row by row.
+
+cursor lifecycle
+
+- Declaring Cursor: A cursor is declared by defining the SQL statement.
+- Opening Cursor: A cursor is opened for storing data retrieved from the result set.
+- Fetching Cursor: When a cursor is opened, rows can be fetched from the cursor one by one or in a block to do data manipulation.
+- Closing Cursor: The cursor should be closed explicitly after data manipulation.
+- Deallocating Cursor: cursors should be deallocated to delete cursor definition and release all the system resources associated with the cursor.
+
+The cursors are slower because they update tables row by row.
+
+e.g. 
+	DECLARE @emp_id int ,@emp_name varchar(20),    
+	    @message varchar(max);    
+	  
+	PRINT '-------- EMPLOYEE DETAILS --------';
+	-- declare cursor
+	DECLARE emp_cursor CURSOR FOR     
+		SELECT emp_id,emp_name    
+		FROM Employee  
+		order by emp_id;    
+	  
+	-- open
+	OPEN emp_cursor    
+	  
+	-- fetch
+	FETCH NEXT FROM emp_cursor     
+	INTO @emp_id,@emp_name    
+	  
+	print 'Employee_ID  Employee_Name'       
+	  
+	WHILE @@FETCH_STATUS = 0    
+		BEGIN    
+		    print '   ' + CAST(@emp_id as varchar(10)) +'           '+  
+		        cast(@emp_name as varchar(20))  
+		    FETCH NEXT FROM emp_cursor     
+		INTO @emp_id,@emp_name    
+		   
+		END     
+	CLOSE emp_cursor;    
+	DEALLOCATE emp_cursor; 
 
 # References #
 [Create Clustered Indexes](https://docs.microsoft.com/en-us/sql/relational-databases/indexes/create-clustered-indexes?view=sql-server-2017)

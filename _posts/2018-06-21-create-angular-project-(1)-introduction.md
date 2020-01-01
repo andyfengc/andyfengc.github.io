@@ -796,6 +796,11 @@ Next, simply call `_.<lodash_function>()`
 
 `npm install @types/moment --save`
 
+or 
+
+`npm install moment-timezone --save`
+`npm install @types/moment-timezone --save`
+
 in angular-cli.json (Angular 5+)
 
 	{
@@ -851,7 +856,8 @@ in my-component.component.ts
 
 	import { Component } from '@angular/core';
 	import * as moment from 'moment';
-	
+	import 'moment-timezone';
+
 	@Component({
 	  selector: 'my-component',
 	  templateUrl: './my-component.component.html',
@@ -863,6 +869,8 @@ in my-component.component.ts
 	    let now = moment(); 
 	    console.log('hello world', now.format()); 
 	    console.log(now.add(7, 'days').format()); 
+	    
+	    let easternNow = moment().tz('America/New_York'); 
 	  }
 	}
 

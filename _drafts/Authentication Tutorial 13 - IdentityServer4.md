@@ -5,15 +5,29 @@ author: Andy Feng
 ---
 
 # Introduction
-`IdentityServer4` is a great implementation of OpenID Connect and OAuth 2. In contrast to IdentityServer3, it supports ASP.NET Core 2.
+`IdentityServer4` is a .NET implementation of OpenID Connect and OAuth 2.0. In contrast to IdentityServer3, it supports ASP.NET Core 2.
 
 # Outline
 1. Implementation of client credential workflow in OAuth 2.0
+	- Identity server: add API resource, add client(client id, secret, grant type=ClientCredentials, allowed scope of API)
+	- API: add controller endpoints, add authentication middleware to pipeline
+	- Client: use HttpClient to call API with client id, secret, scope of API
+
 1. Implement resource owner password workflow in OAuth 2.0
-1. Add interactive user authentication with the OpenID Connect protocol to the authorization server
+	- Identity server: add TestUser, update client(grant type=ResourceOwnerPassword)
+	- Client: add username, password
+	
+1. Add interactive user authentication with the implicit workflow of OpenID Connect protocol to the authorization server
+	- MVC client: Add OpenIdConnect lib; config workflow middleware to pipeline
+	- Identity Server: add identity resource, add users, add MVC client with redirect urls & allowed scope
+	
+1. Add external authentication support to the authorization server
+	- add more external authentication services	
 
-# Implementation of client credential workflow in OAuth 2.0
+# Fundamentals
+`IdentityServer` is a combination of middleware and services. 
 
+# Tutorial 1: Implementation of client credential workflow in OAuth 2.0
 ## Create Authorization server
 1. list all templates:
 
@@ -99,7 +113,7 @@ author: Andy Feng
 
 	![](/images/posts/20190629-identity-server-4.png)
 
-1. start the project > `http://localhost:5000/.well-known/openid-configuration`
+1. start the project > `dotnet run` > browser > `http://localhost:5000/.well-known/openid-configuration`
 
 	![](/images/posts/20190629-identity-server-5.png)
 
@@ -117,7 +131,6 @@ Please note that at first startup, IdentityServer will create a developer signin
 1. Configure the API application to run on `http://localhost:5002` only. You can do this by editing the `launchSettings.json` file inside the Properties folder. Change the application URL setting to be:
 
 	"applicationUrl": "http://localhost:5002"
-
 
 	![](/images/posts/20190629-identity-server-6.png)
 
@@ -159,14 +172,12 @@ Please note that at first startup, IdentityServer will create a developer signin
 	            if (env.IsDevelopment())
 	            {
 	                app.UseDeveloperExceptionPage();
-	            }
-	
+	            }	
 	
 	            app.UseAuthentication();
 	
 	            app.UseMvc();
-	
-	
+		
 	            app.Run(async (context) =>
 	            {
 	                await context.Response.WriteAsync("Hello World!");
@@ -174,7 +185,9 @@ Please note that at first startup, IdentityServer will create a developer signin
 	        }
 	    }
 
-	`AddAuthentication()` adds the authentication services to DI and configures "Bearer" as the default scheme. `UseAuthentication()` adds the authentication middleware to the pipeline so authentication will be performed automatically on every call into the host.
+	- `AddAuthentication()` adds the authentication services to DI and configures "Bearer" as the default scheme. 
+	- `UseAuthentication()` adds the authentication middleware to the pipeline so authentication will be performed automatically on every call into the host.
+	- `UseAuthorization()` adds the authorization middleware to make sure, our API endpoint cannot be accessed by anonymous clients.
 
 1. Navigating to the controller `http://localhost:5002/identity` on a browser should return a 401 status code. This means your API requires a credential and is now protected by IdentityServer.
 
@@ -185,7 +198,7 @@ Now we are ready to write a client that requests an access token, and then uses 
 
 	`dotnet new console -n Client`
 
-1. The token endpoint at IdentityServer implements the OAuth 2.0 protocol, and you could use raw HTTP to access it. However, we have a client library called `IdentityModel`, that encapsulates the protocol interaction in an easy to use API. It has extension methods for `HttpClient`.
+1. The token endpoint at IdentityServer implements the OAuth 2.0 protocol, and you could use raw HTTP to access it. But here, we introduce a client library called `IdentityModel`, that encapsulates the protocol interaction in an easy to use API. It has extension methods for `HttpClient`.
 
 	Add the IdentityModel NuGet package to your client. 
 
@@ -205,7 +218,7 @@ Now we are ready to write a client that requests an access token, and then uses 
 
 1. Next we modify Program.cs to implement below logic in sequence:
 
-	1 `IdentityModel` includes a client library to use with the discovery endpoint. This way you only need to know the base-address of IdentityServer - the actual endpoint addresses can be read from the metadata:
+	1. `IdentityModel` includes a client library to use with the discovery endpoint. This way you only need to know the base-address of IdentityServer - the actual endpoint addresses can be read from the metadata:
 
 			// discover endpoints from metadata
 			var client = new HttpClient();
@@ -262,7 +275,7 @@ Now we are ready to write a client that requests an access token, and then uses 
 	here is a sample token and we can test in jwt.io 	
 		`eyJhbGciOiJSUzI1NiIsImtpZCI6ImQ3ODUyNzdmNGI5OGI5NmViNzExOWIyZDVlYmE0ZDhlIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NjcxNzQ0MDQsImV4cCI6MTU2NzE3ODAwNCwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDAwIiwiYXVkIjpbImh0dHA6Ly9sb2NhbGhvc3Q6NTAwMC9yZXNvdXJjZXMiLCJlbXBBcGkiXSwiY2xpZW50X2lkIjoiY2xpZW50MSIsInNjb3BlIjpbImVtcEFwaSJdfQ.OGuI37Cf1sGYYU0SC_2daLfoCwnzRu8ySnKeu5fN1sYt_dVJuRQ00yvL3mdvqEWXXm5Fr4za9VkVwVQR0WbtidaqMD2iUci8g-YIx8B_g7kyNrF8U3w-XwGrW86Y1i19td5x_9W4PGWSuxuARxM4RWrGNLzLjAxSzBHff8KdEPzaDEDmm60irKinvrmFhxhy40FVXjfkeogGaqi08fW5ZQyfRlYe48LrWGU3TyE-mAJLoJtYZoUvUWOKwJWrVNTgqynmdfD7rzi8640iRM5h5KU6fW7Ni0eqiFMY0ov-1myDyv1MqqGtqcRT8zl7k-5RJ4CFVnoff4DwQkCnJaPaSg`
 
-# Implement resource owner password workflow in OAuth 2.0
+# Tutorial 2: Implement resource owner password workflow in OAuth 2.0
 Based on the client credential implementation, below changes should be made:
 
 1. update authorization server project
@@ -350,14 +363,15 @@ Based on the client credential implementation, below changes should be made:
 
 	The presence (or absence) of the sub claim lets the API distinguish between calls on behalf of clients and calls on behalf of users.
 
-# Add interactive user authentication with the OpenID Connect protocol to the authorization server
+# Tutorial 3: Add interactive user authentication with the OpenID Connect protocol to the authorization server
+
 First, we should already started with an empty web application, added identityserver and configured the resources, clients and users.
 
 1. cmd > switch to authorization server folder `cd IdentityServer` > create UI project from template
 
 	`dotnet new is4ui`
 
-1. you will also need to enable MVC, both in the DI system and in the pipeline. 
+1. Since we just added the MVC UI, we will also need to enable MVC, both in the DI system and in the pipeline. 
 
 	Startup.cs > uncomment comments in the ConfigureServices and Configure method to enable MVC.
 
@@ -380,7 +394,7 @@ First, we should already started with an empty web application, added identityse
 
 	![](/images/posts/20190629-identity-server-13.png)
 
-	We can use the user password in previous tutorial to login
+	click here to manage your stored grants > we can use the user password in previous tutorial to login
 
 	![](/images/posts/20190629-identity-server-14.png)
 
@@ -440,8 +454,9 @@ First, we should already started with an empty web application, added identityse
 		    app.UseStaticFiles();
 		    app.UseMvcWithDefaultRoute();
 		}
-	
-	please note the authentication middleware should be added before the MVC in the pipeline.
+
+	- AddAuthentication() adds the authentication services to DI.
+	- UseAuthentication() ensure the authentication services execute on each request - add it into pipeline, please note the authentication middleware should be added before the MVC in the pipeline.
 
 1. implement the authentication handshake. We want when user click the "About" menu, it connects the identity server to grab token and redirects back. That is interactive authentication. 
 
@@ -587,6 +602,10 @@ First, we should already started with an empty web application, added identityse
 
 	This will clear the local cookie and then redirect to IdentityServer. Then, IdentityServer will clear its cookies and then give the user a link to return back to the MVC application.
 
+	brower > http://localhost:5003/Home/Logout
+
+	![](/images/posts/20190629-identity-server-25.png)
+
 1. Add more claims from authorization server to the client
 
 	By default, the OpenID Connect handler asks for the profile scope. This scope also includes claims like name or website.
@@ -695,6 +714,148 @@ First, we should already started with an empty web application, added identityse
 
 	![](/images/posts/20190629-identity-server-24.png)
 
+# Tutorial 4: Add external authentication support to the authorization server
+ASP.NET Core itself ships with support for Google, Facebook, Twitter, Microsoft Account and OpenID Connect. In addition you can find implementations for many other authentication providers [here](https://github.com/aspnet-contrib/AspNet.Security.OAuth.Providers).
+
+## Add Google support
+1. google developer console [https://console.developers.google.com/](https://console.developers.google.com/) > Create a new project
+
+	![](/images/posts/20191203-identity-server-1.png)
+
+1. enable a new api > randomly pick a api service > enable
+	
+	![](/images/posts/20191203-identity-server-2.png)
+
+	![](/images/posts/20191203-identity-server-3.png)
+
+	![](/images/posts/20191203-identity-server-4.png)
+
+	![](/images/posts/20191203-identity-server-5.png)
+
+1. create a new credential > oauth client id > specify `http://localhost:5000/signin-google` as the redirect url
+
+	![](/images/posts/20191203-identity-server-6.png)
+
+	![](/images/posts/20191203-identity-server-7.png)
+
+3. The developer console generate a client ID and secret
+
+	![](/images/posts/20191203-identity-server-8.png)
+
+1. vs > open IdentityServer project > startup.cs
+
+	    public class Startup
+	    {
+	        public IHostingEnvironment Environment { get; }
+	
+	        public Startup(IHostingEnvironment environment)
+	        {
+	            Environment = environment;
+	        }
+	
+	        public void ConfigureServices(IServiceCollection services)
+	        {
+	            ...
+	            services.AddAuthentication()
+	                .AddGoogle("Google Inc.", options =>
+	                {
+	                    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+	                    options.ClientId = "xxxxxx";
+	                    options.ClientSecret = "xxxxxx";
+	                });
+				...
+	        }
+			...
+		}
+
+1. restart the identity server project, mvc client project > open mvc client at http://localhost:5003/ > redirect to identity server > click login > identity server shows login page > login using any google account > authenticate successfully and return mvc client > we can see that the claims are now being sourced from Google data.
+
+	![](/images/posts/20191203-identity-server-9.png)
+
+	![](/images/posts/20191203-identity-server-10.png)
+
+	![](/images/posts/20191203-identity-server-11.png)
+
+	![](/images/posts/20191203-identity-server-12.png)
+
+## Add IdentityServer4 online authentication demo services
+IdentityServer4 team provides some online demos at [https://demo.identityserver.io/](https://demo.identityserver.io/), which we can integrate using OpenID Connect. More clients are available at [https://github.com/IdentityServer/IdentityServer4.Demo/blob/master/src/IdentityServer4Demo/Config.cs](https://github.com/IdentityServer/IdentityServer4.Demo/blob/master/src/IdentityServer4Demo/Config.cs)
+
+Here, we integrate some demo services into identity server. It can enable us to have more authenticate channels. Of course, we can integrate them into our clients as well.
+
+1. vs > open IdentityServer project > startup.cs
+
+	    public class Startup
+	    {
+	        public IHostingEnvironment Environment { get; }
+	
+	        public Startup(IHostingEnvironment environment)
+	        {
+	            Environment = environment;
+	        }
+	
+	        public void ConfigureServices(IServiceCollection services)
+	        {
+	            ...
+	            services.AddAuthentication()
+	                .AddOpenIdConnect("oidc", "Demo IdentityServer 1", options =>
+	                {
+	                    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+	                    options.SignOutScheme = IdentityServerConstants.SignoutScheme;
+	                    options.SaveTokens = true;
+	
+	                    options.Authority = "https://demo.identityserver.io/";
+	                    options.ClientId = "server.hybrid";
+	                    options.ClientSecret = "secret";
+	                    options.ResponseType = "code id_token";
+	                    options.Scope.Add("openid profile email api");
+	
+	                })
+	                .AddOpenIdConnect("oidc 2", "Demo IdentityServer 2", options =>
+	                {
+	                    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+	                    options.SignOutScheme = IdentityServerConstants.SignoutScheme;
+	                    options.SaveTokens = true;
+	
+	                    options.Authority = "https://demo.identityserver.io/";
+	                    options.ClientId = "server.code";
+	                    options.ClientSecret = "secret";
+	                    options.ResponseType = "code";
+	                    options.Scope.Add("api");
+	                })
+	
+	                .AddOpenIdConnect("oidc 3", "Demo IdentityServer 3", options =>
+	                {
+	                    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+	                    options.SignOutScheme = IdentityServerConstants.SignoutScheme;
+	                    options.SaveTokens = true;
+	
+	                    options.Authority = "https://demo.identityserver.io/";
+	                    options.ClientId = "implicit";
+	                    options.TokenValidationParameters = new TokenValidationParameters
+	                    {
+	                        NameClaimType = "name",
+	                        RoleClaimType = "role"
+	                    };
+	                })
+				...
+	        }
+			...
+		}
+
+1. restart the identity server and client > open client > click login > redirect to identity server > display login page
+
+	![](/images/posts/20191203-identity-server-13.png)
+
+	click `Demo IdentityServer x` button to login
+
+	![](/images/posts/20191203-identity-server-14.png)
+
+# Tutorial 5: Add refresh token to the authorization server
+1. modify the client configuration in Identity server
+
+
+
 # References
 [http://docs.identityserver.io/en/latest/quickstarts/0_overview.html](http://docs.identityserver.io/en/latest/quickstarts/0_overview.html)
 
@@ -703,3 +864,15 @@ First, we should already started with an empty web application, added identityse
 [Simple OAuth2 Authorization Server with Identity Server and .NET Core 1.1](https://www.codeproject.com/Articles/1183421/Simple-OAuth-Authorization-Server-with-Identity-Se)
 
 [ASP.NET Core WebAPI secured using OAuth2 Client Credentials](https://www.codeproject.com/Articles/1185880/ASP-NET-Core-WebAPI-secured-using-OAuth-Client-Cre)
+
+
+[http://docs.identityserver.io/en/latest/quickstarts/3_aspnetcore_and_apis.html](http://docs.identityserver.io/en/latest/quickstarts/3_aspnetcore_and_apis.html)
+
+[https://auth0.com/docs/api-auth/tutorials/client-credentials](https://auth0.com/docs/api-auth/tutorials/client-credentials)
+
+[https://www.codeproject.com/Articles/1183421/Simple-OAuth-Authorization-Server-with-Identity-Se](https://www.codeproject.com/Articles/1183421/Simple-OAuth-Authorization-Server-with-Identity-Se)
+
+
+
+[https://www.codeproject.com/Articles/1185880/ASP-NET-Core-WebAPI-secured-using-OAuth-Client-Cre](https://www.codeproject.com/Articles/1185880/ASP-NET-Core-WebAPI-secured-using-OAuth-Client-Cre)
+
