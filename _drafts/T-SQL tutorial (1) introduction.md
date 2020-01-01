@@ -311,7 +311,7 @@ Depending on how we query for data in our application, e want to add indexes on 
 If our application has a feature where we search frequently, e.g. we need search for `articles`(3 columns: title, body, and published_at) by their `title`, it might be wise to put an index on the `title` column. This will create a copy of that column where all the articles' titles are sorted.
 
 	-- Create a nonclustered index on a table or view, default is nonclustered index
-	CREATE INDEX i1 ON t1 (col1);  
+	CREATE INDEX idx1 ON t1 (col1);  
 
 Indexes can also be useful for foreign key columns when dealing with associations. Let’s say the articles table also contains an `author_id` column that corresponds to the id column on the users table. If we put an index on the `author_id `column, when we query the database for all the articles by a particular author, the results can be found much faster because all articles by that author will be grouped together.
 
@@ -466,7 +466,6 @@ Test it
 	FROM student
 
 ![](/images/posts/20190524-sql-1.png)
- 
 
 # Stored procedure
 A stored procedure is a collection of SQL statements that applications use to access and manipulate data in a database.
@@ -551,7 +550,7 @@ Example of sproc using parameters:  user inputs parameters to sproc to retrieve 
 
 # Trigger
 A trigger is a special type of a procedure that 'fires' when an event such as INSERT, DELETE or UPDATE occurs occurs
-They are regared as 'event-driven specialized procedures', and as such are stored in and managed by the RDBMS
+They are regarded as 'event-driven specialized procedures', and as such are stored in and managed by the RDBMS
 
 Triggers are primarily used for referential integrity of data. When creating a trigger we attach it to the table
 
