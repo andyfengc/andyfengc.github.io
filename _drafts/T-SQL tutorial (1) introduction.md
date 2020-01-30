@@ -696,12 +696,12 @@ cursor lifecycle
 The cursors are slower because they update tables row by row.
 
 e.g. 
-	DECLARE @emp_id int ,@emp_name varchar(20),    
+	DECLARE @emp_id int, @emp_name varchar(20),    
 	    @message varchar(max);    
 	  
 	PRINT '-------- EMPLOYEE DETAILS --------';
 	-- declare cursor
-	DECLARE emp_cursor CURSOR FOR     
+	DECLARE emp_cursor CURSOR FAST_FORWARD READ_ONLY FOR     
 		SELECT emp_id,emp_name    
 		FROM Employee  
 		order by emp_id;    
@@ -724,7 +724,58 @@ e.g.
 		   
 		END     
 	CLOSE emp_cursor;    
-	DEALLOCATE emp_cursor; 
+	DEALLOCATE emp_cursor;
+
+If we use cursor with Common Table Expressions (CTE), please note below is incorrect:
+
+	--declare some CTEs
+	;With CTE1 as
+	(
+	   --CTE1 definitiion
+	)
+	,CTE2 as
+	(
+	   --CTE2 definitiion
+	)
+	 
+	--declare a cursor for final select statement
+	Declare myCursor Cursor Fast_Forward For
+	   --select query
+	   Select ... From CTE2
+
+Please note that we must declare cursor statement on the top of CTE declarations:
+
+	--declare a cursor above the CTE definitions
+	Declare myCursor Cursor Fast_Forward For
+	 
+	--declare CTEs
+	With CTE1 as
+	(
+	   --CTE1 definitiion
+	)
+	,CTE2 as
+	(
+	   --CTE2 definitiion
+	)
+	 
+	--select query as normal
+	Select ... From CTE2
+	 
+	--now open and use the cursor and don't forget to close and deallocate it in the end
+	OPEN myCursor    
+	  
+	-- fetch
+	FETCH NEXT FROM myCursor     
+	INTO @param1,@param2 
+
+	WHILE @@FETCH_STATUS = 0    
+		BEGIN    
+		    -- do something...  
+		    FETCH NEXT FROM myCursor     
+		INTO @param1,@param2
+		END     
+	CLOSE myCursor;    
+	DEALLOCATE myCursor;
 
 # References #
 [Create Clustered Indexes](https://docs.microsoft.com/en-us/sql/relational-databases/indexes/create-clustered-indexes?view=sql-server-2017)

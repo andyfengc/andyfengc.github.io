@@ -106,9 +106,14 @@ There are three major components in Hangfire: client, storage and server.
 
 	![](/images/posts/20181218-hangfire-1.png)
 
-1. Install `Hangfire` nuget package
+1. Install nuget package
 
-1. modify `startup.cs`
+	`Hangfire`
+	`Hangfire.Core`
+	`Hangfire.SqlServer`
+	`Hangfire.AspNetCore`
+
+1. modify `Startup.cs`
 
 		namespace Scheduler
 		{
@@ -128,7 +133,7 @@ There are three major components in Hangfire: client, storage and server.
 		                app.UseDeveloperExceptionPage();
 		            }
 		            app.UseHangfireServer();
-		            app.UseHangfireDashboard();
+		            app.UseHangfireDashboard(); // add ui
 		            app.Run(async (context) =>
 		            {
 		                await context.Response.WriteAsync("Hello World!");
@@ -137,7 +142,39 @@ There are three major components in Hangfire: client, storage and server.
 		    }
 		}
 
-1. Start the project. Please note that when Hangfire starts, it will automatically create and populate relevant tables/stored procedures for us.
+	or
+
+		`appsettings.json`
+		
+		{
+		  "ConnectionStrings": {
+		    "HangfireConnection": "Data Source=(local); Initial Catalog=HangfireTest; MultipleActiveResultSets=True; Integrated Security=true;"
+		  },
+		  "Logging": {
+		    "LogLevel": {
+		      "Default": "Warning",
+		      "Hangfire": "Information"
+		    }
+		  }
+		}
+
+		public void ConfigureServices(IServiceCollection services)
+        {          
+            // Add Hangfire services.
+            services.AddHangfire(configuration => configuration
+                .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                .UseSimpleAssemblyNameTypeSerializer()
+                .UseRecommendedSerializerSettings()
+                .UseSqlServerStorage(Configuration.GetConnectionString("HangfireConnection"), new SqlServerStorageOptions
+                {
+                }));
+			...
+
+1. create a database: `CREATE DATABASE Scheduler`
+
+1. Start the project. `dotnet run`
+
+	Please note that when Hangfire starts, it will automatically create and populate relevant tables/stored procedures for us.
 
 	![](/images/posts/20180206-hangfire-9.png)
 
