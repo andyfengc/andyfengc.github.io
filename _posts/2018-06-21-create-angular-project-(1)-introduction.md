@@ -989,5 +989,11 @@ call it like that:
 
 	{{ user.name | uselessPipe:"Mr.":"the great" }}
 
+# Install material icon
+
+`npm install material-design-icons`
+
 # References #
 [Angular Playground](https://stackblitz.com/angular/dlynpyeolkm)
+
+[Material Icons](https://www.npmjs.com/package/material-design-icons)
