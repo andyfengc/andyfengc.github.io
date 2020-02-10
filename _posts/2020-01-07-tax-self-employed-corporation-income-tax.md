@@ -17,10 +17,56 @@ author: Andy Feng
 > 通常说自雇，就是指前两种方式
 > 开公司，就是指incorporation
 
-## 如何报税？
-1. 如果在加拿大成立公司(Corporation)，就需要将所有跟生意相关的收益支出申报公司税（T2: Corporation income tax return）。较复杂一些
+# 注册手续
+在加拿大成立公司有三种形式：独资（sole proprietorship）、合伙（partnership ）、有限公司（corporation）
 
-2. 而对于非公司形式的生意所得，可简称为自雇人士。包括个体经营形式(sole)或是合伙经营(partner)形式的生意所得，要迭加在个人所得上，缴纳个人所得税（Individuals reporting business income）。
+1. 申请注册成立公司可去安省消费者和商业服务机构（Ministry of Consumer and business services）
+
+	> 地址：393 University Ave， Toronto.
+
+1. 也可在网上申请：http://www.cbs.gov.on.ca/mcbs/English/welcome.Htm
+
+注册Incorporation，注册手续一般分为查名、准备申请表格和章程(Articles)、向政府提交申请、领取注册文件等几个步骤。假如找公司帮忙申请，2天能完成，包括name search, 所有的paperwork手续都能够完成了。大概300~400左右，含律师费。如果不需要name search，1天完成
+
+1. Step 1: Name your corporation at [here](https://corporationscanada.ic.gc.ca/eic/site/cd-dgc.nsf/eng/h_cs03922.html)
+
+1. Step 2: Complete articles of incorporation. This step establishes the structure of your corporation. 
+
+	You can apply to change the structure of your corporation once you are operating. Your articles of incorporation will need to be signed by the incorporator(s). If an incorporator is a company or other incorporated body, the articles must be signed by an individual authorized by that body. You can file your articles of incorporation through the [Online Filing Centre](https://www.ic.gc.ca/app/scr/cc/CorporationsCanada/index.html?lang=eng).
+
+	To incorporate, you need to state:
+	
+	1. your proposed corporate name
+	1. your corporation’s province or territory in Canada
+	1. your share structure and any restrictions on share transfers (see The share structure of your corporation)
+	1. your corporation’s number of directors
+	1. any restrictions you might want to set for your business or business activities
+	1. any other provisions (See Item 7: Other provisions, if any).
+
+1. Step 3: Establishing the initial registered office address and first board of directors
+	
+	When you incorporate, you need to state:
+	
+	1. your proposed corporate name
+	1. 	the street address of your corporation’s registered office in Canada (include a mailing address if you would like to receive unofficial documents at different address). The registered office address is where you must keep your corporate records and where official documents will be served on the corporation. 
+	1. 	the first name, last name and address of each director (indicate whether or not each director is a resident Canadian). Make sure the directors meet the eligibility requirements (See Director requirements). Information about directors is corporate information, and as such, is required to be made public.
+
+1. Step 4: Filing the appropriate forms and paying the fee
+
+	Corporations Canada offers several methods of filing (see [How do I file my application under the Canada Business Corporations Act (CBCA)?](https://corporationscanada.ic.gc.ca/eic/site/cd-dgc.nsf/eng/cs05097.html)). Your request for a certificate of incorporation, sent to Corporations Canada, must also include the filing fee.
+
+1. Step 5: Processing your application
+
+	Corporations Canada will make sure your articles of incorporation have been properly completed and that the proposed name is acceptable. An application is complete if:
+
+	1. it includes all necessary documents
+	1. the forms are complete and signed, and
+	1. the fee is included.
+
+## 如何报税？
+1. 如果在加拿大成立有限公司(Corporation)，就需要将所有跟生意相关的收益支出申报公司税（T2: Corporation income tax return）。较复杂一些
+
+2. 而对于非公司形式的生意所得，可简称为自雇人士，是无限公司。包括个体经营形式(sole)或是合伙经营(partner)形式的生意所得，其缴税要迭加在个人所得上，按T1缴纳个人所得税（Individuals reporting business income）。
 
 	> 比如一位电脑工程师，受雇于一家企业，工资收入是一年$80,000加元。同时，他也帮一些小公司设计网页，由此产生的收入大约是$20,000加元／年。那么这位电脑工程师2016年的个人总收入就是$100,000加元，包括$80,000的工资收入和$20,000的自雇收入
 	> 	
@@ -29,6 +75,18 @@ author: Andy Feng
 	> 自雇人士如果在业务中需要使用汽车，需要按业务用量与自用量的比例(按里程数计)申报自雇佣的汽车费用开支。具体包括汽车保险费、牌照登记费、汽油开支、维修开支、购车贷款利息或租赁费等。如果是购买的汽车，每年的折旧开支也可以作为费用。自雇人士需要保留好汽车使用里程登记记录以备税务局查帐时使用。
 	> 
 	> 自雇人士如果在家开展生意，可以把家庭住房的部分空间划作专门的办公区间，可按使用面积的比例分摊相关房屋开支，从自雇收入中扣除。不过需要注意，税法对生意用家庭住房支出的抵扣有严格的规定。第一，抵扣生意用家庭住房支出须符合以下两条的其中之一：是开展生意的主要地方，或该空间只用于生意及经常在此接待客户；第二，若提取折旧将来住房出售时可能会有资本增值税需要缴纳； 第三，当年家庭办公费用抵扣额不能超过抵扣前的盈利，未抵扣部分可结转到以后年度使用；第四，生意与个人共用部分支出须根据面积及使用时间按比例分摊。
+
+1. 现在越来越多的大公司采用对外发包的形式，大公司将自己的一些业务以合同制的形式（contract）分派给一些小公司，大公司只按合同金额付款.有很多电脑专业所找到的专业工作就是这种合同制（contract）的雇用形式，而且大多数收入可观，税务上也相对灵活.
+
+	这种雇用形式时首先自己要成立相应的公司来承担这类业务，获得contract后, 同时在发放工资时自己要扣税，缴政府EI（失业保险，业主不需交）和CPP（养老金），按规定的月份向税务部门申报纳税.
+
+	如果您是注册了有限公司, 并且公司的收入状况良好, 扣除所有费用还有盈余时, 那么您就要考虑是否要用发工资的形式把把这笔盈余从公司转到个人头上来报税. 加拿大对小公司征收的税率现在已降至20%以下（对安省而言）, 赚的钱留在公司里通常会比个人交更少的所得税. 如果决定要把钱发出来, 可以选择发工资或者发红利. 工资和红利都要交税, 但计算方法不同. 那么, 发工资好还是发红利好呢？ 简单地说, 如果公司的盈余都不超过个人免税额, 那肯定发工资好, 不用交税. 但是当公司的盈余超过个人免税额时, 通常来说, 以部分工资部分红利的方式最省税, 但具体的金额就需要详细计算了. 总而言之, 如果您想扩大公司规模, 那么把钱留在公司用于再投资, 无疑是一个较好的选择. 但是如果您需要这笔钱作为生活来源, 那么可能以工资和红利的形式发出来是较好的选择. 当然, 要不要发工资和发多少合适, 不能一概而论. 一个有经验的会计师可以根据您的收入水平, 可资利用的抵税额, 财政年底的选择和您的长期打算来精心策划, 以达到公司和个人的总体上的税务最优化.
+
+	如果您要发工资, 必须先向国税局申请一个工资号码（payroll number）, 然后按期从工资中扣除相应的加拿大退休金计划（CPP）, 失业保险（EI）和所得税预扣, 不按规定预扣会有罚款. 如果您拥有公司40%以上的股票, 那么公司给您发工资时就不需扣除EI. 当然, 反过来说, 一旦公司停止经营, 您也拿不到失业保险金了. 发工资所预扣的金额一定要汇给国税局, 国税局通常要求在发工资的第二个月的15日前要收到这笔扣除的金额, 交晚了会有罚款. 到了第二年初, 您作为雇主需要向国税局申报前一年所发的工资及预扣额, 即通常说的要做T4, 截止日期是二月的最后一天（若是周末顺延到下一个工作日）, 报晚了也会有罚款.
+
+	常见的问题是, 不少朋友没有考虑到要发工资, 或者以为发工资只是给自己开张支票, 并没有预扣CPP和所得税并汇给国税局, 到了第二年要做T4时, 才发现处境尴尬, 前一年发工资的预扣额汇款截止日期已过, 现在发前一年的工资会面临罚款, 而不发工资的话, 个人的当年抵税额又白白浪费掉了.
+
+	由此可见, 对有限公司形式的小生意而言, 不管是从税务最优化的角度, 还是从遵守工资预扣规定的角度, 发工资都是一个值得重视的事情
 
 # Self-employed自雇
 自雇 Self-employed，是还没有成立公司 (Incorporate) 的 Sole Proprietor，在申报个人收入税的时候使用的还是个人T1表格。对于已经成立公司的自雇人士，需要按Incorporate来报税。
@@ -105,6 +163,24 @@ Sole Proprielorship 是以个人开办的公司，由个人运营并承担责任
 1. 生意用车费用（motor vehicle expenses line 9281）
 
 	如果你只有一辆车，同时作为生意使用和个人使用，那么你可以抵扣和生意相关的用车费用，包括油费（fuel）、维修保养费（maintenance and repairs）、牌照费（licence）、车保险（car insurance）和折旧费用（depreciation）。为了能够顺利地抵扣跟生意用车相关的费用，请大家平时做好每次商业用车的记录。包括哪天用车、为什么用车、去哪里、去见谁，以及每次商业用车的里程数。需要提醒大家的是，如果你每天从家开车去公司（driving between your home and your business premises），这个距离不能算做商业用车的里程数。税局对商业用车的审核是很严格的，如果你申报了商业用车费用，却提供不了相关的用车记录和凭证，一般税局都会否定你所申报的商业用车费用。
+
+	生活和事业离不开车, 但养车的费用却惊人. 普通老百姓,打工仔都毫无办法. 做生意和有些行业的人却不同. 他们或是驾公司车, 即所谓”公家车”, 或是开自己的车即所谓”私家车”. 这在税务上都有其有利之处. 那么到底是开”公家车”好, 还是开”私家车”好呢？
+
+	> 初来加拿大的人一定以为开”公家车”好, 因为一, 买车自己不用掏腰包, 可以直接由公司购买; 二, 车又可以自己用, 所有费用又可以由公司承担. 其实并不然, 大部分情况下您作为公司股东或职员在公司车辆使用上都存在生意用车和生活（个人）用车费用如何分配的问题。生意用车之费用当然由公司承担并由公司去抵税. 而个人用车部分却不同. 按照加国税务局规定,每月按 购车原价的百分之二折算作为您的收入. 如果车辆是公司租赁的, 那么每月租赁费的三分之二将作为您的收入, 并由您负责缴税. 这种收入就叫做”车辆使用福利”（STANDBY CHARGE）. 当然,从2003年起, 个人用车一年不超过两万公里, 生意用途在一半以上的话, “车辆使用福利”可按比例降低. 如果您作为雇员或股东与公司一起出钱购车的话, 那么”车辆使用福利”可以按出钱的金额降低.
+	> 
+	> 除了”车辆使用福利”以外,如果您的公司支 付了车辆日常运作的所有费用, 那么您还必须承担部分车辆日常运作费用. 具体按下列方法计算: 个人用车部分按每公里0.22加币（2006年）计算, 作为您的收入; 或按”车辆使用福利”的一半计算作为您的收入, 条件是生意用车必须超过百分之五十. 以上两个办法选哪个, 必须由您在年底之前通知您的公司.
+	> 
+	> 不过, 如果车辆个人使用每月不满1000公里,而且不超过总公里数的当10%, 那么”车辆使用福利”和车辆日常运作费用承担的金额可以降低.
+	> 
+	> 这么说, 公家车并不那么好开. 但是, 好与不好不能一概而论. 还得考虑其它一些因素. 假如车是公司购得的,那么公司的车可按车价（不超过3万加币）的30%折旧（第一年减半）抵税; 假如公司贷款购车（2000年后）, 发生的利息每月抵税可达300元加币.; 再假如车是2000年后租赁的,公司每月抵税撇除GST和PST可高达800元加币.这对公司并没什么不好.维一不利之处是公司抵税时都有最高金额的限制,而在计算雇用福利时,却按实价.
+
+	开公家车无论从公司税务还是个人税务上讲还是挺复杂的. 开私家车是不是就简单一点？
+
+	> 如果雇员（如销售人员等）必须驾”私家车”办公家事, 因此发生的车辆运作费,包括汽油,保险,维修,牌照,汽车俱乐部,租赁,购车贷款利息,甚至折旧都可用来抵税. 但必须填写T2200税表,并由公司签发.而且抵税的金额必须要有依据.没有依据,国税局会调低或驳回. 怎样才是依据呢？ 每次公司生意用车时你必须做好记录（LOG）,并算好公里数, 最后折成抵税的比例.如果发生的费用公司已报销,则不能再抵税了. 有时,雇主可按每公里一定的金额付给雇员车旅补贴. 2006年的标准是头5000公里每公里0.50加币,以后每公里0.44加币.如果雇主付的补贴太低,你可以把它作为收入,而抵扣实际费用.
+
+	> 要是您以自雇（sole 或 partnership）的形式经营生意, 您与雇员一样抵扣汽车的费用,并不必填写T2200税表.但您也必须做好车辆生意使用记录以确定抵税比例,方可在查税时高枕无忧.
+
+	总而言之, 到底是开公家车好还是私家车好, 不能一概而论, 具体情况还得具体分析. 再说车辆使用的税务,甚至GST问题都错综复杂
 
 1. 坏帐：您可以报一些坏帐，但需根据具体情况来定。
 
@@ -226,6 +302,18 @@ Corporation包括几种命名方式，：
 - 股东/董事责任：也非完全有限。银行和某些债权人可以要求股东做资产担保，CRA也会对应付税款要求股东提供担保信用证，等等。
 
 ## why?
+在加拿大从事生意活动, 是以有限公司的形式还是以自雇的方式, 这是很多准备开创新生意的人所面临的问题. 现实情况中, 有限公司仍是最普遍的经营形式, 因它有以下几方面的优点:
+
+1. 有限的法律,债务责任. 有限公司是一个独立的实体, 公司的资产是与个人的资产分开的. 做生意多多少少都会有些风险, 一旦公司破产被债权人追债, 或被人诉讼要求赔偿, 甚至是意外的天灾人祸, 公司赔偿债权人的责任只限于公司里面的资产而已, 股东个人的资产是不会被涉及的. 这一点是有限公司最主要的优点, 是股东减小个人风险的最佳选择. 以自雇的形式做生意则完全不同, 自雇者的责任是无限的, 所有个人的资产都会受到牵连.
+
+1. 税务优惠. 目前BC省的公司, 头三十万净利润的综合税率只有17.62%, 而个人的净收入超过六万时, 综合税率将高于40%. 对于一个盈利的公司, 策略地运用公司节税技巧, 合理地安排公司与股东之间的收入, 可达到将公司与个人的综合税率降到最低的效果.
+
+1. 分散收入, 降低缴税及延迟缴税. 由于配偶及其它家庭成员都可以是公司的股东, 通过分配收入给其它股东可避免将收入集中在一个人头上纳税, 这样就可降低缴税, 因为每个人都有基本免税额, 并且个人税率是采渐进式的, 收入越高, 缴税越多. 公司的收入不一定在当年全部分配给个人, 可以有自己掌控的空间以达到减税及延税的目的.
+
+1. 享有五十万出售股权增值免税额. 对于由加拿大人控股的私人企业, 当股东以转让股权的方式卖出生意时, 盈利可有五十万不需缴一分钱税（需满足一些条件）. 而自雇者出售生意时, 增值要与个人其它收入加在一起纳税.
+
+同任何事务一样, 有利就有其弊. 在成立公司时也要认真考虑有限公司的缺点. 有限公司作为一个独立的实体, 税务上是与个人完全分开的, 因此公司的亏损不能用于抵减个人的其它收入, 而只可以留到今后公司盈利时使用. 另外, 有限公司的律师, 会计师费用也比较贵, 如果一开始拿不出这些费用, 也应认真考虑
+
 作为一个老板，在生意步入正轨，现金流也健康稳定的情况下，可以考虑成立公司了。
 
 > 为什么成立公司？例子：李先生是一位商业咨询顾问。在创业的最初两年，他采用的是个体经营的形式，所有的生意收入作为个人所得缴纳个人所得税。在第三年，李先生赢得了一些大客户，他的生意收入增长了250%。在次年报个人所得税的时候，李先生才惊讶地得知，如果自己在第三年年初的时候成立公司，将第三年的生意收入放进公司申报公司所得税，而不是个人所得税，可以省下近$40,000的所得税款。
@@ -245,44 +333,6 @@ Corporation包括几种命名方式，：
 注册自己的HST号码后，你可以选择快速方法来报告您收集到的税金。这种方法主要有利于提供服务的自由职业者，因为它将简化你在缴交时的手续。普通的小企业则可能需要沿用传统的方法来使他们的信用最大化。
 
 另外请注意，如果你在一年内的税金超过3千元，CRA将会开始要求你每季度缴纳税款。
-
-## 注册手续
-注册手续一般分为查名、准备申请表格和章程(Articles)、向政府提交申请、领取注册文件等几个步骤。假如找公司帮忙申请，2天能完成，包括name search, 所有的paperwork手续都能够完成了。大概300~400左右，含律师费。如果不需要name search，1天完成
-
-1. Step 1: Name your corporation at [here](https://corporationscanada.ic.gc.ca/eic/site/cd-dgc.nsf/eng/h_cs03922.html)
-
-1. Step 2: Complete articles of incorporation. This step establishes the structure of your corporation. 
-
-	You can apply to change the structure of your corporation once you are operating. Your articles of incorporation will need to be signed by the incorporator(s). If an incorporator is a company or other incorporated body, the articles must be signed by an individual authorized by that body. You can file your articles of incorporation through the [Online Filing Centre](https://www.ic.gc.ca/app/scr/cc/CorporationsCanada/index.html?lang=eng).
-
-	To incorporate, you need to state:
-	
-	1. your proposed corporate name
-	1. your corporation’s province or territory in Canada
-	1. your share structure and any restrictions on share transfers (see The share structure of your corporation)
-	1. your corporation’s number of directors
-	1. any restrictions you might want to set for your business or business activities
-	1. any other provisions (See Item 7: Other provisions, if any).
-
-1. Step 3: Establishing the initial registered office address and first board of directors
-	
-	When you incorporate, you need to state:
-	
-	1. your proposed corporate name
-	1. 	the street address of your corporation’s registered office in Canada (include a mailing address if you would like to receive unofficial documents at different address). The registered office address is where you must keep your corporate records and where official documents will be served on the corporation. 
-	1. 	the first name, last name and address of each director (indicate whether or not each director is a resident Canadian). Make sure the directors meet the eligibility requirements (See Director requirements). Information about directors is corporate information, and as such, is required to be made public.
-
-1. Step 4: Filing the appropriate forms and paying the fee
-
-	Corporations Canada offers several methods of filing (see [How do I file my application under the Canada Business Corporations Act (CBCA)?](https://corporationscanada.ic.gc.ca/eic/site/cd-dgc.nsf/eng/cs05097.html)). Your request for a certificate of incorporation, sent to Corporations Canada, must also include the filing fee.
-
-1. Step 5: Processing your application
-
-	Corporations Canada will make sure your articles of incorporation have been properly completed and that the proposed name is acceptable. An application is complete if:
-
-	1. it includes all necessary documents
-	1. the forms are complete and signed, and
-	1. the fee is included.
 
 ## Manage corporation
 ### Management team
@@ -305,7 +355,6 @@ Once you have received your certificate of incorporation, you need to start keep
 - A copy of any forms filled with the government
 - A copy of any unanimous shareholder agreement
 
-
 ## federal vs. provincial incorporation
 如果决定incorporate，我们必须在federal或provincial中选一种
 
@@ -314,11 +363,27 @@ Once you have received your certificate of incorporation, you need to start keep
 ## 公司报税
 1. 公司必须在年末后6个月内报税，哪怕你没有收入或不欠税。公司年末不一定是12月31日，可以有选择的（一年不超过53周，定了后就不能随便改了）。公司必须有完整的财务报表，并附上众多的schedules to the T2 return。
 
+1. 如果注册了有限公司, 公司暂时尚未运作, 或无收入, 你也必须报税, 以便申报费用和亏损作为将来抵冲收入之用.
+	> 好多有限公司注册后尚未正常运行, 也无收入, 或收入无几. 如果公司不报税, 安省政府会通知公司报税. 公司如果置之不理, 最后的结果是, 公司被注销, 董事也可能会被追讨欠款.
+
 1. 可抵费用： 按税法第18章，符合会计准则，为生意而开支，非个人的合理费用都能抵，如广告费，差旅费，公司汽车费，办公费等。个人汽车可以不放入公司，里程费用可按前5000公里每公里$0.54, 超出部分每公里0.48向公司报销。
 
 1. 不可抵费用：高尔夫会费，CRA滞纳金，交际应酬的50%，汽车利息和租赁费超额部分等。
 
 1. 开公司的延税效应十分明显但操作复杂，所以一定要找靠谱的特许会计师好好咨询，并帮您做好每年合理的公司和个人总体税务规划。
+
+1. 如果你经营的是有限公司, 不管是联邦还是省辖公司, 必须按公司的财政年度报税. 公司必须在第一年选好财政年度. 第一年自注册之日起不得超过53周, 以后的财政年度即为12个月. 有限公司的报税截止期为财政年度结束后6个月之内. 但如果公司要缴税, 则必须在2个月内缴纳. 由加拿大股东控股的私营有限公司则可在3个月内缴纳税款.
+
+1. 此外, 不管经营什么生意, 只要给雇员发了工资, 你必须在2月之前向税局申报T4, 并向雇员发放T4, 以便雇员及时申报个人所得税.
+
+1. 小型企业减税额是一项税务优惠, 减税额度为头三十万净收入的16%. 符合减税条件的公司必须是由加拿大人占控股的私人企业, 所从事的生意应是赚取活动性盈利 （Active business income）. 要想利用这项税务优惠, 成立公司时就要让自己的公司符合条件. 股东之中如果有非加拿大人的话, 非加拿大人若占有大部分股份, 公司将失去这项税务优惠.
+
+1. 公司成立是以一个股东好, 还是多几个家庭成员做股东好？ 
+	> 从税务的角度来考虑, 让家庭成员做股东具有分散收入的效果. 作为股东就可以领取股息, 非股东的家庭成员在为公司工作时, 可以领取工资, 但不可以拿股息. 股息与工资表面上看都属于收入, 税务上却有很多不同之处. 工资可以从公司的经营成本中扣除, 领取工资的个人则申报工资收入缴纳个人税, 公司及个人都要缴纳政府退休计划（CPP）供款, 也有可能须缴纳失业保险（EI）. 领取工资的个人可以有RRSP供款额, 而领取股息的个人则没有RRSP供款额, 股息是公司的税后分配, 但个人申报股息时收入时税率相对低很多.
+
+	> （工资税+CPP） v.s. （公司税+红利税），哪个低选哪个，注意这里的CPP是个人和公司的总和，也就是双倍，目前是9.4%，相信会逐年提高。但是有一个问题，发工资比较机动，可以给低收入的股东发，高收入的股东不发；但是分红的话，是不是要所有的股份一视同仁呢？如果可能的话，给父母股东发工资的时候同时考虑供养免税额（Caregiver Amount）
+
+	> 如果你要供养与你同住的兄弟姐妹、侄儿、外甥、叔伯婶母、或65岁以上的父母和祖父母，而他们去年的全年收入不足18534元，你可以用这个免税额。这个免税额与供养残疾人士免税额的不同之处是，被供养人必须在2009年里曾经与你同住。
 
 ## 工资 VS 分红（ Salary Versus Dividends）
 在加拿大，作为小生意（有限公司）的股东，从公司获得合法收入的途径只有两种：工薪或者分红。常常有人问这两种方法哪种会最小化企业和个人的应缴税最大化个人的税后所得，其实我们如果仔细分析这两种方法的具体征税额和税后所得，就会发现不管是以分红还是以工资奖金的形式发放，两种方法的税后所得相差无几，这个就是税务体系里的Integration Model.
