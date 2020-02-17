@@ -68,24 +68,23 @@ Any method from any accessible class or struct that matches the delegate type ca
 
 	Syntax:
 
-	[delegate_name]  [instance_name] = new [delegate_name](calling_method_name);
+	`[delegate_name]  [instance_name] = new [delegate_name](calling_method_name);`
 
 	e.g.
 
-	operation opt = new operation(Add);
-       // here,
-       // "operation" is delegate name. 
-       // "opt" is instance_name
-       // "Add" is the calling method, can be static method or instance method
+		operation opt = new operation(Add);
+	       // here,
+	       // "operation" is delegate name. 
+	       // "opt" is instance_name
+	       // "Add" is the calling method, can be static method or instance method
 
 3. Make a method call to the delegate object and pass parameters to the delegated method, also receive the return value. 
 
 	e.g.
 
-	vare returnValue = opt.Add(val1, val2);
+		var returnValue = opt.Add(val1, val2);
 
 ## Demo
-	// C# program to illustrate the use of Delegates 
 	using System; 
 	namespace GeeksForGeeks { 
 	      
@@ -147,7 +146,7 @@ Output:
 
 # More
 ## Multicasting
-Multicasting of delegate is an extension of the normal delegate(sometimes termed as Single Cast Delegate). It helps the user to point more than one method in a single call.
+Multicasting of delegate is an extension of the normal delegate(Single Cast Delegate). It helps the user to point more than one method in a single call.
 
 1. Delegates are combined and when you call a delegate then a complete list of methods is called.
 1. All methods are called in First in First Out(FIFO) order.
@@ -223,7 +222,38 @@ Output:
 	Area is: 167.89
 	Perimeter is: 53.2
 
+## Delegate vs. Interface
+Both delegates and interfaces enable a class designer to separate type declarations and implementation. An interface reference or a delegate can be used by an object that has no knowledge of the class that implements the interface or delegate method. 
+
+- A given interface can be inherited and implemented by any class or struct. 
+- A delegate can be created for a method on any class, as long as the method fits the method signature for the delegate. 
+
+Use a delegate in the following circumstances:
+
+- An `eventing design pattern` is used. It provides a way which tells which method is to be called when an event is triggered.
+- It is desirable to encapsulate a `static method`. Interface has to be applied to instances of class.
+- The caller has no need to access other properties, methods, or interfaces on the object implementing the method.
+- Easy composition is desired. i.e. multicasting 
+- A class may need more than one `implementation of the method`.
+
+Use an interface in the following circumstances:
+
+- There is a group of related methods that may be called.
+- A class only needs one implementation of the method.
+- The class using the interface will want to cast that interface to other interface or class types.
+- The method being implemented is linked to the type or identity of the class: for example, comparison methods.
+
+一般来说，delegate 和 interface都可以实现行为定义与行为实现的分离，碰到问题时，应该使用delegate 还是 interface？
+
+1. comparasion table
+
+	![](/images/posts/20200214-delegate-1.png)
+
+1. 如果行为的实现是基于对象的，也就是说，是对象自带的行为，用interface+class结构，会更清晰；如果是因为某个event动态触发的行为，用delegate+method，会更灵活。e.g.  `IComparable` or the generic version, `IComparable<T>`. IComparable declares the CompareTo method, which returns an integer that specifies a less than, equal to, or greater than relationship between two objects of the same type. IComparable can be used as the basis of a sort algorithm. Although using a delegate comparison method as the basis of a sort algorithm would be valid, it is not ideal. Because the ability to compare belongs to the class and the comparison algorithm does not change at run time, a single-method interface is ideal.
+	> 这个例子中，interface 与delegate 都可以使用，但是“比较”这个行为，通常是对象自身具备的一个行为，因此用interface更合适
 
 
 # References #
 [Delegates (C# Programming Guide)](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/delegates/)
+
+[When to Use Delegates Instead of Interfaces (C# Programming Guide)](https://docs.microsoft.com/en-ca/previous-versions/visualstudio/visual-studio-2010/ms173173(v=vs.100))
