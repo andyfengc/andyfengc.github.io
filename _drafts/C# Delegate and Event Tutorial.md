@@ -12,7 +12,7 @@ Delegate type can be declared using the `delegate` keyword. Once a delegate is d
 
 e.g.
 
-	public delegate int Calcule(int x, int y);
+	public delegate int Calculate(int x, int y);
 
 Any method from any accessible class or struct that matches the delegate type can be assigned to the delegate. The method can be either static or an instance method. This makes it possible to programmatically change method calls, and also plug new code into existing classes.
 
@@ -20,6 +20,7 @@ Any method from any accessible class or struct that matches the delegate type ca
 1. Delegates are type-safe, object-oriented and secure.
 
 	> Delegates are type-safe pointer of any method. 
+	> Delegates can point to either static or instance methods.
 
 1. Delegates in C# are similar to the function pointer in C/C++, but delegates are fully object-oriented, and unlike C++ pointers to member functions, delegates encapsulate both an object instance and a method. It provides a way which tells which method is to be called when an event is triggered.
 
@@ -82,7 +83,7 @@ Any method from any accessible class or struct that matches the delegate type ca
 
 	e.g.
 
-		var returnValue = opt.Add(val1, val2);
+		var returnValue = opt(val1, val2);
 
 ## Demo
 	using System; 
@@ -222,6 +223,70 @@ Output:
 	Area is: 167.89
 	Perimeter is: 53.2
 
+## event
+Events enable a class or object to notify other classes or objects when something of interest occurs. 
+
+- The class that sends (or raises) the event is called the publisher 
+- The classes that receive (or handle) the event are called subscribers.
+
+The `event` keyword in C# is used to declare an event in a publisher class. `event` in C# is a type of Delegate, which means that if one wants to use Event, then one must define delegate first.
+
+e.g. 
+
+void Main()
+{
+	var publisher = new EventProgram();
+	publisher.Test();
+}
+
+// Define other methods, classes and namespaces here
+public delegate string MyDel(string str);
+	
+   public class EventProgram {
+      MyDel MyEvent;
+	  //event MyDel MyEvent; // that's the same
+		
+      public EventProgram() {
+         this.MyEvent += new MyDel(this.WelcomeUser);
+      }
+      public string WelcomeUser(string username) {
+         return "Welcome " + username;
+      }
+      public void Test() {
+         EventProgram obj1 = new EventProgram();
+         string result = obj1.MyEvent("Tutorials Point");
+         Console.WriteLine(result);
+      }
+   }
+
+As we can see, use `event` or not is the same, `event` is a type of Delegate.
+
+> An Event declaration adds a layer of abstraction and protection on the delegate instance. This protection prevents clients of the delegate from resetting the delegate and its invocation list and only allows adding(+) or removing(-) targets from the invocation list.
+
+A common senario is when a button is clicked in the UI. Events are very useful to create notifications. 
+
+e.g.
+
+	public class EventTest {     
+	    public delegate void Print(string val);     
+	    public event Print PrintEvent;   
+	    public EventTest()     {         
+	      this.PrintEvent += PrintData;        
+	      this.PrintEvent += PrintValue;     
+	      }
+	    public virtual void OnPrintEvent()     {         
+	      if (PrintEvent != null)             
+	        PrintEvent("Test");     
+	        }       
+	      private void PrintData(string s)     {         
+	        Console.WriteLine("PrintData" + s);     
+	        }       
+	      public void PrintValue(string s)     
+	      {         
+	        Console.WriteLine("PrintValue" + s);     } 
+	      }
+	}
+
 ## Delegate vs. Interface
 Both delegates and interfaces enable a class designer to separate type declarations and implementation. An interface reference or a delegate can be used by an object that has no knowledge of the class that implements the interface or delegate method. 
 
@@ -249,11 +314,32 @@ Use an interface in the following circumstances:
 
 	![](/images/posts/20200214-delegate-1.png)
 
-1. 如果行为的实现是基于对象的，也就是说，是对象自带的行为，用interface+class结构，会更清晰；如果是因为某个event动态触发的行为，用delegate+method，会更灵活。e.g.  `IComparable` or the generic version, `IComparable<T>`. IComparable declares the CompareTo method, which returns an integer that specifies a less than, equal to, or greater than relationship between two objects of the same type. IComparable can be used as the basis of a sort algorithm. Although using a delegate comparison method as the basis of a sort algorithm would be valid, it is not ideal. Because the ability to compare belongs to the class and the comparison algorithm does not change at run time, a single-method interface is ideal.
+1. 如果行为的实现是基于对象的，也就是说，是对象自带的行为，用interface+class结构，会更清晰；如果是因为某个event动态触发的行为，用delegate+method，会更灵活。
+
+	e.g.  `IComparable` or the generic version, `IComparable<T>`. IComparable declares the CompareTo method, which returns an integer that specifies a less than, equal to, or greater than relationship between two objects of the same type. IComparable can be used as the basis of a sort algorithm. Although using a delegate comparison method as the basis of a sort algorithm would be valid, it is not ideal. Because the ability to compare belongs to the class and the comparison algorithm does not change at run time, a single-method interface is ideal.
+
 	> 这个例子中，interface 与delegate 都可以使用，但是“比较”这个行为，通常是对象自身具备的一个行为，因此用interface更合适
 
+1. Delegates can, indeed, be seen as interfaces/contracts for a single method and are thus similar to interfaces. If we just need a simple anonymous method, using delegate is more brief and interface is kind of messy.
+
+	e.g. use delegate
+
+		var item = myList.FindBySelector(new SelectorDelegate(item => item.IsTheOne));
+
+	vs. use interface
+	
+		Item item = myList.FindBySelector(new ISelector () 
+		{
+		   @Override
+		   public boolean apply(Item item) 
+		   {
+		       return item.IsTheOne;
+		   }
+		});
 
 # References #
 [Delegates (C# Programming Guide)](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/delegates/)
 
 [When to Use Delegates Instead of Interfaces (C# Programming Guide)](https://docs.microsoft.com/en-ca/previous-versions/visualstudio/visual-studio-2010/ms173173(v=vs.100))
+
+[Delegates And Interface Overview](https://www.c-sharpcorner.com/UploadFile/1c8574/delegates-interface-discussion/)

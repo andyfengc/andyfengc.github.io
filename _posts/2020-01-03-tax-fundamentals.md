@@ -29,7 +29,7 @@ author: Andy Feng
 ## 常见税务包括哪些
 税务主要指所得税（含个人、公司、信托）、销售税、地税，由CRA管理。个人交税主要指所得税
 
-1. 所得税
+1. 所得税Income Tax
 
 	[所得税(Income tax)](https://www.canada.ca/en/services/taxes/income-tax.html) 分如下种类：
 	
@@ -41,7 +41,9 @@ author: Andy Feng
 	
 	税务局可以追溯6年
 
-1. 加拿大销售税可以分为三大类：
+1. Goods and services tax/Harmonized sales tax (GST/HST)（消费税）
+
+	加拿大销售税可以分为三大类：
 
 	1. 联邦政府的商品及服务税，又称货劳税（英语：Goods and Services Tax，GST；法语：Taxe sur les produits et services，TPS），
 	1. 省级的省销售税（英语：Provincial Sales Tax，PST），
@@ -102,6 +104,11 @@ author: Andy Feng
 
 加拿大个人所得税规定报税截止日期一般为每年的4月30日午夜12：00，如果你或你的配偶在上一个税务年度有自雇收入， 报税截止日将为6月15日午夜，但是如果你需要当年补缴税款，则必须在报税截止日4月30日午夜12：00付寄， 以防止推迟报税而引起的罚款和利息。迟交税表会被罚款，数额是你的欠款的5%。另外，每迟一个月，将会被追加罚款，数额是你的欠款的1%，可以罚足12个月。如果你没有足够的钱付税的话，你要首先将税表寄出去，保证不被罚款，同时附上一封信说明你不能付款的原因。
 
+对于本年度的逝者：报税截止时间为以下两者中较迟的那一天：
+
+1. 去世日后六个月；
+2. 4月30日（对死者或其配偶在上一个税务年度有自雇收入的为6月15日）。
+
 ## 不交税，超期交税，补交税怎么办？
 若需补缴税款，必须在4月30日报税截止日前付寄，以防止推迟报税而引起的罚款和利息。税表的邮寄以邮戳为准。不交或迟交报税表，不申报纳税收入，迟交或少交该付税金都将面临罚款和交纳利息。
 
@@ -144,9 +151,33 @@ author: Andy Feng
 4. 没有收到报税的要求
 
 ## 报税内容
-税表由主表和许多辅表构成。主表 T1 return（联邦）+ ON428（省） + 若干辅表
+税表由主表和许多辅表构成。主表 T1 return（联邦）+ ON428 Tax/ON479 Credit（省） + 若干辅表
 
-## T1
+> 对于受雇人士employee，辅表譬如T1 Schedule 1(Federal Tax)、T1 Schedule 5(Depedent)、T1 Schedule 6 (Working Income Tax Benefit)、等
+> 对于自雇人士self-employed，除了要附上受雇人士的那些表格外，还需完成 T1 Schedule 8 (CPP Contributions)等和表T2125(Statement of Business or Professional Activities)，将表T2125中的毛收入（Gross Income）和净收入（Net Income）数值填入T1主表总收入（Total income）里的自雇毛收入和净收入栏。
+> 有的单子，比如T4，T4A，T3，T5可能都要二月份才能收到。所以大部分人报税通常是二月底三月初才真的开始。
+
+常见报税表格：
+
+> T3：Trust Income -> T1
+> 
+> T4 Employment Income 工资收入 -> T1 / Schedule 1
+> 
+> T4A Pension Income/Self-Employed Commissions 兼职收入、佣金 -> T1
+> 
+> T5 Investment income 投资收入、利息 -> T1 / Schedule 4 / T936
+> 
+> T2202A 学费和教育 tuition and education receipts -> T1 / Schedule 11
+> 
+> Schedule 2 Transfer from Spouse -> T1
+> 
+> Schedule 6 Working Income Tax Benefit -> T1
+> 
+> Schedule 7 RRSP contribution -> T1
+> 
+> Schedule 9 Donation -> T1 / Schedule 1
+
+## T1 Income Tax and Benefit Return
 T1表样
 
 ![](/images/posts/20200110-tax-5.png)
@@ -161,9 +192,9 @@ T1表样
 
 		第一部分，身份。姓名，住址，社会保险号（SIN），生日，婚姻状况以及配偶的社会保险号。新移民到达加拿大的日期，是否申请GST退税，是否有海外资产等。
 		
-		第二部分，总收入。包括职业收入，退休金，利息，出租房子，工伤补贴等一切收入。
+		第二部分，总收入。包括职业收入，小费收入，退休金，投资收益，利息，出租收入，自雇收入，工伤补贴，社会福利等一切收入。line 150
 		
-		第三部分，净收入。你的钱用在某些方面可以免征所得税。 比如注册退休储蓄计划，工会费，托儿费，投资损失，用于工作和学习的搬家费等。总收入减去上述费用得出净收入。
+		第三部分，净收入。你的钱用在某些方面可以免征所得税。 比如注册退休储蓄计划RRSP, 工会费，托儿费Child Care，投资损失Busines Investment Loss，用于工作和学习的搬家费等。总收入减去上述费用得出净收入net income。line 236
 		
 		第四部分，需交税的收入。净收入减去投资损失等项目。
 		
@@ -173,28 +204,47 @@ T1表样
 		
 		第七部分，你的开户银行账号，退税款将直接打入你的银行账户。
 
-1. 以BC省为例：受雇人士一般还要附上：T1 Schedule 1(Federal Tax)、T1 Schedule 6 (Working Income Tax Benefit)、BC428 (BC Tax)、BC479 (BC Credits)等表。
+1. 在T1表的最后，会算出金额，或是退税(REFUND)，或是补税(OWING)。
 
-1. 自雇人士除了要附上受雇人士的那些表格外，还需完成T1 Schedule 8 (CPP Contributions)等和表T2125(Statement of Business or Professional Activities)，将表T2125中的毛收入（Gross Income）和净收入（Net Income）数值填入T1主表总收入（Total income）里的自雇毛收入和净收入栏。
+计算过程：
 
 1. 总收入(Total income Line 150): 这是我们在这一个税务年度中所有挣得的收入的总和，包括：
 
-	打工收入，佣金收入，生意收入，退休收入，投资收入，租金收入，应纳税的资本增值收入，CPP和QPP福利，老年金，EI和其他福利，RRSP收入等等
+	打工收入，佣金收入，小费收入，生意收入，CPP/OAS退休收入，投资收入，租金收入，应纳税的资本增值收入，CPP和QPP福利，老年金，EI和其他福利，RRSP收入等等
 
 1. 净收入(Net income Line 236):从总收入中减去RRSP抵扣额，工会会费，小孩看护费，搬家费，利息支出，生意投资损失以及其它打工费用等，就得到“净收入”。净收入，在税务上是一个很重要的数字，因为绝大部分的政府福利，都是由你的家庭净收入决定的。所以说，即使你的总收入较高，你可以通过购买大额的RRSP而把你的净收入有效的降下来，这样你不但少交了当年的所得税，而且还增加了你的政府福利。
 
-1. 应纳税收入(Taxable income):从“净收入”中减掉以下一些科目，就可以得到“应纳税收入”了。常见的科目有：其他年份的有限合伙人亏损，其它年份的非资本亏损，其它年份的净资本亏损，资本增值抵扣额等。
+1. 应纳税收入(Taxable income line 260):从“净收入”中减掉以下一些科目，就可以得到“应纳税收入”了。常见的科目有：其他年份的有限合伙人亏损，其它年份的非资本亏损，其它年份的净资本亏损，资本增值抵扣额等，得到Taxable Income。
 
 1. 公式
 
 	`税前总收入(Total Income) - deductions = 税前净收入 (Net Income) - capital loss = 应税收入（Taxable income Line 260）`
 
+1. 利用Schedule 1计算出政府给的各种 Credit，主要包括Persoanl Amount,Amount for Child, CPP/EL, Tuition and Education等，将这些数额加起来后乘以 15%，得出的就是相应的钱数，可以用于减少税额；Line 338。再减掉 Donations and Gifits，得出总的Credit钱数；Line 350
+
+1. 利用Taxable Income和联邦税率表，根据收入的多少计算出该交的税额；Line 340
+
+1. 将应税数额Line 340减掉credit line 350, 以及其他一些Credit得出总的联邦税，注意，如果这个数是负的话只能算为 0，这也就是所谓Non-Refundable Credit的意思；Line 429
+
+1. 再计算一些联邦Refund Credit，得出真正该交的联邦税（Line 420);
+
+1. 利用省税表（ON428/BC428/AB428）,计算出省税，算法和前面的差不多；
+
+1. 将联邦税和省税价在一起就是该年度该交的总税额 (line 435)；
+
+1. 是将该年度一共已经交过（在工资单里被扣掉）的所有税额 （Line 437）；加上CPP/EL Over contribution，WITB等，算在一起成为 Total Credits (Line 482);
+
+1. 这个数额与LINE 435相减，为正的话就是该交的钱，为负的话就是政府退的钱数。
+
+## 税率
 1. 边际税率(Marginal tax rate)。加拿大实行的是累进税制，也就是说，收入由低到高被分成不同的区间，越往上的区间，税率越高。所谓的边际税率，就是你挣的下一块钱需要纳税的比率，也就等同于你目前所在区间的税率。举个例子说，你是安省居民，2014年，你的应纳税收入是$75,000, 你就处在$70,651 - $80,242这个区间，那么你的边际税率是32.98%。也就是说，如果你在目前的收入基础上每多挣一块钱，你需要交纳$0.3298的税。
 
 1. 实际税率(Effective tax rate)，是你的应纳税额占你的应纳税收入的比率，即，应纳税额/应纳税收入=实际税率。还是延用上面的例子，你2014年有$75,000的应纳税收入，通过计算并累加各个区间的税款，你实际应该交的税款总额是$16,561，那么你的实际税率是$16,561/$75,000 = 22.08% . 换句话说，实际税率计算的是你的“平均税率”。
 
 ## 其他税表
-### 应税收入及相应T表
+### 应税收入及相应表格
+
+1. T1: General Return，网上或邮寄给税务局的必须的表格；
 
 1. T2:公司税。incorporate必须报这个
 
@@ -202,19 +252,53 @@ T1表样
 
 1. T4: Employment Income, 去年你为之工作的雇主提供一年的收入报告并寄给你
 
-1. T2200：如需要申报employment expenses, 需提供雇主签字的T2200表，并整理汇总所有要申报的费用收据，出租房屋的租金收入凭证。和T4配套使用
+1. T4A: Pension Income/Self-Employed Commissions；雇主给（含有提成或者分红）commission or bonus 员工的收入报告
 
 1. T4E：去年领取EI就会收到这张表
 
 1. T4RSP：从RRSP帐户取款，就会有这张表
 
-1. T4A: Pension Income/Self-Employed Commissions；（雇主给（含有提成或者分红）commission or bonus 员工的收入报告）
-
 1. T4A（OAS）和T4A（P）：领老年金和退休金得到的表
 
 1. T5: Investment income。收到股票股息或银行存款利息， 利息在50元以下可能没有这张表，但仍需报利息收入
 
+1. T2200：如需要申报employment expenses, 需提供雇主签字的T2200表，并整理汇总所有要申报的费用收据，出租房屋的租金收入凭证。和T4配套使用
+
 1. T5007：收到劳工赔偿金或社会福利金
+
+1. ON428/AB428:用于计算省税
+
+1. Schedule 1: Federal Tax;
+
+1. Schedule 2: Federal Amount Transfer from Spouse;
+
+1. Schedule 3: Capital Gains (losses);
+
+1. Schedule 4: Statement of Investment Income;
+
+1. Schedule 5: Details of Dependant;
+
+1. Schedule 6: 申请Working Income Tax Benefit (WITB)低收入福利 
+
+1. Schedule 7: RRSP Unused Contribution, Transfer, HBP, LLP details; hbp和llp计划还到RRSP中需要填写
+
+1. Schedule 8: CPP Contrbution on Self-employment;
+
+1. Schedule 9: Donations and Gifts;
+
+1. Schedule 10: Tuition and Education.
+
+1. Schedule 11 - Tuition, Education, and Textbook Amounts
+
+1. Schedule 12 - Home Renovation Expenses
+
+1. Form ON428 - Ontario Tax
+
+1. Form ON479 - Ontario Credits and Senior Homeowners' Property Tax Grant  这个包括交房租低收入可退税的表
+
+1. Schedule ON(S2) - Provincial Amounts Transferred From Your Spouse or Common-law Partner
+
+1. Schedule ON(S11) - Provincial Tuition and Education Amounts
 
 ### 可抵扣的支出及相应凭证：
 T2202A：本人、配偶和子女全日制或半日制上学的学费和书本费，及子女上私立中小学的费用
@@ -295,27 +379,22 @@ T2202A：本人、配偶和子女全日制或半日制上学的学费和书本�
 	> 房屋地址
 	> 
 	> 地税Property tax
-	>
-	> 管理费（CONDO或townhouse）
+	> 
+	> 管理行政费用Management and administration fees。物业管理费Maintenance（CONDO或townhouse）、出租中介费、出租公司管理费，都可以抵扣租金收入
+	>  
+	> 物业维修保养费用 Maintenance and repairs，这里的费用包括人工与材料，但是业主自己的人工费用不能计算在内
+	> 
+ 	> 工资及福利支出Salaries, wages, and benefits ，如果业主有聘请员工来管理或维修出租物业，工资支出可以用来抵扣收入，但是业主不能给自己开工资
 	> 
 	> 保险费Insurance。这里要注意的是，如果您的保险是每年一付而保险生效期不是由1月1日开始的话，则只能减掉属于当前日历年的那部分保险费用
 	> 
-	> 物业维修保养费用 Maintenance and repairs，这里的费用包括人工与材料，但是业主自己的人工费用不能计算在内
-	> 
-	> 管理行政费用Management and administration fees。物业管理费、出租中介费、出租公司管理费，都可以抵扣租金收入
-	> 
 	> 广告费Advertising 
-	> 
 	> 
 	> 办公费用Office expenses 
 	> 
 	> 利息和银行费用 Interest & Bank Charges。用来购买或者装修物业的贷款利息支出可以用来抵扣收入。在申请贷款过程中所产生的相关费用，例如评估费，保险证明，中介费等，这部分费用可以分5年去扣减（每年20%）。有些出租物业会在归还租金保证金的时候加上利息，这部份的利息支出也可以用作抵扣收入 
 	> 
-	> 汽车费用Motor vehicle expenses，这部分的费用需要满足一定的条件才能用来抵扣收入，CRA对这个比较敏感，若非必要（譬如房子多，租期短，租客问题多，而且离自己家较远，没车就没法管理），否则就不要报这个费用。当业主只拥有一处出租物业的时候，以下三个条件必须全部满足：1）出租物业与业主居所在同一个区域；2）出租物业的维修和保养大部分或全部由业主负责；3）由因运输工具和材料而产生的汽车费用。当只拥有一处出租物业的情况下，因收租而产生的汽车费用不能进行抵扣收入。当业主拥有两处或以上并且处于至少两个不同的地点的物业的情况下，因收租，监管维修或管理租务所产生的汽车费用可以用来抵扣收入
-	> 
-	> 专业服务费用，譬如律师费Legal、会计费用accounting、佣金, and other professional fees 等
-	> 
- 	> 工资及福利支出Salaries, wages, and benefits ，如果业主有聘请员工来管理或维修出租物业，工资支出可以用来抵扣收入，但是业主不能给自己开工资
+	> 专业服务费用Legal, accounting, and other professional fees，譬如律师费、会计费用、佣金等
 	> 
 	> 差旅费Travel，因收租，监管维修或管理租务所产生的旅行费用（包括从家里出发到达出租物业所产生的旅费）可以用来抵扣收入，标准与汽车相关费用一样，但是住宿费不能用来抵扣。
 	> 
@@ -324,6 +403,9 @@ T2202A：本人、配偶和子女全日制或半日制上学的学费和书本�
 	> 其他开支Other expenses 。其他与房屋出租相关的费用，如清洁费、园艺管理，剪草（house）、公寓物业管理费，以及家庭办公室费用都可以用来抵扣收入
 	> 
 	> 房屋的折旧 Capital Cost Allowance 也能用于抵扣租金收入，但是不建议使用，因为将来卖房时候还要算回来
+	> 
+	> 汽车费用Motor vehicle expenses，这部分的费用需要满足一定的条件才能用来抵扣收入，CRA对这个比较敏感，若非必要（譬如房子多，租期短，租客问题多，而且离自己家较远，没车就没法管理），否则就不要报这个费用。当业主只拥有一处出租物业的时候，以下三个条件必须全部满足：1）出租物业与业主居所在同一个区域；2）出租物业的维修和保养大部分或全部由业主负责；3）由因运输工具和材料而产生的汽车费用。当只拥有一处出租物业的情况下，因收租而产生的汽车费用不能进行抵扣收入。当业主拥有两处或以上并且处于至少两个不同的地点的物业的情况下，因收租，监管维修或管理租务所产生的汽车费用可以用来抵扣收入
+	> 
 
 1. 自雇人士或者有生意收入者，汇总整理所有收入及支出凭证（营业项目、地址、收支单据、收支损益表）。自雇者的餐费、油费、礼品费
 
@@ -340,7 +422,7 @@ T2202A：本人、配偶和子女全日制或半日制上学的学费和书本�
 
 1. 各类捐款（慈善捐款、政治捐款、教堂奉献）的收据（指有政府注册号码的正式收据）Charitable donation receipts
 
-	> 慈善捐款的新要求，即捐款收据一定要有税号(tax shelter number)
+	> 2003年起，慈善捐款要求捐款收据一定要有税号(tax shelter number)
 
 1. 投资支出和损失loss，例如保险箱花费收据Receipts for safety deposit box charges，利息开销Interest expenses
 
@@ -393,6 +475,8 @@ T2202A：本人、配偶和子女全日制或半日制上学的学费和书本�
 - 往年累计的生意亏损 (Partnership & Non-capital losses)
 
 - 资产买卖亏损 (Capital losses)
+
+- CPP供款是“不退税的税收抵免”，对供款额的增加部分实行“免税”（deduction），而不是“抵税”（credit）。
 
 ## Tax credit
 `Tax Credit(税款信用额/税款抵减)`，指抵减应该交的税款，也就是说减少纳税，即从应交税中减去这部分再交税，即抵消个人的应缴税款。Tax credit有很多不同的免税项目，每个项目额度不同，每个符合条件的人，数目都一样。
@@ -515,7 +599,7 @@ T2202A：本人、配偶和子女全日制或半日制上学的学费和书本�
 > 所有的减税和免税项目，都有相关的使用条件，有些条件非常简单，直截了当，比如说基本个人免税额，只要你是个人，就可以享有，比如说长者免税额，只要年满65岁或以上就符合资格。然而，大部分的减税和免税项目，所需要的满足条件，都具有不同程度的复杂性，都需要我们花时间去好好理解和消化，并最终加以利用。
 > 譬如，学生的学费，学生贷款的利息，以及因为上学而产生的搬家费用，因为都可以留到以后的年份中使用，那在申报这些项目的时候就应该结合当前的收入以及对于将来收入的预期来一起考虑在什么时候申报并且申报多少数额是最合适的
 
-##tax credit vs tax deduction
+## tax deduction vs tax credit
 两者区别。`如果把收入变成一棵树的话，Tax Deductions是直接从树冠开始减，也就是说从最高税阶那部分开始减。Tax Deductions的多少是因人而异的，各不相同`。收入高的人通过Tax Deductions可以省下更多的税，因为他们的高收入，边际税率也更高，省的更多。`而Tax Credit则是从树根开始减，也就是说从最低税阶那部分开始减。Tax Credit的数额是政府规定的，每个符合条件的人拿到的税务优惠也是一样的（只不过有些credit有条件可能拿不到，能拿到的都是一样的）`。从退税角度来说，Tax Deductions会比Tax Credit要退回更大比例的税，因此政府不喜欢deduction。
 
 减税项目（Deduction），是直接降低应税收入；免税项目 (Tax Credits) 是用于抵消个人的应缴税款。
@@ -552,21 +636,10 @@ Divide就是通常所说的Income Splitting，分散收入，这个法则的原�
 
 政府的政策每年都在变，各种税务规划策略真的是且用且珍惜。有些策略，一旦执行就能立刻把税务减低；但更多的策略，则需要一段时间才能看到效果。税务规划，对于每个纳税人来说都很重要。如果完全不做，等到每年3/4月报税的时候再来头痛，就为时已晚了。
 
-## 常见福利政策
-医疗保险
-
-> 加拿大全民医保看病免费，但是不包括处方药，牙医，眼镜之类，这部分需要雇主给员工买补充保险。
-> 不少雇主给员工交这部分保险，很多人在有工作的情况下实际上是不花这笔钱的。
-> 即便有保险，买药看牙也需交少部分，保险cover大半如70~100%。自己看病花的那部分，能抵税
-
-儿童福利金
-> 儿童福利金是免税的收入，家庭收入在20万一年以下有孩子(18岁以下)的家庭都有，根据家庭收入多少和儿童年龄决定的，
-> 比如家庭收入3万，有两个6岁以下的孩子一个月有1000多，如果是两个6岁以上的则是900。又比如说家庭年收入15万，两个6岁以下一个月大约$250，6岁以上的话只有$100.
-
 ## 减免税项目
 加拿大个人所得税规定有些福利可以不需纳税：
 
-1. 雇主对员工注册养老金（CPP）的供款，员工将来领取养老金时需纳税。 
+1. 雇主对员工注册养老金（CPP）的供款，但员工将来领取养老金时需纳税。 
 1. 雇主为员工支付的团体疾病保险、意外保险、私人医疗服务计划保费等。若将来需要领取保险金才须纳税。 
 1. 雇主支付给员工的失业福利补贴（Supplementary unemployment benefit plan）及为员工支付的推延利润分享计划（Deferred profit-sharing plan）供款。
 加拿大个人所得税一般要求没有收入也要报税。只要你是加拿大的税务居民，没有收入也一样的需要报税。否则诸如GST/HST退税、房屋补贴、牛奶金补贴、医疗补助等就不能享受。
@@ -632,6 +705,8 @@ Divide就是通常所说的Income Splitting，分散收入，这个法则的原�
 10. 考虑使用电子报税早点拿到退税金，加拿大税局处理电子报税比普通纸张报税要快得多。电子报税处理时间大约是两周，而纸张报税是六到八周。今年你可以在家里的电脑上使用电子报税，如果你在去年退税时从税局拿到一个Netfile的号码的话。有Netfile号码还要使用特定的报税软件。即使你没有 Netfile号码，也可以通过一个付费的E-File Agent服务来进行电子报税。
  
 # 减税省税免税
+根据税法，所有的应税收入(Taxable Income)都要报税。纳税人有权利进行合理避税，即提高支出从而降低边际税率(Marginal Rate)，进而减少税款。
+
 高收入加拿大纳税人被分成三个级别
 
 1. 年收入在10万到14万9999加元
@@ -679,9 +754,15 @@ Divide就是通常所说的Income Splitting，分散收入，这个法则的原�
 
 	此外，如果使用同一车辆进行自用和商用的，一定要保留好汽车的使用里程记录 (Logbook)，作为以后CRA查税时判断自用与商用比例的证明依据。
 
+1. 开办无限公司，公司的各种费用可起到抵税的作用，与个人一并报税。相比而言，有限公司必须单独申报，并附有正式财务报表；
+
 1. 自雇运营支出 (Operational Supplies & Expenses)
 
 	与自雇商业相关的运营费用可以用来扣减自雇收入，如办公文具用品，商业保险，商业牌照登记费等。另外一些实用寿命较长的物品，如家具，电脑，手机等，虽然不可全额于产生的当年申报，但是可以作为资产申报每年的折旧。
+
+1. 自雇亏损 Business Losses
+
+	在自雇生意创办的头几年，有亏损是一个很常见也合理的事情。累计生意亏损可以用来帮助减低我们的应税收入。根据CRA的规定，从2005年开始，累计生意亏损可以用来减低之前3年或者之后20年的应税收入。
 
 1. 吃喝玩乐 (Meals & Entertainment)
 
@@ -704,10 +785,22 @@ Divide就是通常所说的Income Splitting，分散收入，这个法则的原�
 	对于一些由商业贷款而衍生的相关费用，如：申请费，评估费，处理费，保险费，贷款保证金，贷款中介费，以及相关法律费用，可以分开5年来申报。
 	
 	此外，如果商业贷款是用来购买一些有升值可能的固定资产，自雇人士也可以选择不将贷款利息作为费用申报，而是将这些利息加到所购买资产的成本价。这样做的好处是，将来卖掉这些固定资产的时候，会帮助减低需要支付的资产增值税。
-	
-1. 自雇亏损 Business Losses
 
-	在自雇生意创办的头几年，有亏损是一个很常见也合理的事情。累计生意亏损可以用来帮助减低我们的应税收入。根据CRA的规定，从2005年开始，累计生意亏损可以用来减低之前3年或者之后20年的应税收入。
+1. 用于专业人士收入而发生的相关费用；
+
+1. 为了工作或学习而支付的搬家费用(须超过40公里)；
+
+1. 托儿费；
+
+1. 老人看管小孩，可支付合理费用；
+
+1. 投资损失；
+
+1. 有海外收入的，可扣除海外相关费用；
+
+1. 申报房租收入时，发生的相关的费用，如水电、维修费、房屋保险等；
+
+1. 若在家办公，使用面积为25%，则可将家庭支出的25%计入抵税费用
 
 # 更改以前的报税
 有时候，在报税之后，又收到了新的收入单子或者捐款收据；或者有些减税项目，以前报税时候忘记了需要补报要回退税。这些情况需要更改以前的报税
@@ -779,3 +872,11 @@ Divide就是通常所说的Income Splitting，分散收入，这个法则的原�
 [夫妻之间](https://liveandleave.com/2018/05/21/tax-planning-2/)
 
 [可以抵扣房屋租金收入的相关费用](https://liveandleave.com/2018/02/20/2018-t1-tips-2/)
+
+[加拿大报税小知识](https://zhuanlan.zhihu.com/p/41184517)
+
+张进 [#1](https://blog.51.ca/u-101460/) [#2](http://www.jinzhang99.com/myblog) [#3](http://home.yorkbbs.ca/topiclist.aspx?spaceid=348504)
+
+Ryan Post [#1](http://torontorealtytalk.ca/) [#2](http://home.yorkbbs.ca/Topiclist.aspx?spaceid=502537) [#3](http://home.yorkbbs.ca/topiclist.aspx?spaceid=928641)
+
+[关于在加拿大捐款的知识](https://www.16safety.ca/page/%E5%85%B3%E4%BA%8E%E5%9C%A8%E5%8A%A0%E6%8B%BF%E5%A4%A7%E6%8D%90%E6%AC%BE%E7%9A%84%E7%9F%A5%E8%AF%86)

@@ -69,10 +69,6 @@ author: Andy Feng
 		10万年薪需交联邦税$19,594,省税$7,718,共$27,312；
 		15万年薪需交联邦税$33,122,省税$14,990,共$48,112.
 
-# 自雇
-
-# taxable vs. non-taxable
-
 # 税务居民和非税务居民
 报税之前首先要确定是否加拿大的税务居民, 因为居民与非居民在税务上及福利方面都完全不同.
 
@@ -81,6 +77,8 @@ author: Andy Feng
 	> 凡是在涉及到税务的文件里面出现residence一词, 我们就不应该仅仅将它理解为一般意义上的“居住”, 它是一个税务上的专用词汇, 是税务上的“居住”概念, 或者说是哪儿的税务居民的意思。判断属于哪里的税务居民基本上就是根据居住联系(Residential ties), 具体来说由以下几方面来考虑: 首先是您的居所, 配偶和需抚养的未成年的孩子; 其次是社会及财务的联系, 例如银行帐号, 信用卡, 医疗卡, 驾驶执照等等. 如果您在某年12月31日虽然在中国, 但是如果您的家, 配偶和孩子在温哥华, 并且您还有其它社会的和财务的联系在这里, 那么您属于BC省的税务居民, 您应该在这一栏填上BC省。
 	> 一般来说，在上一年度12月31日时，如果长住在哪个省份，第二年报税就在哪个省份报税
 
+# FAQ
+1. 公司如果提供车辆，低息贷款，停车场等都可能算为Company Benefits，需要申报的；但公司提供的学费，如果学习与工作有关的话，不算利益，不必申报。
 
 #References#
 [Canadian income tax rates for individuals - current and previous years](https://www.canada.ca/en/revenue-agency/services/tax/individuals/frequently-asked-questions-individuals/canadian-income-tax-rates-individuals-current-previous-years.html)

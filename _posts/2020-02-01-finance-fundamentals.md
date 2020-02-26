@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Tax - Invest
+title: Finance - Fundamentals
 author: Andy Feng
 ---
 
