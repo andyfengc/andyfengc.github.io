@@ -80,6 +80,9 @@ author: Andy Feng
 # FAQ
 1. 公司如果提供车辆，低息贷款，停车场等都可能算为Company Benefits，需要申报的；但公司提供的学费，如果学习与工作有关的话，不算利益，不必申报。
 
+1. T5 银行利息，是joint account，上面写两个人的名字，比如400的利息，是每人报200呢，还是一个人报400，另外一人不报?
+	税局的规定是，是按照各自存入的比率来申报，联名账户的钱来源于谁，就应该由谁来报税, 而不是随意指定一方。但是CRA查的不严，可以简单的50/50，或者为了减税由低收入者100%申报，收入高那个不报
+
 #References#
 [Canadian income tax rates for individuals - current and previous years](https://www.canada.ca/en/revenue-agency/services/tax/individuals/frequently-asked-questions-individuals/canadian-income-tax-rates-individuals-current-previous-years.html)
 
