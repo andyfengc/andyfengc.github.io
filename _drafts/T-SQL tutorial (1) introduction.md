@@ -777,6 +777,110 @@ Please note that we must declare cursor statement on the top of CTE declarations
 	CLOSE myCursor;    
 	DEALLOCATE myCursor;
 
+# Pivot
+SQL Server `PIVOT` operator rotates a table-valued expression. It turns the unique values in one column into multiple columns in the output and performs aggregations on any remaining column values.
+
+## Why need pivot 
+e.g.
+
+table
+
+	create table DailyIncome(
+		VendorId nvarchar(10), 
+		IncomeDay nvarchar(10), 
+		IncomeAmount int
+	)
+
+Typically, we can use group to get some statistics: 
+
+	select [VendorId], [IncomeDay],	AVG([IncomeAmount]) as Average
+	from [dbo].[DailyIncome]
+	group by [VendorId], [IncomeDay]
+	order by [VendorId], [IncomeDay]
+
+![](images//posts/20200304-pivot-1.png)
+
+However, our goal is to turn the Vendor from this first column of the result into multiple columns and count the average of income for each vendor, like:
+
+> average income of each vendor
+
+> ![](images//posts/20200304-pivot-2.png)
+
+In addition, we can add the weekday to group the vendor by day as shown in the following output:
+
+> average income by day of each vendor
+> 
+> ![](images//posts/20200304-pivot-3.png)
+
+# How to use pivot
+We can use PIVOT to resolve this issue. Here are steps to make a query a pivot table:
+
+1. First, select a base dataset for pivoting.
+
+		SELECT [VendorId]
+	      ,[IncomeAmount]
+		FROM [test].[dbo].[DailyIncome]
+
+1. Second, create a temporary result by using a derived table or common table expression (CTE)
+
+		SELECT * FROM (
+			SELECT [VendorId]
+				,[IncomeAmount]
+			FROM [test].[dbo].[DailyIncome]
+		) d
+
+1. Third, apply the PIVOT operator.
+
+	Example 1:
+
+		SELECT * FROM (
+			SELECT [VendorId]
+				,[IncomeAmount]
+			FROM [test].[dbo].[DailyIncome]
+		) d
+		pivot (
+		avg (IncomeAmount) for [VendorId] IN ([FREDS],[JOHNS],[SPIKE])
+		) as  p
+
+	we will get 
+	
+	![](images//posts/20200304-pivot-2.png)
+
+	We can add additional columnn `IncomeDay` to above query. Example 2:
+
+		SELECT * FROM (
+			SELECT [VendorId]
+				, IncomeDay
+				,[IncomeAmount]
+			FROM [test].[dbo].[DailyIncome]
+		) d
+		pivot (
+		avg (IncomeAmount) for IncomeDay in ([MON],[TUE],[WED],[THU],[FRI],[SAT],[SUN])
+		) as  p
+
+	we will get
+
+	![](images//posts/20200304-pivot-3.png)
+
+Here is the complete syntax
+	
+	SELECT <non-pivoted column>,  
+	    [first pivoted column],  
+	    [second pivoted column] ,  
+	    ...  
+	FROM  
+	    (<SELECT column1, column2,... from table to produce the data>)  
+	PIVOT  
+	(  
+	    <aggregation function>(<column being aggregated>)  
+	FOR   
+		[<column that contains the values that will become column headers>]   
+	    IN ( [first pivoted column value]
+			, [second pivoted column value],  
+	    	... )  
+	) AS <alias for the pivot table>  
+	<optional ORDER BY clause>;
+
 # References #
 [Create Clustered Indexes](https://docs.microsoft.com/en-us/sql/relational-databases/indexes/create-clustered-indexes?view=sql-server-2017)
 
@@ -791,3 +895,7 @@ Please note that we must declare cursor statement on the top of CTE declarations
 [How to select the first/least/max row per group in SQL](https://www.xaprb.com/blog/2006/12/07/how-to-select-the-firstleastmax-row-per-group-in-sql/)
 
 [Improving Performance with SQL Server 2008 Indexed Views](https://docs.microsoft.com/en-us/previous-versions/sql/sql-server-2008/dd171921(v=sql.100))
+
+[Pivot tables in SQL Server. A simple sample](https://blogs.msdn.microsoft.com/spike/2009/03/03/pivot-tables-in-sql-server-a-simple-sample/)
+
+[https://docs.microsoft.com/en-us/sql/t-sql/queries/from-using-pivot-and-unpivot?view=sql-server-ver15](https://docs.microsoft.com/en-us/sql/t-sql/queries/from-using-pivot-and-unpivot?view=sql-server-ver15)

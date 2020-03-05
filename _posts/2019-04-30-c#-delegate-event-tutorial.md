@@ -233,31 +233,31 @@ The `event` keyword in C# is used to declare an event in a publisher class. `eve
 
 e.g. 
 
-void Main()
-{
-	var publisher = new EventProgram();
-	publisher.Test();
-}
-
-// Define other methods, classes and namespaces here
-public delegate string MyDel(string str);
+	void Main()
+	{
+		var publisher = new EventProgram();
+		publisher.Test();
+	}
 	
-   public class EventProgram {
-      MyDel MyEvent;
+	// Define other methods, classes and namespaces here
+	public delegate string MyDel(string str);
+		
+	public class EventProgram {
+	  MyDel MyEvent;
 	  //event MyDel MyEvent; // that's the same
 		
-      public EventProgram() {
-         this.MyEvent += new MyDel(this.WelcomeUser);
-      }
-      public string WelcomeUser(string username) {
-         return "Welcome " + username;
-      }
-      public void Test() {
-         EventProgram obj1 = new EventProgram();
-         string result = obj1.MyEvent("Tutorials Point");
-         Console.WriteLine(result);
-      }
-   }
+	  public EventProgram() {
+	     this.MyEvent += new MyDel(this.WelcomeUser);
+	  }
+	  public string WelcomeUser(string username) {
+	     return "Welcome " + username;
+	  }
+	  public void Test() {
+	     EventProgram obj1 = new EventProgram();
+	     string result = obj1.MyEvent("Tutorials Point");
+	     Console.WriteLine(result);
+	  }
+	}
 
 As we can see, use `event` or not is the same, `event` is a type of Delegate.
 
@@ -283,8 +283,9 @@ e.g.
 	        }       
 	      public void PrintValue(string s)     
 	      {         
-	        Console.WriteLine("PrintValue" + s);     } 
-	      }
+	        Console.WriteLine("PrintValue" + s); 
+		  } 
+	    }
 	}
 
 ## Delegate vs. Interface
