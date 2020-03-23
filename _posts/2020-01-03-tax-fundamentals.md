@@ -157,18 +157,23 @@ author: Andy Feng
 > 有的单子，比如T4，T4A，T3，T5可能都要二月份才能收到。所以大部分人报税通常是二月底三月初才真的开始。
 
 ## 税表
-1. T1: General Return，网上或邮寄给税务局的必须的表格；
+1. **T1: General Return**，网上或邮寄给税务局的必须的表格
+	> line 208 rrsp
+	> line 230, 220 (before 2019) or line 21999, 22000 (after or on 2019) child support
 
 1. T2:公司税。incorporate必须报这个
 
-1. T3:国内外股票，债卷，利息，等收益. 基金派息分红之类. T3通常是银行发给客户的tax slip，上面是你投资收益的情况
+1. T3:国内外股票，债卷，利息，等收益 -> T1. 基金派息分红之类投资收入. T3通常是银行发给客户的tax slip，上面是你投资收益的情况
 	> 如果买的基金只有statement，不给T3表
 	> 1. 如果基金没有卖出, 只是账面收益，不需要报税的。
 	> 1. 如果基金卖出了，这个statement视作T5008表报税，全部报在CAPITAL GAIN 或者LOSS 吗
 
-1. T4: Employment Income, 去年你为之工作的雇主提供一年的收入报告并寄给你
+1. **T4: Employment Income 工资收入 -> T1 / Schedule 1 / T2204 / Schedule 8。**去年你为之工作的雇主提供一年的收入报告并寄给你
 
-1. T4A: Pension Income/Self-Employed Commissions；雇主给（含有提成或者分红）commission or bonus 员工的收入报告
+	> box 14, 16, 18, 22 and etc.
+
+1. **T4A: Pension Income/Self-Employed Commissions/Scholarship/Pension 兼职收入、佣金 -> T1**。雇主给（含有提成或者分红）commission or bonus 员工的收入报告
+	> scholarship - box 105
 
 1. T4E：去年领取EI就会收到这张表
 
@@ -176,43 +181,59 @@ author: Andy Feng
 
 1. T4A（OAS）和T4A（P）：领老年金和退休金得到的表
 
-1. T5: Investment income。收到股票股息或银行存款利息， 利息在50元以下可能没有这张表，但仍需报利息收入
+1. **T5: Investment income -> T1 / Schedule 4 / T936**。股票股息或银行存款利息， 利息在50元以下可能没有这张表，但仍需报利息收入
 
-	> 银行利息填在line 121
+	银行利息填在
+	> T5 box 13 或Schedule 4 > Part II Interest Income
+	> 自动显示在T1 > line 121
 
 1. T2200：如需要申报employment expenses, 需提供雇主签字的T2200表，并整理汇总所有要申报的费用收据，出租房屋的租金收入凭证。和T4配套使用
 
-1. T2202A(2020年前）/T2202(2020年后）：本人、配偶和子女全日制或半日制上学的学费和书本费，及子女上私立中小学的费用
+1. **T2202A(2020年前）/T2202(2020年后）Tuition and education 学费和教育 -> T1 / Schedule 11**：本人、配偶和子女全日制或半日制上学的学费和书本费，及子女上私立中小学的费用
+
+1. T2204: Employee Overpayment of Employment, Insurance Premiums
 
 1. T5007：收到劳工赔偿金或社会福利金
 
+1. T5008: 加拿大投资
+
+1. **T776 Rental income -> T1**
+
+1. **T2125 Business or professional activity -> T1**
+
 1. ON428/AB428:用于计算省税
 
-1. Schedule 1: Federal Tax;
+1. Schedule 1: Federal Tax
+	> line 364 public transit
 
-1. Schedule 2: Federal Amount Transfer from Spouse;
+1. Schedule 1-A: Family Tax Cut -> T1
+
+1. **Schedule 2: Federal Amount Transfer from Spouse -> T1**
 
 1. Schedule 3: Capital Gains (losses);
 
-1. Schedule 4: Statement of Investment Income;
+1. **Schedule 4: Statement of Investment Income -> T1**
 
-1. Schedule 5: Details of Dependant;
+1. **Schedule 5: Details of Dependant -> T1**
 
-1. Schedule 6: 申请Working Income Tax Benefit (WITB)低收入福利 
+1. **Schedule 6 Working Income Tax Benefit -> T1**。申请Working Income Tax Benefit (WITB)低收入福利
+	> line 381-382
+	> line 391, 392, 394
 
-1. Schedule 7: RRSP Unused Contribution, Transfer, HBP, LLP details; hbp和llp计划还到RRSP中需要填写
+1. **Schedule 7: RRSP Unused Contribution, Transfer, HBP, LLP details -> T1**。用于填写 hbp和llp计划还钱到RRSP
 
-1. Schedule 8: CPP Contrbution on Self-employment;
+1. Schedule 8: CPP Contrbution on Self-employment
 
-1. Schedule 9: Donations and Gifts;
+1. **Schedule 9: Donations and Gifts -> T1 / Schedule 1**
 
 1. Schedule 10: Tuition and Education.
 
-1. Schedule 11 - Tuition, Education, and Textbook Amounts
+1. **Schedule 11 - Tuition, Education, and Textbook Amounts**
+	> box 1-2, 3-4, 6-7
 
 1. Schedule 12 - Home Renovation Expenses
 
-1. Form ON428 - Ontario Tax
+1. **Form ON428 - Ontario Tax**
 
 1. Form ON479 - Ontario Credits and Senior Homeowners' Property Tax Grant  这个包括交房租低收入可退税的表
 
@@ -220,35 +241,12 @@ author: Andy Feng
 
 1. Schedule ON(S11) - Provincial Tuition and Education Amounts
 
-## 常见个人报税表格：
+1. ON-Ben - Ontario Trillium Benefit
+	> box 6109, 6118
+	> box 6110, part B address
 
-> T3：Trust Income -> T1
-> 
-> T4 Employment Income 工资收入 -> T1 / Schedule 1
-> 
-> T4A Pension Income/Self-Employed Commissions 兼职收入、佣金 -> T1
-> 
-> T5 Investment income 投资收入、利息 -> T1 / Schedule 4 / T936
-> 
-> T2202A 学费和教育 tuition and education receipts -> T1 / Schedule 11 Tuition and education
-> 
-> T776 Rental income -> T1
-> 
-> T2125 Business or professional activity -> T1
-> 
-> Schedule 1-A Family Tax Cut -> T1
-> 
-> Schedule 2 Transfer from Spouse -> T1
->
-> Schedule 4 Investment income -> T1
-> 
-> Schedule 5 Dependant -> T1
-> 
-> Schedule 6 Working Income Tax Benefit -> T1
-> 
-> Schedule 7 RRSP contribution -> T1
-> 
-> Schedule 9 Donation -> T1 / Schedule 1
+1. RC62 Universal Child Care Benefit -> T1 / Schedule 1
+	> box 10
 
 ## T1 Income Tax and Benefit Return
 T1表样
@@ -390,6 +388,7 @@ T4大致交税结果
 - 搬家费(Moving expense)(40km以上，工作需要，加国境内) [官网链接Information About Moving Expenses](https://www.canada.ca/content/dam/cra-arc/formspubs/pbg/t1-m/t1-m-17e.pdf)
 
 	> 用于为了经商、就业或就读大专院校在加拿大境内的搬迁。新家距新的工作场所或学校要经旧家近40公里以上时，许多与搬家有关的费用都可以在新的工作场所赚得的薪资或自雇中扣除(抵扣新工作的收入）。如果是全职学生，只有在有奖学金或研究补助时才能扣减。当年度未扣尽的余数可以在下一年或以后的年度中扣减。
+	> 
 	> 除了雇主代付的部分之外，搬家费用包括：
 	> *合理的旅费，包括纳税人本人及家属旅行时所花的食宿费。
 	> *行李托运费，包括储仓费。
