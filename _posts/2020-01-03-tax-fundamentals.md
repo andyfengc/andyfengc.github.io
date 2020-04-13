@@ -801,4 +801,6 @@ Ryan Post [#1](http://torontorealtytalk.ca/) [#2](http://home.yorkbbs.ca/Topicli
 
 [关于在加拿大捐款的知识](https://www.16safety.ca/page/%E5%85%B3%E4%BA%8E%E5%9C%A8%E5%8A%A0%E6%8B%BF%E5%A4%A7%E6%8D%90%E6%AC%BE%E7%9A%84%E7%9F%A5%E8%AF%86)
 
-[报税准备的checklist](http://post.iask.ca/attachments/326861/)
+[报税准备的checklist](http://post.iask.ca/atthttps://www.aclasssoft.com/advtax/main.jspachments/326861/)
+
+[tax forms chinese version cn](https://www.aclasssoft.com/advtax/main.jsp)
