@@ -80,9 +80,15 @@ Environment:
 1. Install node.js
 
 1. install angular/cli
-	`npm install -g @angular/cli` (angular v6)
+	`npm install -g @angular/cli` 
 
 	or
+
+	`npm install -g @angular/cli@latest`
+
+	or
+
+	`npm install -g @angular/cli@8.0.6` (angular v5)
 
 	`npm install -g @angular/cli@1.7.4` (angular v5)
 
@@ -734,7 +740,7 @@ We could import and declare all components in the root module. Or, we can define
 ## Make release ##
 Create a build: `ng build`
 
-build in production: `ng build --env=prod`
+build in production: `ng build --prod`
 
 ## References ##
 [https://angular.io](https://angular.io)

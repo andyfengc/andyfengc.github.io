@@ -108,7 +108,7 @@ Refinance的目的，通常包括：
 
 	![](/images/posts/20200321-tax-4.jpg)
 
-	加按对于地产投资者来说，是个宝贵的把还款期拉长到30年的机会。如果原房贷只是续约/renew，那么还款期/amortization只能越来越短。还款期决定了月供大小，月供越小，以后申请其他贷款就越容易，因此地产投资者，尤其是多套房投资者需要做的一件事就是经常把还款期拉回30年，为继续投资做好准备。
+	加按对于地产投资者来说，是个宝贵的把还款期拉长到30年的机会。如果原房贷只是续约/renew，那么还款期/amortization只能越来越短。还款期决定了月供大小，月供越小，以后申请其他贷款就越容易，因此地产投资者，尤其是多套房投资者需要做的一件事就是经常把还款期拉回30年，以便降低月供，为继续投资做好准备。
 
 2. 考虑购买投资房，而原有银行的审批条件较严格，新的银行做Refinance 或现有银行refinancing 之后可以审批数额更高的贷款额度。
 
@@ -132,10 +132,10 @@ Refinance（加按），简单来说就是向银行（原本的银行或别家�
 ## Cost 费用
 加按的费用不高，通常包括评估费和律师费。
 
-1. 评估费大约300-500元。
-2. 律师费。大多数情况下，可以通过产权保险公司来取代律师的工作，费用比直接找律师低一些。如果不增减借款人名字，没有特殊的法律上的要求，银行通常建议借款人使用产权保险公司来完成重新注册抵押这一过程，费用比聘用律师便宜很多。一笔100万以下的加按，产权保险公司收费470元左右，而律师收费要1000元以上了。
+1. appraisal fee评估费大约300-500元。
+2. fct fee 律师费。大多数情况下，可以通过产权保险公司来取代律师的工作，费用比直接找律师低一些。如果不增减借款人名字，没有特殊的法律上的要求，银行通常建议借款人使用产权保险公司来完成重新注册抵押这一过程，费用比聘用律师便宜很多。一笔100万以下的加按，产权保险公司收费470元左右，而律师收费要1000元以上了。
 
-总的来说，refinance要付2000到3000的手续费。极个别的零费用的重新贷款其实也是羊毛出在羊身上。
+总的来说，refinance要付800到1500的手续费。极个别的零费用的重新贷款其实也是羊毛出在羊身上。
 
 考虑到refinance费用很高，而且目前利率在攀升，一般适合套现大量现金的情况。如果多于10万我会做。手续费2%也是可接受的。
 
@@ -587,7 +587,7 @@ HELOC是以房子作为抵押向银行申请的Line of Credit
 
 # HELOC vs. cash out refinance
 A Home Equity Line of Credit(HELOC) is simply a revolving Line of Credit
-that allows you to use the equity in your home to borrow money.HELOC为循环信用，还回去的本金在需要时可以再拿出来用，基本跟信用卡的信用额度是一个使用方法。HELOC的好处是，你如果不用它，你没有成本，比方说你开了个600K的line，但是不从里面借钱出来，只放0 balance，那么你的利息就是0，也就是没有cost（有的program收个50刀Annual fee）.
+that allows you to use the equity in your home to borrow money. HELOC为循环信用，还回去的本金在需要时可以再拿出来用，基本跟信用卡的信用额度是一个使用方法。HELOC的好处是，你如果不用它，你没有成本，比方说你开了个600K的line，但是不从里面借钱出来，只放0 balance，那么你的利息就是0，也就是没有cost（有的program收个50刀Annual fee）.
 > Heloc有点儿像credit card，可以借到limit，也可以全部还清，之后用的时候再取钱出来，只有欠钱的时候才需要付利息，balance是0的时候不需要付利息。一般，需要开上个几年再关，提前关会要求交几百手续费，有些heloc每年要收管理费。
 
 Home Equity Line of Credit：
@@ -596,7 +596,7 @@ Home Equity Line of Credit：
 2. HELOC象信用卡一样是一个额度， 用了的部分才缴纳利息。一般有10年的Draw Period，20年的Repayment Period，就是开户前10年可以随便取钱用，只需要每月还利息。10年后就不能取钱了， 而且要按照20年的term把利息和本金都还完。
 3. HELOC利率是随时浮动的， Rate＝Prime ＋Margin，Margin是做贷款的时候银行就定好了的， 也是决定此HELOC好不好的关键因素。
 
-Cash out refinance是以你自己的房产做抵押,拿出钱出来用,还款时分为本金 (PRINCIPAL) 和利息(INTEREST) 两部份，而且只能一次使用，还回去的本金不能再拿出来用．
+Cash out refinance是以你的房产做抵押,拿出钱出来用,还款时分为本金 (PRINCIPAL) 和利息(INTEREST) 两部份，而且只能一次使用，还回去的本金不能再拿出来用．
 > cash out refi的话拿出钱来每个月都要还一部分本金+利息，还掉的principal就不能在借出来了。
 
 Cash out refinance分为两种情况:
@@ -607,6 +607,11 @@ Cash Out Refinance：
 1. 用一个新的贷款付清原来的贷款，做完贷款后您还是只有一个贷款在这个房子上，原来贷款的利率和term不存在了。
 2. Cash Out出来的钱在Funding后会全部给您，从此您就需要按照新贷款的Rate和Term付款，包含Cahs Out 部分的利息和本金。
 3. 新贷款是First Mortgage, 所以可以选择30 Year Fixed， 15 Year Fixed，以及5/7 Year ARM等。
+
+建议：
+投资房在房价上涨和收入好的时候做refinance，换利率，还款期拉回30年
+
+自住房留 line of credit
 
 # FAQ
 1. 什么是LVR？

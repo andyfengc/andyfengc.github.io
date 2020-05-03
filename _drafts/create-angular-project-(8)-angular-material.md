@@ -13,6 +13,10 @@ author: Andy Feng
 
 	`npm install --save @angular/material @angular/cdk @angular/animations`
 
+	or
+
+	`ng add @angular/material`
+
 1. Import module
 
 		import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -223,11 +227,9 @@ Result
 1. Install Covalent Core module
 
 	npm install --save @covalent/core
-	or
-	npm install --save @covalent/core@2.0.0-beta.1
 
 	## (optional) Additional Covalent Modules installs
-	npm install --save @covalent/http @covalent/highlight @covalent/markdown @covalent/dynamic-forms
+	npm install --save @covalent/http @covalent/highlight @covalent/markdown @covalent/dynamic-forms @covalent/echarts
 
 1. Import the Covalent Core NgModule
 
