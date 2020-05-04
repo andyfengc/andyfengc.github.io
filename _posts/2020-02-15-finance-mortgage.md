@@ -243,6 +243,24 @@ TD  - condo 400 sqf
 
 Scotia bank / CIBC - 500-550 sqf
 
+# 银行贷款限制
+bmo - 11套房子
+Scotiabank - up to 10套，包括1套自住，10套房子不论在Scotiabank或者其他银行
+> 投资房： 租金收入50% - 月供，不含管理费地税, 多的部分放入收入，少的部分放入债务
+> 投资房： 租金收入95% - 月供 - 管理费 - 地税 - utilities
+
+td
+> 首套投资房： 租金收入50% - 月供，不含管理费地税, 多的部分放入收入，少的部分放入债务
+> 第2套投资房+： 租金收入95% - 月供 - 管理费 - 地税 - utilities
+
+如果building被认为学生公寓，会被认为是rooming house，不能贷款，譬如滑铁卢icona 330
+> 例如每一间卧室都带锁
+> 地下室两个厨房
+> 屋里有2个冰箱
+> 每个房间都有一个电视
+
+scotia, bmo, td允许客人没有自住房情况下有投资物业
+
 # References #
 [加拿大买房，房屋贷款条件详解](https://mp.weixin.qq.com/s?__biz=MzU5Mzg4NDQ5Mw==&mid=2247485232&idx=1&sn=2e98d0ec069600d9ff88d92448537890&chksm=fe08e312c97f6a043f4ffb7fc603a2570834842ae8fa075bfb938aaab2e1870cb1266c2c4090&mpshare=1&scene=1&srcid=03203MzdFiU2rQxxg5wjSEGO&sharer_sharetime=1584669931553&sharer_shareid=a4470e9765a288c11971d6399f0ce126&exportkey=AscvOCRHheRn1IQWTIL2Irc%3D&pass_ticket=G5sP1qEo8YlShwwH80d5KU4yxEq54pjRqmpA10hdGP07nkemggt%2B%2FteZYPgn4VnL#rd)
 
