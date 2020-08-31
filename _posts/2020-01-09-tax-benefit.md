@@ -173,6 +173,13 @@ author: Andy Feng
 1. BC省医疗辅助金（BC Medical Services Plan Premium Assistance Program）
 	针对低收入者而设，帮助他们支付医疗保险费用（Medical Services Plan，简称MSP）。只要个人或家庭低于$24,000元，都可以获得高达全年的资助。原本每个月最高的$75元保费将提高至$78元，但现在却维持$75元。省政府在今年财政公布，从2018年1月1日开始，卑诗省年收入在$12万加元以下的200万省民，将只需支付现有金额一半的省医疗保险费。这意味着每个成年省民每年将节省$450元，或者每个家庭$900元。
 
+## Canada Training Credit
+This credit will expire at the end of the year you turn 65 or the year of death.
+
+2020年-
+
+[https://www.canada.ca/en/revenue-agency/programs/about-canada-revenue-agency-cra/federal-government-budgets/budget-2019-investing-middle-class/canada-training-credit.html](https://www.canada.ca/en/revenue-agency/programs/about-canada-revenue-agency-cra/federal-government-budgets/budget-2019-investing-middle-class/canada-training-credit.html)
+
 # 老人的税务优惠
 ## 哪些收入需要报税
 老人退休之后，收入来源以及收入水平，相比于退休之前，都会有一些变化。在介绍退休老人的税务优惠政策前，我们先来看看，退休之后，有哪些收入是需要申报收入交税的。

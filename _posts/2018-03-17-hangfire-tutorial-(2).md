@@ -65,6 +65,8 @@ Continuations job allow us to define complex workflows by chaining multiple back
 	BackgroundJob.ContinueWith(id, () => Console.WriteLine("second job"));
 	```
 
+For example, a user decides to unsubscribe from your service. After he confirms his action (Maybe clicking the unsubscribe button), our application has to unsubscribe him from the system and send him a confirmation mail after that as well. So, the First job is to actually unsubscribe the user. The second job is to send a mail confirming the action. The second job should be executed only after the first job is completed properly. This is continuation job.
+
 ## Batch job
 BatchJob.StartNew()
 
@@ -117,3 +119,5 @@ Here, we create a simple task runner and wanna schedule it to run every minute a
 
 # References
 [Workers patterns with hangfire](https://zdjohn.wordpress.com/2016/06/20/workers-patterns-with-hangfire/)
+
+[Hangfire in ASP.NET Core 3.1 – Background Jobs Made Easy](https://www.codewithmukesh.com/blog/hangfire-in-aspnet-core-3-1/)

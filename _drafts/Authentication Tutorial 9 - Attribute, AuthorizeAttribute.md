@@ -156,16 +156,18 @@ Two ways to use Attribute:
 
 	public class GotchaAttribute : Attribute
 	{
-	    public GotchaAttribute(Foo myClass, string str) {       
+	    public GotchaAttribute(string param1, string param2) {       
 	    }
 	}
 
 Then we can use as 
 
-	[Gotcha]
+	[Gotcha(param1: "param1 value", param2: "param2 value")]
 	public class SomeOtherClass
 	{	
 	}
+
+> Each attribute must have at least one constructor. The positional parameters should be passed through the constructor. The following code shows the DeBugInfo class −
 
 # AuthorizeAttribute #
 In webapi, System.Web.Http/AuthorizeAttribute.cs
