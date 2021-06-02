@@ -742,6 +742,8 @@ Create a build: `ng build`
 
 build in production: `ng build --prod`
 
+if there are virtual directory `stock`: `ng build --base-href /stock/ --prod`
+
 ## References ##
 [https://angular.io](https://angular.io)
 
@@ -804,7 +806,7 @@ Next, simply call `_.<lodash_function>()`
 
 or 
 
-`npm install moment-timezone --save`
+`npm install moment-timezone --save` (will install moment automatically)
 `npm install @types/moment-timezone --save`
 
 in angular-cli.json (Angular 5+)
@@ -998,6 +1000,63 @@ call it like that:
 # Install material icon
 
 `npm install material-design-icons`
+
+# install jquery
+## way 1, add new lib to global scope
+`npm install --save jquery`
+`npm install popper.js --save`
+`npm install bootstrap --save`
+
+angular.json
+
+	"architect": {
+	        "build": {
+	          ...,
+	            "scripts": [
+				  "node_modules/jquery/dist/jquery.slim.js",
+				  "node_modules/popper.js/dist/umd/popper.js",
+				  "node_modules/bootstrap/dist/js/bootstrap.js"
+	              ...
+	            ]
+	          },
+			"styles": [
+			  "node_modules/bootstrap/dist/css/bootstrap.css",
+			  "src/styles.css"
+			],
+
+in component:
+
+	declare var $: any;
+	ngOnInit() {
+	   $(document).ready(function() {
+	     alert('I am Called From jQuery');
+	   });
+	}
+
+## way2, add typings to global libraries
+npm install --save jquery
+
+npm install --save @types/jquery
+
+in component:
+
+	import * as $ from 'jquery';
+
+	ngOnInit() {
+	   $(document).ready(function() {
+	     $('#my-button').click(doSomething());
+	 });
+	}
+
+# FAQ
+Code scaffolding
+Run ng generate component component-name to generate a new component. You can also use ng generate directive|pipe|service|class|guard|interface|enum|module.
+
+Running unit tests
+Run ng test to execute the unit tests via Karma.
+
+Running end-to-end tests
+Run ng e2e to execute the end-to-end tests via Protractor.
 
 # References #
 [Angular Playground](https://stackblitz.com/angular/dlynpyeolkm)

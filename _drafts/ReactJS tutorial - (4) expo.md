@@ -34,4 +34,5 @@ author: Andy Feng
 
 	![](/images/posts/20171015-expo-8.png)
 
-
+# Reference
+[Intro to React Native & Expo - Build your first mobile app](https://www.youtube.com/watch?v=fQhH5SK2yTU&ab_channel=rmotr.com)

@@ -82,3 +82,14 @@ Here is the main page
 When we click the icon
 
 ![](/images/posts/20171107-react-native-router-2.png)
+
+# FAQ
+## props vs. state
+![](/images/posts/20210201-react-1.png)
+![](/images/posts/20210201-react-2.png)
+
+# References
+
+[https://medium.com/@kenlynterai/data-handling-in-reactjs-c53f66b45309](https://medium.com/@kenlynterai/data-handling-in-reactjs-c53f66b45309)
+
+[https://www.codevoila.com/post/55/reactjs-tutorial-state-and-props](https://www.codevoila.com/post/55/reactjs-tutorial-state-and-props)

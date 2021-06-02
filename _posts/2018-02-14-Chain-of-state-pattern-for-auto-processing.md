@@ -20,7 +20,7 @@ The participants in above UML diagram are:
 - **State**: This is an interface which defines the behavior associated with a state of the context object. 
 - **Concrete State**: It implements the state interface. This class represents the state of the context object and actual implementation of behavior. Each concrete state class implements a behavior associated with a state of context.
 
-## Problem ##
+## Senario ##
 There is a company need to manage user account for employees. When new employee coming, they have to request a new account and awaiting for being granted. Let's suppose we have a simple sequence state machine diagram:
 
 ![](/images/posts/20180213-state-4.png)

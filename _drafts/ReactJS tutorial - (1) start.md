@@ -172,4 +172,5 @@ add list-item.jsx
 	    }
 	}
 
-
+# Reference
+[React Mixin 的前世今生](https://zhuanlan.zhihu.com/p/20361937)

@@ -101,7 +101,7 @@ There are three major components in Hangfire: client, storage and server.
 
 	Please note that we have one server running and ready for running jobs.
 
-# .net core Installation #
+# .net core 2.1 Installation
 1. Create a web project: Scheduler
 
 	![](/images/posts/20181218-hangfire-1.png)
@@ -109,8 +109,11 @@ There are three major components in Hangfire: client, storage and server.
 1. Install nuget package
 
 	`Hangfire`
+
 	`Hangfire.Core`
+
 	`Hangfire.SqlServer`
+
 	`Hangfire.AspNetCore`
 
 1. modify `Startup.cs`
@@ -179,6 +182,115 @@ There are three major components in Hangfire: client, storage and server.
 	![](/images/posts/20180206-hangfire-9.png)
 
 	navigate to http://hostname:port/hangfire to view dashboard
+
+	![](/images/posts/20180206-hangfire-8.png)
+
+# Hangfire
+1. Create a web project
+
+	![](/images/posts/20200912-hangfire-1.png)
+
+1. Install nuget package
+
+		Hangfire.Core
+		Hangfire.SqlServer
+		Hangfire.AspNetCore
+		Microsoft.EntityFrameworkCore.SqlServer (optional)
+
+	![](/images/posts/20200912-hangfire-2.png)
+
+1. create a database: 
+
+		CREATE DATABASE [HangfireTest]
+		GO
+
+1. Configuring Settings
+
+	appsettings.json
+		
+		{
+		  "ConnectionStrings": {
+		    "HangfireConnection": "Server=(local);Database=HangfireTest;Integrated Security=SSPI;"
+		  },
+		  "Logging": {
+		    "LogLevel": {
+		      "Default": "Warning",
+		      "Hangfire": "Information"
+		    }
+		  }
+		}
+
+
+
+
+1. Register services
+
+	Startup.cs
+
+// ...
+using Microsoft.Extensions.DependencyInjection;
+using Hangfire;
+using Hangfire.SqlServer;
+
+namespace Hangfire
+{
+    public class Startup
+    {
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
+
+        public void ConfigureServices(IServiceCollection services)
+        {
+            // Add Hangfire services.
+            string hangfireConnectionString = ConfigurationExtensions.GetConnectionString(this.Configuration, "HangfireConnection");
+            services.AddHangfire(configuration => configuration
+                .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                .UseSimpleAssemblyNameTypeSerializer()
+                .UseRecommendedSerializerSettings()
+                .UseSqlServerStorage(hangfireConnectionString, new SqlServerStorageOptions
+                {
+                    CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+                    SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+                    QueuePollInterval = TimeSpan.Zero,
+                    UseRecommendedIsolationLevel = true,
+                    DisableGlobalLocks = true
+                }));
+
+            // Add the processing server as IHostedService
+            services.AddHangfireServer();
+
+            // Add framework services.
+            services.AddMvc();
+        }
+
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IBackgroundJobClient backgroundJobs, StockContext stockContext)
+        {
+            ...
+            app.UseStaticFiles();
+
+            app.UseHangfireDashboard();
+            backgroundJobs.Enqueue(() => Console.WriteLine("Hello world from Hangfire!"));
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+                endpoints.MapHangfireDashboard();
+                endpoints.MapGet("/", async context =>
+                {
+                    await context.Response.WriteAsync("Hello World!");
+                });
+            });
+            //
+        }
+    }
+}
+
+1. ctrl+f5 to run or `dotnet run` to run
 
 	![](/images/posts/20180206-hangfire-8.png)
 

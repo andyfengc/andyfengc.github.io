@@ -12,13 +12,13 @@ author: Andy Feng
 
 2009税年的联邦税率(含2008税率方便做比较），Personal income tax见Other Income列：
 
-![](/images/posts/2019200406-tax-5.png)
+![](/images/posts/20200406-tax-5.png)
 
 2009税年的安省税率：
-![](/images/posts/2019200406-tax-7.png)
+![](/images/posts/20200406-tax-7.png)
 
 2009合并联邦和安省的税率：
-![](/images/posts/2019200406-tax-6.png)
+![](/images/posts/20200406-tax-6.png)
 
 > 加拿大每张报税表（T1)只填一个人，美国一个表可以填两个人的
 > 1. 加拿大没有家庭报税这一说，夫妻都是各报各的税，但是要在税表上填写配偶的收入来计算各种福利。相对来说这样报税比美国家庭报税还是有优势的，另一方的收入不会碰到高税阶。
@@ -57,7 +57,7 @@ author: Andy Feng
 
 普通个人报税：
 
-> 姓名，地址，工卡号，出生日期，婚姻状况，家庭成员的姓名，生日，和工卡号，所有与报税有关的表单，如T4、T5、T5007、RRSP Slip，上年的NOTICE OF ASSESSMENT（以便查RRSP供款额度），T2202A，房租或地税凭证，托儿费用，月票，医疗费用，各类慈善捐款的收据。
+> 姓名，地址，工卡号，出生日期，婚姻状况，家庭成员的姓名，生日，和工卡号，所有与报税有关的表单，如T4、T5、T5007、RRSP Slip，上年的NOTICE OF ASSESSMENT（以便查RRSP供款额度），T2202A，房租或地税凭证，托儿费用，医疗费用，各类慈善捐款的收据。
 
 自雇收入报税：
 
@@ -164,9 +164,9 @@ author: Andy Feng
 1. T2:公司税。incorporate必须报这个
 
 1. T3:国内外股票，债卷，利息，等收益 -> T1. 基金派息分红之类投资收入. T3通常是银行发给客户的tax slip，上面是你投资收益的情况
-	> 如果买的基金只有statement，不给T3表
-	> 1. 如果基金没有卖出, 只是账面收益，不需要报税的。
-	> 1. 如果基金卖出了，这个statement视作T5008表报税，全部报在CAPITAL GAIN 或者LOSS 吗
+	> 如果买的基金或股票只有statement，不给T3表
+	> 1. 如果基金或股票没有卖出, 只是账面收益，不需要报税的。
+	> 1. 如果基金或股票卖出了，这个statement视作T5008表报税，全部报在CAPITAL GAIN 或者LOSS
 
 1. **T4: Employment Income 工资收入 -> T1 / Schedule 1 / T2204 / Schedule 8。**去年你为之工作的雇主提供一年的收入报告并寄给你
 
@@ -195,7 +195,7 @@ author: Andy Feng
 
 1. T5007：收到劳工赔偿金或社会福利金
 
-1. T5008: 加拿大投资
+1. **T5008: 股票投资**
 
 1. **T776 Rental income -> T1**
 

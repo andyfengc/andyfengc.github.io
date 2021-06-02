@@ -881,6 +881,24 @@ Here is the complete syntax
 	) AS <alias for the pivot table>  
 	<optional ORDER BY clause>;
 
+# select from list of values
+SELECT 
+  DISTINCT 
+      FieldName1, FieldName2, ..., FieldNameN
+FROM
+  (
+    Values
+        ( ValueForField1, ValueForField2,..., ValueForFieldN ),
+        ( ValueForField1, ValueForField2,..., ValueForFieldN ),
+        ( ValueForField1, ValueForField2,..., ValueForFieldN ),
+        ( ValueForField1, ValueForField2,..., ValueForFieldN ),
+        ( ValueForField1, ValueForField2,..., ValueForFieldN )
+  ) AS TempTableName ( FieldName1, FieldName2, ..., FieldNameN )
+
+e.g.
+
+SELECT * FROM (VALUES ('STOCK_ADMIN'), ('EXCHANGE_ADMIN')) AS Roles(RoleName)
+
 # References #
 [Create Clustered Indexes](https://docs.microsoft.com/en-us/sql/relational-databases/indexes/create-clustered-indexes?view=sql-server-2017)
 
@@ -899,3 +917,5 @@ Here is the complete syntax
 [Pivot tables in SQL Server. A simple sample](https://blogs.msdn.microsoft.com/spike/2009/03/03/pivot-tables-in-sql-server-a-simple-sample/)
 
 [https://docs.microsoft.com/en-us/sql/t-sql/queries/from-using-pivot-and-unpivot?view=sql-server-ver15](https://docs.microsoft.com/en-us/sql/t-sql/queries/from-using-pivot-and-unpivot?view=sql-server-ver15)
+
+[conditional join in sql](https://stackoverflow.com/questions/37764642/conditional-join-in-sql)

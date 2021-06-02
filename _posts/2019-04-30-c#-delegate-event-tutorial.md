@@ -344,3 +344,19 @@ Use an interface in the following circumstances:
 [When to Use Delegates Instead of Interfaces (C# Programming Guide)](https://docs.microsoft.com/en-ca/previous-versions/visualstudio/visual-studio-2010/ms173173(v=vs.100))
 
 [Delegates And Interface Overview](https://www.c-sharpcorner.com/UploadFile/1c8574/delegates-interface-discussion/)
+
+to read
+
+[https://www.c-sharpcorner.com/UploadFile/84c85b/delegates-and-events-C-Sharp-net/](https://www.c-sharpcorner.com/UploadFile/84c85b/delegates-and-events-C-Sharp-net/)
+
+[https://stackoverflow.com/questions/8694921/delegates-vs-interfaces-in-c-sharp](https://stackoverflow.com/questions/8694921/delegates-vs-interfaces-in-c-sharp)
+
+[https://www.informit.com/articles/article.aspx?p=332881](https://www.informit.com/articles/article.aspx?p=332881)
+
+[https://www.pluralsight.com/guides/c-using-interfaces-and-delegates](https://www.pluralsight.com/guides/c-using-interfaces-and-delegates)
+
+[https://www.c-sharpcorner.com/UploadFile/1c8574/delegates-interface-discussion/](https://www.c-sharpcorner.com/UploadFile/1c8574/delegates-interface-discussion/)
+
+[https://codewithshadman.com/publish-subscribe-design-pattern-in-csharp/](https://codewithshadman.com/publish-subscribe-design-pattern-in-csharp/)
+
+

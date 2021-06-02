@@ -78,22 +78,22 @@ SET TRANSACTION [ READ WRITE | READ ONLY ];
 
 # Demo
 
-BEGIN TRY
-	BEGIN TRAN;
-	BEGIN          
+	BEGIN TRY
+		BEGIN TRAN;
+		BEGIN          
+		
+		--Insert SQL Here
 	
-	--Insert SQL Here
-
-	END
-	IF @@TRANCOUNT > 0  
-	COMMIT TRAN;
-END TRY
-
-BEGIN CATCH
-
-	ROLLBACK TRAN;
-
-END CATCH ; 
+		END
+		IF @@TRANCOUNT > 0  
+		COMMIT TRAN;
+	END TRY
+	
+	BEGIN CATCH
+	
+		ROLLBACK TRAN;
+	
+	END CATCH ; 
 
 # References
 [https://www.tutorialspoint.com/sql/sql-transactions.htm](https://www.tutorialspoint.com/sql/sql-transactions.htm)

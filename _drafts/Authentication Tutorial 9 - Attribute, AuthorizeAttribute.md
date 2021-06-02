@@ -118,57 +118,6 @@ In some cases, you might allow a request to proceed, but change the behavior bas
 	    }
 	}
 
-# Attribute #
-## Introduction ##
-`Attribute` is a piece of additional declarative information that is specified for a target. `Attribute` is a reusable element can be applied to a variety of targets i.e. classes, structs, methods, constructors, and more. 
-
-Attributes are metadata; they are compiled into the assembly at compile-time and do not change during runtime. As such, any parameters you pass into an attribute must be constants; literals, constant variables, compiler defines, etc.
-
-In C#, `attributes` are classes that inherit from the `Attribute` base class. Any class that inherits from Attribute can be used as a sort of "tag" on other pieces of code. For instance, there is an attribute called `ObsoleteAttribute`. This is used to signal that code is obsolete and shouldn't be used anymore. You can place this attribute on a class by using square brackets.
-
-	[Obsolete]
-	public class MyClass
-	{	
-	}
-
-Moreover, When marking a class obsolete, it's a good idea to provide some information as to why it's obsolete, and/or what to use instead. Do this by passing a string parameter to the Obsolete attribute.
-
-	[Obsolete("ThisClass is obsolete. Use ThisClass2 instead.")]
-	public class ThisClass
-	{	
-	}
-
-> The string is being passed as an argument to an ObsoleteAttribute constructor, just like `var attr = new ObsoleteAttribute("some string")`
-
-Please note Attributes in the .NET base class library like `ObsoleteAttribute` trigger certain behaviors within the compiler. Any attribute you create acts only as metadata, and doesn't result in any code within the attribute class being executed. 
-
-Two ways to use Attribute:
-
-- At compiling time, used by compiler
-- At runtime, we need to use reflection. e.g.
-
-		TypeInfo typeInfo = typeof(MyClass).GetTypeInfo();
-		var attrs = typeInfo.GetCustomAttributes(); // get a collection of 	Attribute objects
-		foreach(var attr in attrs)
-		    Console.WriteLine("Attribute on MyClass: " + attr.GetType().Name);
-
-## Create custom attribute ##
-
-	public class GotchaAttribute : Attribute
-	{
-	    public GotchaAttribute(string param1, string param2) {       
-	    }
-	}
-
-Then we can use as 
-
-	[Gotcha(param1: "param1 value", param2: "param2 value")]
-	public class SomeOtherClass
-	{	
-	}
-
-> Each attribute must have at least one constructor. The positional parameters should be passed through the constructor. The following code shows the DeBugInfo class −
-
 # AuthorizeAttribute #
 In webapi, System.Web.Http/AuthorizeAttribute.cs
 

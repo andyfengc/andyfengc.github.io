@@ -523,4 +523,4 @@ Result
 
 ## References ##
 
-[https://teradata.github.io/covalent/#/docs](https://teradata.github.io/covalent/#/docs)
+[https://material.angular.io/guide/getting-started](https://material.angular.io/guide/getting-started)

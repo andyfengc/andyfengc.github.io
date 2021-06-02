@@ -49,7 +49,7 @@ author: Andy Feng
 1. create a module `ngx-bootstrap.module.ts` to import dedicated ngx-bootstrap components
 
 		import { NgModule } from '@angular/core';
-		import { AlertModule } from 'ngx-bootstrap';
+		import { AlertModule } from 'ngx-bootstrap/alert';
 		@NgModule({
 		    imports: [
 		        AlertModule.forRoot()

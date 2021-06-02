@@ -21,3 +21,15 @@ Avoid self-joins. Use a window function instead.
 [https://dba.stackexchange.com/questions/128837/how-to-optimize-this-tricky-sql-self-join](https://dba.stackexchange.com/questions/128837/how-to-optimize-this-tricky-sql-self-join)
 
 [https://stackoverflow.com/questions/12378660/simple-self-join-query-bad-performance](https://stackoverflow.com/questions/12378660/simple-self-join-query-bad-performance)
+
+https://solutioncenter.apexsql.com/how-to-create-and-optimize-sql-server-indexes-for-better-performance/
+
+https://www.itprotoday.com/sql-server/indexing-dos-and-don-ts
+
+https://codingsight.com/example-of-improving-query-performance-with-indexes/
+
+https://www.red-gate.com/simple-talk/sql/learn-sql-server/using-covering-indexes-to-improve-query-performance/
+
+
+
+

@@ -139,7 +139,17 @@ composite.component.ts
 ## Sequence ##:
 First loading:
 
-1. constructor
+1. composite panel parent component constructor
+
+1. composite panel parent component instance variable
+
+1. composite child component constructor
+
+1. composite child component instance variable
+
+1. grandchild component constructor
+
+1. grandchild component instance variable
 
 1. class statement
 
@@ -337,6 +347,8 @@ Angular 2+ has verification loops and runs change detection for each component w
 
 In each loop, Angular verifies the beginning value(old value) and ending value(new value) of each property and will throw `ExpressionChangedAfterItHasBeenCheckedError` error if the values are different. 
 
+The problem is that model value is changed by the child after the parent has determined and "rendered" this.
+
 e.g. we have two components
 
 parent component
@@ -364,10 +376,11 @@ child component:
 	    template: `
 	        <span>{{text}}</span>
 	    `
-	})export class BComponent implements OnInit {
+	})
+	export class BComponent implements OnInit {
 	    @Input() text;
 	
-	    constructor(private parent: AppComponent) {}
+	    constructor(private parent: AComponent) {}
 	
 	    ngOnInit() {
 	        this.parent.text = 'updated text';

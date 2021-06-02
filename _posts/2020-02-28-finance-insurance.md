@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Tax - Insurance
+title: Finance - Insurance
 author: Andy Feng
 ---
 

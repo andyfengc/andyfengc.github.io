@@ -68,8 +68,7 @@ Create some stored procedures
 	  DELETE FROM [dbo].[Blogs] 
 	  WHERE BlogId = @BlogId
 
-# Grab data via Entity Framework #
-
+# Create entities
 Create entity Blog.cs
 
     [Table("Blogs")]
@@ -91,7 +90,7 @@ Create db context: LocalContext
     {
         public LocalContext()
         {
-            Database.SetInitializer< LocalContext>(null);
+            Database.SetInitializer<LocalContext>(null);
         }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -102,6 +101,7 @@ Create db context: LocalContext
 
 	```
 
+# using .net framework
 Add connenction string: app.config
 
 	<connectionStrings>
@@ -125,6 +125,10 @@ Add connenction string: app.config
 1. we get
 	
 	![](/images/posts/20180208-stored-procedure-1.png)
+
+`Please note` 
+1. the order of parameters must be the exact same order of stored procedure.
+2. the data type of return value from stored procedure must be consistent with the model `Blog`. double(c#) <-> float (sql). If not, do cast in stored procedure.
 
 1. use ExecuteSqlCommand() to update a blog
 
@@ -206,12 +210,61 @@ Add connenction string: app.config
 
 	![](/images/posts/20180208-stored-procedure-4.png)
 
-## way3 .net core ##
+# .net core 2.1
+Add connenction string: appsettings.config
+
+	{
+	  ...
+	  "ConnectionStrings": {
+		"LocalContext" : "Server=(local);Database=Test;Integrated Security=True; MultipleActiveResultSets=True"
+	  }
+	}
+
 Entity Framework Core (previously known as Entity Framework 7) is a new version of EF designed for use with the new ASP.NET Core framework, which is intended for cross-platform development. Instead of SqlQuery(), stored procedures will be called by a new DbSet method - FromSql
+
+EF Core provides the following methods to execute a stored procedure:
+
+	DbSet<TEntity>.FromSql()
+	DbContext.Database.ExecuteSqlCommand()
+
+e.g.
 
 	using (var context = new LocalContext())
 	{
 	    var blogs = await context.Blogs.FromSql("spGetBlogs").ToListAsync();
+	}
+
+or 
+	using (var context = new LocalContext())
+	{
+	    await context.Database.ExecuteSqlCommandAsync("exec usp");
+	}
+
+or 
+
+	using (var context = new LocalContext())
+	{
+	    var blogs = await context.Database.ExecuteSqlCommandAsync("exec usp"
+			, new SqlParameter("@param_Name", "param value")
+		);
+	}
+
+# .net core 3.x
+EF Core 3.x+ provides two raw SQL sets of methods - FromSqlRow(replacing FromSql) and ExecuteSql, both with Raw / Interpolated and Async versions.
+
+need install below libs via nuget
+
+- Microsoft.EntityFrameworkCore
+- Microsoft.EntityFrameworkCore.Proxies
+- Microsoft.EntityFrameworkCore.Relational
+- Microsoft.Data.SqlClient (replacing System.Data.SqlClient)
+- Microsoft.EntityFrameworkCore. sometimes for instance WebApi project
+
+The former are used for querying. They return IQueryable<T>, allow query composition and as any LINQ query are not executed until the result is enumerated.
+
+	using (var context = new LocalContext())
+	{
+		var blogs = context.Database.ExecuteSqlRaw("ClearIterations");
 	}
 
 # References #

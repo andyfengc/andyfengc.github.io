@@ -15,7 +15,7 @@ author: Andy Feng
 
 1. 查表Tax Rate Brackets进行计算，譬如2009年BC省：
 
-	![](/images/posts/2019200406-tax-8.png)
+	![](/images/posts/20200406-tax-8.png)
 
 	基于前面计算出的Taxable Income后，对照第二张表，就可以知道你的税率。当然，由于本国的所得税法采用的是Progressive System，计算的方法有些特别。
 
@@ -105,7 +105,8 @@ author: Andy Feng
 
 1. 公司雇员除底薪外还有Commissions收入，要准备雇主签字的T2200表，汇总整理所有要申报的费用收据。
 
-1. T3 股票红利，资本收入
+1. T3 股票红利，资本收入, T5008
+	> 如果您交易股票，请准备详细的交易明细，包括交易日期、股数、交易费和管理费。如果您做day trading，收益不可按照资本利得报税。
 	> 32 taxable amount of dividends(分红收入)
 	> 21 capital gains(投资收入)
 
@@ -320,3 +321,5 @@ author: Andy Feng
 [Tax Calculator - SimpleTax](https://simpletax.ca/calculator)
 
 [9.2.4 Tax brackets and rates](https://www.canada.ca/en/financial-consumer-agency/services/financial-toolkit/taxes-quebec/taxes-quebec-2/5.html)
+
+[个人报税（Income　Tax）注意事项](https://overseastudent.ca/?p=6334)

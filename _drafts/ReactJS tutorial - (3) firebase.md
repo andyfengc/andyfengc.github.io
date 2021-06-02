@@ -184,3 +184,16 @@ Please note that ReactFire creates a one-way data binding from our database to o
 	{this.state.tasks.map(function(task, index){
             return task.title;
           })}
+
+# Reference
+[Getting Started with React and Firebase - Firecasts](https://www.youtube.com/watch?v=mwNATxfUsgI&ab_channel=Firebase)
+
+[Getting started with React Native and Firebase](https://medium.com/@jamesmarino/getting-started-with-react-native-and-firebase-ab1f396db549)
+
+[How to delete/remove nodes on Firebase](https://stackoverflow.com/questions/26537720/how-to-delete-remove-nodes-on-firebase)
+
+[Firebase : Delete entry from database](https://www.youtube.com/watch?v=lTs-KHLMPC4&ab_channel=Melardev)
+
+[Firebase update or set](https://stackoverflow.com/questions/29374013/firebase-update-or-set)
+
+[Firebase DB - How to update particular value of child in Firebase Database](https://stackoverflow.com/questions/40589397/firebase-db-how-to-update-particular-value-of-child-in-firebase-database)

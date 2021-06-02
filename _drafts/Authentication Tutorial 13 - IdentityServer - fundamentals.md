@@ -58,3 +58,11 @@ certmgr.msc
 
 # References
 [https://identityserver.github.io/Documentation/docsv2/overview/mvcGettingStarted.html](https://identityserver.github.io/Documentation/docsv2/overview/mvcGettingStarted.html)
+
+to read
+
+http://docs.identityserver.io/en/latest/intro/terminology.html
+
+http://docs.identityserver.io/en/latest/topics/startup.html#
+
+https://manfredsteyer.github.io/angular-oauth2-oidc/docs/additional-documentation/refreshing-a-token.html

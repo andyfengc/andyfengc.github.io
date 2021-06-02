@@ -11,9 +11,9 @@ author: Andy Feng
 
 第二，点击申请的链接 (Register MyAccount)，输入相关个人信息。 click [here](https://www.canada.ca/en/revenue-agency/services/e-services/e-services-individuals/account-individuals.html) to register
 
-![](/images/posts/2019200406-tax-3.png)
+![](/images/posts/20200406-tax-3.png)
 
-![](/images/posts/2019200406-tax-4.png)
+![](/images/posts/20200406-tax-4.png)
 
 第三，设置用户名及密码。
 
@@ -23,9 +23,9 @@ author: Andy Feng
 
 MyAccount 对于个人税务记录是个非常有用的工具，有一些非常便利的功能
 
-![](/images/posts/2019200406-tax-2.png)
+![](/images/posts/20200406-tax-2.png)
 
-![](/images/posts/2019200406-tax.png)
+![](/images/posts/20200406-tax.png)
 
 主要功能如下：
 
