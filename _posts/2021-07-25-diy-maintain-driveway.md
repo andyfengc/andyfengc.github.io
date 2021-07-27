@@ -1,6 +1,6 @@
 ---
 layout: post
-title: DIY tutorial - driveway
+title: DIY tutorial - maintain driveway
 author: Andy Feng
 ---
 
@@ -10,7 +10,9 @@ author: Andy Feng
 13度以上干燥温暖的天气，第二天不会下雨
 
 ## Prepare
-driveway sealer
+driveway sealer, 每桶17l 大概能用500-600 ft，recoat加倍
+
+![](/images/posts/20210725-40.jpg)
 
 (driveway) squeegee 或driveway roller
 
@@ -170,6 +172,7 @@ crack filler, optional
 具体干透时间需要看说明，快干型的等1个小时，慢干型的通常等4个小时干透，等24-48小时再开车上去
 
 # brick 砖车道
+
 # References
 [沥青车道重刷封胶保护涂层seal asphalt driveway](https://www.youtube.com/watch?v=dworyuF9sic)
 
