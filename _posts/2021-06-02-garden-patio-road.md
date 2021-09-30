@@ -15,7 +15,7 @@ Leveling Sand 流平沙，粗沙 或limestone screening
 
 ![](/images/posts/20210616-37.jpg)
 
-水泥砂（含乳胶） paving sand, polymeric sand，细沙
+水泥砂（含乳胶） paving sand, polymeric sand，paver sand 细沙
 
 Tamper
 
@@ -57,7 +57,7 @@ Landscape Edging Kit
 Patio 清洁剂
 ![](/images/posts/20210616-28.jpg)
 
-砖缝除草工具Telescoping Crack Weeder
+砖缝除草工具Crack Weeder/sidewalk weeder
 
 ![](/images/posts/20210616-43.jpg)
 

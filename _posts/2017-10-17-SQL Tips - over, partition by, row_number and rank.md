@@ -85,7 +85,8 @@ e.g.
 
 ## RANK() ##
 
-RANK() behaves like ROW_NUMBER(), except that “equal” rows are ranked the same. Here equals rows means the value of ordered columns of `OVER(ORDER BY column1, column2...)` are same.
+RANK() behaves like ROW_NUMBER(), except that “equal” rows are ranked the same. 
+> `equals` rows means the value of ordered columns of `OVER(ORDER BY column1, column2...)` are same.
 
 For a single partition, ROW_NUMBER() numbers all rows sequentially (for example 1, 2, 3, 4, 5). RANK() provides the same numeric value for ties (for example 1, 2, 2, 4, 5).
 
