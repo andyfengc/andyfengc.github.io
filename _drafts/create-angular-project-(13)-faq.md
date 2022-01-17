@@ -4,6 +4,81 @@ title: Create Angular v2+ project (8) - FAQ
 author: Andy Feng
 ---
 
+# Use jquery
+## way1
+index.html > import jquery lib
+
+	<!doctype html>
+	<html lang="en">
+	
+	<head>
+	  <meta charset="utf-8">
+	  ...
+	  
+	  <script
+	    src="https://code.jquery.com/jquery-3.4.1.js"
+	    integrity="sha256–2z0P7MLoyxByUtvAk/xjkmindefS4auh4Pfzbm7y6g0="
+	    crossorigin="anonymous">
+	  </script>
+	  </head>
+	
+	<body>
+	  <app-root></app-root>
+	</body>
+	
+	</html>
+
+app.component.html > add a button
+
+	<button id="btnTest">Test</button>
+
+app.component.ts
+
+	declare var $: any;
+	...
+	@Component({
+	  selector: 'app-root',
+	  templateUrl: './app.component.html',
+	  styleUrls: ['./app.component.scss'],
+	  providers: []
+	})
+	
+	export class AppComponent extends ComponentBase implements AfterViewInit {
+		...
+	  ngAfterViewInit(): void {    
+	    $('#btnTest').click(function(){
+	      alert('clicked')
+	    })
+	  }
+	}
+
+## way 2
+install lib
+
+	npm install jquery --save
+	// First install jQuery
+	npm install --save jquery
+	// and jQuery Definition
+	npm install -D @types/jquery
+
+in a component ts file, import jquery
+
+	import * as $ from 'jquery';
+	//
+	$('#elemId').width();
+	
+	// OR
+	
+	// CommonJS style - working with "require"
+	import $ = require('jquery')
+	//
+	$('#elemId').width();
+
+or 
+
+	import $ from 'jquery';
+	//
+	$('#elemId').width();
 # Prevent Angular escape HTML code #
 
 1. use innerHTML property
@@ -473,7 +548,6 @@ Upgrading Angular Material
 Replace /deep/ with ::ng-deep in `styles.scss`
 
 If you use `ViewChild` or `ContentChild`, change all of them to `@ViewChild('foo', {static: false}) foo : ElementRef;`.
-
 
 # References
 [Global HTTP error catching in Angular 4.3+](https://hackernoon.com/global-http-error-catching-in-angular-4-3-9e15cc1e0a6b)

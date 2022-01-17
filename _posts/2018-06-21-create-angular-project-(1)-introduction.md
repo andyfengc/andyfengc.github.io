@@ -113,6 +113,8 @@ Environment:
 
 	![](/images/posts/20180102-angular2-cli-2.png)
 
+	> use configuration option: `ng serve --configuration=local`
+
 1. open browser, `http://localhost:4200`
 
 	![](/images/posts/20180102-angular2-cli-3.png)
