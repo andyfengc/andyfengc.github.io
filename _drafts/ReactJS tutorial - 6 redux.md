@@ -10,7 +10,7 @@ Redux is a state container for JavaScript applications. It provides a library to
 
 React components read data from Redux `store` and dispatch `actions` to the `store` to update `state`.
 
-![](/images/posts/20220120-react-8.gif)
+![](/images/posts/20220120-react-7.gif)
 
 # why use redux?
 
