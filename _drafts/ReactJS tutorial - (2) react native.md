@@ -45,6 +45,7 @@ author: Andy Feng
 	![](/images/posts/20170912-react-native-7.png)
 
 1. open commandline, switch to new created folder
+
 	`react-native run-android`
 
 	Now the reactnative will compile and package all scripts and attach to active android emulator
