@@ -5,6 +5,27 @@ author: Andy Feng
 ---
 
 # Introduction
+## v1
+React has four built-in methods that gets called, in this order, when mounting a component:
+> The render() method is required and will always be called, the others are optional and will be called if you define them.
+
+1. constructor()
+	> can have `props` as argument
+	> natural place to set up initial `state` and other initial values
+
+1. getDerivedStateFromProps()
+	> natural place to set `state` object based on initial props
+	> takes `state` as an argument, and returns an object with changes to the state.
+
+1. render()
+	> outputs the HTML to the DOM
+	
+1. componentDidMount()
+	> called after the component is rendered.
+	> This is where you run statements that requires that the component is already placed in the DOM.
+
+## v2
+
 组件的生命周期分成三个状态：
 
 - Mounting：已插入真实 DOM

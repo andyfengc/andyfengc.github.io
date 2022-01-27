@@ -10,21 +10,29 @@ Redux is a state container for JavaScript applications. It provides a library to
 
 React components read data from Redux `store` and dispatch `actions` to the `store` to update `state`.
 
+![](/images/posts/20220120-react-9.jpg)
+
 ![](/images/posts/20220120-react-7.gif)
 
-# why use redux?
+# Why use redux?
+1. Easily manage global state - access or update any part of the state from any Redux-connected component
+1. Easily keep track of changes with Redux DevTools - any action or state change is tracked and easy to follow with Redux. The fact that the entire state of the application is tracked with each change means you can easily do time-travel debugging to move back and forth between changes.
 
+缺点是使用redux需要设置大量初始boilerplate和维护，特别是如果不使用 Redux Toolkit，而使用原始redux的话。
+
+简单的应用可以先用Context API进行开发，后期需要大量扩展的话再转化成redux
 
 ## View
 View即react组件，View与 State 一一对应，可以看作 State 的视觉层
 
 ## Store
-Store 就是保存数据的地方，你可以把它看成一个容器。整个应用只能有一个 Store。
+Store 就是保存数据的地方，你可以把它看成一个容器。整个redux应用只能有一个 Store，该store使用reducer进行初始化
 > Redux 提供createStore这个函数，用来生成 Store。
 
 	import { createStore } from 'redux';
 	const store = createStore(fn);
 > createStore函数接受另一个函数作为参数，返回新生成的 Store 对象。
+> redux中，通常用Provider来wrap整个应用，因为store使用reducer进行初始化，所以整个应用的任何component都能访问到reducer；但store不直接对component直接开放
 
 ### State
 Store对象包含所有数据。如果想得到某个时点的数据，就要对 Store 生成快照。这种时点的数据集合，就叫做 State。
@@ -50,9 +58,9 @@ store.subscribe方法返回一个函数，调用这个函数就可以解除监�
 	unsubscribe();
 
 ## Action
-用户不直接接触state，而是通过使用view来更新state数据。Action 就是 View 发出的通知，表示 State 应该要发生变化了。
+用户不直接使用state，而是通过使用view发送action，来更新state数据
 
-Action是存放数据的对象，即消息的载体。Action 是一个简单对象，其中type属性是必须的，表示 Action 的名称，其他属性可以自由设置，用来传递数据，
+Action是存放数据的对象，即消息的载体。Action 是一个简单对象，其中type属性是必须的，表示 Action 的名称，其他属性可以自由设置，如payload，用来传递数据，
 
 e.g.
 
@@ -60,15 +68,16 @@ e.g.
 	  type: 'ADD_TODO',
 	  payload: 'Learn Redux'
 	};
-> 这里，Action 的名称是ADD_TODO，它携带的信息是字符串Learn Redux。
-
+> type习惯用全大写的字符串常量，用来描述action。这里，Action 的名称是ADD_TODO，它携带的信息是字符串Learn Redux。
+> payload是数据
+ 
 ### Action Creator
 View 要发送多少种消息，就会有多少种 Action。如果都手写，会很麻烦。可以定义一个函数来生成 Action，这个函数就叫 Action Creator。
+> action creator is a function that returns an action.
 
 e.g. 
 
-	const ADD_TODO = '添加 TODO';
-	
+	const ADD_TODO = '添加 TODO';	
 	function addTodo(text) {
 	  return {
 	    type: ADD_TODO,
@@ -96,6 +105,8 @@ Store 收到 Action 以后，必须给出一个新的 State，这样 View 才会
 
 Reducer 是一个函数，它接受 Action 和当前 State 作为参数，返回一个新的 State。
 > Reducer 是一个纯函数。也就是说，只要是同样的输入，必定得到同样的输出。
+> A reducer is immutable and always returns a copy of the entire state. 
+> A reducer typically consists of a switch statement that goes through all the possible action types.
 
 e.g.
 	const reducer = function (state, action) {
@@ -119,6 +130,9 @@ e.g.
 	  type: 'ADD',
 	  payload: 2
 	});
+
+## Connect
+The connect() function is one typical way to connect React to Redux. A connected component is sometimes referred to as a container.
 
 ## Middleware中间件
 中间件添加在dispatch前后，用来增加新的功能，譬如日志记录
@@ -170,7 +184,7 @@ React-Redux 提供connect方法，用于从 UI 组件生成容器组件。connec
 
 	import { connect } from 'react-redux'
 	const VisibleTodoList = connect()(TodoList);
-> TodoList是 UI 组件，VisibleTodoList就是由 React-Redux 通过connect方法自动生成的容器组件。
+> TodoList是 UI 组件(view)，VisibleTodoList就是由 React-Redux 通过connect方法自动生成的容器组件。
 > 
 > 但是，因为没有定义业务逻辑，这个容器组件只是 UI 组件的一个单纯的包装层，并无意义。为了定义业务逻辑，需要给出下面两方面的信息。
 > （1）输入逻辑：外部的数据（即state对象）如何转换为 UI 组件的参数（2）输出逻辑：用户发出的动作如何变为 Action 对象，从 UI 组件传出去
@@ -203,8 +217,15 @@ index.js
 	)
 > 这里，Provider在根组件外面包了一层，这样一来，App的所有子组件就默认都可以拿到state了
 
-## Installation
-way1: Create new product, recommended
+## Hooks
+React Redux provides a pair of custom React hooks that allow your React components to interact with the Redux store.
+
+> `useSelector` reads a value from the store state and subscribes to updates
+
+> `useDispatch` returns the store's dispatch method to let you dispatch actions.
+
+# Installation
+## way1: Create new product, recommended
 
 	# Redux + Plain JS template
 	npx create-react-app my-app --template redux
@@ -212,18 +233,86 @@ way1: Create new product, recommended
 	# Redux + TypeScript template
 	npx create-react-app my-app --template redux-typescript
 
-way2: Add redux to existing project:
+## way2: Add redux to existing project:
+Redux requires a few dependencies.
+
+- Redux Core library
+- React Redux React bindings for Redux
+- Redux Thunk Async middleware for Redux
+- Redux DevTools Extension Connects Redux app to Redux DevTools
+
 > You'll also need to install Redux and set up a Redux store in your app.
 
-	npm install react-redux
+	npm i \
+	redux \
+	react-redux \
+	redux-thunk \
+	redux-devtools-extension \
+	react-router-dom
 
-## Hooks
+## folder structure
 
-React Redux provides a pair of custom React hooks that allow your React components to interact with the Redux store.
+	└── src/
+	    ├── assets/ 
+	    ├── actions/ - 保存actions，及获取远程数据
+	    ├── components/ - 纯组件
+	    ├── pages/ - or views, 指containers 
+	    ├── reducers/ - reducer纯函数
+	        ├── rootReducer
+	        ├── xxxReducer
+	    ├── services/ - 使用action，获取远程数据。。。
+	    ├── utils/ 
+	    ├── App.js -- main app
+	    ├── index.css
+	    └── index.js
 
-> `useSelector` reads a value from the store state and subscribes to updates
+## 开发
+1. 写actions
+2. 写reducers，基于actions
+3. 写middlewares
+4. 生成store，使用reducers和middlewares
+5. 写views
+	> 用store.dispatch(action)调度事件;
+	> 用store.getState()更新页面数据
 
-> `useDispatch` returns the store's dispatch method to let you dispatch actions.
+# Redux Toolkit
+Redux Toolkit, or RTK是官方的简化Redux的方法。Redux has a lot of boilerplate for setup and requires many more folders and files than plain React would. 有一些模式，譬如Redux Toolkit，可以简化Redux
+
+install: `npm i @reduxjs/toolkit`
+> and it no longer requires you to install the `redux-thunk` or `redux-devtools-extension` dependencies.
+> 
+The main advantages to using RTK are:
+- 
+- Easier to set up (less dependencies)
+- Reduction of boilerplate code (one slice vs. many files for actions and reducers)
+- Sensible defaults (Redux Thunk, Redux DevTools built-in)
+- The ability to use direct state mutation, since RTK uses immer under the hood. This means you no longer need to return { ...state } with every reducer.
+
+## Slice
+Instead of dealing with reducers, actions, and all as separate files and individually creating all those action types, RTK gives us the concept of slices. A slice automatically generates reducers, action types, and action creators. As such, you'll only have to create one folder - `slices`.
+> we don't need `actions`, `reducers` folder as them merged into `slices` folder
+
+e.g. PostSlice.js
+
+	// A slice for posts to replace original multiple reducers
+	const postsSlice = createSlice({
+	  name: 'posts',
+	  initialState,
+	  reducers: {
+	    getPosts: (state) => {
+	      state.loading = true
+	    },
+	    getPostsSuccess: (state, { payload }) => {
+	      state.posts = payload
+	      state.loading = false
+	      state.hasErrors = false
+	    },
+	    getPostsFailure: (state) => {
+	      state.loading = false
+	      state.hasErrors = true
+	    },
+	  },
+	})
 
 # Reference
 [redux.org](https://redux.js.org/)
@@ -237,3 +326,5 @@ React Redux provides a pair of custom React hooks that allow your React componen
 [Redux Tutorial: An Overview and Walkthrough](https://www.taniarascia.com/redux-react-guide/)
 
 [Redux 入门教程（一）：基本用法](https://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_one_basic_usages.html)
+
+[Redux Toolkit](https://redux-toolkit.js.org/)

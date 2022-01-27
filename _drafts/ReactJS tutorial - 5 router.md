@@ -10,20 +10,21 @@ React doesn't come with a built-in router, but we can easily achieve routing wit
 # Installation
 1. install lib
 	`npm install react-router-dom axios`
-	> `react-router-dom` for the router, and `axios` for making API calls.
+	> `react-router-dom` for the router
+	> `axios` for making API calls, optional
 
 2. modify index.js
 
-	import React from 'react';
-	import ReactDOM from 'react-dom';
-	import App from './app.js'
-	import { BrowserRouter } from 'react-router-dom'
-	
-	ReactDOM.render(
-	    <BrowserRouter>
-	        <App />
-	    </BrowserRouter>
-	    , document.getElementById('root'))
+		import React from 'react';
+		import ReactDOM from 'react-dom';
+		import App from './app.js'
+		import { BrowserRouter } from 'react-router-dom'
+		
+		ReactDOM.render(
+		    <BrowserRouter>
+		        <App />
+		    </BrowserRouter>
+		    , document.getElementById('root'))
 	
 	To use router, we need to wrap our entire App component in Router. There are two types of routers:
 	
@@ -43,10 +44,30 @@ React doesn't come with a built-in router, but we can easily achieve routing wit
 		  return (
 		    <Routes>
 		      <Route path="/" element={<Home/>} />
-		      <Route path="/about" element={<About/>} />
+              <Route path="/blogs" element={<Blogs />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/*" element={<NoPage />} />
 		    </Routes>
 		  )
 		}
+
+	or
+
+		export default function AppRouting() {
+		  return (
+		    <Routes>
+		      <Route path="/" element={<Layout/>}>
+                <Route index element={<Home />} />
+                <Route path="blogs" element={<Blogs />} />
+                <Route path="contact" element={<Contact />} />
+                <Route path="*" element={<NoPage />} />
+			  </Route>
+		    </Routes>
+		  )
+		}
+	> An application can have multiple `<Routes>`. Our basic example only uses one.
+	> `<Route>`s can be nested. The nested <Route>s inherit and add to the parent route. So the `blogs` path is combined with the parent and becomes `/blogs`
+	> `Home` component route does not have a path but has an `index` attribute. That specifies this route as the default route for the parent route, which is /.
 
 	add to app.js
 
@@ -66,42 +87,67 @@ React doesn't come with a built-in router, but we can easily achieve routing wit
 
 1. write components
 
+	layout.js
+
+		import { Outlet, Link } from "react-router-dom";
+		
+		const Layout = () => {
+		  return (
+		    <>
+		      <nav>
+		        <ul>
+		          <li>
+		            <Link to="/">Home</Link>
+		          </li>
+		          <li>
+		            <Link to="/blogs">Blogs</Link>
+		          </li>
+		          <li>
+		            <Link to="/contact">Contact</Link>
+		          </li>
+		        </ul>
+		      </nav>
+		
+		      <Outlet />
+		    </>
+		  )
+		};
+	> `<Outlet>` renders the current route selected.
+	> `<Link>` is used to set the URL and keep track of browsing history. Anytime we link to an internal path, we will use `<Link>` instead of `<a href="">`.
+
 	pages/home.js
 
-		import { Route,Routes, Link } from "react-router-dom";
 		export default function Home() {
-		  return (
-		    <>
-		      <main>
-		        <h2>Welcome to the homepage!</h2>
-		        <p>You can do this, I believe in you.</p>
-		      </main>
-		      <nav>
-		        <Link to="/about">About</Link>
-		      </nav>
-		    </>
-		  );
+		  return (<h1>Home</h1>);
 		}
 
-	pages/about.js
+	or
+	
+		const Home = () => {
+		  return <h1>Home</h1>;
+		};
+		export default Home;
 
-		import { Route,Routes, Link } from "react-router-dom";
-		export default function About() {
-		  return (
-		    <>
-		      <main>
-		        <h2>Who are we?</h2>
-		        <p>
-		          That feels like an existential question, don't you
-		          think?
-		        </p>
-		      </main>
-		      <nav>
-		        <Link to="/">Home</Link>
-		      </nav>
-		    </>
-		  );
-		}
+	Blogs.js:
+	
+		const Blogs = () => {
+		  return <h1>Blog Articles</h1>;
+		};		
+		export default Blogs;
+
+	Contact.js:
+	
+		const Contact = () => {
+		  return <h1>Contact Me</h1>;
+		};		
+		export default Contact;
+
+	NoPage.js:
+
+		const NoPage = () => {
+		  return <h1>404</h1>;
+		};		
+		export default NoPage;
 
 1. result
 
