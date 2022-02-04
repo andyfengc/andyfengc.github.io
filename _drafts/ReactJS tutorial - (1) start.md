@@ -5,11 +5,11 @@ author: Andy Feng
 ---
 
 # Introduction
-React is an open-source project created by Facebook. React is a JavaScript library for building user interfaces(UI) on the front end.
+`React` is an open-source project created by Facebook. React is a JavaScript library for building user interfaces(UI) on the front end.
 
-React is not a framework (unlike Angular, which is more opinionated). React is the view layer of an MVC application (Model View Controller)
+`React` is not a framework (unlike Angular, which is more opinionated). React is the view layer of an MVC application (Model View Controller)
 
-React creates a virtual DOM in memory, where it does all the necessary manipulating, before making the changes in the browser DOM. React doesn't manipulate the browser's DOM directly. React only changes what needs to be changed and it is fast.
+`React` creates a virtual DOM in memory, where it does all the necessary manipulating, before making the changes in the browser DOM. React doesn't manipulate the browser's DOM directly. React only changes what needs to be changed and it is fast.
 
 # syntax
 html:
@@ -44,7 +44,7 @@ react code:
 	
 	ReactDOM.render(<App />, document.getElementById('root'))
 
-> React component extends Component class
+> React component extends `Component` class
 > 
 > React component implement `render()` method
 > 
@@ -788,6 +788,90 @@ React events are written in camelCase syntax. 如果是响应js事件的函数�
 [render props](https://reactjs.org/docs/render-props.html)
 
 [user-defined hook](https://reactjs.org/docs/hooks-overview.html#building-your-own-hooks)
+
+## How to pass functions in function component?
+parent component:
+	
+	import React from "react";
+	import "./styles.css";
+	import Model from "./Model";
+	
+	function App() {
+	  const [status, setState] = React.useState(false);
+	  const [text, setText] = React.useState("");
+	  const handleClick = () => {
+	    setState(prev => ({ status: !prev.status }));
+	  };
+	  const handleChange = e => {
+	    setState({ text: e.target.value });
+	  };
+	
+	  return (
+	    <>
+	      <button onClick={handleClick}>Open photo entry dialog</button>
+	      <ChildComponent
+	        isOpen={status}
+	        text={text}
+	        handleChange={handleChange}
+	        handleClick={handleClick}
+	      />
+	    </>
+	  );
+	}
+	
+	const ChildComponent = ({ isOpen, text, handleChange, handleClick }) => {
+	  return (
+	    <>
+	      {isOpen && (
+	        <Model
+	          status={isOpen}
+	          handleClick={handleClick}
+	          text={text}
+	          handleChange={handleChange}
+	        />
+	      )}
+	    </>
+	  );
+	};
+	export default App;
+
+child component:
+
+	import React from "react";
+	import "bootstrap/dist/css/bootstrap.min.css";
+	import { Button, Modal, Form } from "react-bootstrap";
+	
+	export default function Model({ handleClick, status, handleChange, text }) {
+	  return (
+	    <>
+	      <Modal show={status} onHide={handleClick}>
+	        <Modal.Header closeButton>
+	          <Modal.Title>Gallary</Modal.Title>
+	        </Modal.Header>
+	        <Form.Group controlId="formBasicEmail">
+	          <Form.Control
+	            type="text"
+	            value={text}
+	            placeholder="Enter Something"
+	            onChange={handleChange}
+	          />
+	        </Form.Group>
+	        <Modal.Body>
+	          Woohoo, you're reading this text in a modal from your input:{" "}
+	          <strong>{text}</strong>
+	        </Modal.Body>
+	        <Modal.Footer>
+	          <Button variant="secondary" onClick={handleClick}>
+	            Close
+	          </Button>
+	          <Button variant="primary" onClick={handleClick}>
+	            Save Changes
+	          </Button>
+	        </Modal.Footer>
+	      </Modal>
+	    </>
+	  );
+	}
 
 # Reference
 [reactjs Getting Started](https://reactjs.org/docs/getting-started.html)

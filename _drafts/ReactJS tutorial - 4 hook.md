@@ -729,17 +729,26 @@ e.g.
 		ReactDOM.render(<App />, document.getElementById('root'));
 	> In the useEffect, we are updating the useRef current value each time the inputValue is updated by entering text into the input field.
 
+useRef() save reference
+
 ## useCallback
 [https://www.w3schools.com/react/react_usecallback.asp](https://www.w3schools.com/react/react_usecallback.asp)
 
+useCallback 返回的是函数的缓存，是一个函数
+
+useCallback(fn, deps) 相当于 useMemo(() => fn, deps)
+
+
 ## useMemo 
 [https://www.w3schools.com/react/react_usememo.asp](https://www.w3schools.com/react/react_usememo.asp)
+
+
+useMemo 返回的是函数的执行结果，是一个值
 
 ## User-defined hook
 You can write custom Hooks that cover a wide range of use cases like form handling, animation, declarative subscriptions, timers
 
 自定义hook其实就是通过封装组合内置hooks，形成自定义的hook，然后分享给其他组件
-
 
 # Other Hooks
 useContext lets you subscribe to React context without introducing nesting:
@@ -756,13 +765,49 @@ useReducer lets you manage local state of complex components with a reducer
 	  const [todos, dispatch] = useReducer(todosReducer);
 	  // ...
 
-useRef() save reference
+## Redux hooks
+React-Redux provides a pair of custom React hooks that allow your React components to interact with the Redux store. 实际上，它主要用来读取state数据
 
-useMemo 返回的是函数的执行结果，是一个值
+### useSelector
+`useSelector` reads a value from the store state and subscribes to updates.  从redux的store对象中提取数据(state)。
+> 选择器函数应该是纯函数，因为它可能在任意时间点多次执行。 
+> 这个selector方法类似于之前的connect的mapStateToProps参数的概念。并且useSelector会订阅store, 当action被dispatched的时候，会运行selector。
 
-useCallback 返回的是函数的缓存，是一个函数
+e.g.
 
-useCallback(fn, deps) 相当于 useMemo(() => fn, deps)
+	import React from 'react'
+	import { useSelector } from 'react-redux'
+	
+	export const CounterComponent = () => {
+	  const counter = useSelector(state => state.counter)
+	  return <div>{counter}</div>
+	}
+
+### useDispatch
+`useDispatch` returns the store's dispatch method to let you dispatch actions. 返回Redux store中对dispatch函数的引用。你可以根据需要使用它。实际上，它主要用来修改state的数据
+
+e.g.
+
+	import React from 'react'
+	import { useDispatch } from 'react-redux'
+	
+	export const CounterComponent = ({ value }) => {
+	  const dispatch = useDispatch()
+	
+	  return (
+	    <div>
+	      <span>{value}</span>
+	      <button onClick={() => dispatch({ type: 'increment-counter' })}>
+	        Increment counter
+	      </button>
+	    </div>
+	  )
+	}
+
+### useStore()
+这个Hook返回redux <Provider>组件的store对象的引用。
+
+这个钩子应该不长被使用。useSelector应该作为你的首选。因为如果store中的state改变，这个将不会自动更新
 
 # Reference
 [Introducing Hooks](https://reactjs.org/docs/hooks-intro.html)
@@ -774,3 +819,9 @@ useCallback(fn, deps) 相当于 useMemo(() => fn, deps)
 [Making Sense of React Hooks](https://medium.com/@dan_abramov/making-sense-of-react-hooks-fdbde8803889)
 
 [Build a CRUD App in React with Hooks](https://www.taniarascia.com/crud-app-in-react-with-hooks/)
+
+[为什么Redux需要reducers是纯函数](https://mingjiezhang.github.io/2017/02/11/%E7%BF%BB%E8%AF%91-%E4%B8%BA%E4%BB%80%E4%B9%88Redux%E9%9C%80%E8%A6%81reducers%E6%98%AF%E7%BA%AF%E5%87%BD%E6%95%B0-md/)
+
+[useSelector: 别啦 connect](https://juejin.cn/post/6844903874197880840)
+
+[React 实践心得：react-redux 之 connect 方法详解](https://segmentfault.com/a/1190000015042646)

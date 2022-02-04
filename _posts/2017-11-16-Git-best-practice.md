@@ -74,6 +74,8 @@ Here are major steps of GitFlow:
 
 	`git pull origin <feature-branch>`
 
+	`git checkout <feature-branch>`
+
 	pull changes from develop branch to feature branch
 
 	`git merge develop <feature-branch>`
