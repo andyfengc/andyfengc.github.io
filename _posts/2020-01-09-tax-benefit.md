@@ -6,6 +6,13 @@ author: Andy Feng
 
 本文主要讨论常见加拿大税务优惠
 
+# Introduction
+- 有娃家庭的税务优惠
+- 公共福利
+- 学生福利
+- 老人的税务优惠
+- 首次购房优惠
+
 # 有娃家庭的税务优惠
 1. 托儿费用减税项目(Child Care Expense Deduction)
 
@@ -33,10 +40,6 @@ author: Andy Feng
 	- 符合资格的孩子年龄须在16岁以下。
 	- 符合资格的健身课程必须具有连续性，至少每周一次连续进行至少8周，或者是至少连续进行5天或以上。
 	- 此项目为可退还的免税项目(Refundable Tax Credit)，最高可申报额度为 $500，即可以获得退还 $75 ($500 x 15%) 的税款。
-
-1. 大学学费 / 教育 / 书本免税额 Post-secondary Tuition/Education/Textbook Tax Credit 2017税务年被取消。
-
-	如果家里有小孩正在读大学，大学学费/教育/书本可以作为免税项目 (Non-refundable Tax Credit) 每年最高转 $5,000 给父母使用。
 
 1. 助孕疗程费用 Infertility Treatment
 
@@ -136,6 +139,8 @@ author: Andy Feng
 	> 对于家庭，如果在2019年的家庭总收入介于$11,981 和 $17,025 之间，那么这个家庭所能领取的WITB为$2,335。如果这个家庭的收入超过了$17，025那么WITB领款额将会逐步减少。如果家庭收入超过了$36,483，领款额减少到零。
 
 	> WITB是“可退税的抵税额”，提供给工作但收入低于规定的个人和家庭。年收入等于或少于12820元的个人，通过CWB最多可以获得1335元；收入少于17025元的家庭，通过CWB做多可以获得2335元。但注意，如有上学接受全日制教育(边读书边打工的全职学生)，无法申请CWB福利。
+
+	> 适用于加拿大收入较低或中等的工人。作为一名学生，在某些情况下你有资格获得这个申请的资格。全日制学生一年内在校学习不得超过 13周
 	
 1. Volunteer Firefighter Tax Credit消防志愿者可抵税(https://www.oafc.on.ca/information-volunteer-firefighters-tax-claim-amount)
 
@@ -173,10 +178,45 @@ author: Andy Feng
 1. BC省医疗辅助金（BC Medical Services Plan Premium Assistance Program）
 	针对低收入者而设，帮助他们支付医疗保险费用（Medical Services Plan，简称MSP）。只要个人或家庭低于$24,000元，都可以获得高达全年的资助。原本每个月最高的$75元保费将提高至$78元，但现在却维持$75元。省政府在今年财政公布，从2018年1月1日开始，卑诗省年收入在$12万加元以下的200万省民，将只需支付现有金额一半的省医疗保险费。这意味着每个成年省民每年将节省$450元，或者每个家庭$900元。
 
-## Canada Training Credit
-This credit will expire at the end of the year you turn 65 or the year of death.
+# 学生福利
+## Tuition tax credit
+申请条件：在高等学校（例如大学、大专）或认证教育机构支付了学费。CRA可能会从你欠他们的税款中扣除一些钱。
 
+[https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/tax-return/completing-a-tax-return/deductions-credits-expenses/line-32300-your-tuition-education-textbook-amounts/eligible-tuition-fees.html](https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/tax-return/completing-a-tax-return/deductions-credits-expenses/line-32300-your-tuition-education-textbook-amounts/eligible-tuition-fees.html)
+
+## Canada Training Credit
 2020年-
+
+25至65周岁之间的纳税人，每年可以累计250加元的抵免额，一生最高可达5,000加元。该抵免额可用于2020年及以后年度向合格教育机构支付的学费和其他相关费用。
+> 要拿到这笔退税，必须注意：当年您得花钱参加培训了，否则该退税与您无关。
+> 如果可抵扣额大于当年欠税金额，可以获得相应的退税。该抵免额只能自己使用，不可转让给其他人。
+> This credit will expire at the end of the year you turn 65 or the year of death.
+
+什么人可以获得“加拿大培训抵免额”？
+> 当年年底时，年龄在25至65周岁之间的纳税人, 满足以下条件都可以享受该优惠：
+> 必须申报当年的个人税
+> 该年度必须是加拿大的税务居民
+> 当年个人收入超过$10,000加元（收入可以来源于产假补贴、和任何其他常规个人收入等，比如工资、自雇、应税部分的奖学金等）
+> 当年个人净收入不能超过该年度第三税阶（$147,667 in 2019）
+
+什么是“合格教育机构”？
+> 加拿大的大学、学院或其他提供大专以上课程的教育机构；
+> 由加拿大就业和社会发展部长认证的提供职业技能课程的机构。
+
+### 支付了学费的纳税人，报税时可否同时享受原有的学费税收抵免和新的加拿大培训抵免优惠？
+可以。
+
+税务局举了一个例子，假设：
+
+- 2023年，Michelle报名参加培训课程，并支付了1,500加元的合格学费。
+- Michelle在前几年没有申请任何加拿大培训抵免。
+- 假设Michelle满足所有条件，即从2019年到2022年每年获得250加元的年度积累，那么Michelle在2023年可用的加拿大培训抵免额度总额将为1,000加元。
+
+那么，Michelle可以用下面方法，组合使用canada training credit和tuition tax credit：
+
+Michelle可以在申报2023年个人税的时候，使用750加元的加拿大培训抵免额(canada training credit)（即：支付的学费1,500加元的50％ &  2023年累计可用加拿大培训抵免额中的较小者）。
+
+然后，在计算Michelle可获得的2023年学费抵免额(tuition tax credit)的学费时，她需要从学费总额1,500加元中减去750加元的加拿大培训抵免额，也就是说在T2202表里只能填写750加元。
 
 [https://www.canada.ca/en/revenue-agency/programs/about-canada-revenue-agency-cra/federal-government-budgets/budget-2019-investing-middle-class/canada-training-credit.html](https://www.canada.ca/en/revenue-agency/programs/about-canada-revenue-agency-cra/federal-government-budgets/budget-2019-investing-middle-class/canada-training-credit.html)
 
@@ -287,6 +327,8 @@ This credit will expire at the end of the year you turn 65 or the year of death.
 1. 公交减税优惠（Public transit tax credit），地铁月票等公交费用，2017年7月1日正式取消此项，自2017年1月1日至6月30日之间的公交支出，仍能申请减税。
 
 1. 教育和书本减税优惠（Education and textbook credits ），从2017年1月1日起取消，但此前几年中累积的此项减税金额仍可申报；
+
+	> 如果家里有小孩正在读大学，大学学费/教育/书本可以作为免税项目 (Non-refundable Tax Credit) 每年最高转 $5,000 给父母使用。
 
 # References
 [有娃家庭的税务优惠政策2016版](https://liveandleave.com/2017/01/16/2017-t1-tips-3/)

@@ -4,15 +4,6 @@ title: Electric DIY tutorial - build outlet
 author: Andy Feng
 ---
 
-# Electric Wire
-白色，14gauge，最大支持15amp
-
-黄色，12 gauge，最大支持20amp
-
-橘色，10 gauge，支持30amp，用于热水器，空调等
-
-黑色，8 gauge，支持45 amp；6 gauge支持60 amp，用于sub panel
-
 # Install new outlet from existing one
 outlet上，金色螺丝代表火线，银色螺丝地线，绿色螺丝零线
 

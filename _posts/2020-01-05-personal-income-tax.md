@@ -54,6 +54,20 @@ author: Andy Feng
 > 2019年，当年收入超过4740，收20% surtax；年收入超过6067，收 20%+36%=56% surtax。
 > 当年收入超过22w时，含surtax的完整算法是：`联邦最高税阶33% + 安省最高税阶13.16% + 安省最高税阶13.16% x 56% = 53.53%`
 
+2019 联邦税表
+
+![](/images/posts/20220427-tax-3.jpg)
+
+2019 安省税表
+
+![](/images/posts/20220427-tax-2.jpg)
+
+2019 安省surtax 税表
+
+![](/images/posts/20220427-tax-1.jpg)
+
+2019 合并联邦税、省税、附加税后的总税表tax bracket:
+
 ![](/images/posts/20200402-tax-1.png)
 
 # 报税清单checklist

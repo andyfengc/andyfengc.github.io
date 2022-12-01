@@ -16,3 +16,6 @@ author: Andy Feng
 抽象类 abstract class：一般抽象类都是作为基类，比如说「电脑」就可以作为一个抽象类，根据抽象类派生出「台式电脑」和「笔记本电脑」2种具体类。一般不对抽象类进行实例化。
 
 # References #
+[学习并理解 23 种设计模式](https://github.com/xietao3/Study-Plan/blob/master/DesignPatterns/README.md)
+
+[纯干货！23种设计模式大总汇](https://www.jianshu.com/p/dbc8a279165d)

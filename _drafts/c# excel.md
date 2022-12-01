@@ -15,11 +15,12 @@ nuget > Install library
 
 [https://github.com/nissl-lab/npoi](https://github.com/nissl-lab/npoi)
 
+[document](https://github.com/nissl-lab/npoi/wiki/Getting-Started-with-NPOI)
+
 old url: [https://github.com/dotnetcore/NPOI](https://github.com/dotnetcore/NPOI)
 
 ## generate a excel file
 1. NPOI supports two flavors of Excel: XSSF and HSSF.
-
 
 
 # pdf to excel, iTextSharp

@@ -145,7 +145,7 @@ T5表通常列出如下几项：
 - Return of capital - this is a non-taxable return of some of your investment in a security; however, it does reduce your adjusted cost base (ACB)
 - Capital gains from a flow-through entity such as  a formal trust, partnership, or registered investment club
 
-Questrade会有加股和美股的两个表，列出dividend收入和借款利息，譬如下面这个美股的T5表，注意到其中有自动扣除的divdend外国税withdraw tax
+Questrade会有加股和美股的两个表，列出dividend收入和借款利息，譬如下面这个美股的T5表，注意到其中有自动扣除的dividend外国税withdraw tax
 ![](/images/posts/20210329-tax-2.png)
 
 ### 券商示例
