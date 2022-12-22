@@ -5,7 +5,7 @@ author: Andy Feng
 ---
 
 # Introduction #
-A stored procedure(sproc) is nothing more than prepared SQL code that you save so you can reuse the code over and over again. In database server side, stored procedure will be pre-compiled and cached to improve performance. It will be faster than regular query. Different from view, sproc supports parameters.
+A stored procedure(sproc) is prepared SQL code that you save so you can reuse the code over and over again. In database server side, stored procedure will be pre-compiled and cached to improve performance. It will be faster than regular query. Different from view, sproc supports parameters.
 
 # Create stored procedure
 create a stored procedure to do this the code would look like this:
