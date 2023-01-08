@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Blazor tutorial 2 - Telerik UI
+title: Blazor tutorial 4 - Telerik UI
 author: Andy Feng
 ---
 
