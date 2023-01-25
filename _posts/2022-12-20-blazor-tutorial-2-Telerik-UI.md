@@ -24,7 +24,7 @@ After installation, you got
 
 ![](/images/posts/20221216-blazor-7.jpg)
 
-## method 2: use nuget to install libs to existing project; then config Startup.cs
+## method 3: use nuget to install libs to existing project; then config Startup.cs
 1. add ui components:
 	download zip package at [https://www.telerik.com/account/downloads](https://www.telerik.com/account/downloads)
 	
