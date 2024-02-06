@@ -21,7 +21,7 @@ However, Blazor server-side sets up an in-memory session for the current client 
 
 Once the initial page has been rendered and sent to the browser, `blazor.server.js` file hooks into user interaction events in the browser so it can mediate between the user and the server. For example, if a rendered element has an `@onclick` event registered, `blazor.server.js` will hook into its JavaScript onclick event and then use its SignalR connection to send that event to the server and execute the relevant .NET code.
 
-## WebAssembly(WASM)
+## Blazor WebAssembly(WASM)
 WebAssembly is an instruction set that can interprete higher language like C# into machine binary code then execute. It is similar to CIL(common intermediate language). 
 
 ![](/images/posts/20221216-blazor-1.png)
@@ -73,3 +73,9 @@ However, `blazor.webassembly` file has to bootstrap the client application. It d
 [Project structure for Blazor apps](https://learn.microsoft.com/en-us/dotnet/architecture/blazor-for-web-forms-developers/project-structure)
 
 [Blazor Interview Questions](https://www.c-sharpcorner.com/article/blazor-interview-questions/)
+
+[https://learn.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-7.0](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-7.0)
+
+[https://learn.microsoft.com/en-us/dotnet/architecture/blazor-for-web-forms-developers/components](https://learn.microsoft.com/en-us/dotnet/architecture/blazor-for-web-forms-developers/components)
+
+[https://blazor-university.com/templating-components-with-renderfragements/](https://blazor-university.com/templating-components-with-renderfragements/)

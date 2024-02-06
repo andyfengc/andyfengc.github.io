@@ -266,20 +266,20 @@ program.cs
 # Autofac #
 1. Update service method to virtual 
 
-	public class OrderService : IOrderService
-    {
-		// change to virtual
-        public virtual void GrabNewOrders(int days)
-        {
-            System.Console.WriteLine("Grabbed 100 new orders within " + days + " days");
-            System.Console.WriteLine("Saved 100 new orders within " + days + " days");
-        }
-		// change to virtual
-        public virtual void ShipOrder(Order order)
-        {
-            System.Console.WriteLine(string.Format("ship order id: {0}, amount: {1}", order.orderId, order.totalAmount));
-        }
-    }
+		public class OrderService : IOrderService
+	    {
+			// change to virtual
+	        public virtual void GrabNewOrders(int days)
+	        {
+	            System.Console.WriteLine("Grabbed 100 new orders within " + days + " days");
+	            System.Console.WriteLine("Saved 100 new orders within " + days + " days");
+	        }
+			// change to virtual
+	        public virtual void ShipOrder(Order order)
+	        {
+	            System.Console.WriteLine(string.Format("ship order id: {0}, amount: {1}", order.orderId, order.totalAmount));
+	        }
+	    }
 
 1. Install package via nuget
 

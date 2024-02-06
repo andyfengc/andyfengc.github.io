@@ -538,6 +538,67 @@ To define a multi-statement table-valued function, you use a table variable as t
 
 We typically use table-valued functions as parameterized views. In comparison with stored procedures, the table-valued functions are more flexible because we can use them wherever tables are used.
 
+## PostgreSQL
+e.g.1
+
+	CREATE OR REPLACE FUNCTION test1() RETURNS integer 
+	  language PLPGSQL
+	AS
+	$$
+	BEGIN
+	  RETURN 1;
+	END;  
+	$$
+	
+	-- SELECT * FROM test1();
+
+e.g.2
+
+	CREATE OR REPLACE FUNCTION word_frequency()
+	  RETURNS TABLE (txt   varchar)
+	  LANGUAGE plpgsql AS
+	$$
+	BEGIN 
+	  RETURN QUERY 
+	  select name from code_base;
+	END
+	$$;
+
+e.g.3
+
+	CREATE OR REPLACE FUNCTION maintenance_system()
+	RETURNS TABLE(id INT, name VARCHAR)
+	LANGUAGE plpgsql
+	AS
+	$$
+	BEGIN
+	    RETURN QUERY 
+	    EXECUTE 'SELECT id, name FROM code_base';
+	END;
+	$$
+
+e.g.
+
+	CREATE OR REPLACE FUNCTION maintenance_systems()
+	RETURNS TABLE(id integer, name text)
+	LANGUAGE plpgsql
+	AS
+	$$
+	BEGIN
+		RETURN QUERY 
+	    SELECT * FROM  ( 
+		  VALUES
+		  ( 1, 'a'), (2,'b')
+		  ) AS x(id, name);
+	END
+	$$
+	
+	--SELECT * from maintenance_systems() where id = 1
+
+if has errors
+- check return data type
+- drop/recreate function
+- 
 # Stored procedure
 A stored procedure is a collection of SQL statements that applications use to access and manipulate data in a database.
 There are several advantages to using sprocs and they are as follows:

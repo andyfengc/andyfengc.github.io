@@ -1,6 +1,6 @@
 ---
 layout: post
-title: ASP.NET Identity authentication (2) - identity framework fundamentals
+title: ASP.NET Identity authentication (2) - identity framework fundamentals 1
 author: Andy Feng
 ---
 
@@ -273,6 +273,15 @@ Next, remove below redundant code in
                 .AddEntityFrameworkStores<ApplicationDbContext>();
         }
 		...
+
+# Identity APIs
+Create new user:
+
+UserManager<User>
+
+Manager roles:
+
+RoleManager<Role>
 
 # FAQ
 1. Cannot create identity database on the fly.

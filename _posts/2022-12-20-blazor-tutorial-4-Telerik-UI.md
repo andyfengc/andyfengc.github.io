@@ -12,7 +12,11 @@ author: Andy Feng
 
 it enables vs to create Telerik Blazor application
 
-## method 2: install Telerik Blazor extension, then create Telerik Blazor application
+vs > options > package sources > add telerik blazor
+
+![](/images/posts/20240205-telerik-1.jpg)
+
+## method 2: install Telerik Blazor extension, then create brand new Telerik Blazor application
 
 ![](/images/posts/20221216-blazor-4.jpg)
 
