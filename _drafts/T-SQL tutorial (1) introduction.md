@@ -960,6 +960,19 @@ e.g.
 
 SELECT * FROM (VALUES ('STOCK_ADMIN'), ('EXCHANGE_ADMIN')) AS Roles(RoleName)
 
+or
+
+WITH severity_rank(severity, rank) AS
+(
+select * from(values
+  ('Information', 40),
+  ('Warning', 30),
+  ('Violation', 20),
+  ('Stop', 10),  
+  (null, 0)
+) AS x
+)
+
 # References #
 [Create Clustered Indexes](https://docs.microsoft.com/en-us/sql/relational-databases/indexes/create-clustered-indexes?view=sql-server-2017)
 

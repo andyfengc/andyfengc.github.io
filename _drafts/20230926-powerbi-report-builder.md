@@ -85,6 +85,12 @@ download and install [Power BI report builder](https://www.microsoft.com/en-US/d
 
 1. publish report
 
+# FAQ
+### format date
+
+`=FormatDateTime(Fields!due_date.Value, DateFormat.ShortDate)`
+
+`=Format(Fields!etd.Value, "MMM dd, yyyy")`
 
 # Reference
 

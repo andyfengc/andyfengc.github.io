@@ -6,8 +6,10 @@ author: Andy Feng
 
 # Introduction #
 
-# CancellationToken
+# legacy BackgroundWorker before .net 4
 Back in the old .NET days we used a BackgroundWorker instance to run asynchronous and long-running operation.
+> BackgroundWorker通过DoWork，ProgressChanged，RunWorkerCompleted这三个EventHandler，分别控制程序的后台运行，进程的更新和结束后，我们只需要把任务分类到这三个EventHandler中，然后在UI线程中调用即可。
+> 为了控制在程序在后台的运行状况和是否可被取消，需要设置它的两个属性True/False：WorkerReportsProgress， WorkerSupportsCancellation。
 
 We had the ability to cancel these operations by calling the CancelAsync which sets the CancellationPending flag to true.
 
@@ -26,11 +28,121 @@ We had the ability to cancel these operations by calling the CancelAsync which s
 	        // Do something
 	    }
 	}
+BackgroundWorker作为Asynchronous Programming的基础，可以为设计结构较为简单的程序实现后台任务的运行，和Thread相比能够更方便地和UI进程进行信息交互。然而它们都比较繁琐。
 
-Starting with the .NET Framework 4, the .NET Framework introduces `Task` and use the async await pattern to simplify the code. For this post we will use the latter. [Task](https://msdn.microsoft.com/en-us/library/system.threading.tasks.task.aspx) class represent an asynchronous operation and we use [CancellationTokens](https://msdn.microsoft.com/en-us/library/system.threading.cancellationtoken.aspx) to cancel `Task` 
+Starting with the `.NET Framework 4`, the .NET Framework introduces `Task` and use the async await pattern to simplify the code. For this post we will use the latter. [Task](https://msdn.microsoft.com/en-us/library/system.threading.tasks.task.aspx) class represent an asynchronous operation and we use [CancellationTokens](https://msdn.microsoft.com/en-us/library/system.threading.cancellationtoken.aspx) to cancel `Task` 
+# Task, Async, Await since .net 5
+After .Net 4.0, Microsoft introduces Task.
+O'REILLY出版的《C# 5.0 IN A NUTSHELL》 中指出Task弥补了Thread的不足：
 
-## Example 1
-long running Task:
+> A thread is a low-level tool for creating concurrency, and as such it has limitations. In particular:
+
+1. While it's easy to pass data into a thread that you start, there's no easy way to get a **"return value"** back from a thread that you **Join**. You have to set up some kind of shared field. And if the operation throws an exception, catching and propagating that exception is equally painful
+2. You can't tell a thread to start something else when it's finished; instead you must **Join** it (blocking your own thread in the process)
+C#5.0之后推出了async和await关键词:
+
+> These keywords let you write asynchronous code that has the same structure and simplicity as synchronous code, as well as eliminating the "plumbing" of asynchronous programming
+
+Task与async/await关键词两者的结合使用，让Asynchronous Programming能够在Synchronous代码的基础快速改写完成，换言之，就是简单易用。
+# CancellationToken
+在《Entity Framework Core Cookbook》中指出：
+
+> **All** asynchronous methods take **an optional CancellationToken parameter**. This parameter, when supplied, provides a way for the caller method to cancel the asynchronous execution.
+
+.NET 5提供了一个类方便用来发出操作取消的信号，这个类就是CancellationToken，它的好处在于它可以在任意数量的线程之间、线程池任务之间、Task之间传递信号，并且所需的代码很简单。通常用于下载超时中断、用户取消任务等情况。
+这个`CancellationToken`相当异步Task的控制器。.NET 很多库的异步方法都可以传入 Token。
+> CancellationToken是.NET中用于协调取消操作的结构。它通常用于多线程操作，例如任务和线程等。当你启动一个新的任务或线程时，你可以传递一个CancellationToken给它，然后在其他线程中，你可以使用这个token来请求取消操作。
+> CancellationToken 通常搭配 CancellationTokenSource 使用，后者是前者的一个管理类，使用 CancellationTokenSource 的 Token 属性，可以获取CancellationToken，并控制信号的发送。这两个类都属于命名空间 System.Threading
+> 在异步编程中，只需将 Token 作为一个参数传入异步方法中。在异步方法外便能通过 CancellationTokenSource.Cancel 方法发出取消信号或者 CancelAfter 方法在一段时间后发出取消信号，这会改变 Token 的 isCancellationRequested 属性。在异步方法内，通过这个属性获取取消信号，并作出对应的处理操作。
+> 除了通过 IsCancellationRequested 属性判断是否需要取消外，还可以通过 ThrowIfCancellationRequested 方法在需要取消时立即抛出异常，该异常是 OperationCanceledException
+
+常用方法
+```csharp
+Token属性
+//取消
+Cannel()
+//延迟取消
+CancelAfter(long milliseconds)
+//取消后执行的回调委托，这里面还有一些override
+public CancellationTokenRegistration Register(Action callback);
+//判断是否已经取消 
+public bool IsCancellationRequested { get; } 
+//取消的话就抛出一个异常 
+public void ThrowIfCancellationRequested();
+```
+e.g.
+```csharp
+    class Program
+    {
+        static async Task Main(string[] args)
+        {
+            CancellationTokenSource cts = new CancellationTokenSource();
+            //cts.Cancel() //立即发出取消信号
+            //3秒后发出取消信号，模拟取消行为
+            cts.CancelAfter(3000);
+            Console.WriteLine("下载开始");
+            await DownloadAsync(cts.Token);
+            Console.ReadKey();
+        }
+
+        static async Task DownloadAsync(CancellationToken ct)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                //模拟一个比较耗时的下载的过程
+                for (int i = 0; i < 30; i++)
+                {
+                    string s = await client.GetStringAsync("https://kfm.ink");
+                    Console.WriteLine(s);
+
+                    //ct.ThrowIfCancellationRequested();//直接抛出异常
+                    //判断是否需要取消，并自行处理
+                    if (ct.IsCancellationRequested)
+                    {
+                        Console.WriteLine("下载取消");
+                        break;
+                    }
+                }                
+            }
+        }
+    }
+```
+e.g v1.
+```cs
+    public static void Main(string[] args)
+        {
+			CancellationTokenSource cts = new CancellationTokenSource();
+			cts.CancelAfter(5000);
+			while (true)
+			{
+				Console.WriteLine("任务执行中！");
+				if (cts.IsCancellationRequested)
+				{
+					Console.WriteLine("任务被取消！");
+					break;
+				}
+			}
+	}
+```
+5秒钟后，CancelAfter方法会触发取消请求，打印"任务被取消！"，跳出循环。
+![[20240314-canceltoken-1.png]]
+e.g. v2
+```cs
+    public static void Main(string[] args)
+	{
+		CancellationTokenSource cts = new CancellationTokenSource();
+		cts.CancelAfter(5000);
+		while (true)
+		{
+			Console.WriteLine("任务执行中！");
+			cts.Token.ThrowIfCancellationRequested();
+		}
+	}
+```
+5秒钟后，CancelAfter方法触发取消请求，于是执行到ThrowIfCancellationRequested()的时候抛出了一个异常，操作被取消！
+![[20240314-canceltoken-2.png]]
+## Demo 1
+original long running Task:
 
 	private static Task<decimal> LongRunningOperation(int loop)
 	{
@@ -115,7 +227,7 @@ Usually asynchronous worker must be modified to support cancellation.
 
 If a Task not support CancellationToken and we cannot modify it, we can create a wrapper to make it cancellable. see [Cancel asynchronous operations in C#](https://johnthiriet.com/cancel-asynchronous-operation-in-csharp/)
 
-## Example 2 Web project
+## Demo 2 Web project
 Sometimes we build a web app and some tasks might takes too long to complete. Very likely users click the "Stop" button, or maybe hammer F5 to reload the page. Traditionally, the poor backend server has not idea and responds to every user request. If the action method the user is hitting takes a long time to run, then refreshing five times will fire off 5 requests. Now you're doing 5 times the work. That's the default behaviour in Web project.
 
 A better solution is, our server detect when a request is cancelled, and stop execution. If a user click stop button or refresh 5 times, while the long running tasks running,  the server can monitor and cancel all previous requests and only respond the last request. 
@@ -225,3 +337,4 @@ we can also use IsCancellationRequested, e.g.
 [ASP.NET MVC5 - Asynchronous Controllers And Cancellation Token](https://www.c-sharpcorner.com/article/asp-net-mvc5-asynchronous-controllers-cancellation-token/)
 
 [Recommended patterns for CancellationToken](https://devblogs.microsoft.com/premier-developer/recommended-patterns-for-cancellationtoken/)
+[# 在c#中使用CancellationToken取消任务](https://blog.csdn.net/weixin_65243968/article/details/132953650)
