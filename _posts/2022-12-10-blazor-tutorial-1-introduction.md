@@ -79,3 +79,7 @@ However, `blazor.webassembly` file has to bootstrap the client application. It d
 [https://learn.microsoft.com/en-us/dotnet/architecture/blazor-for-web-forms-developers/components](https://learn.microsoft.com/en-us/dotnet/architecture/blazor-for-web-forms-developers/components)
 
 [https://blazor-university.com/templating-components-with-renderfragements/](https://blazor-university.com/templating-components-with-renderfragements/)
+
+[Nested data regions in a paginated report (Report Builder)](https://learn.microsoft.com/en-us/sql/reporting-services/report-design/nested-data-regions-report-builder-and-ssrs?view=sql-server-ver16)
+
+[ASP.NET Core Blazor file downloads](https://learn.microsoft.com/en-us/aspnet/core/blazor/file-downloads?view=aspnetcore-8.0)

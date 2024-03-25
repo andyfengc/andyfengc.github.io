@@ -54,3 +54,7 @@ set `Keep Together` to false
 [When to use paginated reports in Power BI](https://learn.microsoft.com/en-us/power-bi/guidance/report-paginated-or-power-bi)
 [Avoid blank pages when printing paginated reports](https://learn.microsoft.com/en-us/power-bi/guidance/report-paginated-blank-page)
 [SSRS 2008 R2 creating random blank pages on report? (2 Solutions!!)](https://www.youtube.com/watch?v=10SqJ_73_Aw)
+
+[Add a page break to a paginated report (Report Builder)](https://learn.microsoft.com/en-us/sql/reporting-services/report-design/add-a-page-break-report-builder-and-ssrs?view=sql-server-ver16)
+
+[Nested data regions in a paginated report (Report Builder)](https://learn.microsoft.com/en-us/sql/reporting-services/report-design/nested-data-regions-report-builder-and-ssrs?view=sql-server-ver16)
