@@ -13,28 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_drafts/C# asynchronous tutorial - Task, async, await, CancellationToken.md",
+                "file": "_drafts/20250413-commercial-property-rental.md",
                 "mode": "source",
                 "source": false
-              }
-            }
-          }
-        ]
-      },
-      {
-        "id": "ed010c03135ddba3",
-        "type": "tabs",
-        "children": [
-          {
-            "id": "664e31cb81989673",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "_drafts/C# asynchronous tutorial - Task, async, await, CancellationToken.md",
-                "mode": "preview",
-                "source": false
-              }
+              },
+              "icon": "lucide-file",
+              "title": "20250413-commercial-property-rental"
             }
           }
         ]
@@ -56,8 +40,11 @@
             "state": {
               "type": "file-explorer",
               "state": {
-                "sortOrder": "alphabetical"
-              }
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
             }
           },
           {
@@ -72,7 +59,9 @@
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical"
-              }
+              },
+              "icon": "lucide-search",
+              "title": "Search"
             }
           },
           {
@@ -80,16 +69,16 @@
             "type": "leaf",
             "state": {
               "type": "bookmarks",
-              "state": {}
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "eb0d77954a5af90c",
@@ -105,10 +94,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "_drafts/C# asynchronous tutorial - Task, async, await, CancellationToken.md",
+                "file": "_drafts/20250413-commercial-property-rental.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
-              }
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from 20250413-commercial-property-rental"
             }
           },
           {
@@ -118,8 +109,12 @@
               "type": "tag",
               "state": {
                 "sortOrder": "frequency",
-                "useHierarchy": true
-              }
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
             }
           },
           {
@@ -128,8 +123,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_drafts/C# asynchronous tutorial - Task, async, await, CancellationToken.md"
-              }
+                "file": "_drafts/20250413-commercial-property-rental.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of 20250413-commercial-property-rental"
             }
           },
           {
@@ -138,7 +138,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "_drafts/C# asynchronous tutorial - Task, async, await, CancellationToken.md",
+                "file": "_drafts/20250413-commercial-property-rental.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -146,7 +146,9 @@
                 "searchQuery": "",
                 "backlinkCollapsed": false,
                 "unlinkedCollapsed": true
-              }
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for 20250413-commercial-property-rental"
             }
           }
         ]
@@ -168,6 +170,12 @@
   },
   "active": "117d75413d9378f2",
   "lastOpenFiles": [
+    "CNAME",
+    "CNAME - Copy.bak",
+    "_drafts/C# asynchronous tutorial - Task, async, await, CancellationToken.md",
+    "_drafts/20250413-commercial-property-rental.md",
+    "_drafts/akka.net-tutorial.md",
+    "_drafts/20200115-finance-mortgage - Copy.md",
     "20240314-canceltoken-2.png",
     "_drafts/images/posts/20240314-canceltoken-2.png",
     "_drafts/images/posts/20240314-canceltoken-2.png.crdownload",
@@ -194,7 +202,6 @@
     "_drafts/images/posts/20240221-powerbi-10.png",
     "_drafts/images/posts/20240221-powerbi-10.png.crdownload",
     "_drafts/images/posts/20240221-powerbi-9.jpg",
-    "_drafts/images/posts/20240221-powerbi-8.png",
     "_drafts/images/posts/20240221-powerbi-8.png.crdownload",
     "_drafts/docker tutorial.md",
     "_drafts/create-angularjs-project(3)-fileupload.md",
