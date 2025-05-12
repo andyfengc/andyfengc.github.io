@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_drafts/20250511-AI basics-turorial (2).md",
+                "file": "_posts/2025-05-11-AI basics-turorial (1).md",
                 "mode": "source",
                 "source": true
               },
               "icon": "lucide-file",
-              "title": "20250511-AI basics-turorial (2)"
+              "title": "2025-05-11-AI basics-turorial (1)"
             }
           }
         ]
@@ -124,13 +124,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_drafts/20250511-AI basics-turorial (2).md",
+                "file": "_posts/2025-05-11-AI basics-turorial (1).md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 20250511-AI basics-turorial (2)"
+              "title": "Outline of 2025-05-11-AI basics-turorial (1)"
             }
           },
           {
@@ -139,7 +139,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "_drafts/20250511-AI basics-turorial (2).md",
+                "file": "_posts/2025-05-11-AI basics-turorial (1).md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -149,7 +149,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for 20250511-AI basics-turorial (2)"
+              "title": "Backlinks for 2025-05-11-AI basics-turorial (1)"
             }
           }
         ],
@@ -171,8 +171,10 @@
   },
   "active": "0025053d84760894",
   "lastOpenFiles": [
-    "images/posts/2025-05-11-ai-28.jpg",
+    "_posts/2025-05-11-AI basics-turorial (2).md",
+    "_drafts/2025-05-11-AI basics-turorial (2).md",
     "_drafts/20250511-AI basics-turorial (2).md",
+    "images/posts/2025-05-11-ai-28.jpg",
     "images/posts/2025-05-11-ai-27.jpg",
     "_posts/2025-05-11-AI basics-turorial (1).md",
     "images/posts/2025-05-11-ai-21.jpg",
@@ -184,14 +186,11 @@
     "20151130-regular-expression-pattern 1.png",
     "20151203-install-epplus 2.png",
     "20151203-install-epplus 1.png",
-    "20151130-regular-expression-pattern.png",
     "_posts/20250511-AI basics-turorial (1).md",
     "_drafts/AI basics-turorial (2).md",
     "_drafts/AI basics-turorial (1).md",
     "_drafts/20250511-AI basics-turorial (1).md",
-    "_drafts/2025-05-11-AI basics-turorial (2).md",
     "_posts/AI basics-turorial (1).md",
-    "_posts/2025-05-11-AI basics-turorial (2).md",
     "_posts/AI basics-turorial (2).md",
     "_posts/2018-04-19-angular-asynchronous-programming-tutorial.md",
     "_drafts/AI basics-turorial (1) - Copy.md",
