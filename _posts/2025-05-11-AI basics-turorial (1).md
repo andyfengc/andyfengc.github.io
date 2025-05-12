@@ -18,17 +18,17 @@ author: Andy Feng
 现在需要若干邮箱 > https://maildrop.cc/ > 有2种方法获取免费邮箱
 ![](./images/posts/2025-05-11-ai-2.jpg])
 继续可灵ai注册 > 邮箱收到6位验证码 > 输入注册框 > next > 注册成功登录> 166个免费积分
-
 ![](/images/posts/2025-05-11-ai-3.jpg)
+
 ![](/images/posts/2025-05-11-ai-4.jpg)
  # 注册剪映AI国际版(capcut)
  [capcut](https://www.capcut.com/)
  使用剪映ai国际版注册 > sigup in with email
- ![](/images/posts/2025-05-11-ai-6 1.jpg)
+ ![](/images/posts/2025-05-11-ai-6.jpg)
 ![](/images/posts/2025-05-11-ai-7.jpg)
 # 用剪映(capcut)生成不同年龄的中国女性图片
 可以用 deepseek/chatgpt 写一段图片的详细描述，注意要用英文，跟剪映国际版的语言匹配
-![](/images/posts/2025-05-11-ai-5 1.jpg)
+![](/images/posts/2025-05-11-ai-5.jpg)
 回到capcut > 粘贴脚本 > 生成
 ![](/images/posts/2025-05-11-ai-10.jpg)
 

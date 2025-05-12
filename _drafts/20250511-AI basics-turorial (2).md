@@ -8,7 +8,7 @@ author: Andy Feng
 # 用deepseek生成文案
 指令：帮我写出6句可以让人缓解焦虑的鸡汤
 
-![[/images/posts/2025-05-11-ai-23.jpg]]
+![](/images/posts/2025-05-11-ai-23.jpg)
 
 接着，使用上面的文案，一行一个作为配字，帮我写出6条治愈系老奶奶图片的提示词，提示词参考下面的格式:
 
@@ -24,11 +24,11 @@ author: Andy Feng
 # 根据文字制作图片
 经测试，即梦海外版(capcut)对中文处理不好，无法理解生成手持标语的动作。如果用中文版，要选模型2.1
 下面使用微软bing生成 https://www.bing.com/images/create
-![[/images/posts/2025-05-11-ai-26.jpg]]
-![[/images/posts/2025-05-11-ai-27.jpg]]
-![[/images/posts/2025-05-11-ai-28.jpg]]
+![](/images/posts/2025-05-11-ai-26.jpg)
+![](/images/posts/2025-05-11-ai-27.jpg)
+![](/images/posts/2025-05-11-ai-28.jpg)
 # 用剪映电脑版(capcut)根据图片剪辑视频
-![[/images/posts/2025-05-11-ai-29.jpg]]
+![](/images/posts/2025-05-11-ai-29.jpg)
 # FAQ
 
 # References 
