@@ -4,17 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "303b96162bcd62cc",
+        "id": "1a9b9567dba9b39e",
         "type": "tabs",
         "children": [
           {
-            "id": "117d75413d9378f2",
+            "id": "ecd2307ba67ebd1a",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "_posts/AI basics-turorial (1).md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "AI basics-turorial (1)"
             }
           }
         ]
@@ -71,7 +75,7 @@
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -120,12 +124,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "_posts/AI basics-turorial (1).md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline"
+              "title": "Outline of AI basics-turorial (1)"
             }
           },
           {
@@ -134,6 +139,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "_posts/AI basics-turorial (1).md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -143,7 +149,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks"
+              "title": "Backlinks for AI basics-turorial (1)"
             }
           }
         ],
@@ -163,8 +169,9 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "117d75413d9378f2",
+  "active": "ecd2307ba67ebd1a",
   "lastOpenFiles": [
+    "20151130-regular-expression-modifier.png",
     "_posts/2025-05-11-AI basics-turorial (2).md",
     "_drafts/AI basics-turorial (1).md",
     "_posts/AI basics-turorial (2).md",
@@ -205,7 +212,6 @@
     "_drafts/20200115-finance-mortgage - Copy.md",
     "_drafts/images/posts/20240314-canceltoken-2.png.crdownload",
     "_drafts/images/posts/20240314-canceltoken-1.png.crdownload",
-    "_drafts/20240220-powerbi-faq.md",
     "Untitled 1.canvas",
     "Untitled.canvas",
     "_drafts/images/posts/20240221-powerbi-13.png.crdownload",

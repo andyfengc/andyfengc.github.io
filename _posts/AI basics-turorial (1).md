@@ -14,7 +14,7 @@ author: Andy Feng
 [klingai official website](https://www.klingai.com/global/)
 使用可灵ai国际版注册 > sign in with email
 ![[/images/posts/2025-05-11-ai-1.jpg]]
-
+![[../20151130-regular-expression-modifier.png]]
 ![](/images/posts/2025-05-11-ai-29.jpg)
 现在需要若干邮箱 > https://maildrop.cc/ > 有2种方法获取免费邮箱
 ![[/images/posts/2025-05-11-ai-2.jpg]]
