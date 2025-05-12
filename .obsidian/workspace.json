@@ -11,14 +11,10 @@
             "id": "0025053d84760894",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "_drafts/AI basics-turorial (2).md",
-                "mode": "preview",
-                "source": true
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "AI basics-turorial (2)"
+              "title": "New tab"
             }
           }
         ]
@@ -124,13 +120,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_drafts/AI basics-turorial (2).md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of AI basics-turorial (2)"
+              "title": "Outline"
             }
           },
           {
@@ -139,7 +134,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "_drafts/AI basics-turorial (2).md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -149,7 +143,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for AI basics-turorial (2)"
+              "title": "Backlinks"
             }
           }
         ],
@@ -171,9 +165,12 @@
   },
   "active": "0025053d84760894",
   "lastOpenFiles": [
-    "_drafts/AI basics-turorial (1).md",
-    "20151130-regular-expression-modifier 1.png",
+    "_posts/20250511-AI basics-turorial (1).md",
     "_drafts/AI basics-turorial (2).md",
+    "_drafts/20250511-AI basics-turorial (2).md",
+    "_drafts/AI basics-turorial (1).md",
+    "_drafts/20250511-AI basics-turorial (1).md",
+    "20151130-regular-expression-modifier 1.png",
     "_drafts/2025-05-11-AI basics-turorial (2).md",
     "_posts/AI basics-turorial (1).md",
     "20151130-regular-expression-modifier.png",
@@ -207,8 +204,6 @@
     "().md",
     "CNAME",
     "CNAME - Copy.bak",
-    "_drafts/C# asynchronous tutorial - Task, async, await, CancellationToken.md",
-    "_drafts/akka.net-tutorial.md",
     "_drafts/images/posts/20240314-canceltoken-2.png.crdownload",
     "_drafts/images/posts/20240314-canceltoken-1.png.crdownload",
     "Untitled 1.canvas",
