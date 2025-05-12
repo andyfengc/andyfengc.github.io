@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "1a9b9567dba9b39e",
+        "id": "37ca3f27f1450b1e",
         "type": "tabs",
         "children": [
           {
-            "id": "ecd2307ba67ebd1a",
+            "id": "0025053d84760894",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/AI basics-turorial (1).md",
-                "mode": "source",
-                "source": false
+                "file": "_drafts/AI basics-turorial (2).md",
+                "mode": "preview",
+                "source": true
               },
               "icon": "lucide-file",
-              "title": "AI basics-turorial (1)"
+              "title": "AI basics-turorial (2)"
             }
           }
         ]
@@ -124,13 +124,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_posts/AI basics-turorial (1).md",
+                "file": "_drafts/AI basics-turorial (2).md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of AI basics-turorial (1)"
+              "title": "Outline of AI basics-turorial (2)"
             }
           },
           {
@@ -139,7 +139,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "_posts/AI basics-turorial (1).md",
+                "file": "_drafts/AI basics-turorial (2).md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -149,7 +149,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for AI basics-turorial (1)"
+              "title": "Backlinks for AI basics-turorial (2)"
             }
           }
         ],
@@ -169,14 +169,16 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "ecd2307ba67ebd1a",
+  "active": "0025053d84760894",
   "lastOpenFiles": [
+    "_drafts/AI basics-turorial (1).md",
+    "20151130-regular-expression-modifier 1.png",
+    "_drafts/AI basics-turorial (2).md",
+    "_drafts/2025-05-11-AI basics-turorial (2).md",
+    "_posts/AI basics-turorial (1).md",
     "20151130-regular-expression-modifier.png",
     "_posts/2025-05-11-AI basics-turorial (2).md",
-    "_drafts/AI basics-turorial (1).md",
     "_posts/AI basics-turorial (2).md",
-    "_posts/AI basics-turorial (1).md",
-    "_drafts/AI basics-turorial (2).md",
     "Pasted image 20250511233659.png",
     "Pasted image 20250511233655.png",
     "images/posts/2025-05-11-ai-29.jpg",
@@ -185,8 +187,6 @@
     "images/posts/2025-05-11-ai-27.jpg",
     "images/posts/2025-05-11-ai-26.jpg",
     "images/posts/2025-05-11-ai-25.jpg",
-    "images/posts/2025-05-11-ai-24.jpg",
-    "images/posts/2025-05-11-ai-23.jpg",
     "_posts/2018-04-19-angular-asynchronous-programming-tutorial.md",
     "_drafts/AI basics-turorial (1) - Copy.md",
     "_drafts/20250413-commercial-property-rental.md",
@@ -209,7 +209,6 @@
     "CNAME - Copy.bak",
     "_drafts/C# asynchronous tutorial - Task, async, await, CancellationToken.md",
     "_drafts/akka.net-tutorial.md",
-    "_drafts/20200115-finance-mortgage - Copy.md",
     "_drafts/images/posts/20240314-canceltoken-2.png.crdownload",
     "_drafts/images/posts/20240314-canceltoken-1.png.crdownload",
     "Untitled 1.canvas",
