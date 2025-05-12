@@ -24,6 +24,7 @@ author: Andy Feng
 # 根据文字制作图片
 经测试，即梦海外版(capcut)对中文处理不好，无法理解生成手持标语的动作。如果用中文版，要选模型2.1
 下面使用微软bing生成 https://www.bing.com/images/create
+
 ![](/images/posts/2025-05-11-ai-26.jpg)
 ![](/images/posts/2025-05-11-ai-27.jpg)
 ![](/images/posts/2025-05-11-ai-28.jpg)
