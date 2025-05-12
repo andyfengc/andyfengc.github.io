@@ -14,7 +14,7 @@
               "type": "markdown",
               "state": {
                 "file": "_drafts/AI basics-turorial (1).md",
-                "mode": "source",
+                "mode": "preview",
                 "source": true
               },
               "icon": "lucide-file",
@@ -75,7 +75,7 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "horizontal",
