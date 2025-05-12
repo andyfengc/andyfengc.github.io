@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_drafts/AI basics-turorial (2).md",
+                "file": "_drafts/AI basics-turorial (1).md",
                 "mode": "source",
-                "source": false
+                "source": true
               },
               "icon": "lucide-file",
-              "title": "AI basics-turorial (2)"
+              "title": "AI basics-turorial (1)"
             }
           }
         ]
@@ -124,13 +124,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_drafts/AI basics-turorial (2).md",
+                "file": "_drafts/AI basics-turorial (1).md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of AI basics-turorial (2)"
+              "title": "Outline of AI basics-turorial (1)"
             }
           },
           {
@@ -171,6 +171,7 @@
   },
   "active": "117d75413d9378f2",
   "lastOpenFiles": [
+    "_drafts/AI basics-turorial (2).md",
     "Pasted image 20250511233659.png",
     "Pasted image 20250511233655.png",
     "images/posts/2025-05-11-ai-29.jpg",
@@ -179,13 +180,11 @@
     "images/posts/2025-05-11-ai-27.jpg",
     "images/posts/2025-05-11-ai-26.jpg",
     "_drafts/AI basics-turorial (1).md",
-    "_drafts/AI basics-turorial (2).md",
     "images/posts/2025-05-11-ai-25.jpg",
     "images/posts/2025-05-11-ai-24.jpg",
     "images/posts/2025-05-11-ai-23.jpg",
     "_posts/2018-04-19-angular-asynchronous-programming-tutorial.md",
     "_drafts/AI basics-turorial (1) - Copy.md",
-    "2025-05-11-ai-22.jpg",
     "_drafts/20250413-commercial-property-rental.md",
     "_drafts/hash-password-c#-turorial - Copy.md",
     "_drafts/ReactJS tutorial - 10 faq.md",
