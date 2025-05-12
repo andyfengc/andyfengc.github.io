@@ -1,4 +1,6 @@
 {
-  "newLinkFormat": "relative",
-  "useMarkdownLinks": true
+  "newLinkFormat": "absolute",
+  "useMarkdownLinks": true,
+  "newFileLocation": "root",
+  "showUnsupportedFiles": false
 }

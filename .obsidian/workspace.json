@@ -15,7 +15,7 @@
               "state": {
                 "file": "_posts/2025-05-11-AI basics-turorial (1).md",
                 "mode": "source",
-                "source": false
+                "source": true
               },
               "icon": "lucide-file",
               "title": "2025-05-11-AI basics-turorial (1)"
@@ -171,10 +171,16 @@
   },
   "active": "0025053d84760894",
   "lastOpenFiles": [
+    "_drafts/20250511-AI basics-turorial (2).md",
     "_posts/2025-05-11-AI basics-turorial (1).md",
+    "images/posts/20160602-google-oauth-api-3.1.png",
+    "20151130-regular-expression-pattern 1.png",
+    "20151203-install-epplus 2.png",
+    "20151203-install-epplus 1.png",
+    "20151130-regular-expression-pattern.png",
+    "20151203-install-epplus.png",
     "_posts/20250511-AI basics-turorial (1).md",
     "_drafts/AI basics-turorial (2).md",
-    "_drafts/20250511-AI basics-turorial (2).md",
     "_drafts/AI basics-turorial (1).md",
     "_drafts/20250511-AI basics-turorial (1).md",
     "20151130-regular-expression-modifier 1.png",
@@ -185,12 +191,6 @@
     "_posts/AI basics-turorial (2).md",
     "Pasted image 20250511233659.png",
     "Pasted image 20250511233655.png",
-    "images/posts/2025-05-11-ai-29.jpg",
-    "2025-05-11-ai-23.jpg",
-    "images/posts/2025-05-11-ai-28.jpg",
-    "images/posts/2025-05-11-ai-27.jpg",
-    "images/posts/2025-05-11-ai-26.jpg",
-    "images/posts/2025-05-11-ai-25.jpg",
     "_posts/2018-04-19-angular-asynchronous-programming-tutorial.md",
     "_drafts/AI basics-turorial (1) - Copy.md",
     "_drafts/20250413-commercial-property-rental.md",
@@ -207,7 +207,6 @@
     "images/posts/20250418-nop-3.jpg.crdownload",
     "_posts/2025-04-18-nopCommerce tutorial - (1) installation.md",
     "_posts/2018-02-03-nopCommerce tutorial - (1) installation and debug.md",
-    "_drafts/2018-02-03-nopCommerce tutorial - (4) develop a task.md",
     "CNAME",
     "CNAME - Copy.bak",
     "_drafts/images/posts/20240314-canceltoken-2.png.crdownload",
