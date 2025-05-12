@@ -10,4 +10,12 @@ author: Andy Feng
 [https://www.sitepoint.com/react-vs-angular/](https://www.sitepoint.com/react-vs-angular/)
 
 [https://itnext.io/angular-for-react-developers-63239f278158](https://itnext.io/angular-for-react-developers-63239f278158)
+
+# Typescript support
+install the latest version of React’s type definitions:
+
+npm install @types/react @types/react-dom
+# Browser extension
+React Developer Tools
+
 # Reference

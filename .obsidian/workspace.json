@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_drafts/20250413-commercial-property-rental.md",
+                "file": "_drafts/AI basics-turorial (2).md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "20250413-commercial-property-rental"
+              "title": "AI basics-turorial (2)"
             }
           }
         ]
@@ -53,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "cancell",
+                "query": "ai basics",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": true,
@@ -74,7 +74,8 @@
               "title": "Bookmarks"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -94,12 +95,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "_drafts/20250413-commercial-property-rental.md",
+                "file": "_posts/2020-06-21-create-angular-project-(1)-introduction.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from 20250413-commercial-property-rental"
+              "title": "Outgoing links from 2020-06-21-create-angular-project-(1)-introduction"
             }
           },
           {
@@ -123,13 +124,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_drafts/20250413-commercial-property-rental.md",
+                "file": "_drafts/AI basics-turorial (2).md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 20250413-commercial-property-rental"
+              "title": "Outline of AI basics-turorial (2)"
             }
           },
           {
@@ -151,12 +152,12 @@
               "title": "Backlinks for 20250413-commercial-property-rental"
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -170,46 +171,53 @@
   },
   "active": "117d75413d9378f2",
   "lastOpenFiles": [
+    "Pasted image 20250511233659.png",
+    "Pasted image 20250511233655.png",
+    "images/posts/2025-05-11-ai-29.jpg",
+    "2025-05-11-ai-23.jpg",
+    "images/posts/2025-05-11-ai-28.jpg",
+    "images/posts/2025-05-11-ai-27.jpg",
+    "images/posts/2025-05-11-ai-26.jpg",
+    "_drafts/AI basics-turorial (1).md",
+    "_drafts/AI basics-turorial (2).md",
+    "images/posts/2025-05-11-ai-25.jpg",
+    "images/posts/2025-05-11-ai-24.jpg",
+    "images/posts/2025-05-11-ai-23.jpg",
+    "_posts/2018-04-19-angular-asynchronous-programming-tutorial.md",
+    "_drafts/AI basics-turorial (1) - Copy.md",
+    "2025-05-11-ai-22.jpg",
+    "_drafts/20250413-commercial-property-rental.md",
+    "_drafts/hash-password-c#-turorial - Copy.md",
+    "_drafts/ReactJS tutorial - 10 faq.md",
+    "_drafts/ReactJS tutorial - (1) start.md",
+    "_posts/2020-06-21-create-angular-project-(1)-introduction.md",
+    "_drafts/create-angular-project-(2)-release.md",
+    "_posts/2018-05-21-angularjs-tutorial-(1)-introduction.md",
+    "_drafts/to release/2020-01-12-tax-RRSP-TFSA-RESP-LIRA-RRIF.md",
+    "_drafts/ecommerce tutorial - amazon.md",
+    "_drafts/Amazon AWS.md",
+    "_posts/2025-04-18-nopCommerce tutorial - (1) theme.md",
+    "images/posts/20250418-nop-3.jpg.crdownload",
+    "_posts/2025-04-18-nopCommerce tutorial - (1) installation.md",
+    "_posts/2018-02-03-nopCommerce tutorial - (1) installation and debug.md",
+    "_drafts/2018-02-03-nopCommerce tutorial - (4) develop a task.md",
+    "().md",
     "CNAME",
     "CNAME - Copy.bak",
     "_drafts/C# asynchronous tutorial - Task, async, await, CancellationToken.md",
-    "_drafts/20250413-commercial-property-rental.md",
     "_drafts/akka.net-tutorial.md",
     "_drafts/20200115-finance-mortgage - Copy.md",
-    "20240314-canceltoken-2.png",
-    "_drafts/images/posts/20240314-canceltoken-2.png",
     "_drafts/images/posts/20240314-canceltoken-2.png.crdownload",
-    "20240314-canceltoken-1.png",
-    "_drafts/images/posts/20240314-canceltoken-1.png",
     "_drafts/images/posts/20240314-canceltoken-1.png.crdownload",
     "_drafts/20240220-powerbi-faq.md",
     "2024-03-04.md",
     "Untitled.md",
     "Untitled 1.canvas",
     "Untitled.canvas",
-    "_drafts/20230830-powerbi-introduction.md",
-    "_drafts/20240220-powerbi-paginated-report.md",
-    "_drafts/images/posts/20240222-powerbi-10.jpg",
-    "_drafts/20231002-powerbi-report-api.md",
-    "_drafts/20230906-powerbi-sql.md",
-    "_drafts/20230926-powerbi-report-builder.md",
-    "_drafts/images/posts/20240221-powerbi-13.png",
     "_drafts/images/posts/20240221-powerbi-13.png.crdownload",
-    "_drafts/images/posts/20240221-powerbi-12.png",
     "_drafts/images/posts/20240221-powerbi-12.png.crdownload",
-    "_drafts/images/posts/20240221-powerbi-11.png",
     "_drafts/images/posts/20240221-powerbi-11.png.crdownload",
-    "_drafts/images/posts/20240221-powerbi-10.png",
     "_drafts/images/posts/20240221-powerbi-10.png.crdownload",
-    "_drafts/images/posts/20240221-powerbi-9.jpg",
-    "_drafts/images/posts/20240221-powerbi-8.png.crdownload",
-    "_drafts/docker tutorial.md",
-    "_drafts/create-angularjs-project(3)-fileupload.md",
-    "_drafts/20230906-powerbi-sql - Copy.md",
-    "_drafts/20210602-diy-floor-(1) Introduction.md",
-    "_drafts/20210602-diy-demo.md",
-    "_drafts/20180521-authentication-practice.md",
-    "_drafts/20151130-Javascript-regular-expression-tutorial.extra.md",
-    "_posts/2016-01-09-Selenium-WebDriver-Tutorial-1.md"
+    "_drafts/images/posts/20240221-powerbi-8.png.crdownload"
   ]
 }

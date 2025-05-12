@@ -35,7 +35,8 @@ html:
 	</html>
 
 react code:
-
+please note extends Component is legacy code
+way1
 	class App extends React.Component {
 	  render() {
 	    return (...) // use JSX
@@ -70,6 +71,12 @@ e.g.
 	  <HelloMessage name="Taylor" />,
 	  document.getElementById('hello-example')
 	);
+
+way2:
+export default function App{
+	return (...) // use JSX
+}
+
 
 # Prepare environment
 ## Way1: use npm
@@ -107,7 +114,7 @@ e.g.
 	current structure
 	![](/images/posts/20170908-react-1.png)
 
-## way2: use [create-react-app](https://github.com/facebook/create-react-app), recommended
+## way2: use [create-react-app](https://github.com/facebook/create-react-app), 2017 recommended
 nodejs version > 14.x
 
 1. Install create-react-app
@@ -162,6 +169,28 @@ nodejs version > 14.x
 		    }
 		}
 		export default App;
+## way3: use [nextjs](https://nextjs.org/docs) 2025 recommend
+
+```
+npx create-next-app@latest
+```
+1. Run `npm run dev` to start the development server.
+2. Visit `http://localhost:3000` to view your application.
+3. Edit the`app/page.tsx` file and save it to see the updated result in your browser.
+`npm run build` to build your application 
+`npm run start` to start the Node.js server.
+## way 4: use [react router](https://reactrouter.com/start/framework/installation) 2025 recommend
+```
+npx create-react-router@latest my-react-router-app
+```
+
+Now change into the new directory and start the app
+
+```
+cd my-react-router-app
+npm i
+npm run dev
+```
 
 # JSX: JavaScript + XML
 JSX stands for JavaScript XML. With JSX, we can write write HTML inside the JavaScript code. JSX makes it easier to write and add HTML in React.
@@ -897,3 +926,5 @@ child component:
 [React 入门实例教程](https://www.ruanyifeng.com/blog/2015/03/react.html)
 
 [React Architecture: How to Structure and Organize a React Application](https://www.taniarascia.com/react-architecture-directory-structure/)
+
+[HTML to JSX](https://transform.tools/html-to-jsx)
