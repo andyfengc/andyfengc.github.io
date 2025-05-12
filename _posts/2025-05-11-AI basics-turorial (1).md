@@ -15,6 +15,9 @@ author: Andy Feng
 使用可灵ai国际版注册 > sign in with email
 
 ![[../2025-05-11-ai-1.jpg]]
+
+![[images/posts/20160602-google-oauth-api-3.1.png]]
+
 现在需要若干邮箱 > https://maildrop.cc/ > 有2种方法获取免费邮箱
 ![[../2025-05-11-ai-2.jpg]]
 继续可灵ai注册 > 邮箱收到6位验证码 > 输入注册框 > next > 注册成功登录> 166个免费积分
