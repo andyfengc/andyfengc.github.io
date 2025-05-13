@@ -4,37 +4,77 @@ title: AI Tutorial 2
 author: Andy Feng
 ---
 # Introduction
-用AI制作老奶奶鸡汤
-# 用deepseek生成文案
-指令：
+用AI制作一个女性的一生
+用deepseek/chatgpt 生成指令
+用剪映(即梦海外版)生成图片
+用可灵生成视频
+用剪映电脑版剪辑视频
+用YouTube发布
+# 注册可灵AI国际版(klingai)
+[klingai official website](https://www.klingai.com/global/)
+使用可灵ai国际版注册 > sign in with email
+![](/images/posts/2025-05-11-ai-1.jpg)
+
+现在需要若干邮箱 > https://maildrop.cc/ > 有2种方法获取免费邮箱
+![](/images/posts/2025-05-11-ai-2.jpg)
+
+继续可灵AI注册 > 邮箱收到6位验证码 > 输入注册框 > next > 注册成功登录> 每账户每月166个免费积分，如果不够用就注册新账号
+
+![](/images/posts/2025-05-11-ai-3.jpg)
+
+![](/images/posts/2025-05-11-ai-4.jpg)
+ 
+ # 注册剪映AI国际版(capcut)
+ [capcut](https://www.capcut.com/)
+ 
+ 使用剪映ai国际版注册 > sigup in with email
+ ![](/images/posts/2025-05-11-ai-6.jpg)
+![](/images/posts/2025-05-11-ai-7.jpg)
+# 用剪映(capcut)生成不同年龄的中国女性图片
+可以用 deepseek/chatgpt 写一段图片的详细描述（指令脚本），注意要用英文，跟剪映国际版的语言匹配
+![](/images/posts/2025-05-11-ai-5.jpg)
+
+中文指令参考：
 ```
-帮我写出6句可以让人缓解焦虑的鸡汤
+一个18岁漂亮的女生 /英俊的男生，真实的照片质感
+正面半身照一个24岁漂亮的女人/英俊的男人，真实的照片质感，正面半身照
+一个15岁漂亮/英俊的小孩，真实的照片质感，正面半身照
+一个10岁可爱的小孩，真实的照片质感，正面半身照
+一个5岁可爱的小孩，真实的照片质感，正面半身照
 ```
 
-![](/images/posts/2025-05-11-ai-23.jpg)
-# 根据文字制作图片
-接着，使用上面的文案，一行一个作为配字，让AI画出治愈系老奶奶图片，指令参考下面的格式:
+回到capcut > 粘贴脚本 > 生成
+![](/images/posts/2025-05-11-ai-10.jpg)
 
-```
-主体：中国老奶奶，体型偏胖，和蔼可亲，微笑，白发卷曲，戴圆眼镜,红衣服。
+如果对纯文字生成的图片不满意，可以找一张参考图，让ai根据参考图精确生成图片
+譬如  google > image > 中国漂亮女孩 白衣 全身照 高清图 > 选一张图
 
-动作：双手持标语，内容“xxxxxxxxx”。
+然后不断更换指令脚本，分别生成5岁，10岁，18岁，30岁的照片，挑出满意的
 
-场景：室内门口，门半开，屋内有画框、装饰，门外有光线。
+![](/images/posts/2025-05-11-ai-12.jpg)
+![](/images/posts/2025-05-11-ai-8.jpg)
+![](/images/posts/2025-05-11-ai-9.jpg)
+![](/images/posts/2025-05-11-ai-13.jpg)
+![](/images/posts/2025-05-11-ai-16.jpg)
+![](/images/posts/2025-05-11-ai-17.jpg)
+![](/images/posts/2025-05-11-ai-18.jpg)
+![](/images/posts/2025-05-11-ai-19.jpg)
+# 用 可灵AI 分段制作视频
+image > to video > 选好首帧，尾帧 > 点击生成，每次消耗35个点 > 生成约3分钟
 
-风格：彩色简笔画,卡通风格，治愈素插画，明亮色彩，细腻线条，温馨氛围，生动童趣，手绘风笔触
-```
+![](/images/posts/2025-05-11-ai-14.jpg)
+![](/images/posts/2025-05-11-ai-15.jpg)
 
-经测试，即梦海外版(capcut)对中文处理不好，无法理解生成手持标语的动作，生成的图片没有标语。如果用中文版，要选模型2.1才有标语
+# 用剪映电脑版剪辑成完整视频
+英文版：https://www.capcut.com/ > 下载capcut desktop > 
+中文版：https://www.capcut.cn/
 
-下面使用微软bing生成 https://www.bing.com/images/create
+![](/images/posts/2025-05-11-ai-22.jpg)
+# 用YouTube发布视频
 
-![](/images/posts/2025-05-11-ai-26.jpg)
-![](/images/posts/2025-05-11-ai-27.jpg)
-![](/images/posts/2025-05-11-ai-28.jpg)
-# 用剪映电脑版(capcut)根据图片剪辑视频
-![](/images/posts/2025-05-11-ai-29.jpg)
+
 # FAQ
-
+如何切换可灵账户
+![](/images/posts/2025-05-11-ai-21.jpg)
 # References 
-[一分钟教你学会，使用AI创作治愈系老奶奶鸡汤视频](https://www.youtube.com/watch?v=LmIYsGUVV-8)
+[【完整教程】爆火AI小女孩从1岁到80岁制作教程拆解，纯原创制作，日入多张 | 老高项目网](https://www.youtube.com/@lgxmw)]()

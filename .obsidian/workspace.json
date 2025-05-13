@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/2025-05-11-AI basics-turorial (1).md",
+                "file": "_posts/2025-05-13-AI basics-turorial (6) .md",
                 "mode": "source",
-                "source": false
+                "source": true
               },
               "icon": "lucide-file",
-              "title": "2025-05-11-AI basics-turorial (1)"
+              "title": "2025-05-13-AI basics-turorial (6)"
             }
           }
         ]
@@ -124,13 +124,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_posts/2025-05-11-AI basics-turorial (1).md",
+                "file": "_posts/2025-05-13-AI basics-turorial (6) .md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 2025-05-11-AI basics-turorial (1)"
+              "title": "Outline of 2025-05-13-AI basics-turorial (6)"
             }
           },
           {
@@ -139,7 +139,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "_posts/2025-05-11-AI basics-turorial (1).md",
+                "file": "_posts/2025-05-13-AI basics-turorial (6) .md",
                 "collapseAll": false,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -149,7 +149,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for 2025-05-11-AI basics-turorial (1)"
+              "title": "Backlinks for 2025-05-13-AI basics-turorial (6)"
             }
           }
         ],
@@ -171,9 +171,21 @@
   },
   "active": "0025053d84760894",
   "lastOpenFiles": [
-    "_posts/2025-05-11-AI basics-turorial (2).md",
+    "2025-05-12-15.jpg",
+    "images/posts/2025-05-12-15.jpg",
     "_posts/2025-05-11-AI basics-turorial (1).md",
-    "_posts/2025-05-12-AI basics-turorial (3).md",
+    "_posts/2025-05-11-AI basics-turorial (2).md",
+    "_posts/2025-05-13-AI basics-turorial (6) .md",
+    "_posts/2025-05-12-AI basics-turorial (5).md",
+    "_posts/2025-05-12-AI basics-turorial (5) - Copy.md",
+    "_posts/2025-05-12-AI basics-turorial (4).md",
+    "_posts/2025-05-11-AI basics-turorial (3).md",
+    "_posts/2025-05-12-AI basics-turorial (4) - Copy.md",
+    "_posts/2025-05-12-AI basics-turorial (1).md",
+    "Isaac Newton",
+    "_drafts/WebSocket tutorial (1) - fundamentals.md",
+    "images/posts/2025-05-12-09.jpg",
+    "images/posts/2025-05-12-08.jpg",
     "2025-05-12-12.jpg",
     "images/posts/2025-05-12-07.jpg",
     "2025-05-12-10.jpg",
@@ -181,9 +193,6 @@
     "images/posts/2025-05-12-06.jpg",
     "images/posts/2025-05-12-05.jpg",
     "images/posts/2025-05-12-04.jpg",
-    "images/posts/2025-05-12-03.jpg",
-    "2025-05-12-02.jpg",
-    "images/posts/2025-05-12-02.jpg",
     "_posts/2025-05-11-AI basics-turorial (2) - Copy.md",
     "_drafts/2025-05-11-AI basics-turorial (2).md",
     "_drafts/20250511-AI basics-turorial (2).md",
@@ -199,13 +208,6 @@
     "_drafts/20250413-commercial-property-rental.md",
     "_drafts/hash-password-c#-turorial - Copy.md",
     "_drafts/ReactJS tutorial - 10 faq.md",
-    "_drafts/ReactJS tutorial - (1) start.md",
-    "_posts/2020-06-21-create-angular-project-(1)-introduction.md",
-    "_drafts/create-angular-project-(2)-release.md",
-    "_posts/2018-05-21-angularjs-tutorial-(1)-introduction.md",
-    "_drafts/to release/2020-01-12-tax-RRSP-TFSA-RESP-LIRA-RRIF.md",
-    "_drafts/ecommerce tutorial - amazon.md",
-    "_drafts/Amazon AWS.md",
     "images/posts/20250418-nop-3.jpg.crdownload",
     "CNAME",
     "CNAME - Copy.bak",
@@ -216,7 +218,6 @@
     "_drafts/images/posts/20240221-powerbi-13.png.crdownload",
     "_drafts/images/posts/20240221-powerbi-12.png.crdownload",
     "_drafts/images/posts/20240221-powerbi-11.png.crdownload",
-    "_drafts/images/posts/20240221-powerbi-10.png.crdownload",
-    "_drafts/images/posts/20240221-powerbi-8.png.crdownload"
+    "_drafts/images/posts/20240221-powerbi-10.png.crdownload"
   ]
 }

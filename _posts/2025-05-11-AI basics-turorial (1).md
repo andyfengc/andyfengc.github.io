@@ -3,78 +3,116 @@ layout: post
 title: AI Tutorial 1
 author: Andy Feng
 ---
-# Introduction
-用AI制作一个女性的一生
-用deepseek/chatgpt 生成指令
-用剪映(即梦海外版)生成图片
-用可灵生成视频
-用剪映电脑版剪辑视频
-用YouTube发布
-# 注册可灵AI国际版(klingai)
-[klingai official website](https://www.klingai.com/global/)
-使用可灵ai国际版注册 > sign in with email
-![](/images/posts/2025-05-11-ai-1.jpg)
+# AI工具简介
+## 字节跳动公司(抖音）
+剪映，海外版Capcut，综合ai平台，侧重编辑。capcut 能无限生成图片，但风格过于动漫化
 
-现在需要若干邮箱 > https://maildrop.cc/ > 有2种方法获取免费邮箱
-![](/images/posts/2025-05-11-ai-2.jpg)
+即梦，海外版Dreamina，从剪映拆分出来的。AI创作平台，侧重于AI图片创作、视频创作。每天有免费60积分，每张图1分，每个视频12分
 
-继续可灵AI注册 > 邮箱收到6位验证码 > 输入注册框 > next > 注册成功登录> 每账户每月166个免费积分，如果不够用就注册新账号
+海绵音乐，做音乐
 
-![](/images/posts/2025-05-11-ai-3.jpg)
+豆包，海外版cici，侧重问答，类似deepseek，但加拿大目前用不了
 
-![](/images/posts/2025-05-11-ai-4.jpg)
- 
- # 注册剪映AI国际版(capcut)
- [capcut](https://www.capcut.com/)
- 
- 使用剪映ai国际版注册 > sigup in with email
- ![](/images/posts/2025-05-11-ai-6.jpg)
-![](/images/posts/2025-05-11-ai-7.jpg)
-# 用剪映(capcut)生成不同年龄的中国女性图片
-可以用 deepseek/chatgpt 写一段图片的详细描述（指令脚本），注意要用英文，跟剪映国际版的语言匹配
-![](/images/posts/2025-05-11-ai-5.jpg)
+LTX Studio, https://app.ltx.studio/, 图片转几秒的video
 
-中文指令参考：
+## 快手公司
+可灵AI，海外版klingai，可以生成视频
+
+可图，海外版Kolors，可以文生图，图生图
+
+## deepseek
+
+## openAI
+Chatgpt
+文本生成图像。免费用户24小时10张；plus用户月费$20美刀，24小时100张
+
+DELL E2, https://openai.com/index/dall-e-2/, 文本转图像
+
+DELL E3, https://openai.com/index/dall-e-3/
+
+## 腾讯公司
+腾讯元宝，需要用微信,qq或者国内手机号登录。类似chatgpt
+
+## 微软
+microsoft designer, 文字生成图片
+
+## 百度公司
+文小言, https://prompt.baidu.com/
+
+## Google
+
+## 图片素材网站，无版权
+pexels
+mixkit
+pixabay
+https://www.vecteezy.com/
+
+https://www.fotor.com/cn/features/resize/
+## Others
+stable diffusion, https://stablediffusionweb.com/. 文字生成图片。免费用户有10个credit，每张图1个credit
+
+tidio，跨境电商客服，邮件服务，可以集成到shopify, facebook messenger, instagram, 
+
+heptic, 客服
+
+vidnoz, https://vidnoz.com, 可以文本转video，图片转视频； url转video适合电商。
+> url to video，支持amazon，自动解析结束，要修改标题，图片，简化描述不超过1000chars。视频控制在1分钟以内
+
+https://www.insmind.com/, 根据图像生成真人
+
+搜狐简单AI， https://ai.sohu.com。 生成的图片风格过于年轻新潮，比如把孔子化成了小鲜肉
+
+## 指令（script）技巧
+人物：一群大熊猫
+场景：竹园
+动作：玩耍
+主题风格：动漫
+
+人物：一个15岁左右的巴西女孩，黑发
+场景：微风吹过女孩的头发，阳光照在女孩的脸上
+动作：女孩对着镜头微笑
+主题风格：写实
+
+视频
+风格有动漫、写实、科幻、水墨
+
+美化图片
+quality xxx with a realistic picturing style，生成现实质感的图片
+
+输入图片，生成图片
 ```
-一个18岁漂亮的女生 /英俊的男生，真实的照片质感
-正面半身照一个24岁漂亮的女人/英俊的男人，真实的照片质感，正面半身照
-一个15岁漂亮/英俊的小孩，真实的照片质感，正面半身照
-一个10岁可爱的小孩，真实的照片质感，正面半身照
-一个5岁可爱的小孩，真实的照片质感，正面半身照
+根据输入的图片，生成一比一复刻的真人，人物着装，服饰，头发颜色，皮肤颜色，人物表情，精神状态，举止动作，背景装饰都完全一致。要求风格庄重严肃，有历史感，人物生动形象，有真实质感，栩栩如生，光线明亮自然
 ```
+# 视频变现平台
+1、抖音
 
-回到capcut > 粘贴脚本 > 生成
-![](/images/posts/2025-05-11-ai-10.jpg)
+抖音上线于2016年，抖音集团旗下，是一款风靡全球的音乐创意短视频社交软件，以“记录美好生活”为品牌口号，用户可以通过选择歌曲、海量原创特效和滤镜，拍摄音乐短视频，形成自己的作品，也可找到涵盖生活妙招、美食做法、旅行攻略、科技知识、新闻时事、同城资讯等各种实用内容。
 
-如果对纯文字生成的图片不满意，可以找一张参考图，让ai根据参考图精确生成图片
-譬如  google > image > 中国漂亮女孩 白衣 全身照 高清图 > 选一张图
+2、快手
 
-然后不断更换指令脚本，分别生成5岁，10岁，18岁，30岁的照片，挑出满意的
+快手诞生于2011年3月，最初是一款用来制作、分享GIF图片的手机应用，2012年11月，快手转型为短视频社区，用于用户记录和分享生产、生活的平台，2013年推出短视频社交平台，2018年开始发展电商业。
 
-![](/images/posts/2025-05-11-ai-12.jpg)
-![](/images/posts/2025-05-11-ai-8.jpg)
-![](/images/posts/2025-05-11-ai-9.jpg)
-![](/images/posts/2025-05-11-ai-13.jpg)
-![](/images/posts/2025-05-11-ai-16.jpg)
-![](/images/posts/2025-05-11-ai-17.jpg)
-![](/images/posts/2025-05-11-ai-18.jpg)
-![](/images/posts/2025-05-11-ai-19.jpg)
-# 用 可灵AI 分段制作视频
-image > to video > 选好首帧，尾帧 > 点击生成，每次消耗35个点 > 生成约3分钟
+3、视频号
 
-![](/images/posts/2025-05-11-ai-14.jpg)
-![](/images/posts/2025-05-11-ai-15.jpg)
+视频号是2020年1月22日腾讯公司依托微信生态正式宣布开启内测的平台，是一个全新的内容记录与创作平台，视频号内容以图片和视频为主，可以发布长度不超过1分钟的视频。微信视频号在视频版权、游戏直播等领域较具优势。
 
-# 用剪映电脑版剪辑成完整视频
-英文版：https://www.capcut.com/ > 下载capcut desktop > 
-中文版：https://www.capcut.cn/
+4、西瓜视频
 
-![](/images/posts/2025-05-11-ai-22.jpg)
-# 用YouTube发布视频
+西瓜视频是抖音集团旗下中视频平台，源于2016年5月上线的头条视频。作为国内领先的PUGC视频平台，它通过个性化推荐，源源不断地为不同人群提供优质内容，同时鼓励多样化创作，帮助人们轻松地分享视频作品。
 
-
+Youtube
 # FAQ
-如何切换可灵账户
-![](/images/posts/2025-05-11-ai-21.jpg)
+## 场景库术语
+Retail Store
+Interior design
+Restaurant
+Home decor
+
+治愈系动漫风格：
+新海诚风格 Matoko Shinkai
+宫崎骏风格 Studio Ghibli
+
 # References 
-[【完整教程】爆火AI小女孩从1岁到80岁制作教程拆解，纯原创制作，日入多张 | 老高项目网](https://www.youtube.com/@lgxmw)]()
+[# 体验完字节所有的 AI 产品，杀手级 AI 应用可能比想象中更远](https://www.geekpark.net/news/336047)
+[ 快手AI](https://www.onetts.com/ai/company/kuaishou/)
+[AI生成图片的软件和网站](https://ai-bot.cn/best-ai-image-generators/)
