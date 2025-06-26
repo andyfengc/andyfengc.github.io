@@ -5,9 +5,15 @@ author: Andy Feng
 ---
 # AI工具简介
 ## 字节跳动公司(抖音）
-剪映，海外版Capcut，综合ai平台，侧重编辑。capcut 能无限生成图片，但风格过于动漫化
+剪映，海外版Capcut，综合ai平台，侧重编辑。
+> capcut web能无限生成图片，但风格过于动漫化
+> capcut 历史解说选 steady male
+> [capcut text to image](https://www.capcut.com/magic-tools/convert-text-to-image)
+> 免费配音：深情述说（女），辣评娱记（女），小帅（男）、东北老铁，播音旁白（男）, Steady male(英文纪录片男), hopeful woman (女), professional male(职业男英文)
 
-即梦，海外版Dreamina，从剪映拆分出来的。AI创作平台，侧重于AI图片创作、视频创作。每天有免费60积分，每张图1分，每个视频12分
+即梦，海外版 Dreamina，从剪映拆分出来的。AI创作平台，侧重于AI图片创作、视频创作。每天有免费60积分，每张图1分，每个视频12分
+
+https://dreamina.capcut.com/ai-tool/video/generate
 
 海绵音乐，做音乐
 
@@ -39,8 +45,19 @@ microsoft designer, 文字生成图片
 ## 百度公司
 文小言, https://prompt.baidu.com/
 
-## Google
+## MoneyPrinterTurbo
+不
+语音：Yunxi （中文男), us-brian(英文), Liam(英文男), emma(英文女)
+background music：no
+## 文本转图片
+https://copilot.microsoft.com/
+https://gemini.google.com/
 
+图片转视频
+https://app.runwayml.com/ 可以生成10s，免费用户送credit
+vidu:  https://www.vidu.com/ 图片转视频，没有免费用户，时长可达2分钟
+
+https://ai.invideo.io/  图片转视频 免费用户限制3个720p。
 ## 图片素材网站，无版权
 pexels
 mixkit
@@ -60,7 +77,15 @@ vidnoz, https://vidnoz.com, 可以文本转video，图片转视频； url转vide
 
 https://www.insmind.com/, 根据图像生成真人
 
-搜狐简单AI， https://ai.sohu.com。 生成的图片风格过于年轻新潮，比如把孔子化成了小鲜肉
+搜狐简单AI， https://ai.sohu.com 生成的图片风格过于年轻新潮，比如把孔子化成了小鲜肉
+
+Tensorart: https://tensor.art/ genearte 100 pictures/day, select model juggermaut
+
+
+## text to speech
+microsoft tts
+
+voice maker: https://voicemaker.in/ ,免费用户250个字符
 
 ## 指令（script）技巧
 人物：一群大熊猫
@@ -112,6 +137,14 @@ Home decor
 新海诚风格 Matoko Shinkai
 宫崎骏风格 Studio Ghibli
 
+## 下载视频
+抖音 https://snapdouyin.app/down/
+
+# FAQ
+## 音乐版权
+可使用的歌曲时长是指版权所有者允许创作者在视频中使用曲目的具体时间长度。
+> 如果曲目支持提供许可，并且您选择购买许可，那么您可以在任意时长的视频中使用该曲目，并且不限使用时间。
+> 如果曲目支持提供许可，而您不想购买许可，那么您可以选择**分享收益，前提是您的视频时长超过 3 分钟，且使用的歌曲时长少于 30 秒**
 # References 
 [# 体验完字节所有的 AI 产品，杀手级 AI 应用可能比想象中更远](https://www.geekpark.net/news/336047)
 [ 快手AI](https://www.onetts.com/ai/company/kuaishou/)

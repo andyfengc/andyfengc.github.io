@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "37ca3f27f1450b1e",
+        "id": "bc2f08d25f1f500f",
         "type": "tabs",
         "children": [
           {
-            "id": "0025053d84760894",
+            "id": "336ca416f59a429b",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/2025-05-13-AI basics-turorial (6) .md",
+                "file": "_posts/2025-06-26-WPF-tutorial-1.md",
                 "mode": "source",
-                "source": true
+                "source": false
               },
               "icon": "lucide-file",
-              "title": "2025-05-13-AI basics-turorial (6)"
+              "title": "2025-06-26-WPF-tutorial-1"
             }
           }
         ]
@@ -53,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "ai basics",
+                "query": "wpf",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": true,
@@ -124,13 +124,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_posts/2025-05-13-AI basics-turorial (6) .md",
+                "file": "_posts/2025-06-26-WPF-tutorial-1.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 2025-05-13-AI basics-turorial (6)"
+              "title": "Outline of 2025-06-26-WPF-tutorial-1"
             }
           },
           {
@@ -139,7 +139,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "_posts/2025-05-13-AI basics-turorial (6) .md",
+                "file": "_posts/2025-05-11-AI basics-turorial (1).md",
                 "collapseAll": false,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -149,7 +149,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for 2025-05-13-AI basics-turorial (6)"
+              "title": "Backlinks for 2025-05-11-AI basics-turorial (1)"
             }
           }
         ],
@@ -169,30 +169,35 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "0025053d84760894",
+  "active": "336ca416f59a429b",
   "lastOpenFiles": [
-    "2025-05-12-15.jpg",
-    "images/posts/2025-05-12-15.jpg",
+    "_posts/2025-06-26-WPF-Turorial-1.md",
+    "_posts/2025-06-18-Sqlite-Turorial.md",
+    "images/posts/Pasted image 20250618184838.png",
+    "_posts/2025-06-16-PowerShell-5.x-to-7.x.md",
+    "images/posts/Pasted image 20250616164604.png",
+    "images/posts/Pasted image 20250616163411.png",
+    "images/posts/Pasted image 20250616160532.png",
+    "images/posts/Pasted image 20250616160322.png",
+    "images/posts/Pasted image 20250616160051.png",
+    "images/posts/Pasted image 20250616154957.png",
+    "images/posts/Pasted image 20250616154948.png",
+    "images/posts/Pasted image 20250616154530.png",
+    "images/posts/Pasted image 20250616154308.png",
+    "_posts/2025-06-01-PowerShell-Turorial - Copy.md",
     "_posts/2025-05-11-AI basics-turorial (1).md",
+    "().md",
     "_posts/2025-05-11-AI basics-turorial (2).md",
+    "_posts/2025-05-11-AI basics-turorial (3).md",
+    "_posts/2025-05-12-AI basics-turorial (4).md",
     "_posts/2025-05-13-AI basics-turorial (6) .md",
     "_posts/2025-05-12-AI basics-turorial (5).md",
+    "_drafts/20250515-jupyter-tutorial.md",
     "_posts/2025-05-12-AI basics-turorial (5) - Copy.md",
-    "_posts/2025-05-12-AI basics-turorial (4).md",
-    "_posts/2025-05-11-AI basics-turorial (3).md",
     "_posts/2025-05-12-AI basics-turorial (4) - Copy.md",
     "_posts/2025-05-12-AI basics-turorial (1).md",
     "Isaac Newton",
     "_drafts/WebSocket tutorial (1) - fundamentals.md",
-    "images/posts/2025-05-12-09.jpg",
-    "images/posts/2025-05-12-08.jpg",
-    "2025-05-12-12.jpg",
-    "images/posts/2025-05-12-07.jpg",
-    "2025-05-12-10.jpg",
-    "2025-05-12-06.jpg",
-    "images/posts/2025-05-12-06.jpg",
-    "images/posts/2025-05-12-05.jpg",
-    "images/posts/2025-05-12-04.jpg",
     "_posts/2025-05-11-AI basics-turorial (2) - Copy.md",
     "_drafts/2025-05-11-AI basics-turorial (2).md",
     "_drafts/20250511-AI basics-turorial (2).md",
@@ -203,11 +208,6 @@
     "_drafts/20250511-AI basics-turorial (1).md",
     "_posts/AI basics-turorial (1).md",
     "_posts/AI basics-turorial (2).md",
-    "_posts/2018-04-19-angular-asynchronous-programming-tutorial.md",
-    "_drafts/AI basics-turorial (1) - Copy.md",
-    "_drafts/20250413-commercial-property-rental.md",
-    "_drafts/hash-password-c#-turorial - Copy.md",
-    "_drafts/ReactJS tutorial - 10 faq.md",
     "images/posts/20250418-nop-3.jpg.crdownload",
     "CNAME",
     "CNAME - Copy.bak",
