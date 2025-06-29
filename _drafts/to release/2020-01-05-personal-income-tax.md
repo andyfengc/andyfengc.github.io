@@ -319,7 +319,7 @@ author: Andy Feng
 	1. 对出租房来说，折旧造成的亏损部分不能抵税。即如果你的出租房收益为零，报税软件不会把折旧成本再去抵扣收入。
 	1. 投资房买卖产生的利润或者损失才叫资本利得capital gain。如果有利润，只有一半算收入需要纳税。如果有损失，总额一半可以抵消其它capital gain产生的利润。租金收入或损失是个人其它收入，利润是百分百应税的，损失当然也是百分百抵个税
 
-#References#
+# References#
 [Canadian income tax rates for individuals - current and previous years](https://www.canada.ca/en/revenue-agency/services/tax/individuals/frequently-asked-questions-individuals/canadian-income-tax-rates-individuals-current-previous-years.html)
 
 [Tax packages for all years](https://www.canada.ca/en/revenue-agency/services/forms-publications/tax-packages-years.html)

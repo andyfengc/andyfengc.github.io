@@ -65,7 +65,7 @@ MyAccount 对于个人税务记录是个非常有用的工具，有一些非常�
 
 - Personal information: 这里你可以查看 CRA 给你寄出的信件，更改地址和联系电话，授权税务代表。如果一年中婚姻状况有发生改变的话，你也可以在这里直接通知 CRA。
 
-#References#
+# References#
 [https://www.canada.ca/en/revenue-agency.html](https://www.canada.ca/en/revenue-agency.html)
 
 [https://liveandleave.com/2017/01/05/2017-t1-tips-1/](https://liveandleave.com/2017/01/05/2017-t1-tips-1/)

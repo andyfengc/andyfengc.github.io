@@ -766,7 +766,7 @@ Divide就是通常所说的Income Splitting，分散收入，这个法则的原�
 
 请注意，如果你漏报的是诸如 T4、T4A 或者 T5 这类收入信息，你应该立刻要求税局做出相应调整。你拖的时间越长，你要被追缴的利息就越多。该公司称，如果税局在一个四年期的时间里两次发现你有未报告的收入，你就会被课以一项自动罚款。
 
-#References#
+# References#
 [Canada Revenue Agency publications listed by number](https://www.canada.ca/en/revenue-agency/services/forms-publications/publications.html)
 
 [2008 and 2009 Personal Tax Rates](https://www.taxtips.ca/priortaxrates/taxrates2009_2008.htm)

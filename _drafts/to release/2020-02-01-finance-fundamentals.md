@@ -302,7 +302,7 @@ RRSP（Registered Retirement Savings Plan，注册退休储蓄计划）没有利
 # 定期存款是还要收税吗？
 存在免税账户不收税，存在RRSP账户收税。
 
-#References#
+# References#
 [certified cheque, money order和bank draft的区别](https://www.victoriabbs.com/bbs/forum.php?mod=viewthread&tid=16313)
 
 

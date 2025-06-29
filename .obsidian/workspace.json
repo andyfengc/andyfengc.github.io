@@ -4,24 +4,37 @@
     "type": "split",
     "children": [
       {
-        "id": "7272a2125099c84a",
+        "id": "d4a0ca7b464fb537",
         "type": "tabs",
         "children": [
           {
-            "id": "48599327248c4319",
+            "id": "584e673b365ffeae",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/2025-06-27-WPF-tutorial-5-DI.md",
+                "file": "_drafts/c# excel.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2025-06-27-WPF-tutorial-5-DI"
+              "title": "c# excel"
+            }
+          },
+          {
+            "id": "044c3c83846347be",
+            "type": "leaf",
+            "state": {
+              "type": "image",
+              "state": {
+                "file": "images/posts/20151203-install-epplus.png"
+              },
+              "icon": "lucide-image",
+              "title": "20151203-install-epplus"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -40,7 +53,7 @@
             "state": {
               "type": "file-explorer",
               "state": {
-                "sortOrder": "alphabetical",
+                "sortOrder": "byModifiedTime",
                 "autoReveal": false
               },
               "icon": "lucide-folder-closed",
@@ -53,7 +66,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "wpf",
+                "query": "20151130-regular-expression-pattern 1.png",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": true,
@@ -95,12 +108,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "_posts/2020-06-21-create-angular-project-(1)-introduction.md",
+                "file": "images/posts/20151203-install-epplus.png",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from 2020-06-21-create-angular-project-(1)-introduction"
+              "title": "Outgoing links from 20151203-install-epplus"
             }
           },
           {
@@ -124,13 +137,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_posts/2025-06-27-WPF-tutorial-5-DI.md",
+                "file": "images/posts/20151203-install-epplus.png",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 2025-06-27-WPF-tutorial-5-DI"
+              "title": "Outline of 20151203-install-epplus"
             }
           },
           {
@@ -139,21 +152,21 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "_posts/2025-05-11-AI basics-turorial (1).md",
-                "collapseAll": false,
+                "file": "images/posts/20151203-install-epplus.png",
+                "collapseAll": true,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
-                "showSearch": false,
+                "showSearch": true,
                 "searchQuery": "",
                 "backlinkCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for 2025-05-11-AI basics-turorial (1)"
+              "title": "Backlinks for 20151203-install-epplus"
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -169,43 +182,43 @@
       "daily-notes:Open today's daily note": false
     }
   },
-  "active": "48599327248c4319",
+  "active": "d8ec7b2e281832f7",
   "lastOpenFiles": [
+    "_drafts/c# excel.md",
+    "images/posts/20151203-install-epplus.png",
+    "20151203-install-epplus 5.png",
+    "20151203-install-epplus 4.png",
+    "_drafts/to release/2020-01-08-tax-new-immigrant.md",
+    "_drafts/to release/2020-01-12-tax-RRSP-TFSA-RESP-LIRA-RRIF.md",
+    "_drafts/to release/2020-01-21-tax-house.md",
+    "_drafts/to release/2020-01-15-tax-spouse.md",
+    "_drafts/to release/2020-01-25-tax-heritage.md",
+    "_drafts/to release/2020-01-31-tax-faq.md",
+    "_drafts/to release/2020-02-01-finance-fundamentals.md",
+    "_drafts/to release/2020-02-24-finance-retire.md",
+    "_drafts/to release/2020-01-07-tax-self-employed-corporation-income-tax.md",
+    "_drafts/to release/2020-01-06-tax-investment.md",
+    "_drafts/to release/2020-01-03-tax-fundamentals.md",
+    "_drafts/to release/2020-01-05-personal-income-tax.md",
+    "_drafts/to release/2020-01-01-tax-cra-my-account .md",
+    "_drafts/Windows Form Tutorial.md",
+    "_drafts/Excel tutorial - lookup.md",
     "_posts/2025-06-26-WPF-tutorial-1.md",
-    "images/posts/Pasted image 20250628024926.png",
-    "_posts/2025-06-27-WPF-tutorial-5-DI.md",
-    "_posts/2025-06-27-WPF-tutorial-4-NET-Community-Toolkit.md",
-    "_posts/2025-06-27-WPF-tutorial-3-MVVM.md",
-    "_posts/2025-06-26-WPF-tutorial-5-DI.md",
-    "_posts/2025-06-26-WPF-tutorial-4-NET-Community-Toolkit - Copy.md",
-    "_posts/2025-06-26-WPF-tutorial-3-MVVM.md",
-    "_drafts/Java office excel poi tutorial.md",
-    "_posts/2025-06-26-WPF-tutorial-4-NET-Community-Toolkit.md",
-    "_posts/2025-06-26-WPF-tutorial-2-XAML - Copy.md",
-    "().md",
-    "images/posts/Pasted image 20250627002914.png",
     "_posts/2025-06-26-WPF-tutorial-2-XAML.md",
+    "_posts/2025-06-27-WPF-tutorial-4-UI.md",
+    "2025-06-28.md",
+    "_posts/2025-06-28-Markdown-Tutorial.md",
+    "_posts/2025-06-28-Mermaid-tutorial.md",
+    "_posts/2025-06-27-WPF-tutorial-3-MVVM.md",
+    "_posts/2025-06-27-WPF-tutorial-5-NET-Community-Toolkit.md",
+    "_drafts/20151109-Seleniumdisplay-and-editor-templates-to-customize-view-.net-mvc.md",
+    "images/posts/Pasted image 20250628024926.png",
+    "images/posts/Pasted image 20250627002914.png",
     "images/posts/Pasted image 20250626224010.png",
     "images/posts/Pasted image 20250626213338.png",
     "images/posts/Pasted image 20250626182749.png",
     "images/posts/Pasted image 20250626182610.png",
-    "_posts/2025-06-26-WPF-tutorial-1 - Copy.md",
-    "_posts/2025-06-26-WPF-Turorial-1.md",
-    "_posts/2025-06-18-Sqlite-Turorial.md",
     "images/posts/Pasted image 20250618184838.png",
-    "_posts/2025-06-16-PowerShell-5.x-to-7.x.md",
-    "images/posts/Pasted image 20250616164604.png",
-    "images/posts/Pasted image 20250616163411.png",
-    "images/posts/Pasted image 20250616160532.png",
-    "_posts/2025-06-01-PowerShell-Turorial - Copy.md",
-    "_posts/2025-05-11-AI basics-turorial (1).md",
-    "_posts/2025-05-11-AI basics-turorial (2).md",
-    "_posts/2025-05-11-AI basics-turorial (3).md",
-    "_posts/2025-05-12-AI basics-turorial (4).md",
-    "_posts/2025-05-13-AI basics-turorial (6) .md",
-    "_posts/2025-05-12-AI basics-turorial (5).md",
-    "_drafts/20250515-jupyter-tutorial.md",
-    "_posts/2025-05-12-AI basics-turorial (5) - Copy.md",
     "Isaac Newton",
     "images/posts/20250418-nop-3.jpg.crdownload",
     "CNAME",

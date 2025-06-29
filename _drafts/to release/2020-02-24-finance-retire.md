@@ -509,7 +509,7 @@ CPP不会自动发放，必须主动申请。网申的话7~14天就会得到回�
 	2. 对于年轻时不积累RRSP，或者从未工作但混到65岁的人而言，又没有投资收入，CPP有无都一样，也就是不到2千的养老金收入，勉强生活
 	2. 老年收入高的， 一般是下列情况：（1）有投资收入， （2）有RRSP， （3）有CPP。如果这些收入加起来，高于1w多，就没有GIS了，能拿全额OAS；高于7w多, 就既没有GIS, OAS也要扣减了；高于12w，就GIS, OAS都没有了.
 
-#References#
+# References#
 [CPP contribution rates, maximums and exemptions](https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/payroll/payroll-deductions-contributions/canada-pension-plan-cpp/cpp-contribution-rates-maximums-exemptions.html)
 
 [When You Retire](https://www.canada.ca/en/revenue-agency/services/forms-publications/publications/p119.html)

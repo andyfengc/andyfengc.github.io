@@ -40,7 +40,7 @@ Steps:
 
 	通过我们所要查找的数值和条件数列的距离列数，确定数字。这里有点要注意的，要把我们查询的条件数列在查找范围中放在第一列，这样可以更好地统计后面的数值。
 
-4. 匹配条件 range_lookup 为一逻辑值，指明函数 VLOOKUP 查找时是精确匹配，还是近似匹配。如果为false或0 ，则返回精确匹配，如果找不到，则返回错误值 #N/A。如果 range_lookup 为TRUE或1，函数 VLOOKUP 将查找近似匹配值，也就是说，如果找不到精确匹配值，则返回小于 lookup_value 的最大数值。default is false即精确匹配
+4. 匹配条件 range_lookup 为一逻辑值，指明函数 VLOOKUP 查找时是精确匹配，还是近似匹配。如果为false或0 ，则返回精确匹配，如果找不到，则返回错误值 N/A 如果 range_lookup 为TRUE或1，函数 VLOOKUP 将查找近似匹配值，也就是说，如果找不到精确匹配值，则返回小于 lookup_value 的最大数值。default is false即精确匹配
 
 	![](/images/posts/20210520-excel-6.jpg)
 

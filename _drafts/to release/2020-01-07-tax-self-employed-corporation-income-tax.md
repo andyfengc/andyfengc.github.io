@@ -564,7 +564,7 @@ CPP跟随salary，只要发工资，就必须得交CPP。
 
 特别提醒， 笔者所接触的报税者，从传销经营中真正盈利者甚少。
 
-#References#
+# References#
 [Steps to incorporating](https://corporationscanada.ic.gc.ca/eic/site/cd-dgc.nsf/eng/cs06642.html)
 
 [Federal vs. Provincial Incorporation: What’s the Difference?](https://www.opstart.ca/federal-vs-provincial-incorporation-whats-difference/)

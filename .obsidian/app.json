@@ -3,5 +3,11 @@
   "useMarkdownLinks": true,
   "newFileLocation": "root",
   "showUnsupportedFiles": false,
-  "attachmentFolderPath": "images/posts"
+  "attachmentFolderPath": "images/posts",
+  "pdfExportSettings": {
+    "pageSize": "Letter",
+    "landscape": false,
+    "margin": "0",
+    "downscalePercent": 100
+  }
 }

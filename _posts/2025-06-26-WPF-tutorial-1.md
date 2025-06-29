@@ -2,7 +2,15 @@
 layout: post
 title: WPF Tutorial 1
 author: Andy Feng
+tags:
+  - "#wpf"
+  - "#dotnet"
 ---
+to watch
+[https://www.youtube.com/watch?v=PoPUB1_q2kE](https://www.youtube.com/watch?v=PoPUB1_q2kE)
+[https://www.youtube.com/watch?v=CABv5xIDC08](https://www.youtube.com/watch?v=CABv5xIDC08)
+[https://www.youtube.com/watch?v=mlmyFXJy8gQ](https://www.youtube.com/watch?v=mlmyFXJy8gQ)
+[WPF - Responsive UI Design | MVVM | XAML | C# | Tutorial](https://www.youtube.com/watch?v=EfXz4C5cSVI)
 # Introduction
 WPF stands for Windows Presentation Foundation. It is a powerful framework for building Windows applications.
 早起的GUI程序中，比如Windows Forms，程序的外观和行为没有完全分离，都用同一种语言开发，比如C#，往往需要同时修改UI和逻辑代码，维护成本高。
@@ -176,6 +184,7 @@ A trigger basically enables you to change property values or take actions based 
 ```
 🔍 如果 `ViewModel.IsSaving == true`，按钮将禁用，文字变成“Saving…”
 ✅ 此时 Trigger 依赖 ViewModel 的属性，这种是 `MVVM` 模式推荐用法。
+
 # FAQ
 ## How to use fontawesome?
 nuget > fontawesome.Sharp
@@ -199,6 +208,8 @@ nuget > fontawesome.Sharp
 
 # References 
 [WPF Tutorial](https://www.tutorialspoint.com/wpf/index.htm)
+[# WPF Walkthroughs](https://learn.microsoft.com/en-us/dotnet/desktop/wpf/get-started/wpf-walkthroughs)
 [Windows Presentation Foundation documentation](https://learn.microsoft.com/en-us/dotnet/desktop/wpf/)
 [# How to use Font Awesome icon in WPF](https://www.youtube.com/watch?v=-mGeICjMOxQ)
 [# FontAwesome.Sharp](https://awesome-inc.github.io/FontAwesome.Sharp/#wpf)
+[# WPF & MVVM/ Modern Main UI Design (Part 2/2) - Header Design, Open & Switch Child Views](https://www.youtube.com/watch?v=76JLBZJR5gE)

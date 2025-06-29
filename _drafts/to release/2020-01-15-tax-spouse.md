@@ -75,7 +75,7 @@ Canada Home Group Realty Inc. | 加拿大房地产集团公司Canada Home Group 
 (3) 家庭中收入高的一方可申请ONTARIO TAX REDUCTION. 基本减税额为$181, 每个孩子再增加 $334
 (4) 可以将自己没有利用完的CREDITS 转给配偶. 以减少上税收入.
 
-#References#
+# References#
 [夫妻报税的税务处理及优惠](https://www.kylinaccountingtax.com/post/%E5%A4%AB%E5%A6%BB%E6%8A%A5%E7%A8%8E%E7%9A%84%E7%A8%8E%E5%8A%A1%E5%A4%84%E7%90%86%E5%8F%8A%E4%BC%98%E6%83%A0)
 
 [如何判定common-law关系](https://www.nirvanavisa.com/single-post/Assessing-Common-Law-Partnerships)

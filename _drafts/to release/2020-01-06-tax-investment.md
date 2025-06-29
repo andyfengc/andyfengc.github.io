@@ -267,7 +267,7 @@ Please note:
 1. 如果你的利息、债券分红收益在$50元以下，金融机构可能不寄发T3或T5表。但根据税法，你仍然有义务将低于$50元的利息、分红收益申报为个人收入。
 2. 为什么基金公司有时候寄给我T3表而有时候寄给我T5表？ 这取决于你所投资基金的结构。如果基金是以信托（Trust）的方式运作，你会收到T3表，而以公司(Corporation)的形式运作，你会收到T5表。
 
-#References
+# References
 [在加拿大和美国炒股票应该如何报税？](https://www.infosqc.com/2021/01/05/3124/)
 
 [How do I report the amounts from my T5008 slip](https://help.simpletax.ca/questions/t5008-slip)
