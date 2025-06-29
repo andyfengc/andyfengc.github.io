@@ -4,37 +4,58 @@
     "type": "split",
     "children": [
       {
-        "id": "d4a0ca7b464fb537",
+        "id": "5ce2cbbafe29ff80",
         "type": "tabs",
         "children": [
           {
-            "id": "584e673b365ffeae",
+            "id": "923c9b6c741d26ba",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_drafts/c# excel.md",
+                "file": "_posts/2025-06-27-WPF-tutorial-4-UI.md",
                 "mode": "source",
-                "source": false
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
               },
               "icon": "lucide-file",
-              "title": "c# excel"
+              "title": "2025-06-27-WPF-tutorial-4-UI"
             }
           },
           {
-            "id": "044c3c83846347be",
+            "id": "b51191750b681997",
             "type": "leaf",
             "state": {
-              "type": "image",
+              "type": "markdown",
               "state": {
-                "file": "images/posts/20151203-install-epplus.png"
+                "file": "_posts/2025-06-27-WPF-tutorial-3-MVVM.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
               },
-              "icon": "lucide-image",
-              "title": "20151203-install-epplus"
+              "icon": "lucide-file",
+              "title": "2025-06-27-WPF-tutorial-3-MVVM"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -53,7 +74,7 @@
             "state": {
               "type": "file-explorer",
               "state": {
-                "sortOrder": "byModifiedTime",
+                "sortOrder": "alphabetical",
                 "autoReveal": false
               },
               "icon": "lucide-folder-closed",
@@ -66,8 +87,8 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "20151130-regular-expression-pattern 1.png",
-                "matchingCase": false,
+                "query": "",
+                "matchingCase": true,
                 "explainSearch": false,
                 "collapseAll": true,
                 "extraContext": false,
@@ -87,12 +108,11 @@
               "title": "Bookmarks"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 271.5
+    "width": 341.5110321044922
   },
   "right": {
     "id": "eb0d77954a5af90c",
@@ -108,12 +128,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "images/posts/20151203-install-epplus.png",
+                "file": "_posts/2025-06-27-WPF-tutorial-3-MVVM.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from 20151203-install-epplus"
+              "title": "Outgoing links from 2025-06-27-WPF-tutorial-3-MVVM"
             }
           },
           {
@@ -124,7 +144,7 @@
               "state": {
                 "sortOrder": "frequency",
                 "useHierarchy": true,
-                "showSearch": false,
+                "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-tags",
@@ -137,13 +157,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "images/posts/20151203-install-epplus.png",
+                "file": "_posts/2025-06-27-WPF-tutorial-4-UI.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 20151203-install-epplus"
+              "title": "Outline of 2025-06-27-WPF-tutorial-4-UI"
             }
           },
           {
@@ -152,7 +172,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "images/posts/20151203-install-epplus.png",
+                "file": "_posts/2025-06-28-Markdown-Tutorial.md",
                 "collapseAll": true,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -162,11 +182,11 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for 20151203-install-epplus"
+              "title": "Backlinks for 2025-06-28-Markdown-Tutorial"
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "horizontal",
@@ -182,10 +202,22 @@
       "daily-notes:Open today's daily note": false
     }
   },
-  "active": "d8ec7b2e281832f7",
+  "active": "923c9b6c741d26ba",
   "lastOpenFiles": [
-    "_drafts/c# excel.md",
+    "_posts/2025-06-27-WPF-tutorial-6-DI.md",
+    "_posts/2025-06-28-Mermaid-tutorial.md",
+    "_posts/2025-06-27-WPF-tutorial-3-MVVM.md",
+    "_posts/2025-06-26-WPF-tutorial-2-XAML.md",
+    "_posts/2025-06-27-WPF-tutorial-4-UI.md",
+    "_posts/2025-06-28-Markdown-Tutorial.md",
+    "_posts/2025-06-01-PowerShell-Turorial.md",
+    "_posts/2025-06-27-WPF-tutorial-5-NET-Community-Toolkit.md",
+    "_posts/2025-06-26-WPF-tutorial-1.md",
+    "images/posts/Pasted image 20250629005449.png",
+    "URL.md",
+    "2024-03-04.md",
     "images/posts/20151203-install-epplus.png",
+    "_drafts/c# excel.md",
     "20151203-install-epplus 5.png",
     "20151203-install-epplus 4.png",
     "_drafts/to release/2020-01-08-tax-new-immigrant.md",
@@ -202,23 +234,12 @@
     "_drafts/to release/2020-01-05-personal-income-tax.md",
     "_drafts/to release/2020-01-01-tax-cra-my-account .md",
     "_drafts/Windows Form Tutorial.md",
-    "_drafts/Excel tutorial - lookup.md",
-    "_posts/2025-06-26-WPF-tutorial-1.md",
-    "_posts/2025-06-26-WPF-tutorial-2-XAML.md",
-    "_posts/2025-06-27-WPF-tutorial-4-UI.md",
-    "2025-06-28.md",
-    "_posts/2025-06-28-Markdown-Tutorial.md",
-    "_posts/2025-06-28-Mermaid-tutorial.md",
-    "_posts/2025-06-27-WPF-tutorial-3-MVVM.md",
-    "_posts/2025-06-27-WPF-tutorial-5-NET-Community-Toolkit.md",
-    "_drafts/20151109-Seleniumdisplay-and-editor-templates-to-customize-view-.net-mvc.md",
     "images/posts/Pasted image 20250628024926.png",
     "images/posts/Pasted image 20250627002914.png",
     "images/posts/Pasted image 20250626224010.png",
     "images/posts/Pasted image 20250626213338.png",
     "images/posts/Pasted image 20250626182749.png",
     "images/posts/Pasted image 20250626182610.png",
-    "images/posts/Pasted image 20250618184838.png",
     "Isaac Newton",
     "images/posts/20250418-nop-3.jpg.crdownload",
     "CNAME",

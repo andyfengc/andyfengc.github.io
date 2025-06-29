@@ -2,15 +2,17 @@
 layout: post
 title: WPF Tutorial 1
 author: Andy Feng
+tags:
 ---
 # Introduction
 MVVM（Model-View-ViewModel）是一种常用于构建用户界面的**软件架构模式**，特别适用于支持数据绑定的框架，如 **WPF**、**Xamarin**、**WinUI**、**MAUI** 等。MVVM 通过**分离界面和逻辑**，提高了代码的可维护性、可测试性和可重用性。
+
 ![](images/posts/Pasted%20image%2020250627002914.png)
 ## 历史发展
 MVVM（Model-View-ViewModel）是在微软推出 WPF 时，为了解决 UI 与逻辑强耦合问题，借鉴 MVC/MVP 等模式而诞生的架构模式。
 早期桌面开发：UI 和逻辑混在一起（如 WinForms）。在 WinForms / VB6 / MFC 时代：
 - 所有事件处理都写在按钮点击、窗体加载等事件里    
-- UI 和逻辑紧耦合，维护困难，复用性差
+- UI 和逻辑紧耦合，维护困难，复用性差 
 - 你改 UI，可能要改一堆逻辑；你改逻辑，可能要重新布控件
 ```csharp
 btnSave.Click += (s, e) =>
@@ -36,7 +38,7 @@ WPF 2006年发布，催生 MVVM。MVVM 是微软为配合 WPF 的数据绑定系
 | ---------------------- | ------------ |
 | WPF 支持强大的数据绑定系统        | 不再需要手动操作控件   |
 | 控件属性可直接绑定 ViewModel 属性 | 需要一套更清晰的分层设计 |
-MVVM 的结构
+MVVM 的结构 #".net"
 
 | 层             | 职责                                    |
 | ------------- | ------------------------------------- |
@@ -100,10 +102,11 @@ View知道ViewModel。但ViewModel不知道UI。
 ### ✅ 3. **通知机制（INotifyPropertyChanged）**
 - 支持 UI 随数据变化自动更新。
 # 主要概念
-## **数据绑定（Data Binding）**
+## 数据绑定（Data Binding） 
 
 View 通过绑定 ViewModel 的属性（如 `Text="{Binding UserName}"`）自动显示数据。
-所谓绑定就是把自己注册到订阅列表里
+^wpf-databinding
+所谓绑定就是把自己注册到订阅列表里 
 ## **属性通知（INotifyPropertyChanged）**
 这是一个接口，表示“我会在属性变更时通过事件通知外部”
 ViewModel 实现 `INotifyPropertyChanged` 接口，属性值变更时通知 UI 自动更新。

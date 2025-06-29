@@ -83,7 +83,9 @@ public class MainViewModel
     }
 }
 ```
-
+# 配置
+安装httpclient： nuget > Microsoft.Extensions.Http
+![](images/posts/Pasted%20image%2020250629005449.png)
 
 
 # FAQ

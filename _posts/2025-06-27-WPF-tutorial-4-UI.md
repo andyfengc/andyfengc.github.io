@@ -209,6 +209,103 @@ WPF 查找资源的优先级：
 |**Application.Resources**|整个应用程序|`App.xaml` 文件中|
 |**Window.Resources**|仅当前窗口|窗口的 XAML 文件|
 |**Control.Resources**|仅当前控件及其子元素|控件的 XAML 标签内|
+# Style
+Style 能做什么？
+
+| 功能       | 示例                           |
+| -------- | ---------------------------- |
+| 鼠标悬停时换颜色 | 用 `Trigger`                  |
+| 不同状态样式切换 | `DataTrigger`、`MultiTrigger` |
+| 加动画      | `Storyboard`                 |
+| 多种样式组合   | `BasedOn` 继承其他样式             |
+Button 鼠标悬停变色
+```xml
+<Style TargetType="Button">
+    <Setter Property="Background" Value="LightGray"/>
+    <Style.Triggers>
+        <Trigger Property="IsMouseOver" Value="True">
+            <Setter Property="Background" Value="Orange"/>
+        </Trigger>
+    </Style.Triggers>
+</Style>
+```
+## 使用方式
+你要加样式的目标是哪种决定使用方法？
+
+| 目标       | 推荐方式                          |
+| -------- | ----------------------------- |
+| 当前页面的控件  | 放在 `<Window.Resources>` 或控件内  |
+| 所有页面统一样式 | 放在 `App.xaml`                 |
+| 某些控件复用样式 | `x:Key` + `StaticResource` 引用 |
+### 在当前页面中添加局部 Style
+你可以在页面的 `Resources` 里定义 `Style`，只对当前页面有效。
+```xml
+<Window x:Class="MyApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        ...
+        Title="MainWindow" Height="300" Width="300">
+    <Window.Resources>
+        <!-- 定义一个按钮样式 -->
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Background" Value="LightBlue"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Button Content="Hello Style!" />
+    </Grid>
+</Window>
+```
+>`TargetType="Button"` 表示该样式应用于当前页面的所有 `Button`
+> 如果你想只给某个按钮使用，可以加个 `x:Key="MyButtonStyle"`，然后用 `Style="{StaticResource MyButtonStyle}"`
+###  给控件单独添加 Style
+```xml
+<Button Content="Styled Button">
+    <Button.Style>
+        <Style TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="DarkGreen"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+    </Button.Style>
+</Button>
+```
+### 使用命名 Style（可复用）
+```xml
+<Window.Resources>
+    <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="DarkCyan"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="14"/>
+    </Style>
+</Window.Resources>
+
+<Grid>
+    <Button Content="Click Me" Style="{StaticResource PrimaryButtonStyle}" />
+</Grid>
+```
+### 全局样式（`App.xaml`）
+如果你希望所有窗口都使用同一个样式，可以放在 `App.xaml`：
+```xml
+<Application.Resources>
+    <Style TargetType="TextBox">
+        <Setter Property="Margin" Value="4"/>
+        <Setter Property="FontSize" Value="14"/>
+    </Style>
+</Application.Resources>
+```
+>这样所有页面的 `TextBox` 控件都会自动使用这个样式。
+
+
+
+
+
+
+
+
+
 # Template
 
 **Template**、**DataTemplate** 和 **ControlTemplate** 是核心的模板机制，用于定义 UI 元素的视觉结构和数据呈现方式。

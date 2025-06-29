@@ -6,7 +6,7 @@ author: Andy Feng
 # Introduction #
 Markdown 是一种轻量级标记语言，由 John Gruber 于 2004 年创建，旨在实现"易读易写"的纯文本格式编写，同时可以转换成有效的 HTML。
 markdown让我们专注于文章内容，而不是关注排版
-Markdown注重文本内容、精简格式化标签的理念，因此文本特效神马的，能不用就尽量不用，这些统统扔给CSS去解决，我们只关注文本内容
+Markdown注重文本内容、精简格式化标签的理念，因此文本特效神马的，能不用就尽量不用，这些统统扔给CSS去解决，我们只关注文本内容 
 # Markdown 基础语法
 ## 标题
 ```
@@ -66,6 +66,35 @@ Markdown注重文本内容、精简格式化标签的理念，因此文本特效
 [链接文字](URL "可选标题")
 
 ![图片替代文字](图片URL "可选标题")
+```
+### 链接 
+Markdown支持行内和参考两种形式的链接语法，两种都是使用中括号来把文字转成链接。
+1. 行内形式是中括号包围文字，后面紧跟圆括号包围的链接，其代码如下所示：
+	This is an [example link](http://example.com/).
+2. 参考形式的链接可以在原文中为链接定义一个名称，然后你可以在文章的其他地方定义该链接的内容。
+	以下代码用于定义链接名称，语法格式为：[链接文本][链接名称]
+用<>包括的URL或邮箱地址会被自动转换成为超链接
+<[http://example.com/](http://example.com/)>
+<user@example.com>
+### 图片
+图片的语法格式和链接类似，也分为行内形式和参考形式。
+行内形式语法格式为：
+```
+![alt text](URL title)
+```
+alt text和title可以选择性加入。实例代码如下：
+```
+![额，图片不能显示了！](Markdown_basic_files/Markdown_basic_1_0.png"正弦和余弦")
+```
+
+参考形式分为两部分：声明图片链接名称和定义图片链接。
+其中，声明图片链接语法格式为
+```
+![alt text][id]
+```
+定义图片链接内容的语法格式为
+```
+[id]:URL "title"
 ```
 ## 代码
 行内代码：`` `代码` ``
@@ -131,6 +160,7 @@ Markdown注重文本内容、精简格式化标签的理念，因此文本特效
 | `mermaid`   | -        | Mermaid 图表  |
 | `plaintext` | `text`   | 纯文本（无高亮）    |
 ## 引用
+Markdown使用email的区块引用方式，即右尖括号>跟后面的引用内容
 ```
 > 这是引用内容
 >> 嵌套引用
@@ -332,6 +362,15 @@ $$
 2. 不同实现有语法差异    
 3. 缺少标准化样式控制    
 4. 表格编辑体验较差
+## Markdown显示video
+用html
+```html
+<a href="https://cl.ly/3b0S25113Z2i" target="_blank"><img src="https://cl.ly/0W0N1G0W362r/Image%202018-01-30%20at%209.58.21%20PM.png" alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
+
+[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](http://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE)
+
+<iframe width="420" height="315" src="http://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+```
 # References #
 
 https://zhuanlan.zhihu.com/p/428519519

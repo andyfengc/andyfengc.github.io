@@ -11,6 +11,13 @@ to watch
 [https://www.youtube.com/watch?v=CABv5xIDC08](https://www.youtube.com/watch?v=CABv5xIDC08)
 [https://www.youtube.com/watch?v=mlmyFXJy8gQ](https://www.youtube.com/watch?v=mlmyFXJy8gQ)
 [WPF - Responsive UI Design | MVVM | XAML | C# | Tutorial](https://www.youtube.com/watch?v=EfXz4C5cSVI)
+
+[2025-06-27-WPF-tutorial-4-UI](_posts/2025-06-27-WPF-tutorial-4-UI.md)
+[2025-06-27-WPF-tutorial-3-MVVM#^wpf-databinding](_posts/2025-06-27-WPF-tutorial-3-MVVM.md)
+
+[[_posts/2025-06-27-WPF-tutorial-3-MVVM#^wpf-databinding]]
+
+
 # Introduction
 WPF stands for Windows Presentation Foundation. It is a powerful framework for building Windows applications.
 早起的GUI程序中，比如Windows Forms，程序的外观和行为没有完全分离，都用同一种语言开发，比如C#，往往需要同时修改UI和逻辑代码，维护成本高。
