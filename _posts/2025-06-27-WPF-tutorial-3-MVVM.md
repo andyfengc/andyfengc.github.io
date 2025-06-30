@@ -66,7 +66,7 @@ WPF是MVVM的实现，提供了内建的一系列机制来实现这个目标。
 > DependencyProperty（支持变更通知），就是写一个类，封装了某一个数据的值和操作方法，然后把这个类注册到WPF框架
 > DataTemplate - 模板化的view
 
-View通过绑定，将属性和事件绑定到ViewModel。
+View通过绑定机制，将属性和事件绑定到ViewModel。
 > 绑定属性：Text="{Binding Name}" → 自动连接 ViewModel 的属性。
 > 绑定命令：Command="{Binding SaveCommand}" → 自动连接 ViewModel 的命令逻辑。
 
@@ -79,6 +79,13 @@ View知道ViewModel。但ViewModel不知道UI。
 > View 通过 DataContext = new ViewModel() 明确引用 ViewModel
 > ViewModel 完全不知道 UI 的存在 —— 这样就能进行 单元测试、重用、抽离逻辑
 
+基本做法：
+
+| 组件                         | 说明                              |
+| -------------------------- | ------------------------------- |
+| `EditCategoryViewModel`    | 绑定字段、命令（SaveCommand）、加载逻辑       |
+| `EditCategoryView.xaml`    | 使用 `TextBox` 绑定字段，按钮绑定命令        |
+| `EditCategoryView.xaml.cs` | 只负责注入依赖，传递参数，调用 ViewModel 的加载方法 |
 ## MVVM 的三大组成部分
 
 | 角色            | 作用说明                                                                                                  |

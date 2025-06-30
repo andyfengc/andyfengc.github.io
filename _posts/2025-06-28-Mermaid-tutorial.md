@@ -54,8 +54,78 @@ graph LR
     C --> 数据库
     D --> 数据库
 ```
-
-
+### 例子
+```
+---
+title: Node with text
+---
+flowchart LR
+    id1[This is the text in the box]
+```
+```mermaid
+---
+title: Node with text
+---
+flowchart LR
+    id1[This is the text in the box]
+```
+### Direction
+define direction of the Flowchart. 
+- TB - Top to bottom
+- TD - Top-down/ same as top to bottom
+- BT - Bottom to top
+- RL - Right to left
+- LR - Left to right
+```
+flowchart TD
+    Start --hello --> Stop
+```
+```mermaid
+flowchart TD
+    Start --hello --> Stop
+```
+```
+flowchart LR
+    Start --> Stop
+```
+```mermaid
+flowchart LR
+    Start --> Stop
+```
+### Text
+Use double quotes and backticks "` text `" to enclose the markdown text.
+Use `"` to enclose the unicode text.
+```
+---
+config:
+  flowchart:
+    htmlLabels: false
+---
+flowchart LR
+    markdown["`This **is** _Markdown_`"]
+    newLines["`Line1
+    Line 2
+    Line 3`"]
+    id["This ❤ Unicode"]
+    markdown --> newLines
+    newLines --> id
+```
+```mermaid
+---
+config:
+  flowchart:
+    htmlLabels: false
+---
+flowchart LR
+    markdown["`This **is** _Markdown_`"]
+    newLines["`Line1
+    Line 2
+    Line 3`"]
+    id["This ❤ Unicode"]
+    markdown --> newLines
+    newLines --> id
+```
+## Sequence Diagram
 ## Class Diagram
 ```mermaid
 classDiagram
@@ -71,6 +141,13 @@ sequenceDiagram
     John-->>Alice: 你好吗？
     Alice->>John: 很好！
 ```
+## State Diagram
+
+## ERD Diagram
+## Gantt
+## Pie Chart
+## Mindmaps
+
 ## 网页中集成
 ```javascript
 // 在网页中集成

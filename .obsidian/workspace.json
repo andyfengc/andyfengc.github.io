@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/2025-06-27-WPF-tutorial-4-UI.md",
+                "file": "_posts/2025-06-27-WPF-tutorial-9-Demos.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,16 +28,16 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "2025-06-27-WPF-tutorial-4-UI"
+              "title": "2025-06-27-WPF-tutorial-9-Demos"
             }
           },
           {
-            "id": "b51191750b681997",
+            "id": "00351c05d2275284",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/2025-06-27-WPF-tutorial-3-MVVM.md",
+                "file": "_posts/2025-06-28-Mermaid-tutorial.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -52,7 +52,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "2025-06-27-WPF-tutorial-3-MVVM"
+              "title": "2025-06-28-Mermaid-tutorial"
             }
           }
         ]
@@ -112,7 +112,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 341.5110321044922
+    "width": 337.5110321044922
   },
   "right": {
     "id": "eb0d77954a5af90c",
@@ -157,13 +157,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_posts/2025-06-27-WPF-tutorial-4-UI.md",
+                "file": "_posts/2025-06-27-WPF-tutorial-9-Demos.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 2025-06-27-WPF-tutorial-4-UI"
+              "title": "Outline of 2025-06-27-WPF-tutorial-9-Demos"
             }
           },
           {
@@ -204,14 +204,16 @@
   },
   "active": "923c9b6c741d26ba",
   "lastOpenFiles": [
-    "_posts/2025-06-27-WPF-tutorial-6-DI.md",
-    "_posts/2025-06-28-Mermaid-tutorial.md",
     "_posts/2025-06-27-WPF-tutorial-3-MVVM.md",
-    "_posts/2025-06-26-WPF-tutorial-2-XAML.md",
+    "_posts/2025-06-27-WPF-tutorial-9-Demos.md",
+    "_posts/2025-06-28-Mermaid-tutorial.md",
+    "_posts/2025-06-27-WPF-tutorial-6-DI.md",
     "_posts/2025-06-27-WPF-tutorial-4-UI.md",
-    "_posts/2025-06-28-Markdown-Tutorial.md",
-    "_posts/2025-06-01-PowerShell-Turorial.md",
     "_posts/2025-06-27-WPF-tutorial-5-NET-Community-Toolkit.md",
+    "_posts/2025-06-26-WPF-tutorial-2-XAML.md",
+    "_posts/2025-05-13-AI basics-turorial (6) .md",
+    "_posts/2025-06-01-PowerShell-Turorial.md",
+    "_posts/2025-06-28-Markdown-Tutorial.md",
     "_posts/2025-06-26-WPF-tutorial-1.md",
     "images/posts/Pasted image 20250629005449.png",
     "URL.md",
@@ -232,8 +234,6 @@
     "_drafts/to release/2020-01-06-tax-investment.md",
     "_drafts/to release/2020-01-03-tax-fundamentals.md",
     "_drafts/to release/2020-01-05-personal-income-tax.md",
-    "_drafts/to release/2020-01-01-tax-cra-my-account .md",
-    "_drafts/Windows Form Tutorial.md",
     "images/posts/Pasted image 20250628024926.png",
     "images/posts/Pasted image 20250627002914.png",
     "images/posts/Pasted image 20250626224010.png",
