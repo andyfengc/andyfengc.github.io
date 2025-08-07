@@ -223,8 +223,19 @@ Azure 支持使用 **PLS（Pronunciation Lexicon Specification）** 格式，标
 - `grapheme`: 原始文本    
 - `pronunciation`: IPA 发音（或可以用 `alphabet="sapi"`）    
 - `xml:lang`: 设置语言，如 zh-CN, en-US
-##### 编程上传词典到 Azure
-没有测试过。
+
+#### Web端Speech Studio 验证词典
+登录 Azure portal > 创建一个 Azure AI Services resource > **Speech Studio** > audio content creation
+![](images/posts/Pasted%20image%2020250807053936.png)
+Select **New** > **Lexicon File**, and start authoring.
+
+![](images/posts/Pasted%20image%2020250807061421.png)
+![](images/posts/Pasted%20image%2020250807061551.png)
+![](images/posts/Pasted%20image%2020250807061456.png)
+![](images/posts/Pasted%20image%2020250807062008.png)
+验证成功后，可以下载，上传到blob获得url，然后供调用
+#### 编程上传词典到 Azure，已失效
+202508. 微软似乎已经**移除关于 Lexicon 上传与管理的相关接口**。
 你可以使用 Azure CLI、REST API 或 SDK 上传 Lexicon。
 使用 Azure CLI：
 ```bash
@@ -235,20 +246,8 @@ az cognitiveservices account deployment lexicon create \
   --file lexicon.xml \
   --locale en-US
 ```
-#### Web端Speech Studio 上传词典
-[Create custom lexicons](https://learn.microsoft.com/en-us/microsoft-copilot-studio/voice-custom-lexicon?utm_source=chatgpt.com)
-[Pronunciation with SSML](https://learn.microsoft.com/en-us/azure/ai-services/speech-service/speech-synthesis-markup-pronunciation#custom-lexicon-examples)
-
-登录 Azure portal > 创建一个 Azure AI Services resource > **Speech Studio**. > audio content creation
-![](images/posts/Pasted%20image%2020250807053936.png)
-Select **New** > **Lexicon File**, and start authoring.
-
-![](images/posts/Pasted%20image%2020250807061421.png)
-![](images/posts/Pasted%20image%2020250807061551.png)
-![](images/posts/Pasted%20image%2020250807061456.png)
-![](images/posts/Pasted%20image%2020250807062008.png)
 #### 获得url，为使用做准备
-##### 默认是在自己账号下面。
+##### 默认lexicon放在自己azure账号下面。测试失败！
 通过 Speech Studio 上传的 Lexicon 文件，其实是上传到了你的语音服务资源内部的词典列表中，不是公开的 URL 地址，所以它并不像你上传到 Blob Storage 一样可以直接访问 URL。
 你不需要通过 URL 来使用，而是直接通过 Lexicon 的名称在 SSML 中引用。
 示例 SSML 使用上传的 Lexicon：
@@ -270,12 +269,63 @@ Select **New** > **Lexicon File**, and start authoring.
 | ------------ | -------------------------------------- |
 | `lexicon-en` | 是你上传 lexicon 时使用的文件名（不要加 .xml）         |
 | `lexicon:`   | 表示使用的是 **本地 TTS 引擎注册的 lexicon**，不是 URL |
-##### 可以设成公共存储 URI，比如用azure blob storage设成静态资源
+##### 可以设成公共存储 URI，只能用azure blob storage设成静态资源
 [https://learn.microsoft.com/en-us/microsoft-copilot-studio/voice-custom-lexicon?utm_source=chatgpt.com#store-the-lexicon-file](https://learn.microsoft.com/en-us/microsoft-copilot-studio/voice-custom-lexicon?utm_source=chatgpt.com#store-the-lexicon-file)
+登录 Azure 门户(https://portal.azure.com) >  **Create Resource** 
+![](images/posts/Pasted%20image%2020250807072348.png)
+Type "storage" in the search bar and select **Storage account**.
+![](images/posts/Pasted%20image%2020250807072421.png)
+![](images/posts/Pasted%20image%2020250807072505.png)
+输入storage account 
+-> associate the resource to an Azure subscription and resource group 
+-> **Primary Service** select **Azure Blob Storage or Azure Data Lake Storage Gen 2** and turn on **Standard** performance.
+-> 等待创建完成
+![](images/posts/Pasted%20image%2020250807073224.png)
+![](images/posts/Pasted%20image%2020250807073029.png)
+![](images/posts/Pasted%20image%2020250807073411.png)
+![](images/posts/Pasted%20image%2020250807073628.png)
+打开resource > overview > **Capabilities** >  应该显示 “not configured.”
+-> 点击enable。 You then receive primary and secondary endpoints for the website.
+
+![](images/posts/Pasted%20image%2020250807073854.png)
+![](images/posts/Pasted%20image%2020250807074116.png)
+
+![](images/posts/Pasted%20image%2020250807074812.png)
+
+![](images/posts/Pasted%20image%2020250807090111.png)
+Data Storage > Containers > Select `$web` and upload your lexicon file
+![](images/posts/Pasted%20image%2020250807090213.png)
+
+select the file from directory and view the properties and details of the file.
+-> 获得 “URL” for the file
+-> Content-Type 改成 application/pls+xml
+![](images/posts/Pasted%20image%2020250807090316.png)
+![](images/posts/Pasted%20image%2020250807090528.png)
+url类似：
+https://{resourceName}.blob.core.windows./net/\$web/{lexiconFileName}
 然后在 SSML 中使用公开 URI 引用词典即可，例如：
 ```xml
 <lexicon uri="https://<your-storage-account>.blob.core.windows.net/$web/my-lexicon.xml"/>
 ```
+安全考虑，levicon不支持第三方静态地址。
+
+如果url无法访问，开启匿名权限。
+1. 登录 Azure Portal。    
+2. 打开你的存储账户（如：`myaccountname`）。    
+3. 在左侧菜单中点击 **“配置（Configuration）”**。
+4. 找到 **“允许 blob 公共访问（Allow blob public access）”**。    
+5. 将其设置为：**启用（Enabled）**。    
+6. 点击保存。
+![](images/posts/Pasted%20image%2020250807090833.png)
+- 回到 Azure Portal，进入你的 **存储账户**。    
+- 左侧点击 **“容器（Containers）”**。    
+- 找到你的容器（你上传 lexicon 的那个，可能是 `$web`，或者你创建的其他容器）。    
+- 点击进入该容器。    
+- 顶部点击 **“更改访问级别（Change access level）”**。    
+- 弹窗中选择：   
+    - ✅ **“容器（Container）”**，允许匿名读取 blob 和容器数据。        
+- 点击 **“保存”**。
+![](images/posts/Pasted%20image%2020250807091017.png)
 
 #### 在语音合成时启用 Lexicon
 使用 REST API 或 SDK 发起语音合成时，在请求中加上 lexicon 参考：
@@ -524,3 +574,6 @@ $synth.GetInstalledVoices() | ForEach-Object {
 
 **Pronunciation with SSML（发音控制与 SSML）**：介绍如何使用 `<phoneme>` 元素和 **Custom Lexicon** 来提升发音精准度。[Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/speech-service/speech-synthesis-markup-pronunciation?utm_source=chatgpt.com)
 **Create custom lexicons（创建自定义词典）**：通过 Azure Copilot Studio（Speech Studio）创建、保存和使用 Lexicon 文件的指南，包括如何上传及引用它们。[Microsoft Learn](https://learn.microsoft.com/en-us/microsoft-copilot-studio/voice-custom-lexicon?utm_source=chatgpt.com)
+[Create custom lexicons](https://learn.microsoft.com/en-us/microsoft-copilot-studio/voice-custom-lexicon?utm_source=chatgpt.com)
+[Pronunciation with SSML](https://learn.microsoft.com/en-us/azure/ai-services/speech-service/speech-synthesis-markup-pronunciation#custom-lexicon-examples)
+[Text to speech REST API](https://learn.microsoft.com/en-us/azure/ai-services/speech-service/rest-text-to-speech?tabs=streaming#get-a-list-of-voices)

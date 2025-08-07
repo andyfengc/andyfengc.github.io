@@ -5,12 +5,27 @@
   alphabet="ipa" 
   xml:lang="en-US" 
   xmlns="http://www.w3.org/2005/01/pronunciation-lexicon">
+  <!-- Abbreviation with alias -->
   <lexeme>
     <grapheme>BTW</grapheme>
     <alias>By the way</alias>
   </lexeme>
   <lexeme>
+    <grapheme>btw</grapheme>
+    <alias>By the way</alias>
+  </lexeme>
+  
+  <!-- Sound expression with IPA -->
+  <lexeme>
     <grapheme>ACHOO</grapheme>
+    <phoneme>əˈtʃuː</phoneme>
+  </lexeme>
+  <lexeme>
+    <grapheme>achoo</grapheme>
+    <phoneme>əˈtʃuː</phoneme>
+  </lexeme>
+  <lexeme>
+    <grapheme>a-choo</grapheme>
     <phoneme>əˈtʃuː</phoneme>
   </lexeme>
 </lexicon>
