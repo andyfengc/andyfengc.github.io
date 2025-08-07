@@ -11,6 +11,7 @@ author: Andy Feng
 - Autofac    
 - Unity    
 - DryIoc 等
+- Scrutor (官方推荐，扩展di能读取assembly动态构建对象)
 # Install
 Install-Package Microsoft.Extensions.DependencyInjection
 在 App.xaml.cs 配置容器

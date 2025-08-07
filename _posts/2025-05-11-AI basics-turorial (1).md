@@ -45,10 +45,17 @@ microsoft designer, 文字生成图片
 ## 百度公司
 文小言, https://prompt.baidu.com/
 
-## MoneyPrinterTurbo
+## 开源
+### MoneyPrinterTurbo
 不
 语音：Yunxi （中文男), us-brian(英文), Liam(英文男), emma(英文女)
 background music：no
+### pytorch
+据说能生成1分钟猫和老鼠动画片，给提示词就行
+https://github.com/pytorch/pytorch
+### Skyreels
+支持长视频
+https://github.com/SkyworkAI/SkyReels-V2
 ## 文本转图片
 https://copilot.microsoft.com/
 https://gemini.google.com/

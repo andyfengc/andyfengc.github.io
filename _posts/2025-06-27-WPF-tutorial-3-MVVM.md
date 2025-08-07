@@ -68,12 +68,14 @@ WPF是MVVM的实现，提供了内建的一系列机制来实现这个目标。
 
 View通过绑定机制，将属性和事件绑定到ViewModel。
 > 绑定属性：Text="{Binding Name}" → 自动连接 ViewModel 的属性。
-> 绑定命令：Command="{Binding SaveCommand}" → 自动连接 ViewModel 的命令逻辑。
+> 绑定命令：Command="{Binding SaveCommand}" → 自动连接 ViewModel 的命令逻辑。> 
 
 View通过命令模式解耦，在WPF框架帮助下执行业务逻辑。
 > View 不再直接调用方法，而是绑定到实现了 ICommand 的对象（命令模式）。WPF 框架负责帮你在点击按钮时自动调用 Command.Execute()。
 
 ViewModel通过delegate事件机制，将数据变化通知给WPF框架，由WPF绑定系统负责自动更新UI，实现与UI的解耦。
+View不封装数据，如果一定要放数据，就设计一个view model，一定要放到view model里。View只**用于显示 UI 和响应用户交互**，所有的数据、状态、行为都交给 ViewModel 来处理。这样很容易注入mock的view model 测试ui
+View不应该引用另一个view，这让 View 和 View 紧耦合，不符合 MVVM。
 
 View知道ViewModel。但ViewModel不知道UI。
 > View 通过 DataContext = new ViewModel() 明确引用 ViewModel

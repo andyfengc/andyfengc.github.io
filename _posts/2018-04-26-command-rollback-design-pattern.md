@@ -254,7 +254,9 @@ To implement command pattern, we need:
 Command interface: 
 
 	abstract class Command {  
-	    public abstract void execute();  
+		//注意方法要设计成无参的
+		//具体参数可以在command对象通过构造函数，或属性设置好
+	    public abstract void execute();
 	} 
 
 Concrete command class:

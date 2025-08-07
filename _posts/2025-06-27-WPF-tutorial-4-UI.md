@@ -504,4 +504,79 @@ Button 鼠标悬停变色
     <!-- 扩展样式 -->
 </Style>
 ```   
+# FAQ
+## xaml的 scrollviewer怎么支持鼠标滚轮？
+### 方法 1：默认行为（最简单）
+```XMl
+<ScrollViewer VerticalScrollBarVisibility="Auto" 
+              HorizontalScrollBarVisibility="Disabled"
+              PanningMode="VerticalOnly">
+    <!-- 你的内容 -->
+</ScrollViewer>
+```
+<ScrollViewer VerticalScrollBarVisibility="Auto" 
+              HorizontalScrollBarVisibility="Disabled"
+              PanningMode="VerticalOnly">
+    <!-- 你的内容 -->
+</ScrollViewer>
+- 默认情况下 `ScrollViewer` 就支持鼠标滚轮
+- `PanningMode` 可启用触摸屏拖动
+### 方法 2：如果滚轮失效（手动处理）
+
+```XML
+<ScrollViewer VerticalScrollBarVisibility="Auto"
+              PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
+    <!-- 你的内容 -->
+</ScrollViewer>
+```
+后台代码：
+```CSHARP
+private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+{
+    ScrollViewer scv = (ScrollViewer)sender;
+    scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta);
+    e.Handled = true;
+}
+```
+### 方法 3：嵌套内容时的问题解决
+
+如果 ScrollViewer 内部有 ListBox 等自带滚动的控件，需要这样处理：
+```XML
+<ScrollViewer VerticalScrollBarVisibility="Auto">
+    <ListBox ScrollViewer.CanContentScroll="False">
+        <!-- 列表项 -->
+    </ListBox>
+</ScrollViewer>
+```
+### 方法 4：全局样式（推荐）
+在 App.xaml 中添加样式，让所有 ScrollViewer 自动支持：
+```XML
+<Application.Resources>
+    <Style TargetType="ScrollViewer">
+        <Setter Property="PanningMode" Value="VerticalOnly"/>
+        <EventSetter Event="PreviewMouseWheel" Handler="ScrollViewer_PreviewMouseWheel"/>
+    </Style>
+</Application.Resources>
+```
+### 常见问题解决
+1. **滚轮方向相反**：修改 `e.Delta` 的正负号    
+2. **滚动不流畅**：设置 `ScrollViewer.CanContentScroll="False"    
+3. **嵌套控件冲突**：在内部控件上设置 `ScrollViewer.IsDeferredScrollingEnabled="True"`
+ BEST practice
+```xml
+ <ScrollViewer VerticalScrollBarVisibility="Auto"
+              HorizontalScrollBarVisibility="Disabled"
+              PanningMode="VerticalOnly"
+              ScrollViewer.CanContentScroll="False">
+    <!-- 你的内容 -->
+</ScrollViewer>
+```   
+这样配置后，ScrollViewer 将：
+- 自动显示垂直滚动条    
+- 禁用水平滚动    
+- 支持鼠标滚轮    
+- 支持触摸屏拖动    
+- 提供平滑滚动体验
+### 最佳实践组合
+
 # Reference

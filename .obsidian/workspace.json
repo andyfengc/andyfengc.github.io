@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "5ce2cbbafe29ff80",
+        "id": "acc2360d20284d6f",
         "type": "tabs",
         "children": [
           {
-            "id": "923c9b6c741d26ba",
+            "id": "f6a6be70bf5956b1",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/2025-06-27-WPF-tutorial-9-Demos.md",
+                "file": "_posts/2025-08-07-text-to-speech TTS Tips.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,31 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "2025-06-27-WPF-tutorial-9-Demos"
-            }
-          },
-          {
-            "id": "00351c05d2275284",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "_posts/2025-06-28-Mermaid-tutorial.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": true,
-                "backlinkOpts": {
-                  "collapseAll": false,
-                  "extraContext": false,
-                  "sortOrder": "alphabetical",
-                  "showSearch": false,
-                  "searchQuery": "",
-                  "backlinkCollapsed": false,
-                  "unlinkedCollapsed": true
-                }
-              },
-              "icon": "lucide-file",
-              "title": "2025-06-28-Mermaid-tutorial"
+              "title": "2025-08-07-text-to-speech TTS Tips"
             }
           }
         ]
@@ -112,7 +88,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 337.5110321044922
+    "width": 341.5026054382324
   },
   "right": {
     "id": "eb0d77954a5af90c",
@@ -157,13 +133,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_posts/2025-06-27-WPF-tutorial-9-Demos.md",
+                "file": "_posts/2025-08-07-text-to-speech TTS Tips.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 2025-06-27-WPF-tutorial-9-Demos"
+              "title": "Outline of 2025-08-07-text-to-speech TTS Tips"
             }
           },
           {
@@ -202,44 +178,44 @@
       "daily-notes:Open today's daily note": false
     }
   },
-  "active": "923c9b6c741d26ba",
+  "active": "f6a6be70bf5956b1",
   "lastOpenFiles": [
-    "_posts/2025-06-27-WPF-tutorial-3-MVVM.md",
-    "_posts/2025-06-27-WPF-tutorial-9-Demos.md",
-    "_posts/2025-06-28-Mermaid-tutorial.md",
-    "_posts/2025-06-27-WPF-tutorial-6-DI.md",
-    "_posts/2025-06-27-WPF-tutorial-4-UI.md",
-    "_posts/2025-06-27-WPF-tutorial-5-NET-Community-Toolkit.md",
-    "_posts/2025-06-26-WPF-tutorial-2-XAML.md",
-    "_posts/2025-05-13-AI basics-turorial (6) .md",
+    "_posts/2025-07-22-text-to-speech TTS Azure Google.md",
+    "_posts/2025-08-07-text-to-speech TTS Tips.md",
     "_posts/2025-06-01-PowerShell-Turorial.md",
+    "_drafts/azure tutorial.md",
+    "_posts/2025-06-27-WPF-tutorial-5-NET-Community-Toolkit.md",
+    "_posts/2025-06-27-WPF-tutorial-3-MVVM.md",
+    "_posts/2025-07-08-PropertyGrid-Tutorial.md",
+    "_posts/2018-04-26-command-rollback-design-pattern.md",
+    "_drafts/20210602-diy-floor-(2) prepare.md",
+    "_drafts/20151109-Seleniumdisplay-and-editor-templates-to-customize-view-.net-mvc.md",
+    "_drafts/2018-02-03-nopCommerce tutorial - (4) develop a task.md",
+    "_drafts/2019-10-09-IIS-Parser.md",
+    "_posts/2025-05-11-AI basics-turorial (1).md",
+    "_posts/2025-07-22-text-to-srt.md",
+    "images/posts/Pasted image 20250722014538.png",
+    "_posts/2025-07-19-WPF-tutorial-11-MaterialDesignInXamlToolkit.md",
+    "_posts/2025-07-19-WPF-tutorial-10-ToastNotifications.md",
+    "_posts/2025-07-18-.NET-Logging-Serilog-Tutorial.md",
+    "images/posts/Pasted image 20250720020642.png",
+    "images/posts/Pasted image 20250720002738.png",
+    "_posts/2025-06-27-WPF-tutorial-9-Demos.md",
+    "images/posts/Pasted image 20250719043911.png",
+    "images/posts/Pasted image 20250719035040.png",
+    "_posts/2025-06-28-Mermaid-tutorial.md",
     "_posts/2025-06-28-Markdown-Tutorial.md",
-    "_posts/2025-06-26-WPF-tutorial-1.md",
+    "_posts/2025-07-14-DI-Scope-Tutorial.md",
+    "_drafts/20250716-how-to-2-way-sync.md",
+    "_drafts/20250515-jupyter-tutorial.md",
+    "_drafts/20230906-docker - Copy.md",
+    "_drafts/20250714-DI-Scope-Tutorial.md",
+    "_posts/20250714-DI-Scope-Tutorial.md",
     "images/posts/Pasted image 20250629005449.png",
-    "URL.md",
-    "2024-03-04.md",
     "images/posts/20151203-install-epplus.png",
-    "_drafts/c# excel.md",
     "20151203-install-epplus 5.png",
     "20151203-install-epplus 4.png",
-    "_drafts/to release/2020-01-08-tax-new-immigrant.md",
-    "_drafts/to release/2020-01-12-tax-RRSP-TFSA-RESP-LIRA-RRIF.md",
-    "_drafts/to release/2020-01-21-tax-house.md",
-    "_drafts/to release/2020-01-15-tax-spouse.md",
-    "_drafts/to release/2020-01-25-tax-heritage.md",
-    "_drafts/to release/2020-01-31-tax-faq.md",
-    "_drafts/to release/2020-02-01-finance-fundamentals.md",
-    "_drafts/to release/2020-02-24-finance-retire.md",
-    "_drafts/to release/2020-01-07-tax-self-employed-corporation-income-tax.md",
-    "_drafts/to release/2020-01-06-tax-investment.md",
-    "_drafts/to release/2020-01-03-tax-fundamentals.md",
-    "_drafts/to release/2020-01-05-personal-income-tax.md",
     "images/posts/Pasted image 20250628024926.png",
-    "images/posts/Pasted image 20250627002914.png",
-    "images/posts/Pasted image 20250626224010.png",
-    "images/posts/Pasted image 20250626213338.png",
-    "images/posts/Pasted image 20250626182749.png",
-    "images/posts/Pasted image 20250626182610.png",
     "Isaac Newton",
     "images/posts/20250418-nop-3.jpg.crdownload",
     "CNAME",

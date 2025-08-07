@@ -212,7 +212,23 @@ nuget > fontawesome.Sharp
 {fa:IconSource [Icon]}
 <fa:IconToImageConverter />
 ````
-
+## 普通library项目怎么添加wpf的lib引用，比如brush
+编辑项目csproj > 将
+```xml
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    ...
+```
+改成
+```xml
+  <PropertyGroup>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF> <!-- 启用 WPF 支持 -->
+    ...
+  </PropertyGroup>
+```
+> 告诉编译器你的库只运行在 Windows 上，允许引用 WPF。
+重新编译项目
 # References 
 [WPF Tutorial](https://www.tutorialspoint.com/wpf/index.htm)
 [# WPF Walkthroughs](https://learn.microsoft.com/en-us/dotnet/desktop/wpf/get-started/wpf-walkthroughs)
