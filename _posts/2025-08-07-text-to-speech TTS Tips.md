@@ -185,9 +185,38 @@ TTS 默认使用词典 + 发音规则来发音，因此遇到非标准词时：
 - 语音合成本身是**按字符计费**的（你每合成一次，按文字长度计费）。    
 - 上传 Lexicon 文件不额外收费。    
 - 自定义语音模型（Neural Voice）是 **另一项高级功能，是需要申请并可能收费的**。
+#### 怎么制作？
+在 Azure TTS（Text-to-Speech）服务中使用自定义词典（Lexicon）时，支持以下 **两种音标系统**：
+1. **IPA**（International Phonetic Alphabet）
+- 这是最广泛使用的国际音标系统。    
+- `alphabet="ipa"` 
+```xml
+<lexeme>
+  <grapheme>example</grapheme>
+  <phoneme alphabet="ipa">ɪɡˈzæmpəl</phoneme>
+</lexeme>
+```
+1. **SAPI**（Microsoft Speech API phonetic alphabet）
+- 这是微软自家定义的发音标注系统，用于 Windows TTS 系统。    
+- `alphabet="sapi"`
+```xml
+<lexeme>
+  <grapheme>example</grapheme>
+  <phoneme alphabet="sapi">ih g z ae m p ah l</phoneme>
+</lexeme>
+```
+
+注意事项：
+- 在 `lexicon` 根元素上，你应设置默认音标系统，例如：    
+```xml
+<lexicon alphabet="ipa" ... >
+```
+这意味着该文档中所有 `<phoneme>` 默认是 IPA，如果你单独在 `<phoneme>` 上指定了 `alphabet` 属性，也会生效。    
+- Azure 不支持其他音标格式，如：    
+    - **ARPAbet**（虽然常见于 CMU dictionary）        
+    - **XSAMPA**
 ### 如何使用 Azure 的自定义语音词典（Lexicon）
 [Azure AI Speech Studio](https://speech.microsoft.com/portal)
- 
 
 |特性|是否收费|
 |---|---|
@@ -197,7 +226,7 @@ TTS 默认使用词典 + 发音规则来发音，因此遇到非标准词时：
 |上传方式|CLI、SDK、REST API|
 |应用场景|控制术语、外语词、缩写、拟声词发音|
 ##### 前提准备
-1. 注册 Azure 账号并启用 Speech 服务    
+1. 注册 Azure 账号并启用 Speech 服务  [https://portal.azure.com](https://portal.azure.com)
 2. 获取你的 Speech 资源的：    
     - **Region**（区域）        
     - **Subscription Key**（密钥）
@@ -227,7 +256,7 @@ Azure 支持使用 **PLS（Pronunciation Lexicon Specification）** 格式，标
 #### Web端Speech Studio 验证词典
 登录 Azure portal > 创建一个 Azure AI Services resource > **Speech Studio** > audio content creation
 ![](images/posts/Pasted%20image%2020250807053936.png)
-Select **New** > **Lexicon File**, and start authoring.
+Select **New** > **Lexicon File**, 上传 and start authoring.
 
 ![](images/posts/Pasted%20image%2020250807061421.png)
 ![](images/posts/Pasted%20image%2020250807061551.png)
@@ -307,7 +336,8 @@ https://{resourceName}.blob.core.windows./net/\$web/{lexiconFileName}
 ```xml
 <lexicon uri="https://<your-storage-account>.blob.core.windows.net/$web/my-lexicon.xml"/>
 ```
-安全考虑，levicon不支持第三方静态地址。
+~~安全考虑，levicon不支持第三方静态地址。~~
+经测试，支持。
 
 如果url无法访问，开启匿名权限。
 1. 登录 Azure Portal。    
@@ -326,7 +356,9 @@ https://{resourceName}.blob.core.windows./net/\$web/{lexiconFileName}
     - ✅ **“容器（Container）”**，允许匿名读取 blob 和容器数据。        
 - 点击 **“保存”**。
 ![](images/posts/Pasted%20image%2020250807091017.png)
-
+如果词典没生效，有几个原因
+1. 词典被首次加载后会缓存，15 分钟内不刷新。期间如果再次上传同url的词典，需要等待缓存过期才能看到更新后的效果 
+2. 将原文的词改成全小写，比如achoo, 不要大写。
 #### 在语音合成时启用 Lexicon
 使用 REST API 或 SDK 发起语音合成时，在请求中加上 lexicon 参考：
 示例（REST API 中）：
@@ -499,8 +531,40 @@ $synth.GetInstalledVoices() | ForEach-Object {
 }
 ```
 ## 什么是IPA?
+IPA，全称 **International Phonetic Alphabet（国际音标）**，是一套专门为**表示世界上所有语言的语音**而设计的标准音标系统。
+它由 **国际语音学学会（International Phonetic Association）** 制定，旨在提供一种统一的、准确的方式来记录发音。
+- 一种**精确表示语言发音**的音标系统。    
+- 每个符号对应一个**特定的语音**（音素），不受拼写或语言差异的影响。    
+- 常用于：    
+    - 语言学研究        
+    - 外语教学（如英语教材中的发音标注）        
+    - 语音合成（TTS）和语音识别系统
+例子
 
-### 有没有免费的自定义语音词典下载?
+| 单词      | 拼写      | IPA       | 发音近似   |
+| ------- | ------- | --------- | ------ |
+| cat     | cat     | /kæt/     | “卡特”   |
+| machine | machine | /məˈʃiːn/ | “么-希因” |
+| thought | thought | /θɔːt/    | “索特”   |
+| ACHOO   | achoo   | /əˈtʃuː/  | 阿-啾    |
+### IPA 的组成：
+IPA 包括多种类别的音标，主要分为：
+✅ 辅音音标（Consonants）：
+如 /p/, /b/, /t/, /d/, /k/, /g/, /f/, /v/, /s/, /z/, /ʃ/, /ʒ/, /tʃ/, /dʒ/, /θ/, /ð/, /h/, /m/, /n/, /ŋ/, /l/, /r/, /j/, /w/
+✅ 元音音标（Vowels）：
+如 /iː/, /ɪ/, /e/, /æ/, /ʌ/, /ə/, /ɑː/, /ɒ/, /ɔː/, /ʊ/, /uː/, /eɪ/, /aɪ/, /ɔɪ/, /aʊ/, /əʊ/, /ɪə/, /eə/, /ʊə/
+✅ 特殊符号：
+- 重音标记：`ˈ` 表示主重音，如 `/əˈtʃuː/    
+- 次重音：`ˌ`    
+- 长音：`ː`，表示元音延长，如 `/uː/`
+在 Azure TTS 的自定义词典中使用 IPA，可以精准控制某些词语的发音：
+```xml
+<lexeme>
+  <grapheme>ChatGPT</grapheme>
+  <phoneme>tʃæt dʒiː piː tiː</phoneme>
+</lexeme>
+```
+## 有没有免费的自定义语音词典下载?
 目前网上公开可用的 **免费自定义语音词典（Lexicon）下载资源非常少**，主要原因是：
 1. **Lexicon 文件具有语音引擎依赖性**（如微软用 PLS 格式，语音模型要匹配）    
 2. **发音设计具有语言/地区/词汇特定性**，很难通用    
@@ -541,7 +605,7 @@ $synth.GetInstalledVoices() | ForEach-Object {
 - 🚀 自动生成合法的 Lexicon（PLS）    
 - ⚙️ 分语言整理成多个文件    
 - 💡 提供可直接上传 Azure 的版本
-## 开源 IPA 词典（可转换成 Lexicon）
+### 开源 IPA 词典（可转换成 Lexicon）
 | 资源                                                                         | 类型     | 下载地址 / 方法              |
 | -------------------------------------------------------------------------- | ------ | ---------------------- |
 | [CMU Pronouncing Dictionary](http://www.speech.cs.cmu.edu/cgi-bin/cmudict) | 英文     | 免费，格式为 ARPAbet，可转为 IPA |
@@ -560,12 +624,11 @@ $synth.GetInstalledVoices() | ForEach-Object {
          xml:lang="en-US">
   <lexeme>
     <grapheme>Contoso</grapheme>
-    <pronunciation>kənˈtoʊsoʊ</pronunciation>
+    <phoneme>kənˈtoʊsoʊ</phoneme>
   </lexeme>
 </lexicon>
 ```
-
-## GitHub 社区资源（小众但有用）
+### GitHub 社区资源（小众但有用）
 - 搜索关键词：`lexicon file`, `custom pronunciation xml`, `plsdict`, `TTS lexicon`    
 示例仓库：
 - [`Azure-TTS-Lexicon`](https://github.com/lilfire/azure-tts-lexicon)：基础词条模板    
