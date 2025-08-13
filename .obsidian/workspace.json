@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "acc2360d20284d6f",
+        "id": "2edd8c74f61f2d60",
         "type": "tabs",
         "children": [
           {
-            "id": "f6a6be70bf5956b1",
+            "id": "b251520b18c41edb",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/2025-07-19-WPF-tutorial-10-ToastNotifications.md",
+                "file": "_posts/2025-07-22-text-to-speech TTS Azure Google.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "2025-07-19-WPF-tutorial-10-ToastNotifications"
+              "title": "2025-07-22-text-to-speech TTS Azure Google"
             }
           }
         ]
@@ -133,13 +133,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_posts/2025-07-19-WPF-tutorial-10-ToastNotifications.md",
+                "file": "_posts/2025-07-22-text-to-speech TTS Azure Google.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 2025-07-19-WPF-tutorial-10-ToastNotifications"
+              "title": "Outline of 2025-07-22-text-to-speech TTS Azure Google"
             }
           },
           {
@@ -178,12 +178,13 @@
       "daily-notes:Open today's daily note": false
     }
   },
-  "active": "f6a6be70bf5956b1",
+  "active": "b251520b18c41edb",
   "lastOpenFiles": [
-    "_posts/2025-07-19-WPF-tutorial-11-MaterialDesignInXamlToolkit.md",
-    "_posts/2025-07-22-text-to-speech TTS Azure Google.md",
     "_posts/2025-07-22-text-to-srt.md",
     "_posts/2025-08-07-text-to-speech TTS Tips.md",
+    "_posts/2025-07-19-WPF-tutorial-10-ToastNotifications.md",
+    "_posts/2025-07-19-WPF-tutorial-11-MaterialDesignInXamlToolkit.md",
+    "_posts/2025-07-22-text-to-speech TTS Azure Google.md",
     "resources/lexicons/lexicon-en-001.xml",
     "resources/lexicons",
     "images/posts/Pasted image 20250807091017.png",
@@ -209,7 +210,6 @@
     "_drafts/2018-02-03-nopCommerce tutorial - (4) develop a task.md",
     "_drafts/2019-10-09-IIS-Parser.md",
     "_posts/2025-05-11-AI basics-turorial (1).md",
-    "_posts/2025-07-19-WPF-tutorial-10-ToastNotifications.md",
     "_posts/2025-07-18-.NET-Logging-Serilog-Tutorial.md",
     "_posts/2025-06-27-WPF-tutorial-9-Demos.md",
     "_posts/2025-06-28-Mermaid-tutorial.md",
