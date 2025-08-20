@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/2025-07-22-text-to-speech TTS Azure Google.md",
+                "file": "_posts/2025-08-07-text-to-speech TTS Tips.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "2025-07-22-text-to-speech TTS Azure Google"
+              "title": "2025-08-07-text-to-speech TTS Tips"
             }
           }
         ]
@@ -133,13 +133,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_posts/2025-07-22-text-to-speech TTS Azure Google.md",
+                "file": "_posts/2025-08-07-text-to-speech TTS Tips.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 2025-07-22-text-to-speech TTS Azure Google"
+              "title": "Outline of 2025-08-07-text-to-speech TTS Tips"
             }
           },
           {
@@ -170,6 +170,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "bases:Create new base": false,
       "switcher:Open quick switcher": false,
       "graph:Open graph view": false,
       "canvas:Create new canvas": false,
@@ -180,11 +181,13 @@
   },
   "active": "b251520b18c41edb",
   "lastOpenFiles": [
+    "_posts/2025-07-22-text-to-speech TTS Azure Google.md",
+    "_posts/2025-06-01-PowerShell-Turorial.md",
+    "ffmpeg.md",
     "_posts/2025-07-22-text-to-srt.md",
     "_posts/2025-08-07-text-to-speech TTS Tips.md",
     "_posts/2025-07-19-WPF-tutorial-10-ToastNotifications.md",
     "_posts/2025-07-19-WPF-tutorial-11-MaterialDesignInXamlToolkit.md",
-    "_posts/2025-07-22-text-to-speech TTS Azure Google.md",
     "resources/lexicons/lexicon-en-001.xml",
     "resources/lexicons",
     "images/posts/Pasted image 20250807091017.png",
@@ -199,7 +202,6 @@
     "images/posts/Pasted image 20250807074653.png",
     "resources/lexicons/lexicon-en.xml",
     "resources",
-    "_posts/2025-06-01-PowerShell-Turorial.md",
     "_drafts/azure tutorial.md",
     "_posts/2025-06-27-WPF-tutorial-5-NET-Community-Toolkit.md",
     "_posts/2025-06-27-WPF-tutorial-3-MVVM.md",
