@@ -73,11 +73,12 @@ Azure 的文本转语音（Text to Speech）服务是 Microsoft Azure 认知服�
 |无障碍辅助阅读|为视力障碍者朗读网页或文档|
 |教育 & 培训|合成教学内容|
 |物联网设备语音播报|如语音闹钟、导航仪、智能音箱|
+
 安装官方sdk
 ```c#
 Microsoft.CognitiveServices.Speech
 ```
-![](images/posts/Pasted%20image%2020250722014538.png)
+![](/images/posts/Pasted%20image%2020250722014538.png)
 
 示例代码（C#）
 ```csharp

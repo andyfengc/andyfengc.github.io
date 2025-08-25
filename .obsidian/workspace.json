@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/2025-06-27-WPF-tutorial-3-MVVM.md",
+                "file": "_posts/2025-07-22-text-to-speech TTS Azure Google.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "2025-06-27-WPF-tutorial-3-MVVM"
+              "title": "2025-07-22-text-to-speech TTS Azure Google"
             }
           }
         ]
@@ -183,7 +183,10 @@
   },
   "active": "495487ec65afbb4f",
   "lastOpenFiles": [
+    "_posts/2025-06-27-WPF-tutorial-3-MVVM.md",
     "_posts/2025-06-27-WPF-tutorial-4-UI.md",
+    "_posts/2025-08-07-text-to-speech TTS Tips.md",
+    "_posts/2025-07-22-text-to-srt.md",
     "_posts/2025-06-27-WPF-tutorial-5-NET-Community-Toolkit.md",
     "_posts/2025-06-27-WPF-tutorial-6-DI.md",
     "_posts/2025-06-28-Markdown-Tutorial.md",
@@ -192,8 +195,6 @@
     "_posts/2025-07-18-.NET-Logging-Serilog-Tutorial.md",
     "_posts/2025-07-19-WPF-tutorial-11-MaterialDesignInXamlToolkit.md",
     "_posts/2025-07-22-text-to-speech TTS Azure Google.md",
-    "_posts/2025-07-22-text-to-srt.md",
-    "_posts/2025-08-07-text-to-speech TTS Tips.md",
     "Untitled 5.base",
     "Untitled 4.base",
     "Untitled 3.base",
@@ -227,7 +228,6 @@
     "images/posts/Pasted image 20250825090356.png",
     "images/posts/Pasted image 20250825090320.png",
     "_posts/2025-05-11-AI basics-turorial (2).md",
-    "_posts/2025-05-11-AI basics-turorial (1).md",
     "images/posts/Pasted image 20250824125239.png",
     "Untitled 1.canvas",
     "Untitled.canvas"
