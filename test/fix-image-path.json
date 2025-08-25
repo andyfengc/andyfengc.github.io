@@ -1,0 +1,10 @@
+{
+  "name": "Fix image path",
+  "rules": [
+    {
+      "find": "!\\[\\[images\\/(.*?)\\]\\]",
+      "replace": "![](/images/$1)",
+      "flags": "g"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "imageNamePattern": "{{fileName}}",
+  "dupNumberAtStart": false,
+  "dupNumberDelimiter": "-",
+  "dupNumberAlways": false,
+  "autoRename": false,
+  "handleAllAttachments": false,
+  "excludeExtensionPattern": "",
+  "disableRenameNotice": false,
+  "pngToJpeg": true,
+  "pngToWebp": false,
+  "quality": "0.85"
+}

@@ -4,6 +4,7 @@ title: Text to Speech T TTS Tips
 author: Andy Feng
 ---
 使用 TTS（Text-to-Speech）语音引擎（如 Microsoft Speech SDK 或 Azure Speech Service）进行语音合成时，有很多实用技巧可以提升语音质量、自然度和交互体验。
+![](images/posts/Pasted%20image%2020250825091113.png)
 # 文本优化
 避免太长的句子，否则语音听起来像“喘不过气”，拆分成段落或句子再合成。
 使用标点（句号、逗号、问号）有助于自然断句。 

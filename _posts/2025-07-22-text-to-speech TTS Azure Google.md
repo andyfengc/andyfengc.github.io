@@ -575,17 +575,17 @@ python -m aeneas.tools.execute_task \
 ### 我的选择
 #### 英文男
  
-| 语音名称            | 历史故事                              | 脑洞故事                | 儿童故事                         | 爱情故事                           | 声音特点 & 适用理由                                       |
-| --------------- | --------------------------------- | ------------------- | ---------------------------- | ------------------------------ | ------------------------------------------------- |
-| **GuyNeural**   |                                   | friendly            | chat, cheerful, polite       | hopeful, friendly<br>speed 0.9 | 语音自然亲切，情感丰富，故事感强，适合多种故事类型。<br>温暖细腻型（适合温馨浪漫）       |
-| **DavisNeural** | Default                           | chat,               | chat, cheerful, ==friendly== |                                | 稳重温和，细腻感情，适合悬疑、细节丰富的历史及脑洞故事。<br>深情成熟型（适合催泪或深刻情感）  |
-| Davis Multi     | Default,<br>==Funny==, Empathetic | ==empathetic==      |                              | Empathetic                     |                                                   |
-| **JasonNeural** |                                   | friendly            | chat, cheerful               | friendly,                      | 年轻活泼，适合轻松幽默的脑洞故事和儿童故事，历史故事较轻松。<br>轻松甜蜜型（适合青春喜剧爱情） |
-| **TonyNeural**  | friendly, ==hopeful读中文名字==        | Default, friendly   | chat, polite                 | hopeful,                       | 成熟沉稳，有磁性，适合悬疑、权威感强的历史和脑洞故事。<br>戏剧浓烈型（适合跌宕爱情）      |
-| Andrew          | Default读中文名字                      | ==Default==         |                              |                                |                                                   |
-| Andrew Multi    | Default                           | Empathetic          |                              | Empathetic speed 0.9           |                                                   |
-| Derek mullti    |                                   | Default, Empathetic |                              | default                        | 偏正统                                               |
-|                 |                                   |                     |                              |                                |                                                   |
+| 语音名称            | 历史故事                                       | 脑洞故事                | 儿童故事                         | 爱情故事                           | 声音特点 & 适用理由                                       |
+| --------------- | ------------------------------------------ | ------------------- | ---------------------------- | ------------------------------ | ------------------------------------------------- |
+| **GuyNeural**   |                                            | friendly            | chat, cheerful, polite       | hopeful, friendly<br>speed 0.9 | 语音自然亲切，情感丰富，故事感强，适合多种故事类型。<br>温暖细腻型（适合温馨浪漫）       |
+| **DavisNeural** | Default                                    | chat,               | chat, cheerful, ==friendly== |                                | 稳重温和，细腻感情，适合悬疑、细节丰富的历史及脑洞故事。<br>深情成熟型（适合催泪或深刻情感）  |
+| Davis Multi     | Default,<br>==Funny==, ==Empathetic king== | ==empathetic==      |                              | Empathetic                     |                                                   |
+| **JasonNeural** |                                            | friendly            | chat, cheerful               | friendly,                      | 年轻活泼，适合轻松幽默的脑洞故事和儿童故事，历史故事较轻松。<br>轻松甜蜜型（适合青春喜剧爱情） |
+| **TonyNeural**  | friendly, ==hopeful读中文名字==                 | Default, friendly   | chat, polite                 | hopeful,                       | 成熟沉稳，有磁性，适合悬疑、权威感强的历史和脑洞故事。<br>戏剧浓烈型（适合跌宕爱情）      |
+| Andrew          | Default读中文名字                               | ==Default==         |                              |                                |                                                   |
+| Andrew Multi    | Default                                    | Empathetic          |                              | Empathetic speed 0.9           |                                                   |
+| Derek mullti    |                                            | Default, Empathetic |                              | default                        | 偏正统                                               |
+|                 |                                            |                     |                              |                                |                                                   |
 
 - **GuyNeural** 是最“全能”的声音，适合故事感强、情感丰富的讲述。    
 - **DavisNeural** 偏温情悬疑和细腻叙事。    
@@ -593,29 +593,29 @@ python -m aeneas.tools.execute_task \
 - **TonyNeural** 稳重成熟，适合庄重权威类内容。
 #### 英文女
  
-| 语音名称            | 爱情故事                             | 纯情温柔                 | 儿童故事                                                                                                               | 历史故事                              | 备注                      |
-| --------------- | -------------------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------ | --------------------------------- | ----------------------- |
-| **AriaNeural**  | empathetic, polite, hopeful      | Whisper<br>speed -15 | chat, cheerful, polite, narration - professional, newcast casual, friendly<br>speed 0.9<br>pitch -5<br>emotion 1.5 |                                   | 明亮富有感情，适合情感丰富的故事。声音略尖   |
-| **JessaNeural** | empathetic, polite, sad          |                      | chat, cheerful                                                                                                     |                                   | 温柔细腻，适合浪漫和温馨故事          |
-| **JennyNeural** |                                  | Whisper<br>speed -15 | chat, ==cheerful==<br>speed 0.9<br>pitch -5<br>emotion 1.5                                                         | speed 0.9<br>pitch -5             | 亲切自然，情感均衡，适合大众化故事       |
-| **CoraNeural**  | default<br>2 strong              |                      | chat, cheerful                                                                                                     |                                   | 柔和亲和，适合儿童故事和温情爱情故事      |
-| Cora Multi      |                                  |                      |                                                                                                                    | default,<br>speed 0.9<br>pitch -5 |                         |
-| **JaneNeural**  | empathetic, polite, hopeful      |                      | chat, cheerful, ==friendly==                                                                                       |                                   | 语音清晰明亮，适合温情和积极向上的故事     |
-| **SaraNeural**  | ==friendly==                     |                      | ==friendly, cheerful==, chat,<br>speed 1.15                                                                        |                                   | 温暖柔和，情感细腻，适合细腻爱情故事和儿童故事 |
-| phoebe multi    | ==Empathetic==<br>==1.5 strong== |                      |                                                                                                                    |                                   |                         |
-| Serena Multi中性  | Empathetic<br>1.5 strong         |                      |                                                                                                                    |                                   |                         |
-| Nancy Mullti    |                                  |                      | Funny                                                                                                              |                                   |                         |
+| 语音名称            | 爱情故事                             | 纯情温柔                 | 儿童故事                                                                                                               | 历史故事                 | 技术               | 备注                      |
+| --------------- | -------------------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------ | -------------------- | ---------------- | ----------------------- |
+| **AriaNeural**  | empathetic, polite, hopeful      | Whisper<br>speed -15 | chat, cheerful, polite, narration - professional, newcast casual, friendly<br>speed 0.9<br>pitch -5<br>emotion 1.5 | empathetic           |                  | 明亮富有感情，适合情感丰富的故事。声音略尖   |
+| **JessaNeural** | empathetic, polite, sad          |                      | chat, cheerful                                                                                                     |                      |                  | 温柔细腻，适合浪漫和温馨故事          |
+| **JennyNeural** |                                  | Whisper<br>speed -15 | chat, ==cheerful==<br>speed 0.9<br>pitch -5<br>emotion 1.5                                                         | chat,<br>pitch -5    | chat<br>pitch +5 | 亲切自然，情感均衡，适合大众化故事       |
+| **CoraNeural**  | default<br>2 strong              |                      | chat, cheerful                                                                                                     |                      |                  | 柔和亲和，适合儿童故事和温情爱情故事      |
+| Cora Multi      |                                  |                      |                                                                                                                    | default,<br>pitch -5 |                  |                         |
+| **JaneNeural**  | empathetic, polite, hopeful      |                      | chat, cheerful, ==friendly==                                                                                       |                      |                  | 语音清晰明亮，适合温情和积极向上的故事     |
+| **SaraNeural**  | ==friendly==                     |                      | ==friendly, cheerful==, chat,<br>speed 1.15                                                                        |                      |                  | 温暖柔和，情感细腻，适合细腻爱情故事和儿童故事 |
+| phoebe multi    | ==Empathetic==<br>==1.5 strong== |                      |                                                                                                                    |                      |                  |                         |
+| Serena Multi中性  | Empathetic<br>1.5 strong         |                      |                                                                                                                    |                      |                  |                         |
+| Nancy Mullti    |                                  |                      | Funny                                                                                                              |                      |                  |                         |
 
 #### 中文男
  
-| 语音名称              | 历史故事                                                                                                                        | 脑洞故事                             | 儿童故事           | 爱情故事                 | 声音特点与适用理由                                           |
-| ----------------- | --------------------------------------------------------------------------------------------------------------------------- | -------------------------------- | -------------- | -------------------- | --------------------------------------------------- |
-| **YunfengNeural** | Default, ==Serious==                                                                                                        | Default, cheerful,               | chat, cheerful |                      | 沉稳亲和，情感丰富，适合多场景多风格。                                 |
-| **YunjianNeural** | newscast, <br>polite, empathetic, <br>==speed 1.25 narration==<br><br>==帝王第一人称，感情强度最大, documentary narrator, <br>speed 10== | Default, ==Narration - relaxed== | chat, cheerful | sad                  | 音质自然清晰，适合多场景情感表达。成熟浪漫型（适合深情旁白）                      |
-| **YunzeNeural**   | newscast, <br>polite, empathetic<br>==old senior, <br>感情强度最大, narrator/calm, speed -5 关羽==                                  | Default<br>==Calm==              | chat, cheerful | sad                  | 声音温暖，富感染力，适合多种故事风格。沉静感伤型（适合遗憾/回忆类）                  |
-| **YunyangNeural** | newscast, <br>polite<br>==narrator==                                                                                        |                                  | chat, cheerful |                      | 语调自然流畅，适合轻松和正式场景。<br>阳光温暖型（适合甜蜜浪漫），正式，播音腔，有磁性，不够生活化 |
-| **YunyeNeural**   | newscast, <br>polite<br>==calm/serious==                                                                                    | ==cheerful==,                    | cheerful       | sad                  | 音质柔和亲切，适合温情和儿童故事。<br>轻松治愈型（适合温馨日常）.更适合解说            |
-| **YunxiNeural**   | newscast, <br>Narration - relaxed                                                                                           | ==Narration - relaxed,==         | cheerful       | Narration-relax,<br> | 声音富有表现力，适合多样情感需求。<br>青春纯爱型（适合校园/初恋）。过于大陆货           |
+| 语音名称              | 历史故事                                                                                                                          | 脑洞故事                             | 儿童故事           | 爱情故事                 | 声音特点与适用理由                                           |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------- | -------------------------------- | -------------- | -------------------- | --------------------------------------------------- |
+| **YunfengNeural** | Default, ==Serious==                                                                                                          | Default, cheerful,               | chat, cheerful |                      | 沉稳亲和，情感丰富，适合多场景多风格。                                 |
+| **YunjianNeural** | newscast, <br>polite, empathetic, <br>==speed 1.25 narration==<br><br>==帝王第一人称，感情强度最大, documentary narrator, <br>speed 1.15== | Default, ==Narration - relaxed== | chat, cheerful | sad                  | 音质自然清晰，适合多场景情感表达。成熟浪漫型（适合深情旁白）                      |
+| **YunzeNeural**   | newscast, <br>polite, empathetic<br>==old senior, <br>感情强度最大, narrator/calm, speed -5 关羽==                                    | Default<br>==Calm==              | chat, cheerful | sad                  | 声音温暖，富感染力，适合多种故事风格。沉静感伤型（适合遗憾/回忆类）                  |
+| **YunyangNeural** | newscast, <br>polite<br>==narrator==                                                                                          |                                  | chat, cheerful |                      | 语调自然流畅，适合轻松和正式场景。<br>阳光温暖型（适合甜蜜浪漫），正式，播音腔，有磁性，不够生活化 |
+| **YunyeNeural**   | newscast, <br>polite<br>==calm/serious==                                                                                      | ==cheerful==,                    | cheerful       | sad                  | 音质柔和亲切，适合温情和儿童故事。<br>轻松治愈型（适合温馨日常）.更适合解说            |
+| **YunxiNeural**   | newscast, <br>Narration - relaxed                                                                                             | ==Narration - relaxed,==         | cheerful       | Narration-relax,<br> | 声音富有表现力，适合多样情感需求。<br>青春纯爱型（适合校园/初恋）。过于大陆货           |
 
 简要说明：
 - **YunfengNeural**：全能型，声音沉稳自然，情感丰富，适合所有三类故事。    
@@ -632,17 +632,17 @@ python -m aeneas.tools.execute_task \
 
 #### 中文女
  
-| 语音名称               | 讲爱情故事                           | 纯情温柔                         | 儿童故事                               | 历史故事                                                                                        | 声音特点与适用理由                 |
-| ------------------ | ------------------------------- | ---------------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------- |
-| **XiaoxiaoNeural** | polite, hopeful                 | ==Whisper, speed 0.8 (-20)== | ==default==,chat, cheerful, polite |                                                                                             | 甜美亲切，声音年轻，适合甜美温馨的爱情及儿童故事。 |
-| xiaoxiao multi     | ==empathetic 1.5<br>speed 1.1== |                              |                                    |                                                                                             |                           |
-| **XiaomoNeural**   | empathetic, polite, hopeful     |                              | default, cheerful, polite          | newscast,<br>calm,<br>                                                                      | 声音柔和细腻，情感丰富，适合温馨浪漫和儿童故事。  |
-| **XiaoyouNeural**  | empathetic, polite              |                              | chat, cheerful                     |                                                                                             | 童声，亲切自然，适合大众化爱情和儿童故事。     |
-| xiaoshuang         |                                 |                              | chat                               |                                                                                             | 童声                        |
-| xiaoyan            |                                 |                              | default                            |                                                                                             | 生活化                       |
-| xiaoqiu            |                                 |                              |                                    | default                                                                                     | 中年女性，略严肃                  |
-| xiaozhen           |                                 |                              |                                    | 皇家<br>default<br>==serious==,<br>pitch -8<br>speed 0.95<br><br>无奈<br>==sad==<br>pitch<br>-5 |                           |
-| xiaoyi             |                                 |                              | ==cheerful==                       |                                                                                             |                           |
+| 语音名称               | 讲爱情故事                           | 纯情温柔                         | 儿童故事                               | 历史故事                                                                          | 声音特点与适用理由                 |
+| ------------------ | ------------------------------- | ---------------------------- | ---------------------------------- | ----------------------------------------------------------------------------- | ------------------------- |
+| **XiaoxiaoNeural** | polite, hopeful                 | ==Whisper, speed 0.8 (-20)== | ==default==,chat, cheerful, polite |                                                                               | 甜美亲切，声音年轻，适合甜美温馨的爱情及儿童故事。 |
+| xiaoxiao multi     | ==empathetic 1.5<br>speed 1.1== |                              |                                    |                                                                               |                           |
+| **XiaomoNeural**   | empathetic, polite, hopeful     |                              | default, cheerful, polite          | newscast,<br>calm,<br>                                                        | 声音柔和细腻，情感丰富，适合温馨浪漫和儿童故事。  |
+| **XiaoyouNeural**  | empathetic, polite              |                              | chat, cheerful                     |                                                                               | 童声，亲切自然，适合大众化爱情和儿童故事。     |
+| xiaoshuang         |                                 |                              | chat                               |                                                                               | 童声                        |
+| xiaoyan            |                                 |                              | default                            |                                                                               | 生活化                       |
+| xiaoqiu            |                                 |                              |                                    | default                                                                       | 中年女性，略严肃                  |
+| xiaozhen           |                                 |                              |                                    | 皇家<br>default<br>==serious==,<br>pitch -8<br><br>无奈<br>==sad==<br>pitch<br>-5 |                           |
+| xiaoyi             |                                 |                              | ==cheerful==                       |                                                                               |                           |
  
 # References 
 

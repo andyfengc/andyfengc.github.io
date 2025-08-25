@@ -7,7 +7,7 @@ tags:
 # Introduction
 MVVM（Model-View-ViewModel）是一种常用于构建用户界面的**软件架构模式**，特别适用于支持数据绑定的框架，如 **WPF**、**Xamarin**、**WinUI**、**MAUI** 等。MVVM 通过**分离界面和逻辑**，提高了代码的可维护性、可测试性和可重用性。
 
-![](images/posts/Pasted%20image%2020250627002914.png)
+![](/images/posts/Pasted%20image%2020250627002914.png)
 ## 历史发展
 MVVM（Model-View-ViewModel）是在微软推出 WPF 时，为了解决 UI 与逻辑强耦合问题，借鉴 MVC/MVP 等模式而诞生的架构模式。
 早期桌面开发：UI 和逻辑混在一起（如 WinForms）。在 WinForms / VB6 / MFC 时代：

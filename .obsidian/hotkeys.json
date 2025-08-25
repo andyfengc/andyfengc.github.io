@@ -78,5 +78,23 @@
       ],
       "key": "0"
     }
+  ],
+  "customjs:invokeScript": [
+    {
+      "modifiers": [
+        "Alt",
+        "Mod"
+      ],
+      "key": "I"
+    }
+  ],
+  "obsidian-regex-pipeline:ruleset: fix-image-paths.txt": [
+    {
+      "modifiers": [
+        "Alt",
+        "Mod"
+      ],
+      "key": "I"
+    }
   ]
 }
