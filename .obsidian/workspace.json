@@ -133,13 +133,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "dfasdf.md",
+                "file": "_posts/2025-07-22-text-to-speech TTS Azure Google.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of dfasdf"
+              "title": "Outline of 2025-07-22-text-to-speech TTS Azure Google"
             }
           },
           {
@@ -166,8 +166,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -183,6 +182,9 @@
   },
   "active": "495487ec65afbb4f",
   "lastOpenFiles": [
+    "_posts/2025-07-18-.NET-Logging-Serilog-Tutorial.md",
+    "_posts/2025-07-19-WPF-tutorial-10-ToastNotifications.md",
+    "_posts/2025-07-22-text-to-speech TTS Azure Google.md",
     "_posts/2025-06-27-WPF-tutorial-3-MVVM.md",
     "_posts/2025-06-27-WPF-tutorial-4-UI.md",
     "_posts/2025-08-07-text-to-speech TTS Tips.md",
@@ -192,9 +194,7 @@
     "_posts/2025-06-28-Markdown-Tutorial.md",
     "_posts/2025-06-27-WPF-tutorial-9-Demos.md",
     "_posts/2025-07-08-PropertyGrid-Tutorial.md",
-    "_posts/2025-07-18-.NET-Logging-Serilog-Tutorial.md",
     "_posts/2025-07-19-WPF-tutorial-11-MaterialDesignInXamlToolkit.md",
-    "_posts/2025-07-22-text-to-speech TTS Azure Google.md",
     "Untitled 5.base",
     "Untitled 4.base",
     "Untitled 3.base",
@@ -227,7 +227,6 @@
     "images/posts/Pasted image 20250825090402.png",
     "images/posts/Pasted image 20250825090356.png",
     "images/posts/Pasted image 20250825090320.png",
-    "_posts/2025-05-11-AI basics-turorial (2).md",
     "images/posts/Pasted image 20250824125239.png",
     "Untitled 1.canvas",
     "Untitled.canvas"

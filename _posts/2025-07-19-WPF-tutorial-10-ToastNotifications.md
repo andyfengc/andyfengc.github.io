@@ -26,7 +26,7 @@ ToastNotifications 核心对象是 `Notifier` 类，你需要创建一个 `Notif
 Install-Package ToastNotifications
 Install-Package ToastNotifications.Messages
 ```
-![](images/posts/Pasted%20image%2020250720002738.png)
+![](/images/posts/Pasted%20image%2020250720002738.png)
 ## Import ToastNotifications.Messages theme in App.xaml
 ```xml
 <Application.Resources>
