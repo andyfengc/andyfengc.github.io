@@ -1,21 +1,5 @@
-
-![](images/posts/Pasted%20image%2020250824105307.png)
-![](images/posts/Pasted%20image%2020250824105339.png)Python 3.7+ 默认自带 pip
-可在命令行测试：
-python --version
-![](images/posts/Pasted%20image%2020250824111527.png)
-
-pip --version
-![](images/posts/Pasted%20image%2020250824110029.png)可选 GPU 支持
-如果希望加速，可安装 PyTorch GPU 版本
-官网：https://pytorch.org/get-started/locally/
-手动把scripts目录加到path
-C:\Users\Owner\AppData\Roaming\Python\Python311\Scripts
-![](images/posts/Pasted%20image%2020250824110549.png)
-visual studio code
-![](images/posts/Pasted%20image%2020250824114808.png)
-![](images/posts/Pasted%20image%2020250824115753.png)
 # 安装rembg
+https://github.com/danielgatis/rembg
 先安装 onnxruntime
 pip install onnxruntime
 如果你的电脑有 NVIDIA GPU，并希望加速，可以安装 GPU 版本：
@@ -25,25 +9,58 @@ pip install onnxruntime-gpu
 `pip install rembg[cli]`
 
 安装完成后，重启电脑。可测试版本：
-`rembg -v`
-![](images/posts/Pasted%20image%2020250824112602.png)
+`rembg --version`
+![](/images/posts/Pasted%20image%2020250824112602.png)
 - 输出类似 `rembg 2.x.x` 表示安装成功
 
 如果报错ModuleNotFoundError: 直接强制重装 rembg 及其所有依赖：
 pip install --upgrade --force-reinstall rembg[cli]
 这个命令会自动装齐 `click、filetype、pillow、onnxruntime` 等所有 rembg 需要的依赖。
-
-
 ## 基本使用方法（命令行）
 单张图片去背景
 `rembg i input.png output.png`
-- `i` = input/output 模式    
-- 支持 PNG、JPEG 等格式    
-- 输出为 **透明背景 PNG**
-批量处理图片（测试失败，转向用python代码批处理运行）
-`rembg i input_folder output_folder`
+- `i` = input/output 模式  
+- 支持 PNG、JPEG 等格式
+- 输出默认 PNG，保留透明通道
+e.g.
+```bash
+rembg i "c:\Delete\1\inputs\00.jpg" "c:\Delete\1\outputs\00-output.png"
+```
+批量处理图片
+`rembg p input_folder output_folder`
 - 会处理 `input_folder` 下所有支持格式的图片    
 - 自动保存到 `output_folder`
+e.g. 
+```bash
+rembg p inputs outputs
+```
+![](images/posts/20250824-python-tutorial-(3).jpeg)
+
+用python 代码批处理
+```python
+import os
+from rembg import remove
+from PIL import Image
+
+input_dir = r"C:\delete\1\inputs"
+output_dir = r"C:\delete\1\outputs"
+
+os.makedirs(output_dir, exist_ok=True)
+
+for filename in os.listdir(input_dir):
+    if filename.lower().endswith((".png", ".jpg", ".jpeg")):
+        input_path = os.path.join(input_dir, filename)
+        # 保证输出为 PNG
+        base_name = os.path.splitext(filename)[0]
+        output_path = os.path.join(output_dir, base_name + ".png")
+
+        with Image.open(input_path) as img:
+            result = remove(img)
+            result.save(output_path)
+
+print("批量处理完成！")
+
+```
 ## 高级参数
 - **指定模型**：    
 `rembg -m u2net input.png output.png`
@@ -61,6 +78,21 @@ pip install --upgrade --force-reinstall rembg[cli]
 渐变背景：可使用 --alpha-matting 参数，提高边缘精度
 GPU 加速：安装 GPU 版 PyTorch，可大幅提升批量处理速度
 视频不直接支持：rembg 本身是针对图片，但可用 逐帧处理视频 或结合 FFmpeg
+# backgroundremover
+使用 pip 安装：
+```
+pip install backgroundremover
+```
+使用以下命令去除图像或视频背景：
+```
+backgroundremover input.jpg output.png
+backgroundremover input.mp4 output.mp4
+```
+批处理
+```
+backgroundremover input_folder/ output_folder/
+```
+
 # opencv
 管理员cmd
 pip install opencv-python
@@ -81,4 +113,5 @@ python
 然后测试导入：
 import cv2
 print(cv2.__version__)
-![](images/posts/Pasted%20image%2020250824125239.png)
+![](/images/posts/Pasted%20image%2020250824125239.png)
+# FAQ

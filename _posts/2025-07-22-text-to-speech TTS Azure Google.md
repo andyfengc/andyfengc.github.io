@@ -484,6 +484,7 @@ python -m aeneas.tools.execute_task \
 | Azure STT | 中     | ⭐⭐  | 有语音无文字的反向识别 |
 ## Azure 常用视频配音语音清单（Neural TTS）
 [Microsoft TTS Demo 页面](https://speech.microsoft.com/portal/voicegallery)
+[text-to-speech.cn](https://www.text-to-speech.cn/)
 
 | VoiceName               | 语言/区域     | 性别  | 支持风格（Style）                                          | 推荐用途           |
 | ----------------------- | --------- | --- | ---------------------------------------------------- | -------------- |
@@ -576,17 +577,23 @@ python -m aeneas.tools.execute_task \
 ### 我的选择
 #### 英文男
  
-| 语音名称            | 历史故事                                       | 脑洞故事                | 儿童故事                                  | 爱情故事                           | 声音特点 & 适用理由                                       |
-| --------------- | ------------------------------------------ | ------------------- | ------------------------------------- | ------------------------------ | ------------------------------------------------- |
-| **GuyNeural**   |                                            | friendly            | chat, cheerful, polite                | hopeful, friendly<br>speed 0.9 | 语音自然亲切，情感丰富，故事感强，适合多种故事类型。<br>温暖细腻型（适合温馨浪漫）       |
-| **DavisNeural** | Default                                    | chat,               | chat, cheerful, ==friendly==          |                                | 稳重温和，细腻感情，适合悬疑、细节丰富的历史及脑洞故事。<br>深情成熟型（适合催泪或深刻情感）  |
-| Davis Multi     | Default,<br>==Funny==, ==Empathetic king== | ==empathetic==      |                                       | Empathetic                     |                                                   |
-| **JasonNeural** |                                            | friendly            | chat, cheerful,<br>excited            | friendly,                      | 年轻活泼，适合轻松幽默的脑洞故事和儿童故事，历史故事较轻松。<br>轻松甜蜜型（适合青春喜剧爱情） |
-| **TonyNeural**  | friendly, ==hopeful读中文名字==                 | Default, friendly   | chat, polite,<br>cheerful,<br>excited | hopeful,                       | 成熟沉稳，有磁性，适合悬疑、权威感强的历史和脑洞故事。<br>戏剧浓烈型（适合跌宕爱情）      |
-| Andrew          | Default读中文名字                               | ==Default==         |                                       |                                |                                                   |
-| Andrew Multi    | Default                                    | Empathetic          |                                       | Empathetic speed 0.9           |                                                   |
-| Derek mullti    |                                            | Default, Empathetic |                                       | default                        | 偏正统                                               |
-|                 |                                            |                     |                                       |                                |                                                   |
+| 语音名称            | 历史故事                                       | 脑洞故事                      | 儿童故事                                  | 爱情故事                                       | 声音特点 & 适用理由                                       |
+| --------------- | ------------------------------------------ | ------------------------- | ------------------------------------- | ------------------------------------------ | ------------------------------------------------- |
+| **GuyNeural**   |                                            | friendly                  | chat, cheerful, polite                | hopeful, friendly<br>speed 0.9<br>pitch -5 | 语音自然亲切，情感丰富，故事感强，适合多种故事类型。<br>温暖细腻型（适合温馨浪漫）       |
+| **DavisNeural** | Default                                    | chat,                     | chat, cheerful, ==friendly==          |                                            | 稳重温和，细腻感情，适合悬疑、细节丰富的历史及脑洞故事。<br>深情成熟型（适合催泪或深刻情感）  |
+| Davis Multi     | Default,<br>==Funny==, ==Empathetic king== | ==empathetic==            |                                       | Empathetic                                 |                                                   |
+| Lewis multi     | default                                    |                           |                                       |                                            | 知识性，专业权威                                          |
+| Christopher     | default                                    |                           |                                       |                                            | 知识性，专业权威                                          |
+| **JasonNeural** |                                            | friendly                  | chat, cheerful,<br>excited            | friendly,                                  | 年轻活泼，适合轻松幽默的脑洞故事和儿童故事，历史故事较轻松。<br>轻松甜蜜型（适合青春喜剧爱情） |
+| **Tony**        | friendly, ==hopeful读中文名字==<br>speed 1.1    | Default, friendly         | chat, polite,<br>cheerful,<br>excited | hopeful,                                   | 成熟沉稳，有磁性，适合悬疑、权威感强的历史和脑洞故事。<br>戏剧浓烈型（适合跌宕爱情）      |
+| Andrew          | Default读中文名字                               | ==Default==               |                                       | default                                    | 有磁性，心灵鸡汤                                          |
+| Andrew Multi    | Default                                    | Empathetic                |                                       | **Empathetic speed 0.9**                   |                                                   |
+| Derek mullti    | default                                    | Default, Empathetic       |                                       | empathetic                                 | 偏正统, 自信，知识性                                       |
+| brandon         |                                            |                           |                                       | default                                    |                                                   |
+| steffan multi   |                                            |                           |                                       | defaut, speed 1.1                          | 家常                                                |
+| brian           |                                            |                           |                                       | default                                    | 年轻有感情，适合心灵鸡汤                                      |
+| kai             |                                            | conversation<br>speed 1.1 |                                       | default<br>conversation                    | 家常                                                |
+| samuel multi    | default                                    | default                   |                                       |                                            | 微磁性                                               |
 
 - **GuyNeural** 是最“全能”的声音，适合故事感强、情感丰富的讲述。    
 - **DavisNeural** 偏温情悬疑和细腻叙事。    
@@ -636,7 +643,7 @@ python -m aeneas.tools.execute_task \
 | 语音名称               | 讲爱情故事                           | 纯情温柔                         | 儿童故事                               | 历史故事                                                                          | 声音特点与适用理由                 |
 | ------------------ | ------------------------------- | ---------------------------- | ---------------------------------- | ----------------------------------------------------------------------------- | ------------------------- |
 | **XiaoxiaoNeural** | polite, hopeful                 | ==Whisper, speed 0.8 (-20)== | ==default==,chat, cheerful, polite |                                                                               | 甜美亲切，声音年轻，适合甜美温馨的爱情及儿童故事。 |
-| xiaoxiao multi     | ==empathetic 1.5<br>speed 1.1== |                              |                                    |                                                                               |                           |
+| xiaoxiao multi     | ==empathetic 1.5<br>speed 1.2== |                              |                                    |                                                                               |                           |
 | **XiaomoNeural**   | empathetic, polite, hopeful     |                              | default, cheerful, polite          | newscast,<br>calm,<br>                                                        | 声音柔和细腻，情感丰富，适合温馨浪漫和儿童故事。  |
 | **XiaoyouNeural**  | empathetic, polite              |                              | chat, cheerful                     |                                                                               | 童声，亲切自然，适合大众化爱情和儿童故事。     |
 | xiaoshuang         |                                 |                              | chat                               |                                                                               | 童声                        |

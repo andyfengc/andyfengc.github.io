@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "2486a16970df7eef",
+        "id": "67a36281bf45e8ec",
         "type": "tabs",
         "children": [
           {
-            "id": "495487ec65afbb4f",
+            "id": "fdc1f5c0433a8604",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/2025-07-22-text-to-speech TTS Azure Google.md",
+                "file": "_drafts/20250828-whisper-subtitle.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "2025-07-22-text-to-speech TTS Azure Google"
+              "title": "20250828-whisper-subtitle"
             }
           }
         ]
@@ -88,7 +88,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 323.5
+    "width": 235.5
   },
   "right": {
     "id": "eb0d77954a5af90c",
@@ -133,13 +133,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_posts/2025-07-22-text-to-speech TTS Azure Google.md",
+                "file": "_drafts/20250828-whisper-subtitle.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 2025-07-22-text-to-speech TTS Azure Google"
+              "title": "Outline of 20250828-whisper-subtitle"
             }
           },
           {
@@ -180,16 +180,37 @@
       "obsidian-regex-pipeline:Regex Rulesets": false
     }
   },
-  "active": "495487ec65afbb4f",
+  "active": "fdc1f5c0433a8604",
   "lastOpenFiles": [
+    "images/posts/20250828-whisper-subtitle-10.jpeg",
+    "images/posts/20250828-whisper-subtitle-9.jpeg",
+    "images/posts/20250828-whisper-subtitle.jpeg",
+    "images/posts/Pasted image 20250828123323.png",
+    "images/posts/20250828-whisper-subtitle-8.jpeg",
+    "images/posts/20250828-whisper-subtitle-7.jpeg",
+    "images/posts/20250828-whisper-subtitle-6.jpeg",
+    "images/posts/20250828-whisper-subtitle-5.jpeg",
+    "images/posts/20250828-whisper-subtitle-4.jpeg",
+    "images/posts/20250828-whisper-subtitle-3.jpeg",
+    "images/posts/20250828-whisper-subtitle-2.jpeg",
+    "_drafts/20250828-whisper-subtitle.md",
+    "_posts/2025-06-27-WPF-tutorial-5-NET-Community-Toolkit.md",
+    "_posts/2025-07-22-text-to-speech TTS Azure Google.md",
+    "_posts/20250824-python-tutorial-(4).md",
+    "_posts/20250824-python-tutorial-(3).md",
+    "_posts/20250824-python-tutorial-(1).md",
+    "_posts/20250824-python-tutorial-(2).md",
+    "_drafts/20250824-python-tutorial-(1).md",
+    "20250824-python-tutorial-(2).md",
+    "_posts/2025-08-25-AI-turorial-Gemini.md",
+    "Untitled 6.md",
+    "_posts/2025-05-13-AI basics-turorial (6)  - Copy.md",
     "_posts/2025-07-18-.NET-Logging-Serilog-Tutorial.md",
     "_posts/2025-07-19-WPF-tutorial-10-ToastNotifications.md",
-    "_posts/2025-07-22-text-to-speech TTS Azure Google.md",
     "_posts/2025-06-27-WPF-tutorial-3-MVVM.md",
     "_posts/2025-06-27-WPF-tutorial-4-UI.md",
     "_posts/2025-08-07-text-to-speech TTS Tips.md",
     "_posts/2025-07-22-text-to-srt.md",
-    "_posts/2025-06-27-WPF-tutorial-5-NET-Community-Toolkit.md",
     "_posts/2025-06-27-WPF-tutorial-6-DI.md",
     "_posts/2025-06-28-Markdown-Tutorial.md",
     "_posts/2025-06-27-WPF-tutorial-9-Demos.md",
@@ -202,32 +223,11 @@
     "Untitled 2.base",
     "Untitled 5.md",
     "images/xxx.md",
-    "dfasdf.md",
     "regex-rulesets/fix-image-paths.txt",
-    "images/posts/dfasdf-3.jpeg",
     "/regex-rulesets/index.txt",
     "/regex-rulesets/test",
     "regex-rulesets/test",
     "/regex-rulesets",
-    "images/posts/dfasdf-2.jpeg",
-    "images/posts/dfasdf-1.jpeg",
-    "images/posts/dfasdf.jpeg",
-    "Untitled 4.md",
-    "adfasdf.md",
-    "images/dfadfasdf.md",
-    "Untitled 3.md",
-    "Untitled 2.md",
-    "test/InsertImage.md",
-    "test/aa.md",
-    "().md",
-    "Untitled 1.md",
-    "Untitled.md",
-    "images/posts/Pasted image 20250825091113.png",
-    "images/posts/Pasted image 20250825090941.png",
-    "images/posts/Pasted image 20250825090402.png",
-    "images/posts/Pasted image 20250825090356.png",
-    "images/posts/Pasted image 20250825090320.png",
-    "images/posts/Pasted image 20250824125239.png",
     "Untitled 1.canvas",
     "Untitled.canvas"
   ]
