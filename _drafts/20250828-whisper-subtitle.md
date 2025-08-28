@@ -40,37 +40,37 @@ Whisper 是 OpenAI 开发的一个 **自动语音识别（ASR, Automatic Speech 
 | large  |          |          |
 # Subtitle Edit使用
 下载subtitle editor https://www.nikse.dk/subtitleedit 或 https://github.com/SubtitleEdit/subtitleedit/releases
-![](images/posts/20250828-whisper-subtitle-1.jpeg)
+![](/images/posts/20250828-whisper-subtitle-1.jpeg)
 说明：
 - Subtitle Edit 支持直接调用 Faster-Whisper 模型，不需要你手动安装 Python。    
 - 模型会在第一次运行时自动下载，也可以手动下载放到指定目录。    
 - 中文准确率推荐：`large-v2`（需要显存 >4GB，CPU 也能跑但会慢）。
 ## 使用步骤
 在 Subtitle Edit 菜单 → video`视频` → Audio to text(whisper) `生成字幕（音频转文本）    
-![](images/posts/20250828-whisper-subtitle-6.jpeg)
-下载引擎：![](images/posts/20250828-whisper-subtitle.jpeg)
+![](/images/posts/20250828-whisper-subtitle-6.jpeg)
+下载引擎：![](/images/posts/20250828-whisper-subtitle.jpeg)
 下载模型：
-![](images/posts/20250828-whisper-subtitle-8.jpeg)
-![](images/posts/20250828-whisper-subtitle-3.jpeg)
+![](/images/posts/20250828-whisper-subtitle-8.jpeg)
+![](/images/posts/20250828-whisper-subtitle-3.jpeg)
 -在弹窗里选择：    
     - **引擎**：`Faster-Whisper`        
     - **模型**：根据电脑配置选，越高越好，202508 `large-v3`        
     - **语言**：强制设为 `zh`（中文），不要选 auto。        
 点击Generate > 开始生成 > 速度取决于 CPU/GPU 性能。
-![](images/posts/20250828-whisper-subtitle-4.jpeg)
+![](/images/posts/20250828-whisper-subtitle-4.jpeg)
 转换完成，或部分转换 > 保存字幕为 `.srt`
 也可以导出为纯文本 File → Export → Plain Text
-![](images/posts/20250828-whisper-subtitle-7.jpeg)
+![](/images/posts/20250828-whisper-subtitle-7.jpeg)
 弹出窗口中可选择：    
 - **只导出字幕文字**        
 - **是否保留空行**（一般保留便于段落分隔）
 导出的文件就是**纯文本字幕**，没有时间戳，适合直接阅读或做文字稿。
 如果你只想导出**部分字幕**，可以先在 Subtitle Edit 中选中需要的段落，再导出。
-![](images/posts/20250828-whisper-subtitle-10.jpeg)
-![](images/posts/20250828-whisper-subtitle-9.jpeg)
+![](/images/posts/20250828-whisper-subtitle-10.jpeg)
+![](/images/posts/20250828-whisper-subtitle-9.jpeg)
 # potplayer 使用
 
-![](images/posts/20250828-whisper-subtitle-5.jpeg)
+![](/images/posts/20250828-whisper-subtitle-5.jpeg)
 有多个引擎选项：
 - **whisper.cpp CPU** → 纯 CPU 推理（最慢，但兼容性最好）；    
 - **whisper.cpp BLAS** → 利用 CPU 的 BLAS 库加速（比纯 CPU 快一些）；    
