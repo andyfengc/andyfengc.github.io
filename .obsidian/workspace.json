@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "67a36281bf45e8ec",
+        "id": "94eb0c5539b0db58",
         "type": "tabs",
         "children": [
           {
-            "id": "fdc1f5c0433a8604",
+            "id": "4e35d70376b5b3ec",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_drafts/20250828-whisper-subtitle.md",
+                "file": "_drafts/20250830-Fiddler-Tutorial.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,10 +28,59 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "20250828-whisper-subtitle"
+              "title": "20250830-Fiddler-Tutorial"
+            }
+          },
+          {
+            "id": "98246564fa1c8198",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "_posts/20250830-python-tutorial-(5)-mitmproxy.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
+              "icon": "lucide-file",
+              "title": "20250830-python-tutorial-(5)-mitmproxy"
+            }
+          },
+          {
+            "id": "d369135550ee37e3",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "_drafts/20250830-Named-Pipe-Tutorial.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
+              "icon": "lucide-file",
+              "title": "20250830-Named-Pipe-Tutorial"
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -133,13 +182,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_drafts/20250828-whisper-subtitle.md",
+                "file": "_drafts/20250830-Named-Pipe-Tutorial.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 20250828-whisper-subtitle"
+              "title": "Outline of 20250830-Named-Pipe-Tutorial"
             }
           },
           {
@@ -166,7 +215,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 236.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -180,49 +229,48 @@
       "obsidian-regex-pipeline:Regex Rulesets": false
     }
   },
-  "active": "fdc1f5c0433a8604",
+  "active": "d369135550ee37e3",
   "lastOpenFiles": [
-    "images/posts/20250828-whisper-subtitle-10.jpeg",
-    "images/posts/20250828-whisper-subtitle-9.jpeg",
-    "images/posts/20250828-whisper-subtitle.jpeg",
-    "images/posts/Pasted image 20250828123323.png",
-    "images/posts/20250828-whisper-subtitle-8.jpeg",
-    "images/posts/20250828-whisper-subtitle-7.jpeg",
-    "images/posts/20250828-whisper-subtitle-6.jpeg",
-    "images/posts/20250828-whisper-subtitle-5.jpeg",
-    "images/posts/20250828-whisper-subtitle-4.jpeg",
-    "images/posts/20250828-whisper-subtitle-3.jpeg",
-    "images/posts/20250828-whisper-subtitle-2.jpeg",
+    "_posts/2025-08-31-Magick.NET.md",
+    "_drafts/20250830-Fiddler-Tutorial.md",
+    "images/posts/20250831-12.jpeg",
+    "_posts/20250830-python-tutorial-(5)-mitmproxy.md",
+    "Untitled 2.md",
+    "_posts/2025-08-31-winget-tutorial.md",
+    "images/posts/20250831-11.jpeg",
+    "images/posts/20250831-10.jpeg",
+    "images/posts/Pasted image 20250831022722.png",
+    "images/posts/20250831-9.jpeg",
+    "images/posts/20250831-9.jpeg",
+    "images/posts/20250831-8.jpeg",
+    "images/posts/20250831-7.jpeg",
+    "images/posts/20250831-6.jpeg",
+    "images/posts/20250831-5.jpeg",
+    "URL.md",
+    "().md",
+    "_posts/20250824-python-tutorial-(1)-basics.md",
+    "test/InsertImage.md",
+    "test/aa.md",
+    "_posts/20250830-python-tutorial-(6)-windows.md",
+    "20180521-authentication-practice.md",
+    "Untitled 1.md",
+    "_posts/20250824-python-tutorial-(3)-image - Copy.md",
+    "_posts/20250824-python-tutorial-(4)-csharp.md",
+    "_posts/20250824-python-tutorial-(3)-image.md",
+    "_posts/20250824-python-tutorial-(2)-programming.md",
+    "_drafts/Untitled.md",
+    "_drafts/20250830-Named-Pipe-Tutorial.md",
+    "_posts/2018-02-11-Entity-Framework-working-with-stored-procedure.md",
+    "20250830-Named-Pipe-Tutorial.md",
+    "_posts/2025-07-22-text-to-speech TTS Azure Google.md",
+    "_posts/2025-08-07-text-to-speech TTS Tips.md",
     "_drafts/20250828-whisper-subtitle.md",
     "_posts/2025-06-27-WPF-tutorial-5-NET-Community-Toolkit.md",
-    "_posts/2025-07-22-text-to-speech TTS Azure Google.md",
-    "_posts/20250824-python-tutorial-(4).md",
-    "_posts/20250824-python-tutorial-(3).md",
-    "_posts/20250824-python-tutorial-(1).md",
-    "_posts/20250824-python-tutorial-(2).md",
-    "_drafts/20250824-python-tutorial-(1).md",
-    "20250824-python-tutorial-(2).md",
-    "_posts/2025-08-25-AI-turorial-Gemini.md",
-    "Untitled 6.md",
-    "_posts/2025-05-13-AI basics-turorial (6)  - Copy.md",
-    "_posts/2025-07-18-.NET-Logging-Serilog-Tutorial.md",
-    "_posts/2025-07-19-WPF-tutorial-10-ToastNotifications.md",
-    "_posts/2025-06-27-WPF-tutorial-3-MVVM.md",
-    "_posts/2025-06-27-WPF-tutorial-4-UI.md",
-    "_posts/2025-08-07-text-to-speech TTS Tips.md",
-    "_posts/2025-07-22-text-to-srt.md",
-    "_posts/2025-06-27-WPF-tutorial-6-DI.md",
-    "_posts/2025-06-28-Markdown-Tutorial.md",
-    "_posts/2025-06-27-WPF-tutorial-9-Demos.md",
-    "_posts/2025-07-08-PropertyGrid-Tutorial.md",
-    "_posts/2025-07-19-WPF-tutorial-11-MaterialDesignInXamlToolkit.md",
     "Untitled 5.base",
     "Untitled 4.base",
     "Untitled 3.base",
     "Untitled 1.base",
     "Untitled 2.base",
-    "Untitled 5.md",
-    "images/xxx.md",
     "regex-rulesets/fix-image-paths.txt",
     "/regex-rulesets/index.txt",
     "/regex-rulesets/test",
