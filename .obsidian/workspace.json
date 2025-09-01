@@ -61,7 +61,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_drafts/20250830-Named-Pipe-Tutorial.md",
+                "file": "_posts/20250831-wpf-tutorial-drag-drop.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -76,7 +76,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "20250830-Named-Pipe-Tutorial"
+              "title": "20250831-wpf-tutorial-drag-drop"
             }
           }
         ],
@@ -137,7 +137,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 235.5
+    "width": 361.5026054382324
   },
   "right": {
     "id": "eb0d77954a5af90c",
@@ -182,13 +182,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_drafts/20250830-Named-Pipe-Tutorial.md",
+                "file": "_posts/20250831-wpf-tutorial-drag-drop.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 20250830-Named-Pipe-Tutorial"
+              "title": "Outline of 20250831-wpf-tutorial-drag-drop"
             }
           },
           {
@@ -215,7 +215,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 236.5
+    "width": 200
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -231,6 +231,10 @@
   },
   "active": "d369135550ee37e3",
   "lastOpenFiles": [
+    "images/posts/20250831-13.jpeg",
+    "_posts/2025-07-19-WPF-tutorial-11-MaterialDesignInXamlToolkit.md",
+    "_posts/20250831-wpf-tutorial-drag-drop.md",
+    "_drafts/20250830-Named-Pipe-Tutorial.md",
     "_posts/2025-08-31-Magick.NET.md",
     "_drafts/20250830-Fiddler-Tutorial.md",
     "images/posts/20250831-12.jpeg",
@@ -259,13 +263,10 @@
     "_posts/20250824-python-tutorial-(3)-image.md",
     "_posts/20250824-python-tutorial-(2)-programming.md",
     "_drafts/Untitled.md",
-    "_drafts/20250830-Named-Pipe-Tutorial.md",
     "_posts/2018-02-11-Entity-Framework-working-with-stored-procedure.md",
     "20250830-Named-Pipe-Tutorial.md",
     "_posts/2025-07-22-text-to-speech TTS Azure Google.md",
     "_posts/2025-08-07-text-to-speech TTS Tips.md",
-    "_drafts/20250828-whisper-subtitle.md",
-    "_posts/2025-06-27-WPF-tutorial-5-NET-Community-Toolkit.md",
     "Untitled 5.base",
     "Untitled 4.base",
     "Untitled 3.base",
