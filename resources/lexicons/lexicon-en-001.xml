@@ -18,9 +18,12 @@
     <grapheme>OMG</grapheme>
     <alias>Oh My God</alias>
   </lexeme>
-
   <lexeme>
     <grapheme>U.S.</grapheme>
+    <alias>US</alias>
+  </lexeme>
+  <lexeme>
+    <grapheme>U. S.</grapheme>
     <alias>US</alias>
   </lexeme>
   
