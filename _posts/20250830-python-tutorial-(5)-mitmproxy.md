@@ -57,6 +57,45 @@ chrome://settings/security > Manage certificates > 查看证书 > installed by y
 6. 进入 **Authorities（证书颁发机构）**    
 7. 点击 **导入**，选择 `mitmproxy-ca-cert.pem`    
 8. 勾选 “信任此 CA 来标识网站” → 确认
+
+### 安装系统证书:
+ 正常启动 mitmproxy
+在命令行里运行：
+`mitmproxy`
+默认监听 `127.0.0.1:8080`。终端里会显示：
+`Proxy server listening at http://*:8080`
+
+让浏览器走 mitmproxy
+你需要把浏览器的代理改成 mitmproxy：
+- **Chrome/Edge/系统代理设置**：    
+    1. 打开 Windows 设置 → 网络和 Internet → 代理。        
+    2. 打开 “使用代理服务器”。        
+    3. 地址填：`127.0.0.1`，端口：`8080`。        
+    4. 保存。        
+- 或者用 **Proxifier**，让浏览器走 127.0.0.1:8080。
+
+![](images/posts/20250918.jpeg)
+代理设置好后，再打开浏览器访问：
+`http://mitm.it`
+这时 mitmproxy 会拦截并返回证书安装页面。你会看到一个下载选项列表（Windows / Mac / Android / iOS）。
+![](images/posts/20250918-1.jpeg)
+![](images/posts/20250918-2.jpeg)
+![](images/posts/20250918-3.jpeg)
+
+1. 下载 **Windows 证书文件**（一般是 `mitmproxy-ca-cert.cer`）。    
+2. 双击文件 → 安装证书。    
+3. 选择：    
+    - 存储位置：**本地计算机(local machine)**（如果提示需要管理员权限就确认）。        
+    - 存储到：**受信任的根证书颁发机构**。        
+4. 装好之后，可以重新启动一次浏览器。    
+
+测试证书是否生效
+- 打开一个 HTTPS 网站（比如 https://example.com），在 mitmproxy 界面里应该能看到完整解密后的请求和响应。    
+- 如果还是 CONNECT 隧道没有解密，要检查证书是否真的安装到 “受信任的根证书颁发机构”。
+
+⚠️ 注意：
+- **只有流量经过 mitmproxy，才能安装证书**，所以一定要先改代理。    
+- 如果只是直接访问 mitm.it，而没有设置代理，就会出现你看到的提示。
 ### 在手机中安装证书
 🔹 Android
 1. 访问 `http://mitm.it`（手机需走代理到 mitmproxy）
@@ -248,3 +287,12 @@ mitmdump -s script.py
 - 若你偏好轻量部署或内嵌到工具中，**proxy.py 是不错的替代品**。
     
 - 报文级精细控制需求，选 **Scapy**；日志/性能分析则看 **Justniffer**；跨平台 GUI 想尝鲜 Rust，**proxyfor** 值得试试。
+# FAQ
+## 使用proxifier
+添加一个proxy server
+![](images/posts/20250918-4.jpeg)
+点check 进行测试
+![](images/posts/20250918-5.jpeg)
+添加一个规则
+![](images/posts/20250918-6.jpeg)
+![](images/posts/20250918-7.jpeg)

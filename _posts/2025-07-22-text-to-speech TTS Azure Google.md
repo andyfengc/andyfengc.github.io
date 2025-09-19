@@ -498,7 +498,6 @@ python -m aeneas.tools.execute_task \
 | `en-US-JennyNeural`     | 英文（美音）    | 女   | newscast, assistant, cheerful, empathetic, narration | 国际通用女声，官方配音感   |
 | `en-US-GuyNeural`       | 英文（美音）    | 男   | assistant, newscast, angry, excited, sad, friendly   | 动感视频、游戏旁白      |
 | `en-US-DavisNeural`     | 英文（美音）    | 男   | chat, assistant                                      | 轻松男声、AI 教学     |
-| `en-GB-SoniaNeural`     | 英文（英音）    | 女   | chat                                                 | 高级感、纪录片风格      |
 | `ja-JP-NanamiNeural`    | 日语        | 女   | chat, customer-service                               | 二次元风格、日系内容     |
 | `ko-KR-SunHiNeural`     | 韩语        | 女   | chat                                                 | 韩语娱乐、美妆相关      |
 | `fr-FR-DeniseNeural`    | 法语        | 女   | cheerful                                             | 法语教学、美食内容      |
@@ -579,7 +578,7 @@ python -m aeneas.tools.execute_task \
  
 | 语音名称            | 历史故事                                       | 脑洞故事                      | 儿童故事                                  | 爱情故事                                       | 声音特点 & 适用理由                                       |
 | --------------- | ------------------------------------------ | ------------------------- | ------------------------------------- | ------------------------------------------ | ------------------------------------------------- |
-| **GuyNeural**   |                                            | friendly                  | chat, cheerful, polite                | hopeful, friendly<br>speed 0.9<br>pitch -5 | 语音自然亲切，情感丰富，故事感强，适合多种故事类型。<br>温暖细腻型（适合温馨浪漫）       |
+| **GuyNeural**   | friendly                                   | friendly                  | chat, cheerful, polite                | hopeful, friendly<br>speed 0.9<br>pitch -5 | 语音自然亲切，情感丰富，故事感强，适合多种故事类型。<br>温暖细腻型（适合温馨浪漫）       |
 | **DavisNeural** | Default                                    | chat,                     | chat, cheerful, ==friendly==          |                                            | 稳重温和，细腻感情，适合悬疑、细节丰富的历史及脑洞故事。<br>深情成熟型（适合催泪或深刻情感）  |
 | Davis Multi     | Default,<br>==Funny==, ==Empathetic king== | ==empathetic==            |                                       | Empathetic                                 |                                                   |
 | Lewis multi     | default                                    |                           |                                       |                                            | 知识性，专业权威                                          |
@@ -591,9 +590,10 @@ python -m aeneas.tools.execute_task \
 | Derek mullti    | default                                    | Default, Empathetic       |                                       | empathetic                                 | 偏正统, 自信，知识性                                       |
 | brandon         |                                            |                           |                                       | default                                    |                                                   |
 | steffan multi   |                                            |                           |                                       | defaut, speed 1.1                          | 家常                                                |
-| brian           |                                            |                           |                                       | default                                    | 年轻有感情，适合心灵鸡汤                                      |
+| brian           |                                            |                           |                                       | default, speed 1.1                         | 年轻有感情，适合心灵鸡汤                                      |
 | kai             |                                            | conversation<br>speed 1.1 |                                       | default<br>conversation                    | 家常                                                |
 | samuel multi    | default                                    | default                   |                                       |                                            | 微磁性                                               |
+| ai man          | speed 1.15<br>1.5                          |                           |                                       |                                            |                                                   |
 
 - **GuyNeural** 是最“全能”的声音，适合故事感强、情感丰富的讲述。    
 - **DavisNeural** 偏温情悬疑和细腻叙事。    
@@ -613,17 +613,19 @@ python -m aeneas.tools.execute_task \
 | phoebe multi    | ==Empathetic==<br>==1.5 strong== |                      |                                                                                                                    |                      |                  |                         |
 | Serena Multi中性  | Empathetic<br>1.5 strong         |                      |                                                                                                                    |                      |                  |                         |
 | Nancy Mullti    |                                  |                      | Funny                                                                                                              |                      |                  |                         |
+| Sonia英文（英音）     | chat                             |                      |                                                                                                                    | speed1.1             |                  | 高级感、纪录片风格               |
+| serena          |                                  |                      |                                                                                                                    |                      |                  | 更自然，自信                  |
 
 #### 中文男
  
-| 语音名称              | 历史故事                                                                                                                          | 脑洞故事                             | 儿童故事           | 爱情故事                 | 声音特点与适用理由                                           |
-| ----------------- | ----------------------------------------------------------------------------------------------------------------------------- | -------------------------------- | -------------- | -------------------- | --------------------------------------------------- |
-| **YunfengNeural** | Default, ==Serious==                                                                                                          | Default, cheerful,               | chat, cheerful |                      | 沉稳亲和，情感丰富，适合多场景多风格。                                 |
-| **YunjianNeural** | newscast, <br>polite, empathetic, <br>==speed 1.25 narration==<br><br>==帝王第一人称，感情强度最大, documentary narrator, <br>speed 1.15== | Default, ==Narration - relaxed== | chat, cheerful | sad                  | 音质自然清晰，适合多场景情感表达。成熟浪漫型（适合深情旁白）                      |
-| **YunzeNeural**   | newscast, <br>polite, empathetic<br>==old senior, <br>感情强度最大, narrator/calm, speed -5 关羽==                                    | Default<br>==Calm==              | chat, cheerful | sad                  | 声音温暖，富感染力，适合多种故事风格。沉静感伤型（适合遗憾/回忆类）                  |
-| **YunyangNeural** | newscast, <br>polite<br>==narrator==                                                                                          |                                  | chat, cheerful |                      | 语调自然流畅，适合轻松和正式场景。<br>阳光温暖型（适合甜蜜浪漫），正式，播音腔，有磁性，不够生活化 |
-| **YunyeNeural**   | newscast, <br>polite<br>==calm/serious==                                                                                      | ==cheerful==,                    | cheerful       | sad                  | 音质柔和亲切，适合温情和儿童故事。<br>轻松治愈型（适合温馨日常）.更适合解说            |
-| **YunxiNeural**   | newscast, <br>Narration - relaxed                                                                                             | ==Narration - relaxed,==         | cheerful       | Narration-relax,<br> | 声音富有表现力，适合多样情感需求。<br>青春纯爱型（适合校园/初恋）。过于大陆货           |
+| 语音名称              | 历史故事                                                                                                                          | 脑洞故事                             | 儿童故事           | 爱情故事                          | 声音特点与适用理由                                           |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------- | -------------------------------- | -------------- | ----------------------------- | --------------------------------------------------- |
+| **YunfengNeural** | Default, ==Serious==                                                                                                          | Default, cheerful,               | chat, cheerful |                               | 沉稳亲和，情感丰富，适合多场景多风格。                                 |
+| **YunjianNeural** | newscast, <br>polite, empathetic, <br>==speed 1.25 narration==<br><br>==帝王第一人称，感情强度最大, documentary narrator, <br>speed 1.15== | Default, ==Narration - relaxed== | chat, cheerful | sad                           | 音质自然清晰，适合多场景情感表达。成熟浪漫型（适合深情旁白）                      |
+| **YunzeNeural**   | newscast, <br>polite, empathetic<br>==old senior, <br>感情强度最大, narrator/calm, speed -5 关羽==                                    | Default<br>==Calm==              | chat, cheerful | sad                           | 声音温暖，富感染力，适合多种故事风格。沉静感伤型（适合遗憾/回忆类）                  |
+| **YunyangNeural** | newscast, <br>polite<br>==narrator==                                                                                          |                                  | chat, cheerful |                               | 语调自然流畅，适合轻松和正式场景。<br>阳光温暖型（适合甜蜜浪漫），正式，播音腔，有磁性，不够生活化 |
+| **YunyeNeural**   | newscast, <br>polite<br>==calm/serious==                                                                                      | ==cheerful==,                    | cheerful       | sad                           | 音质柔和亲切，适合温情和儿童故事。<br>轻松治愈型（适合温馨日常）.更适合解说            |
+| **YunxiNeural**   | newscast, <br>Narration - relaxed                                                                                             | ==Narration - relaxed,==         | cheerful       | Narration-relax,speed 1.1<br> | 声音富有表现力，适合多样情感需求。<br>青春纯爱型（适合校园/初恋）。过于大陆货           |
 
 简要说明：
 - **YunfengNeural**：全能型，声音沉稳自然，情感丰富，适合所有三类故事。    

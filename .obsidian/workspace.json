@@ -4,35 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "94eb0c5539b0db58",
+        "id": "0a58a154e255a3af",
         "type": "tabs",
         "children": [
           {
-            "id": "4e35d70376b5b3ec",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "_drafts/20250830-Fiddler-Tutorial.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": true,
-                "backlinkOpts": {
-                  "collapseAll": false,
-                  "extraContext": false,
-                  "sortOrder": "alphabetical",
-                  "showSearch": false,
-                  "searchQuery": "",
-                  "backlinkCollapsed": false,
-                  "unlinkedCollapsed": true
-                }
-              },
-              "icon": "lucide-file",
-              "title": "20250830-Fiddler-Tutorial"
-            }
-          },
-          {
-            "id": "98246564fa1c8198",
+            "id": "0050c2b1f7246b1b",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -54,33 +30,8 @@
               "icon": "lucide-file",
               "title": "20250830-python-tutorial-(5)-mitmproxy"
             }
-          },
-          {
-            "id": "d369135550ee37e3",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "_posts/20250831-wpf-tutorial-drag-drop.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": true,
-                "backlinkOpts": {
-                  "collapseAll": false,
-                  "extraContext": false,
-                  "sortOrder": "alphabetical",
-                  "showSearch": false,
-                  "searchQuery": "",
-                  "backlinkCollapsed": false,
-                  "unlinkedCollapsed": true
-                }
-              },
-              "icon": "lucide-file",
-              "title": "20250831-wpf-tutorial-drag-drop"
-            }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
@@ -182,13 +133,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_posts/20250831-wpf-tutorial-drag-drop.md",
+                "file": "_posts/20250830-python-tutorial-(5)-mitmproxy.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 20250831-wpf-tutorial-drag-drop"
+              "title": "Outline of 20250830-python-tutorial-(5)-mitmproxy"
             }
           },
           {
@@ -229,44 +180,44 @@
       "obsidian-regex-pipeline:Regex Rulesets": false
     }
   },
-  "active": "d369135550ee37e3",
+  "active": "0050c2b1f7246b1b",
   "lastOpenFiles": [
+    "images/posts/20250918-7.jpeg",
+    "images/posts/20250918-6.jpeg",
+    "images/posts/20250918-5.jpeg",
+    "images/posts/20250918-4.jpeg",
+    "images/posts/20250918-3.jpeg",
+    "images/posts/20250918-2.jpeg",
+    "images/posts/20250918-1.jpeg",
+    "images/posts/20250918.jpeg",
+    "_posts/2025-07-22-text-to-speech TTS Azure Google.md",
+    "_posts/2025-08-07-text-to-speech TTS Tips.md",
+    "_posts/20250909-python-tutorial-(7)-video.md",
+    "images/posts/20250909-1.jpeg",
+    "images/posts/20250909.jpeg",
+    "_posts/20250831-wpf-tutorial-drag-drop.md",
+    "_posts/20250824-python-tutorial-(3)-image.md",
+    "_posts/20250824-python-tutorial-(2)-programming.md",
+    "_posts/20250824-python-tutorial-(1)-basics.md",
+    "_posts/20250824-python-tutorial-(4)-csharp.md",
+    "_posts/20250830-python-tutorial-(6)-windows.md",
+    "_posts/20250830-python-tutorial-(5)-mitmproxy.md",
+    "_drafts/20250830-Fiddler-Tutorial.md",
     "images/posts/20250831-13.jpeg",
     "_posts/2025-07-19-WPF-tutorial-11-MaterialDesignInXamlToolkit.md",
-    "_posts/20250831-wpf-tutorial-drag-drop.md",
     "_drafts/20250830-Named-Pipe-Tutorial.md",
     "_posts/2025-08-31-Magick.NET.md",
-    "_drafts/20250830-Fiddler-Tutorial.md",
-    "images/posts/20250831-12.jpeg",
-    "_posts/20250830-python-tutorial-(5)-mitmproxy.md",
     "Untitled 2.md",
     "_posts/2025-08-31-winget-tutorial.md",
-    "images/posts/20250831-11.jpeg",
-    "images/posts/20250831-10.jpeg",
-    "images/posts/Pasted image 20250831022722.png",
-    "images/posts/20250831-9.jpeg",
-    "images/posts/20250831-9.jpeg",
-    "images/posts/20250831-8.jpeg",
-    "images/posts/20250831-7.jpeg",
-    "images/posts/20250831-6.jpeg",
-    "images/posts/20250831-5.jpeg",
     "URL.md",
     "().md",
-    "_posts/20250824-python-tutorial-(1)-basics.md",
     "test/InsertImage.md",
     "test/aa.md",
-    "_posts/20250830-python-tutorial-(6)-windows.md",
     "20180521-authentication-practice.md",
     "Untitled 1.md",
     "_posts/20250824-python-tutorial-(3)-image - Copy.md",
-    "_posts/20250824-python-tutorial-(4)-csharp.md",
-    "_posts/20250824-python-tutorial-(3)-image.md",
-    "_posts/20250824-python-tutorial-(2)-programming.md",
     "_drafts/Untitled.md",
     "_posts/2018-02-11-Entity-Framework-working-with-stored-procedure.md",
-    "20250830-Named-Pipe-Tutorial.md",
-    "_posts/2025-07-22-text-to-speech TTS Azure Google.md",
-    "_posts/2025-08-07-text-to-speech TTS Tips.md",
     "Untitled 5.base",
     "Untitled 4.base",
     "Untitled 3.base",
