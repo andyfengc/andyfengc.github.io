@@ -55,6 +55,7 @@ Azure 的文本转语音（Text to Speech）服务是 Microsoft Azure 认知服�
     
 - 也可以用 Azure CLI 管理语音资源。
 ## 计费方式
+https://azure.microsoft.com/en-ca/pricing/details/cognitive-services/speech-services
 定价模型分为：
 
 - **标准语音（Standard TTS）**：按字符计费，较便宜。
@@ -196,6 +197,70 @@ with open("output.mp3", "wb") as out:
     out.write(response.audio_content)
 
 ```
+# pricings 
+## tts
+### 免费额度一览
+https://azure.microsoft.com/en-ca/pricing/details/cognitive-services/speech-services
+
+| 项目        | Azure TTS           | Google TTS                      |
+| --------- | ------------------- | ------------------------------- |
+| 免费字符配额    | 5,000,000/月（Neural） | 1,000,000/月（Standard + WaveNet） |
+| 免费时间限制    | 一年（绑定免费账户）          | 永久（长期免费层）                       |
+| 账号注册是否送钱  | ✔️ $200（30 天）       | ✔️ $300（90 天）                   |
+| 语音质量（免费层） | Neural（高）           | WaveNet（高）                      |
+## Azure AI Language pricing
+https://azure.microsoft.com/en-us/pricing/details/cognitive-services/language-service/?
+
+| Instance   | Features                                                                                                                                                                                                                                                                                                                                                 | Inferencing  <br>Per 1,000 text records |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
+| Free - Web | Sentiment analysis (available in containers)  <br>Key phrase extraction (available in containers)  <br>Language detection (available in containers)  <br>Custom question answering1  <br>Prebuilt question answering  <br>Named entity recognition (available in containers)  <br>PII detection (available in containers)  <br>Summarization (all types) | 5,000 text records free2 per month      |
+|            | Conversational language understanding  <br>Orchestration workflow                                                                                                                                                                                                                                                                                        |                                         |
+|            | Custom text classification  <br>Custom named entity recognition2                                                                                                                                                                                                                                                                                         |                                         |
+## Azure AI Translator
+https://azure.microsoft.com/en-us/pricing/details/cognitive-services/translator
+F0 - Free
+
+| Features             | Price                                                                                                          |
+| -------------------- | -------------------------------------------------------------------------------------------------------------- |
+| Standard Translation | 2 million characters of any combination of standard translation and custom translation training free per month |
+| Text Translation     |                                                                                                                |
+| Language Detection   |                                                                                                                |
+| Bilingual Dictionary |                                                                                                                |
+| Transliteration      |                                                                                                                |
+| Custom Translation   |                                                                                                                |
+| Training             |                                                                                                                |
+## Azure OpenAI pricing（微软 Azure 托管 OpenAI 模型）
+https://azure.microsoft.com/en-us/pricing/details/cognitive-services/openai-service/
+
+Azure OpenAI （与 OpenAI 官方一致）是 **按 token 计费**，而不是“每次调用算一次”。  
+解释如下：
+
+|内容类型|计费逻辑|举例说明|
+|---|---|---|
+|**输入内容**（你发给模型的提示）|按输入 token 数收费|你发 800 个汉字 ≈ 1 000 个 token|
+|**输出内容**（模型生成的结果）|按输出 token 数收费|模型回 400 个汉字 ≈ 500 个 token|
+|**总费用**|输入 + 输出 的 token 数 × 单价|每 1 000 token = 约 750 英文词或 500 汉字|
+|**没有按次计费、没有起步价**|只要调用就计 token|0.5 次 1000 token 不会自动变成整 1 次|
+
+✅ 举例：
+> 你调用 GPT-4-turbo，一次输入 800 字，输出 400 字，  
+> 总共大约 1 500 token。  
+> 如果该模型的价格是 $0.01 / 1 000 token，  
+> 那你这次调用的成本约为 $0.015（1 500 × 0.01 / 1 000）。
+## openai
+https://openai.com/api/pricing
+![](images/posts/20251106.jpeg)
+## Gemini API
+https://ai.google.dev/gemini-api/docs/pricing
+![](images/posts/20251106-1.jpeg)
+https://ai.google.dev/gemini-api/docs/rate-limits#free-tier
+![](images/posts/20251106-2.jpeg)
+
+
+
+
+
+
 # FAQ
 ## 比较一下google，azure的服务
 🔍 Azure vs Google Cloud 对比总表（2025 年版）
@@ -249,15 +314,6 @@ Google 的限制原因：
     
 - 完全本地部署（不上传到云端），考虑用 Coqui TTS 自己训练。
 如你有音频样本，AI可以帮你判断是否适合训练，或者生成一份申请 Azure Custom Voice 的计划书草稿，也可以帮你写好训练数据格式、生成文本对齐、设计脚本等。如果你有目标平台，AI可以具体建议怎么实现。
-## 是否有免费额度
-## 免费额度一览
-
-| 项目        | Azure TTS           | Google TTS                      |
-| --------- | ------------------- | ------------------------------- |
-| 免费字符配额    | 5,000,000/月（Neural） | 1,000,000/月（Standard + WaveNet） |
-| 免费时间限制    | 一年（绑定免费账户）          | 永久（长期免费层）                       |
-| 账号注册是否送钱  | ✔️ $200（30 天）       | ✔️ $300（90 天）                   |
-| 语音质量（免费层） | Neural（高）           | WaveNet（高）                      |
 ## 有没有生成字幕的功能
 是的，**Google Cloud** 和 **Azure** 都提供了 **语音识别（Speech to Text）** 服务，可以将语音内容识别为文字，从而生成**字幕（transcript）**。不过要注意：
 
@@ -581,19 +637,21 @@ python -m aeneas.tools.execute_task \
 | **GuyNeural**   | friendly                                   | friendly                  | chat, cheerful, polite                | hopeful, friendly<br>speed 0.9<br>pitch -5 | 语音自然亲切，情感丰富，故事感强，适合多种故事类型。<br>温暖细腻型（适合温馨浪漫）       |
 | **DavisNeural** | Default                                    | chat,                     | chat, cheerful, ==friendly==          |                                            | 稳重温和，细腻感情，适合悬疑、细节丰富的历史及脑洞故事。<br>深情成熟型（适合催泪或深刻情感）  |
 | Davis Multi     | Default,<br>==Funny==, ==Empathetic king== | ==empathetic==            |                                       | Empathetic                                 |                                                   |
-| Lewis multi     | default                                    |                           |                                       |                                            | 知识性，专业权威                                          |
-| Christopher     | default                                    |                           |                                       |                                            | 知识性，专业权威                                          |
+| Lewis multi     | default                                    |                           |                                       |                                            | 知识性，专业权威，学术味                                      |
+| Christopher     | default                                    |                           |                                       |                                            | 知识性，专业权威。语气平稳                                     |
 | **JasonNeural** |                                            | friendly                  | chat, cheerful,<br>excited            | friendly,                                  | 年轻活泼，适合轻松幽默的脑洞故事和儿童故事，历史故事较轻松。<br>轻松甜蜜型（适合青春喜剧爱情） |
 | **Tony**        | friendly, ==hopeful读中文名字==<br>             | Default, friendly         | chat, polite,<br>cheerful,<br>excited | hopeful,                                   | 成熟沉稳，有磁性，适合悬疑、权威感强的历史和脑洞故事。<br>戏剧浓烈型（适合跌宕爱情）      |
-| Andrew          | Default读中文名字                               | ==Default==               |                                       | default                                    | 有磁性，心灵鸡汤                                          |
+| Andrew          | Default读中文名字                               | ==Default==               |                                       | default                                    | 有磁性，心灵鸡汤。<br>历史八卦                                 |
 | Andrew Multi    | Default                                    | Empathetic                |                                       | **Empathetic speed 0.9**                   |                                                   |
 | Derek mullti    | default                                    | Default, Empathetic       |                                       | empathetic                                 | 偏正统, 自信，知识性                                       |
-| brandon         |                                            |                           |                                       | default                                    |                                                   |
+| brandon         |                                            |                           |                                       | default                                    | 年轻，平和，不抑扬顿挫                                       |
 | steffan multi   |                                            |                           |                                       | defaut, speed 1.1                          | 家常                                                |
 | brian           |                                            |                           |                                       | default, speed 1.1                         | 年轻有感情，适合心灵鸡汤                                      |
 | kai             |                                            | conversation<br>speed 1.1 |                                       | default<br>conversation                    | 家常                                                |
-| samuel multi    | default                                    | default                   |                                       |                                            | 微磁性                                               |
+| samuel multi    | default                                    | default                   |                                       |                                            | 微磁性。<br>历史八卦                                      |
 | ai man          | speed 1.15<br>1.5                          |                           |                                       |                                            |                                                   |
+| 11labs-brian    |                                            |                           |                                       |                                            |                                                   |
+| 11labs-andreas  |                                            |                           |                                       |                                            |                                                   |
 
 - **GuyNeural** 是最“全能”的声音，适合故事感强、情感丰富的讲述。    
 - **DavisNeural** 偏温情悬疑和细腻叙事。    
@@ -601,20 +659,20 @@ python -m aeneas.tools.execute_task \
 - **TonyNeural** 稳重成熟，适合庄重权威类内容。
 #### 英文女
  
-| 语音名称            | 爱情故事                             | 纯情温柔                 | 儿童故事                                                                                                               | 历史故事                 | 技术               | 备注                      |
-| --------------- | -------------------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------ | -------------------- | ---------------- | ----------------------- |
-| **AriaNeural**  | empathetic, polite, hopeful      | Whisper<br>speed -15 | chat, cheerful, polite, narration - professional, newcast casual, friendly<br>speed 0.9<br>pitch -5<br>emotion 1.5 | empathetic           |                  | 明亮富有感情，适合情感丰富的故事。声音略尖   |
-| **JessaNeural** | empathetic, polite, sad          |                      | chat, cheerful                                                                                                     |                      |                  | 温柔细腻，适合浪漫和温馨故事          |
-| **JennyNeural** |                                  | Whisper<br>speed -15 | chat, ==cheerful==<br>speed 0.9<br>pitch -5<br>emotion 1.5                                                         | chat,<br>pitch -5    | chat<br>pitch +5 | 亲切自然，情感均衡，适合大众化故事       |
-| **CoraNeural**  | default<br>2 strong              |                      | chat, cheerful                                                                                                     |                      |                  | 柔和亲和，适合儿童故事和温情爱情故事      |
-| Cora Multi      |                                  |                      |                                                                                                                    | default,<br>pitch -5 |                  |                         |
-| **JaneNeural**  | empathetic, polite, hopeful      |                      | chat, cheerful, ==friendly==                                                                                       |                      |                  | 语音清晰明亮，适合温情和积极向上的故事     |
-| **SaraNeural**  | ==friendly==                     |                      | ==friendly, cheerful==, chat,<br>speed 1.15                                                                        |                      |                  | 温暖柔和，情感细腻，适合细腻爱情故事和儿童故事 |
-| phoebe multi    | ==Empathetic==<br>==1.5 strong== |                      |                                                                                                                    |                      |                  |                         |
-| Serena Multi中性  | Empathetic<br>1.5 strong         |                      |                                                                                                                    |                      |                  |                         |
-| Nancy Mullti    |                                  |                      | Funny                                                                                                              |                      |                  |                         |
-| Sonia英文（英音）     | chat                             |                      |                                                                                                                    | speed1.1             |                  | 高级感、纪录片风格               |
-| serena          |                                  |                      |                                                                                                                    |                      |                  | 更自然，自信                  |
+| 语音名称            | 爱情故事                             | 纯情温柔                 | 儿童故事                                                                                                               | 历史故事                 | 技术               | 备注                                      |
+| --------------- | -------------------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------ | -------------------- | ---------------- | --------------------------------------- |
+| **AriaNeural**  | empathetic, polite, hopeful      | Whisper<br>speed -15 | chat, cheerful, polite, narration - professional, newcast casual, friendly<br>speed 0.9<br>pitch -5<br>emotion 1.5 | empathetic           |                  | 明亮富有感情，适合情感丰富的故事。声音略尖                   |
+| **JessaNeural** | empathetic, polite, sad          |                      | chat, cheerful                                                                                                     |                      |                  | 温柔细腻，适合浪漫和温馨故事                          |
+| **JennyNeural** |                                  | Whisper<br>speed -15 | chat, ==cheerful==<br>speed 0.9<br>pitch -5<br>emotion 1.5                                                         | chat,<br>pitch -5    | chat<br>pitch +5 | 亲切自然，情感均衡，适合大众化故事                       |
+| **CoraNeural**  | default<br>2 strong              |                      | chat, cheerful                                                                                                     |                      |                  | 柔和亲和，适合儿童故事和温情爱情故事                      |
+| Cora Multi      |                                  |                      |                                                                                                                    | default,<br>pitch -5 |                  |                                         |
+| **JaneNeural**  | empathetic, polite, hopeful      |                      | chat, cheerful, ==friendly==                                                                                       |                      |                  | 语音清晰明亮，适合温情和积极向上的故事                     |
+| **SaraNeural**  | ==friendly==                     |                      | ==friendly, cheerful==, chat,<br>speed 1.15                                                                        |                      |                  | 温暖柔和，情感细腻，适合细腻爱情故事和儿童故事。过于温柔，不太适合讲娱乐八卦。 |
+| phoebe multi    | ==Empathetic==<br>==1.5 strong== |                      |                                                                                                                    |                      |                  |                                         |
+| Serena Multi中性  | Empathetic<br>1.5 strong         |                      |                                                                                                                    |                      |                  |                                         |
+| Nancy Mullti    |                                  |                      | Funny                                                                                                              |                      |                  |                                         |
+| Sonia英文（英音）     | chat<br>                         |                      |                                                                                                                    | speed1.1             |                  | 高级感、纪录片风格。讲怀旧                           |
+| serena          |                                  |                      |                                                                                                                    |                      |                  | 更自然，自信                                  |
 
 #### 中文男
  
@@ -653,7 +711,17 @@ python -m aeneas.tools.execute_task \
 | xiaoqiu            |                                 |                              |                                    | default                                                                       | 中年女性，略严肃                  |
 | xiaozhen           |                                 |                              |                                    | 皇家<br>default<br>==serious==,<br>pitch -8<br><br>无奈<br>==sad==<br>pitch<br>-5 |                           |
 | xiaoyi             |                                 |                              | ==cheerful==                       |                                                                               |                           |
- 
+## Azure OpenAI vs. Azure AI Language
+
+| 服务                       | 功能简介                                                                                                                                                                                                                                                                                                                                                       | 使用场景                                                         |
+| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ |
+| **Azure OpenAI Service** | • 文本生成／对话（例如“写文章”、“写营销文案”、“聊天机器人”）• 支持大语言模型（GPT 系列）及嵌入向量、代码生成、图像‑文本等多模态模型。 ([TECHCOMMUNITY.MICROSOFT.COM](https://techcommunity.microsoft.com/t5/ai-azure-ai-services/azure-openai-service-features-overview-and-key-concepts/td-p/4055150?utm_source=chatgpt.com "Azure OpenAI Service - Features Overview and Key Concepts \| Microsoft Community Hub")) | • 营销、内容创作、对话机器人、知识助手• 复杂任务：如“从提示生成较长文稿”或“根据上下文进行多回合对话”       |
+| **Azure AI Language**    | • 文本理解类型任务：实体识别、意图识别、摘要、语言检测、情感分析、定制问答、对话理解等。 ([Microsoft Azure](https://azure.microsoft.com/en-ca/products/ai-services/ai-language?utm_source=chatgpt.com "Azure AI Language \| Microsoft Azure"))                                                                                                                                                        | • 分析文本数据（例如客户评论分析、文档摘要）• 构建基于意图识别的机器人或问答系统• 语言理解优先，生成需求较少的场景 |
+ - 如果你的需求是 **“生成”** / “撰写” / “聊天 / 对话” / “创作” 比较强：优先考虑 Azure OpenAI Service。它在生成方面能力更强。
+    
+- 如果你的需求是 **“理解”** / “分析” / “从文本里提取结构化信息” / “分类/识别” ：Azure AI Language 是更合适且通常成本更低。
+    
+- 两者也可以 **结合使用**：例如先用 Azure AI Language 做 “摘要+实体识别”，然后用 Azure OpenAI Service 做 “基于分析结果生成文案”。
 # References 
 
 [Google Speech-to-Text](https://cloud.google.com/speech-to-text/docs?hl=zh-cn)

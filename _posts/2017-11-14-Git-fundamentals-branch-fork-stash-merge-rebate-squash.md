@@ -3,10 +3,8 @@ layout: post
 title:  Git fundamentals - branch, fork, stash, merge, rebate, squash
 author: Andy Feng
 ---
-
 This article introduces Git fundamental knowledge including branch, fork, stash, merge, rebate. It explains major conceptions of Git branching model and workflow for each commands.  These commands are required for next posting - best practice for team development via Git.
-
-## Outline ##
+# Outline 
 
 1. Basic commands review
 	- set up git
@@ -33,7 +31,7 @@ This article introduces Git fundamental knowledge including branch, fork, stash,
 
 1. Merge, Rebate, Squash
 
-## Basic commands review ##
+# Basic commands review 
 
 This is the git model:
 
@@ -49,7 +47,7 @@ This is the git model:
 
 Here are some basic Git commands:
 
-### Setup git ###
+## Setup git ##
 
 **display git configuration**
 
@@ -65,7 +63,7 @@ Here are some basic Git commands:
 
 `git config [--global] user.email "andy@email.com"`
 
-### Create local git repository ###
+## Create local git repository ##
 
 **Setup new git repository**
 
@@ -104,7 +102,7 @@ Here are some basic Git commands:
 
 `git branch --set-upstream-to origin/master master`
 
-### Stage files to Index ###
+## Stage files to Index ##
 
 **stage specified files**
 
@@ -124,7 +122,7 @@ Here are some basic Git commands:
 
 `git rm [file1] [file2]...`
 
-### Commit files to local repository ###
+## Commit files to local repository ##
 
 **commit all staged files to local repository**
 
@@ -159,7 +157,7 @@ e.g. `git pull origin master`
 
 `git push <remote-branch> --all`
 
-### Display git information ###
+## Display git information ##
 
 **Display all changed files before commit to local repository**
 
@@ -254,9 +252,8 @@ switch the repo to the master branch: `git checkout master`
 pull the latest commits: `git fetch origin`
 
 reset the repo's local copy of master branch to match the latest version: `git reset --hard origin/master`
-
-## Branch ##
-### Introduction ###
+# Branch #
+## Introduction ##
 A branch represents an independent line of development. When a git repository is created, a default master branch is created. We can create new branches anytime.
 
 In Git, branch is a part of our everyday development process. When we want to add a new feature or fix a bug — no matter how big or how small — we spawn a new dedicated branch to encapsulate our changes. Then, we clean up the feature’s history before merging it into the main branch. 
@@ -277,38 +274,42 @@ Here are some common commands:
 
 `git branch -r`
 
-**List all local and remote branches **
+**List all local and remote branches**
 
 `git branch -a`
 
-**Create a new branch called <branch>. This does not check out the new branch.**
+Create a new branch called `<branch>`. This does not check out the new branch.
 
-`git branch <new-branch>`
+```
+git branch `<new-branch>
+```
 
-**Switch to another branch**
+Switch to another branch
+```
+git checkout <existing-branch>
+```
 
-`git checkout <existing-branch>`
-
-**Create and switch to another branch**
-
-`git checkout -b <new-branch>`
-
-> -b flag tells Git to create the branch if it doesn’t already exist.
+Create and switch to another branch
+```
+git checkout -b <new-branch>
+```
+-b flag tells Git to create the branch if it doesn’t already exist.
 
 **Delete a branch**
+```
+git branch -d <branch>
+```
+This is a "safe" operation in that Git prevents you from deleting the branch if it has unmerged changes.
 
-`git branch -d <branch>`
+```
+git branch -D <branch>
+```
+This is a "force" delete operation and it will permanently delete the specified branch, even if it has unmerged changes.
 
-> This is a "safe" operation in that Git prevents you from deleting the branch if it has unmerged changes.
-
-`git branch -D <branch>`
-
-> This is a "force" delete operation and it will permanently delete the specified branch, even if it has unmerged changes.
-
-**Rename the current branch to another name <new-branch>.**
-
-`git branch -m <new-branch>`
-
+Rename the current branch to another name `<new-branch>`.
+```
+git branch -m <new-branch>
+```
 **push a branch to remote server**
 
 push a branch to remote server
@@ -323,7 +324,7 @@ push "master" branch to remote server
 
 `git push origin --delete [branch-name]`
 
-### Workflow ###
+## Workflow ##
 
 Here is how Git branching model works:
 
@@ -355,53 +356,83 @@ Here is how Git branching model works:
 
 	`git branch -d <branch>`
 
-## Fork ##
-### Introduction ###
+# Fork #
+## Introduction ##
 Fork represents a complete copy of a repository. It creates a complete server-side repository copied from the original repository and allows us to freely experiment with changes without affecting the original project. 
 
 There are tons of public repositories over Internet. Usually, we are not the direct contributors. Fork offers an opportunity for us to engage in contribution. Fork allows us to clone these public repositories and create our own server-side repositories from them. Then, we can work on forked repositories exactly like we contribute our own repositories. Later on, we can initiate pull requests to original repositories and notify the owners to accept our contributions. Overall, fork allows the maintainer to accept commits from any developer without giving them write access to the official codebase.
 
 ![](/images/posts/20171109-git-2.png)
+>> In forking workflow, the original repository is typically named **upstream** and runs independently. The forked repository (typically named **origin**) and local cloned copy is runs independently too. 
+> **origin** 和 **upstream** 并不是 Git 软件本身的硬性规定，而是 GitHub 社区多年来形成的**约定俗成（Convention）的标准命称**。Git 允许你起任何名字，但全世界的程序员都默认用这两个词。
+> origin - 指向**你自己的** GitHub 仓库地址。当你git clone时的远程地址.
+> upstream - 指向**原作者（官方）**的源码仓库地址。需要你手动添加（`git remote add upstream ...`） 
 
-In forking workflow, the original repository is typically named **upstream** and runs independently. The forked repository (typically named **origin**) and local cloned copy is runs independently too. 
+基本流程：
+Fork 官方仓库 → 本地独立分支开发 → 通过 upstream 同步更新 → 合并到自定义分支
 
-Here are some common commands:
-
-**clone a fork**
-
-`git clone https://user@bitbucket.org/user/official-repo.git`
-
-However, this command has to be executed in the developer's server side or via Github/Bitbucket's API on command line.
-
-Usually, we make a fork via the fork button of the project and it is quicker and easier
-
+1. First, we make a fork via the fork button of the project.
 ![](/images/posts/20171109-git-3.png)
+这会在你自己的账号下创建一个完全一样的仓库副本（Repository）。
 
-**add remote upstream point**
+2. 将**你自己的**那个远程副本克隆到本地电脑上：
+```
+git clone https://github.com/你的用户名/项目名.git
+```
 
-`git remote add upstream https://bitbucket.org/maintainer/official-repo`
-
+3. 添加上游仓库（Upstream），重要！
+此时，你的本地仓库只认识你自己的 GitHub 副本（通常叫 `origin`）。你需要告诉它原作者的地址（通常叫 `upstream`）：
+```
+# 添加原作者的仓库作为上游 
+git remote add upstream https://github.com/原作者/项目名.git 
+```
 > Whereas a regular Git workflow uses a single **origin** remote that points to the central repository, the Forking Workflow requires two remotes — one for the official repository(typically called **upstream**), and one for the developer’s personal server-side repository(typically called **origin**). 
 
 if our upstream repository has authentication enabled (i.e., it's not open source), we will need to supply a username
-
 `git remote add upstream https://user@bitbucket.org/maintainer/official-repo.git`
-
 This requires users to supply a valid password before cloning or pulling from the official codebase.
 
-**making & pushing changes**
+检查
+```
+git remote -v
+```
+你应该看到：
+```
+origin    https://github.com/你的用户名/项目名.git
+upstream  https://github.com/原作者/项目名.git
+```
 
-In the developer's local copy of the forked repository we can edit code, commit changes, and create branches just like in usual Git workflows:
+4. 本地修改与使用
+你可以直接在 `main` 分支修改，但**最佳实践**是创建一个新分支：
+```
+git checkout -b my-feature
+# 修改代码...
+git add .
+git commit -m "My custom changes"
+```
 
-create a new branch: `git checkout -b some-feature`
+5. 同步原作者的更新. 当你发现原作者更新了代码，你想合并进来时：
+```
+# 1. 获取原作者的所有更新
+git fetch upstream
+or
+git pull upstream main
 
-edit some code: `git commit -a -m "Add first draft of some feature"`
+# 2. 确保你在自己的主分支上
+git checkout main
 
-push to forked repository: `git push origin`
+# 3. 合并原作者的更新到本地
+git merge upstream/main
 
-**Grab new updates from official repo**
+# 4. 如果你想让你的自定义分支也更新，切换回去合并 main. 如果有冲突，手动解决
+git checkout my-feature
+git merge main
+```
 
-`git pull upstream master`
+（可选）推送到你自己的 GitHub
+```
+git push origin my-feature
+```
 
 **make a pull request**
 Once a developer is ready to share a new feature, we need to do two things.

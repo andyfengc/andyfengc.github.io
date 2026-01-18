@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "0a58a154e255a3af",
+        "id": "868dafd15518ede3",
         "type": "tabs",
         "children": [
           {
-            "id": "0050c2b1f7246b1b",
+            "id": "3131c5002d020e03",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/2025-07-22-text-to-speech TTS Azure Google.md",
+                "file": "_posts/2017-11-14-Git-fundamentals-branch-fork-stash-merge-rebate-squash.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "2025-07-22-text-to-speech TTS Azure Google"
+              "title": "2017-11-14-Git-fundamentals-branch-fork-stash-merge-rebate-squash"
             }
           }
         ]
@@ -88,7 +88,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 361.5026054382324
+    "width": 287.5026054382324
   },
   "right": {
     "id": "eb0d77954a5af90c",
@@ -119,8 +119,8 @@
               "type": "tag",
               "state": {
                 "sortOrder": "frequency",
-                "useHierarchy": true,
-                "showSearch": true,
+                "useHierarchy": false,
+                "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-tags",
@@ -133,13 +133,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_posts/2025-07-22-text-to-speech TTS Azure Google.md",
+                "file": "_drafts/20260113-Avalonia-tutorial.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 2025-07-22-text-to-speech TTS Azure Google"
+              "title": "Outline of 20260113-Avalonia-tutorial"
             }
           },
           {
@@ -162,7 +162,7 @@
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -180,53 +180,53 @@
       "obsidian-regex-pipeline:Regex Rulesets": false
     }
   },
-  "active": "0050c2b1f7246b1b",
+  "active": "7629a28b1ef6e2d9",
   "lastOpenFiles": [
-    "_posts/2025-08-07-text-to-speech TTS Tips.md",
-    "_posts/20250830-python-tutorial-(5)-mitmproxy.md",
-    "images/posts/20250918-7.jpeg",
-    "images/posts/20250918-6.jpeg",
-    "images/posts/20250918-5.jpeg",
-    "images/posts/20250918-4.jpeg",
-    "images/posts/20250918-3.jpeg",
-    "images/posts/20250918-2.jpeg",
-    "images/posts/20250918-1.jpeg",
-    "images/posts/20250918.jpeg",
-    "_posts/2025-07-22-text-to-speech TTS Azure Google.md",
-    "_posts/20250909-python-tutorial-(7)-video.md",
-    "images/posts/20250909-1.jpeg",
-    "images/posts/20250909.jpeg",
-    "_posts/20250831-wpf-tutorial-drag-drop.md",
-    "_posts/20250824-python-tutorial-(3)-image.md",
-    "_posts/20250824-python-tutorial-(2)-programming.md",
-    "_posts/20250824-python-tutorial-(1)-basics.md",
-    "_posts/20250824-python-tutorial-(4)-csharp.md",
-    "_posts/20250830-python-tutorial-(6)-windows.md",
-    "_drafts/20250830-Fiddler-Tutorial.md",
-    "_posts/2025-07-19-WPF-tutorial-11-MaterialDesignInXamlToolkit.md",
-    "_drafts/20250830-Named-Pipe-Tutorial.md",
-    "_posts/2025-08-31-Magick.NET.md",
-    "Untitled 2.md",
-    "_posts/2025-08-31-winget-tutorial.md",
-    "URL.md",
-    "().md",
-    "test/InsertImage.md",
-    "test/aa.md",
-    "20180521-authentication-practice.md",
-    "Untitled 1.md",
-    "_posts/20250824-python-tutorial-(3)-image - Copy.md",
-    "_drafts/Untitled.md",
-    "_posts/2018-02-11-Entity-Framework-working-with-stored-procedure.md",
+    "Untitled 7.base",
+    "_posts/2017-11-14-Git-fundamentals-branch-fork-stash-merge-rebate-squash.md",
+    "_posts/2025-06-26-WPF-tutorial-1-Basics.md",
+    "_drafts/20251003-subtitles-ass.md",
+    "_posts/2024-07-08-Toronto-Hydro-Cost.md",
+    "_posts/2017-11-16-Git-best-practice.md",
+    "_posts/2025-07-08-PropertyGrid-Tutorial.md",
+    "_posts/2025-07-14-DI-Scope-Tutorial.md",
+    "_posts/2025-07-18-.NET-Logging-Serilog-Tutorial.md",
+    "_posts/2025-12-12-同步方法-调用异步方法.md",
+    "_posts/20260106-.net validation校验方案.md",
+    "_drafts/20260113-Avalonia-tutorial.md",
+    "images/posts/20260113-4.jpeg",
+    "images/posts/20260113-3.jpeg",
+    "images/posts/20260113-2.jpeg",
+    "images/posts/20260113-1.jpeg",
+    "images/posts/20260113.jpeg",
+    "_drafts/20260102-.net-desktop-secure-encrypt.md",
+    "_drafts/20260112-.net-version-management.md",
+    "_posts/2025-06-27-WPF-tutorial-5-NET-Community-Toolkit.md",
+    "_drafts/c# regular expression tutorial.md",
+    "_drafts/20250830-ImageMagick-tutorial.md",
+    "_drafts/20250831-Magick.NET.md",
+    "_posts/2025-06-27-WPF-tutorial-4-MVVM.md",
+    "_posts/2025-06-27-WPF-tutorial-3-UI.md",
+    "_posts/2025-06-27-WPF-tutorial-7-Prism.md",
+    "_drafts/20251210-ASP.NET-Configuration-Tutorial.md",
+    "_drafts/20251209-dotnet-package-version-management.md",
+    "_drafts/20260101-template-engine-tutorial.md",
+    "_drafts/20251126-AutoMapper-Tutorial.md",
+    "_drafts/ReactJS tutorial - 7 redux.md",
+    "images/posts/20251219-3.jpeg",
+    "images/posts/20251219-2.jpeg",
+    "images/posts/20251219-1.jpeg",
+    "images/posts/20251219.jpeg",
+    "images/posts/20251214.jpeg",
+    "Untitled 6.base",
     "Untitled 5.base",
     "Untitled 4.base",
+    "Untitled.base",
     "Untitled 3.base",
-    "Untitled 1.base",
     "Untitled 2.base",
+    "Untitled 1.base",
     "regex-rulesets/fix-image-paths.txt",
     "/regex-rulesets/index.txt",
-    "/regex-rulesets/test",
-    "regex-rulesets/test",
-    "/regex-rulesets",
     "Untitled 1.canvas",
     "Untitled.canvas"
   ]

@@ -60,14 +60,14 @@ dotnet add package CommunityToolkit.Mvvm
 | `CommunityToolkit.WinUI`           | 针对 WinUI 的 UI 扩展和控件（适用于 WinUI 项目）               |
 MVVM Toolkit 核心功能
 
-|功能|用法例子|
-|---|---|
-|自动实现属性通知|`[ObservableProperty] string name;` → 自动生成属性和通知|
-|自动生成命令|`[RelayCommand] void Save()` → 自动生成 `SaveCommand`|
-|异步命令支持|`[RelayCommand] async Task LoadAsync()`|
-|属性变化通知关系|`[NotifyPropertyChangedFor(nameof(IsValid))]`|
-|ViewModel 基类|`ObservableObject`, `ObservableRecipient`, `ObservableValidator`|
-|消息通信（解耦）|`IMessenger`, `WeakReferenceMessenger`|
+| 功能           | 用法例子                                                             |
+| ------------ | ---------------------------------------------------------------- |
+| 自动实现属性通知     | `[ObservableProperty] string name;` → 自动生成属性和通知                  |
+| 自动生成命令       | `[RelayCommand] void Save()` → 自动生成 `SaveCommand`                |
+| 异步命令支持       | `[RelayCommand] async Task LoadAsync()`                          |
+| 属性变化通知关系     | `[NotifyPropertyChangedFor(nameof(IsValid))]`                    |
+| ViewModel 基类 | `ObservableObject`, `ObservableRecipient`, `ObservableValidator` |
+| 消息通信（解耦）     | `IMessenger`, `WeakReferenceMessenger`                           |
 ## 代码生成器Source Generator
 **代码生成器的核心目的**
 
@@ -232,7 +232,132 @@ private bool CanSubmit()
 | `SayHello()`      | `SayHelloCommand`      |
 | `LoadDataAsync()` | `LoadDataAsyncCommand` |
 | `Fetch(id)`       | `FetchCommand`         |
+# ObservableValidator
+**`ObservableValidator`** 是处理数据校验的核心基石。它实现了**`INotifyDataErrorInfo`** 接口，并原生支持 **`DataAnnotations`**。
+ObservableValidator是一个基类（继承自 `ObservableObject`），专门用于需要验证逻辑的 ViewModel。
+没有它，你要：
+- 手写 `INotifyDataErrorInfo    
+- 手写 `IDataErrorInfo`    
+- 手动调用 `Validator.TryValidateObject
+用了它以后：
+✅ ViewModel 直接加 `[Required]`  
+✅ 自动实现 `INotifyDataErrorInfo`  
+✅ WPF 自动红框  
+✅ 命令前统一校验  
+✅ 支持跨属性校验
 
+用法，view model继承ObservableValidator，直接在属性上打标签，并在 Setter 中调用校验方法(可选，如果想实时验证)：
+```csharp
+using CommunityToolkit.Mvvm.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+
+public class RegistrationViewModel : ObservableValidator
+{
+    private string _username;
+
+    [Required(ErrorMessage = "用户名不能为空")]
+    [MinLength(3, ErrorMessage = "用户名至少3个字符")]
+    public string Username
+    {
+        get => _username;
+        set => SetProperty(ref _username, value, true); // 这里的 true 表示：值改变时立即校验
+    }
+}
+```
+**注意：** `SetProperty` 的第三个参数 `validate: true` 是关键。如果不传，校验就不会自动触发。
+
+ObservableValidator 不会自动校验所有属性, 你必须在保存前调用手动触发全局校验
+```csharp
+public void Save()
+{
+    // 强制校验当前对象的所有属性
+    ValidateAllProperties();
+
+    if (HasErrors)
+    {
+        // 处理错误信息
+        //var allErrors = GetErrors(); 
+	    //...
+	    return;
+    }
+    
+    // 保存逻辑...
+}
+```
+
+跨属性校验（IValidatableObject）
+```csharp
+public partial class ChannelAddViewModel :
+    ObservableValidator,
+    IValidatableObject
+{
+    public IEnumerable<ValidationResult> Validate(ValidationContext context)
+    {
+        if (!string.IsNullOrEmpty(Direction) && string.IsNullOrEmpty(Style))
+        {
+            yield return new ValidationResult(
+                "填写方向后必须填写风格",
+                new[] { nameof(Style) }
+            );
+        }
+    }
+}
+```
+必须在 `ValidateAllProperties()` 时才会触发
+
+自定义验证逻辑（替代 FluentValidation 的一种方式）
+你可以定义一个私有方法作为验证器：
+```csharp
+[CustomValidation(typeof(RegistrationViewModel), nameof(ValidateUniqueName))]
+public string Username { ... }
+
+public static ValidationResult ValidateUniqueName(string name, ValidationContext context)
+{
+    // 这里可以执行复杂的逻辑，甚至模拟同步冲突检查
+    bool isExist = false; // 假设去数据库查了
+    return isExist 
+        ? new ValidationResult("该名称已存在") 
+        : ValidationResult.Success;
+}
+```
+如果你觉得 DataAnnotations 无法满足需求（例如：需要调用 API 查重），你可以利用 `ObservableValidator` 手动添加错误：
+```csharp
+[RelayCommand]
+private async Task Save()
+{
+    ValidateAllProperties();
+    
+    // 手动添加一个自定义业务错误
+    if (await _channelService.CheckNameExists(Name))
+    {
+        AddEntityError(nameof(Name), "数据库中已存在同名频道");
+    }
+
+    if (HasErrors) return;
+    
+    // 执行同步...
+}```
+前端 XAML 开启校验开关
+```xml
+<TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+
+<TextBox
+    Text="{Binding Name,
+           UpdateSourceTrigger=PropertyChanged,
+           ValidatesOnNotifyDataErrors=True,
+           NotifyOnValidationError=True}" />
+
+<TextBlock Foreground="Red"
+           Text="{Binding (Validation.Errors)[0].ErrorContent,
+                          RelativeSource={RelativeSource PreviousData}}" />
+
+```
+
+混合架构用法 **“Data Annotations + FluentValidation + business logic”**，你可以这样组织代码：
+
+1. **基础规则**：在 DTO 上写 `[Required]`。    
+2. **UI 自动反馈**：ViewModel 继承 `ObservableValidator`，利用 `SetProperty(..., true)`。    
+3. **business logic 集成**：在 logic 执行前，调用 ViewModel 的 `ValidateAllProperties()`。如果发现 `HasErrors` 为 true，直接拦截业务请求。
 # 实例
 一个简单的 WPF MVVM 例子，功能是一个文本输入框和一个按钮，点击按钮后弹出输入内容的消息框。
 - 一个 TextBox 双向绑定 `UserInput` 属性    

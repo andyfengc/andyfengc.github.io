@@ -46,6 +46,27 @@ C#5.0之后推出了async和await关键词:
 Task与async/await关键词两者的结合使用，让Asynchronous Programming能够在Synchronous代码的基础快速改写完成，换言之，就是简单易用。
 
 # CancellationToken
+当你调用一个 async 方法时，有时你可能需要：
+- 用户关闭界面    
+- 请求超时    
+- 程序主动取消某个耗时任务    
+
+此时就需要 **CancellationToken** 来通知正在执行的任务：“停下，不要继续了”。
+如果异步操作支持取消，它会抛出一个：
+```
+OperationCanceledException
+```
+表示任务已经被安全取消。
+
+`CancellationToken` 机制涉及三个核心组件：
+1. **`CancellationTokenSource`：** 这是一个**负责发出取消信号**的类。    
+    - 通过调用 `CancellationTokenSource.Cancel()` 方法，可以向所有与该 Source 关联的 Token 发出信号。
+        
+2. **`CancellationToken`：** 这是**接收取消信号**的结构体。    
+    - 它是通过 `CancellationTokenSource.Token` 属性获取的，并传递给异步方法。它有一个关键属性 `IsCancellationRequested`。
+        
+3. **异步方法/任务：** 接收到 `CancellationToken` 后，它会**定期检查**令牌状态或将令牌传递给更底层的操作（如数据库查询、HTTP 请求），以便在收到取消信号时停止工作。
+
 在《Entity Framework Core Cookbook》中指出：
 
 > **All** asynchronous methods take **an optional CancellationToken parameter**. This parameter, when supplied, provides a way for the caller method to cancel the asynchronous execution.
@@ -59,58 +80,58 @@ Task与async/await关键词两者的结合使用，让Asynchronous Programming�
 
 常用方法
 
-	```csharp
-	Token属性
-	//取消后执行的回调委托(cancel event hander)，这里面还有一些override
-	public CancellationTokenRegistration Register(Action callback);
-	//取消
-	Cannel()
-	//延迟取消
-	CancelAfter(long milliseconds)
-	//判断是否已经取消 
-	public bool IsCancellationRequested { get; } 
-	//取消的话就抛出一个异常 
-	public void ThrowIfCancellationRequested();
-	```
+```csharp
+Token属性
+//取消后执行的回调委托(cancel event hander)，这里面还有一些override
+public CancellationTokenRegistration Register(Action callback);
+//取消
+Cannel()
+//延迟取消
+CancelAfter(long milliseconds)
+//判断是否已经取消 
+public bool IsCancellationRequested { get; } 
+//取消的话就抛出一个异常 
+public void ThrowIfCancellationRequested();
+```
 
 e.g.
 
-	```csharp
-	    class Program
-	    {
-	        static async Task Main(string[] args)
-	        {
-	            CancellationTokenSource cts = new CancellationTokenSource();
-	            //cts.Cancel() //立即发出取消信号
-	            //3秒后发出取消信号，模拟取消行为
-	            cts.CancelAfter(3000);
-	            Console.WriteLine("下载开始");
-	            await DownloadAsync(cts.Token);
-	            Console.ReadKey();
-	        }
-	
-	        static async Task DownloadAsync(CancellationToken ct)
-	        {
-	            using (HttpClient client = new HttpClient())
-	            {
-	                //模拟一个比较耗时的下载的过程
-	                for (int i = 0; i < 30; i++)
-	                {
-	                    string s = await client.GetStringAsync("https://kfm.ink");
-	                    Console.WriteLine(s);
-	
-	                    //ct.ThrowIfCancellationRequested();//直接抛出异常
-	                    //判断是否需要取消，并自行处理
-	                    if (ct.IsCancellationRequested)
-	                    {
-	                        Console.WriteLine("下载取消");
-	                        break;
-	                    }
-	                }                
-	            }
-	        }
-	    }
-	```
+```csharp
+class Program
+{
+	static async Task Main(string[] args)
+	{
+		CancellationTokenSource cts = new CancellationTokenSource();
+		//cts.Cancel() //立即发出取消信号
+		//3秒后发出取消信号，模拟取消行为
+		cts.CancelAfter(3000);
+		Console.WriteLine("下载开始");
+		await DownloadAsync(cts.Token);
+		Console.ReadKey();
+	}
+
+	static async Task DownloadAsync(CancellationToken ct)
+	{
+		using (HttpClient client = new HttpClient())
+		{
+			//模拟一个比较耗时的下载的过程
+			for (int i = 0; i < 30; i++)
+			{
+				string s = await client.GetStringAsync("https://kfm.ink");
+				Console.WriteLine(s);
+
+				//ct.ThrowIfCancellationRequested();//直接抛出异常
+				//判断是否需要取消，并自行处理
+				if (ct.IsCancellationRequested)
+				{
+					Console.WriteLine("下载取消");
+					break;
+				}
+			}                
+		}
+	}
+}
+```
 
 e.g v1.
 

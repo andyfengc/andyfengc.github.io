@@ -3,7 +3,6 @@ layout: post
 title: Cache Tutorial
 author: Andy Feng
 ---
-
 # Introduction #
 C# regular expression is used for pattern matching in C# applications. Regular expressions are a pattern matching standard for string parsing and replacement and is a way for a computer user to express how a computer program should look for a specified pattern in text and then what the program is to do when each pattern match is found.
 
@@ -219,7 +218,42 @@ result:
 	or
 
 	`(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])` - 1900-01-01 to 2099-12-31
-
+## Group
+\1` 是 **正则引擎** 的语法（用于匹配内部反向引用）
+$1` 是 **替换字符串** 的语法（用于外层语言的替换）
+## 替换c#注释
+同时删除这两种注释：
+1. `///` 开头的 XML 文档注释（多行）    
+2. `//` 开头的普通单行注释
+**正则表达式（同时删除两种注释）**
+```regex
+^\s*///.*(?:\r?\n\s*///.*)*\r?\n?|^\s*//.*\r?\n?
+```
+**C# 示例代码**
+```csharp
+var result = Regex.Replace(codeText, @"^\s*///.*(?:\r?\n\s*///.*)*\r?\n?|^\s*//.*\r?\n?", string.Empty, RegexOptions.Multiline);
+```
+说明：
+```
+第一部分：  
+`^\s*///.*(?:\r?\n\s*///.*)*\r?\n?`
+➜ 删除以 `///` 开头的多行注释块。
+- `^\s*`：匹配行首的空白。    
+- `///.*`：匹配单行的 C# XML 注释。    
+- `(?:\r?\n\s*///.*)*`：匹配其后连续多行的注释。    
+- `\r?\n?`：删除注释后多余的换行。
+    
+第二部分：  
+`|^\s*//.*\r?\n?`
+➜ 删除普通的单行注释。
+    
+`RegexOptions.Multiline`
+➜ 允许 `^` 和 `$` 匹配每一行的开头和结尾。
+```
+## 替换powershell注释
+```regex
+<#(?:.|\n)*?#>|#.*$|\n{2,}
+```
 # References #
 [Using Regular Expressions in C#](https://regexone.com/references/csharp)
 

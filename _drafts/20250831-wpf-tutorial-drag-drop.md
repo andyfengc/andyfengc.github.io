@@ -505,4 +505,107 @@ public class EditAnswerViewModel : IDropTarget
 ✅ **结论**：
 - 如果你只想拖拽文件到一个控件，逻辑简单，WPF 原生拖拽足够用。    
 - 如果你希望 **MVVM 风格、支持拖拽排序、多文件/文件夹、减少 code-behind**，建议用 **GongSolutions.WPF.DragDrop**。
+### 最好实践
+每个dragdrop事件，创建一个handler，实现IDropTarget
+```csharp
+public class LineListDragDropHandler : IDropTarget
+{
+	public void DragOver(IDropInfo dropInfo)
+	{
+		// 只允许同类型移动
+		if (dropInfo.Data is LineEditViewModel && dropInfo.TargetItem is LineEditViewModel)
+		{
+			dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
+			dropInfo.Effects = DragDropEffects.Move;
+		}
+	}
+
+	public void Drop(IDropInfo dropInfo)
+	{
+		if (dropInfo.Data is LineEditViewModel source && dropInfo.TargetItem is LineEditViewModel target)
+		{
+			var list = LineViewModels; // 注意这里无法访问到view model的属性
+
+			int oldIndex = list.IndexOf(source);
+			int newIndex = dropInfo.InsertIndex;
+
+			if (oldIndex != newIndex)
+			{
+				list.Move(oldIndex, newIndex);
+			}
+		}
+	}
+}
+```
+将 ViewModel（或列表）传进 Handler有几种方法：
+方案 1（推荐）在 DropInfo 中拿到 ItemsControl 的 DataContext
+GongSolutions 的 IDropInfo 有一个强大的字段：`VisualTarget`（触发拖拽的控件）
+你可以这样取 ViewModel：
+```csharp
+public void Drop(IDropInfo dropInfo)
+{
+    // 尝试取得 ItemsControl 的 DataContext（也就是你的主 VM）
+    var vm = (YourViewModelType)((FrameworkElement)dropInfo.VisualTarget).DataContext;
+
+    var list = vm.LineViewModels;
+
+    if (dropInfo.Data is LineEditViewModel source &&
+        dropInfo.TargetItem is LineEditViewModel target)
+    {
+        int oldIndex = list.IndexOf(source);
+        int newIndex = dropInfo.InsertIndex;
+
+        if (oldIndex != newIndex)
+            list.Move(oldIndex, newIndex);
+    }
+}
+```
+方案 2（也很常用）：给 Handler 加一个属性接收 List
+你在 XAML 中这样写：
+```csharp
+<ListBox
+    ItemsSource="{Binding LineViewModels}">
+    <ListBox.Resources>
+        <local:LineListDragDropHandler x:Key="LineDragDropHandler"
+                                       LineViewModels="{Binding LineViewModels}" />
+    </ListBox.Resources>
+</ListBox>
+```
+然后你的 Handler 写成：
+```csharp
+public class LineListDragDropHandler : IDropTarget
+{
+    public ObservableCollection<LineEditViewModel> LineViewModels { get; set; }
+
+    public void Drop(IDropInfo dropInfo)
+    {
+        if (dropInfo.Data is LineEditViewModel source &&
+            dropInfo.TargetItem is LineEditViewModel target)
+        {
+            int oldIndex = LineViewModels.IndexOf(source);
+            int newIndex = dropInfo.InsertIndex;
+
+            if (oldIndex != newIndex)
+                LineViewModels.Move(oldIndex, newIndex);
+        }
+    }
+}
+```
+
+方案 3：构造注入 ViewModel
+```csharp
+public class LineListDragDropHandler : IDropTarget
+{
+    private readonly YourViewModelType _vm;
+
+    public LineListDragDropHandler(YourViewModelType vm)
+    {
+        _vm = vm;
+    }
+}
+```
+不推荐，因为GongSolutions 通常自动创建 Handler，无法直接使用构造函数。
+
+注意：
+不要使用全局静态、不要使用 Service Locator。容易造成内存泄露，容易破坏 MVVM，多个列表都拖拽时无法工作
 # FAQ

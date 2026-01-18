@@ -12,10 +12,10 @@ to watch
 [https://www.youtube.com/watch?v=mlmyFXJy8gQ](https://www.youtube.com/watch?v=mlmyFXJy8gQ)
 [WPF - Responsive UI Design | MVVM | XAML | C# | Tutorial](https://www.youtube.com/watch?v=EfXz4C5cSVI)
 
-[2025-06-27-WPF-tutorial-4-UI](_posts/2025-06-27-WPF-tutorial-4-UI.md)
-[2025-06-27-WPF-tutorial-3-MVVM#^wpf-databinding](_posts/2025-06-27-WPF-tutorial-3-MVVM.md)
+[2025-06-27-WPF-tutorial-3-UI](_posts/2025-06-27-WPF-tutorial-3-UI.md)
+[2025-06-27-WPF-tutorial-3-MVVM#^wpf-databinding](_posts/2025-06-27-WPF-tutorial-4-MVVM.md)
 
-[[_posts/2025-06-27-WPF-tutorial-3-MVVM#^wpf-databinding]]
+[[_posts/2025-06-27-WPF-tutorial-4-MVVM#^wpf-databinding]]
 
 
 # Introduction
@@ -27,7 +27,6 @@ WPF架构
 ![](images/posts/Pasted%20image%2020250626182610.png)
 # Setup
 Microsoft provides two important tools for WPF application development. Both the tools can create WPF projects, but the fact is that Visual Studio is used more by developers, while Blend is used more often by designers.
-
 - Visual Studio
 - Expression Blend
 XAML

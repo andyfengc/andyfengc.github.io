@@ -305,7 +305,8 @@ for example:
 `# for #
 `" for ", c#传值过来用 \`" for "
 `( for (
-\`: for : (仅用于ffmpeg filter)
+\`: for : (仅用于ffmpeg filter，比如fontfile，不支持subtitles)
+\\: for : (仅用于ffmpeg filter，兼容性更好)
 \\% for %
  ``' for ' 或 '' for '
 ```
@@ -577,7 +578,39 @@ if ($process.ExitCode -ne 0) {
 - 由PowerShell的`catch`统一捕获所有异常（无论是PowerShell本身错误，还是ffmpeg错误），    
 - 然后把错误信息和退出码通过统一格式传给C#，    
 - C#统一从PowerShell的输出里解析并处理错误。
+## windows 命令行下面执行乱码
+确保你的 PS1 文件本身是 **UTF-8 无 BOM** 保存
+bat 文件：
+确保你的 BAT 文件本身是 **UTF-8 无 BOM** 保存
 
+开头加：
+```
+@echo off
+chcp 65001
+```
+`chcp 65001` 表示切换到 **UTF-8 代码页**，这样 CMD 能正确显示中文路径和文字。
+
+直接使用 PowerShell 脚本启动 PowerShell 而不是通过 BAT
+
+```
+@echo off
+chcp 65001
+SET "ScriptPath=xxx.ps1"
+SET "INPUT_VIDEOS='xxx.mp4','xxx.mp4'"
+SET "InputVoiceover=xxx.mp3"
+...
+pwsh -NoProfile -ExecutionPolicy Bypass -File "%ScriptPath%" -InputVideos %InputVideos% ...
+```
+- **替换 `powershell` 为 `pwsh`**（PowerShell 7+）。    
+- 仍然保留 `-File`，后面直接跟脚本路径 `%ScriptPath%`。    
+- 所有参数用 **双引号或百分号变量**，保证中文路径和空格安全。    
+- 保留 `chcp 65001`，确保 CMD 输出中文。
+
+visual studio > program.cs
+```
+Console.OutputEncoding = Encoding.UTF8;
+...
+```
 # Reference
 [Introduction to PowerShell](https://learn.microsoft.com/en-us/training/modules/introduction-to-powershell/)
 [Powershell Tutorial](https://www.tutorialspoint.com/powershell/index.htm)

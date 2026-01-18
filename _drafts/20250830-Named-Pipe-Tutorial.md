@@ -25,6 +25,8 @@ Windows
     - **远程管理（WMI, RPC）**；        
     - **SQL Server 客户端/服务端通信**。
 
+Windows 的**命名管道（Named Pipes）**技术在概念上和操作上是**基于文件**的，但在底层数据存储和传输上主要是利用**内存**。
+
 - **本地 Named Pipe**：属于 **操作系统内核 IPC 层（应用层 API 级别的通信抽象）**，不在 OSI 七层模型中。    
 - **远程 Named Pipe（Windows）**：基于 **SMB 协议**，运行在 OSI 模型的 **应用层**，底层依赖 TCP/IP。
 

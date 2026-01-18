@@ -23,10 +23,29 @@
 - 写 Python 脚本模拟/修改流量，做自动化 API Mock。    
 - 作为安全测试工具（检测流量是否被篡改、验证 API 加密等）。
 ## Install
+way1:
 ```
 pip install mitmproxy
 ```
 ![](images/posts/20250830-Fiddler-Tutorial.jpeg)
+
+way2: 直接下载官方**Windows 安装包（免 pip）**
+[https://mitmproxy.org/downloads/](https://mitmproxy.org/downloads/)
+```
+mitmproxy-windows-x64-installer.exe
+```
+安装后直接有：
+- mitmproxy.exe    
+- mitmdump.exe    
+- mitmweb.exe    
+不需要 Python，不需要 pip
+
+安装成功验证
+```
+mitmweb --version
+或
+mitmproxy --version
+```
 # 使用
 常用组件：
 - `mitmproxy` —— 交互式控制台模式, 命令行 UI（类似 Wireshark 的 CLI 界面）。    
@@ -57,7 +76,6 @@ chrome://settings/security > Manage certificates > 查看证书 > installed by y
 6. 进入 **Authorities（证书颁发机构）**    
 7. 点击 **导入**，选择 `mitmproxy-ca-cert.pem`    
 8. 勾选 “信任此 CA 来标识网站” → 确认
-
 ### 安装系统证书:
  正常启动 mitmproxy
 在命令行里运行：
@@ -113,8 +131,6 @@ chrome://settings/security > Manage certificates > 查看证书 > installed by y
 8. 打开 **设置 → 通用 → 描述文件 → 安装**    
 9. 安装完成后，还要到 **设置 → 通用 → 关于本机 → 证书信任设置**    
 10. 勾选刚刚导入的 `mitmproxy` 根证书，启用“完全信任”
-
-
 
 ### 验证是否安装成功
 1. 在目标设备/浏览器上访问 `https://example.com`    
@@ -287,12 +303,72 @@ mitmdump -s script.py
 - 若你偏好轻量部署或内嵌到工具中，**proxy.py 是不错的替代品**。
     
 - 报文级精细控制需求，选 **Scapy**；日志/性能分析则看 **Justniffer**；跨平台 GUI 想尝鲜 Rust，**proxyfor** 值得试试。
-# FAQ
 ## 使用proxifier
+Proxifier = 强制程序走代理的工具
+它本身 不是代理服务器，而是强迫把程序的网络连接 → 转发到代理服务器，让不支持代理的 exe 走代理，还能精确控制“哪个程序走哪个代理”
+
+运行原理
+```
+目标程序 → Proxifier → mitmproxy → 真实网络
+```
+- **Proxifier**：强制某个程序走代理    
+- **mitmproxy**：提供本地代理 + 抓包 / 解密    
+- **浏览器 / App / exe**：被抓对象
+
+配置顺序是相反的：
+提前安装配置好mitmproxy证书，启动 mitmweb（--no-http2）
+```
+mitmweb --listen-host 127.0.0.1 --listen-port 8080 --no-http2
+```
+- 代理地址：`127.0.0.1`    
+- 代理端口：`8080`    
+- Web 管理界面：`http://127.0.0.1:8081`
+
+再启动 Proxifier，配置程序走mitweb的代理端口8080
+
 添加一个proxy server
 ![](images/posts/20250918-4.jpeg)
 点check 进行测试
 ![](images/posts/20250918-5.jpeg)
-添加一个规则
+添加一个app规则，设置为通过https
 ![](images/posts/20250918-6.jpeg)
 ![](images/posts/20250918-7.jpeg)
+![](images/posts/20251214.jpeg)
+
+mitmproxy + proxifier 一键脚本
+```
+@echo off
+echo Starting mitmproxy...
+start "" mitmweb --listen-host 127.0.0.1 --listen-port 8080
+timeout /t 3 >nul
+start "" "C:\Program Files\Proxifier\Proxifier.exe"
+```
+
+最后启动目标程序
+## 怎么reset mitmproxy的所有配置
+在 **Windows** 上，**reset（重置）mitmproxy 的所有配置** 本质上就是：  
+👉 **删除它的配置目录 + 证书 + 插件 + 历史数据**
+
+关闭所有 mitmproxy 进程
+```bat
+taskkill /F /IM mitmproxy.exe
+taskkill /F /IM mitmweb.exe
+taskkill /F /IM mitmdump.exe
+```
+删除配置目录, mitmproxy 的所有配置都在这里👇
+```
+C:\Users\%USERNAME%\.mitmproxy
+```
+- CA 证书    
+- 配置    
+- 脚本    
+- http flows    
+- state
+
+重新启动（自动重建）
+```
+mitmweb
+```
+首次启动会：
+- 自动生成新证书    
+- 重建默认配置

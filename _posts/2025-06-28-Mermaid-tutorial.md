@@ -55,7 +55,7 @@ graph LR
     D --> 数据库
 ```
 ### 例子
-```
+```text
 ---
 title: Node with text
 ---
@@ -76,7 +76,7 @@ define direction of the Flowchart.
 - BT - Bottom to top
 - RL - Right to left
 - LR - Left to right
-```
+```text
 flowchart TD
     Start --hello --> Stop
 ```
@@ -84,7 +84,7 @@ flowchart TD
 flowchart TD
     Start --hello --> Stop
 ```
-```
+```text
 flowchart LR
     Start --> Stop
 ```

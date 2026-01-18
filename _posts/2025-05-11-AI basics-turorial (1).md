@@ -156,3 +156,5 @@ Home decor
 [# 体验完字节所有的 AI 产品，杀手级 AI 应用可能比想象中更远](https://www.geekpark.net/news/336047)
 [ 快手AI](https://www.onetts.com/ai/company/kuaishou/)
 [AI生成图片的软件和网站](https://ai-bot.cn/best-ai-image-generators/)
+【影视解说教程】新人怎么用DeepSeek+剪映做第一人称电影解说 ——影视独白解说剪辑实操
+https://www.bilibili.com/video/BV1VNu4zTEpj
