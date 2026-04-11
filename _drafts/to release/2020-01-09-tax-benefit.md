@@ -3,16 +3,13 @@ layout: post
 title: Tax - Benefit
 author: Andy Feng
 ---
-
 本文主要讨论常见加拿大税务优惠
-
 # Introduction
 - 有娃家庭的税务优惠
 - 公共福利
 - 学生福利
 - 老人的税务优惠
 - 首次购房优惠
-
 # 有娃家庭的税务优惠
 1. 托儿费用减税项目(Child Care Expense Deduction)
 

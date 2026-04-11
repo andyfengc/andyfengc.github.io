@@ -11,5 +11,6 @@
     "downscalePercent": 100
   },
   "alwaysUpdateLinks": true,
-  "newFileFolderPath": "images/posts"
+  "newFileFolderPath": "images/posts",
+  "readableLineLength": false
 }

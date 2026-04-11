@@ -3,29 +3,24 @@ layout: post
 title: nopCommerce tutorial - (3) develop a task
 author: Andy Feng
 ---
-
 # Create a simple task #
 A custom task can be scheduled to run at certain periods. Here are basic steps to create a new task:
-
 1. In Nop.Services > new folder AndyTasks > Create a new task
-
 	Define a class which implements IScheduleTask interface. There is only one method Execute() which will be invoked when the task runs.
 
 	![](/images/posts/20180211-nop-8.png)	
-	
 	Note that in nopCommerce 3.x, the interface is ITask.
 
-1. In database > ScheduleTask table > insert a new record for this new task
-	
+2. In database > ScheduleTask table > insert a new record for this new task	
 	![](/images/posts/20180211-nop-9.png)
 
 	Note that the type format is "project name fullpath + classname, project name"
 
-1. Rebuild and start the web project
+3. Rebuild and start the web project
 
 	![](/images/posts/20180211-nop-4.png)
 
-1. login as admin > administration > system > Schedule tasks, we will find the new task
+4. login as admin > administration > system > Schedule tasks, we will find the new task
 
 	![](/images/posts/20180211-nop-10.png)
 

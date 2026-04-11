@@ -254,6 +254,23 @@ var result = Regex.Replace(codeText, @"^\s*///.*(?:\r?\n\s*///.*)*\r?\n?|^\s*//.
 ```regex
 <#(?:.|\n)*?#>|#.*$|\n{2,}
 ```
+## 替换歌词文件中的时间戳部分
+```
+// lrc
+[02:50.45]给我你的手 在我老去之前
+[02:50.45]Show me what love is haven't got a clue
+
+// srt
+00:02:50,450 --> 00:02:53,100
+
+// ass
+0:02:50.45, 0:02:53.10
+```
+替换：
+```
+(^\d+\s*\r?\n|.*-->.*\r?\n|^Dialogue:.*?,|\[?\d[\d:.,]*\d\]?|<[^>]+>|\{[^}]+\}|^\s*$\r?\n)
+```
+
 # References #
 [Using Regular Expressions in C#](https://regexone.com/references/csharp)
 

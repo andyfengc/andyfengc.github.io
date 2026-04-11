@@ -422,14 +422,29 @@ git pull upstream main
 git checkout main
 
 # 3. 合并原作者的更新到本地
-git merge upstream/main
+git merge upstream main
 
-# 4. 如果你想让你的自定义分支也更新，切换回去合并 main. 如果有冲突，手动解决
+# 将本地更新推送到自己的 fork
+git push origin main
+
+# 4. 切换到自定义分支，合并更新后的主分支. 如果有冲突，手动解决，有2种方法。
+```
+方式 A：merge（保留所有历史）
+```
 git checkout my-feature
 git merge main
 ```
-
-（可选）推送到你自己的 GitHub
+- 会生成一个 merge commit    
+- 可以保留你原来的修改    
+- 如果有冲突，需要手动解决
+方式 B：rebase（线性历史，更干净）
+```
+git checkout local
+git rebase main
+```
+- 会把你的修改“搬到”官方最新提交之后    
+- 历史更直观        
+- Rebase 后，如果你已经推送过 `local` 分支到远程，需要再次推送到你自己的 GitHub (optional)
 ```
 git push origin my-feature
 ```
@@ -449,13 +464,10 @@ Once a developer is ready to share a new feature, we need to do two things.
 
 ### Workflow ###
 Here is how it works:
-
 1. There is an official public repository stored on a server and a new developer wants to start working on the project. 
+	`https://github.com/i0natan/nodebestpractices
 
-	`https://github.com/i0natan/nodebestpractices`
-
-1. A developer **"forks"** this official server-side repository. This creates their own server-side copy. 
-
+2. A developer **"forks"** this official server-side repository. This creates their own server-side copy. 
 	![](/images/posts/20171109-git-3.png)
 	
 	![](/images/posts/20171109-git-4.png)
@@ -464,25 +476,25 @@ Here is how it works:
 
 	After fork, we have our own repository `https://github.com/myusername/nodebestpractices`
 
-1. The developer clones the new server-side copy to their local system.
+3. The developer clones the new server-side copy to their local system.
 	
 	`git clone https://github.com/myusername/nodebestpractices`
 
 	![](/images/posts/20171109-git-6.png)
 
-1. A Git remote path for the "official" repository is added to the local clone. It is a link with the original repo and called **upstream**.
+4. A Git remote path for the "official" repository is added to the local clone. It is a link with the original repo and called **upstream**.
 
 	`git remote add upstream https://github.com/i0natan/nodebestpractices`
 
-1. The developer makes changes on the forked repository as usual.
+5. The developer makes changes on the forked repository as usual.
 
-1. The developer creates new commits for the changes.
+6. The developer creates new commits for the changes.
 
-1. New changes are pushed to the developer's own server-side copy.
+7. New changes are pushed to the developer's own server-side copy.
 
 	![](/images/posts/20171109-git-7.png)
 
-1. The developer opens a **pull request** from the new branch to the "official" repository.
+8. The developer opens a **pull request** from the new branch to the "official" repository.
 
 	![](/images/posts/20171109-git-8.png)
 
@@ -492,11 +504,11 @@ Here is how it works:
 
 	![](/images/posts/20171109-git-10.png)
 
-1. The pull request gets approved for merge and is merged into the original server-side repository.
+9. The pull request gets approved for merge and is merged into the original server-side repository.
 
-1. The contribution is now part of the project, and other developers pull from the official repository to synchronize their local repositories.
+10. The contribution is now part of the project, and other developers pull from the official repository to synchronize their local repositories.
 
-1. The developer constantly grab new updates from "official" repository in order to keep synchronizing with it.
+11. The developer constantly grab new updates from "official" repository in order to keep synchronizing with it.
 
 	`git pull upstream master`
 
@@ -530,8 +542,265 @@ A brief steps of Forking Workflow is:
 1. We then **push** the new feature branch to our remote forked repo
 
 1. We use Git hosting service to open up a **pull request** for the new branch against the original repo
- 
-## Stash ##
+# 从github clone开发，并传到其他代码平台
+fork的目的是为了将来的pull request，合并到原始作者的仓库，做贡献。
+可以自己clone到本地，二次开发，并随时pull合并最新代码。
+## 不fork，直接开始
+最佳实践
+```
+GitHub 官方仓库（upstream）main 分支
+        ↑
+   你的 GitHub fork（可选）
+        ↑
+   本地开发仓库 main(用来merge官方更新) + feature 分支（用来本地开发）
+        ↓
+   私有仓库（origin）e.g. bitbucket
+```
+👉 **私有仓库 才是你的“主仓库”**  
+👉 GitHub 只是“上游代码源”
+首先，clone 官方源码
+```
+git clone https://github.com/official/project.git
+cd project
+```
+添加 GitHub 上游（官方）
+```
+git remote add upstream https://github.com/official/project.git
+```
+把 Bitbucket 作为你的私有主仓库
+```
+git remote add origin https://bitbucket.org/yourname/project.git
+```
+检查：
+```
+git remote -v
+
+origin    bitbucket.org/yourname/project.git (push)
+upstream  github.com/original/project.git (fetch)
+```
+准备工作结束。日常开发流程：
+从 GitHub 拉最新代码，例如官方的主分支叫做master
+```
+# 拉取官方更新
+git fetch upstream
+
+# 合并官方 master 分支
+git merge upstream/master
+或
+git rebase upstream/master
+```
+📌 **rebase 更干净，merge 更安全**  
+📌 二选一即可，不混用
+
+本地二次开发
+```
+git checkout -b feature/your-feature
+# 写代码
+git commit -m "your changes"
+```
+推送到 Bitbucket
+```
+git push origin feature/your-feature
+```
+或合并到你的主分支后再 push：
+```
+git checkout master
+git merge feature/your-feature
+git push origin master
+```
+## 如果已经从github fork，但是想改成自己推送到私有仓库
+从
+```
+origin   → 你的 GitHub fork
+upstream → 官方 GitHub 仓库
+```
+到
+```
+GitHub 官方仓库        → upstream（fetch only）
+Bitbucket 私有仓库     → origin（push / pull）
+GitHub fork（你自己的）→ 可选：github（只在需要 PR 时用）
+```
+先查看现在的 remote
+```
+git remote -v
+
+origin    https://github.com/yourname/project.git (fetch)
+origin    https://github.com/yourname/project.git (push)
+upstream  https://github.com/official/project.git (fetch)
+upstream  https://github.com/official/project.git (push)
+```
+在 Bitbucket 创建一个空仓库（不要 README，不要gitignore ，纯干净）。然后添加它：
+![](images/posts/20260121-4.jpeg)
+![](images/posts/20260121-3.jpeg)
+```
+git remote add bitbucket https://bitbucket.org/yourname/project.git
+
+# 验证：
+git remote -v
+
+bitbucket       https://andyfengc@bitbucket.org/andyfengc/myrepository.git (fetch)
+bitbucket       https://andyfengc@bitbucket.org/andyfengc/myrepository.git (push)
+origin  https://github.com/andyfengc/project (fetch)
+origin  https://github.com/andyfengc/project (push)
+upstream        https://github.com/official/project.git (fetch)
+upstream        https://github.com/official/project.git (push)
+```
+下面，将Bitbucket 设为真正的 origin
+### way1, 断开github的fork。最干净
+```
+# 删除原来的 origin（GitHub fork）
+git remote remove origin
+
+# 把 bitbucket 改名为 origin
+git remote rename bitbucket origin
+# 或者修改远程 origin 指向新仓库
+git remote set-url origin <新仓库的 HTTPS 或 SSH 地址>
+
+# 验证
+git remote -v
+
+origin    bitbucket.org/yourname/project.git (fetch)
+origin    bitbucket.org/yourname/project.git (push)
+upstream  https://github.com/official/project.git (fetch)
+upstream  https://github.com/official/project.git (push)
+```
+### way2 保留 GitHub fork，方便将来提PR
+```
+git remote rename origin github
+git remote rename bitbucket origin
+
+# 验证
+git remote -v
+
+# 最终结构
+origin   → Bitbucket（主仓库）
+upstream → 官方 GitHub
+github   → 你自己的 GitHub fork
+```
+
+把当前代码推送到 Bitbucket（一次性），比如推送master branch到bitbucket
+```
+git push -u origin master
+
+# 如果创建仓库的时候不干净，带着历史，就强制push
+git push -u origin master --force
+```
+📌 这一步之后：
+- Bitbucket 有完整代码    
+- GitHub fork 不再是主仓库
+把自己的定制分支推送到bitbucket
+```
+git push -u origin local
+```
+此时，bitbucket有2个远程branch
+![](images/posts/20260121-7.jpeg)
+本地检查remote
+```
+git remote -v
+
+github  https://github.com/andyfeng/project (fetch)
+github  https://github.com/andyfeng/project (push)
+origin  git@bitbucket.org:andyfeng/myRepository.git (fetch)
+origin  git@bitbucket.org:andyfeng/myRepository.git (push)
+upstream        https://github.com/official/project.git (fetch)
+upstream        https://github.com/official/project.git (push)
+```
+## 以后每天的标准工作流
+不要修改master！让自己的master(main)永远跟官方同步。
+```
+upstream/main    ← 官方源码
+        │
+        ▼
+bitbucket/master ← 只做同步，不开发
+        │
+        ▼
+bitbucket/local ← 你的长期定制分支（主战场）
+        │
+        ├─ feature/xxx
+        ├─ feature/yyy
+        └─ hotfix/zzz
+```
+1. 跟官方同步
+```
+git checkout master
+git fetch upstream
+git merge upstream/master
+或
+git reset --hard upstream/main
+git push origin master --force
+```
+2. 把官方更新同步到自己的开发分支
+```
+git checkout local
+git rebase master
+git push origin local --force-with-lease
+```
+2. 二次开发总是在自己的分支，永远不在master
+```
+git checkout -b feature/xxx
+# coding
+git commit
+```
+3. 推送你的成果
+```
+git push origin feature/xxx
+```
+## 只关心原始代码仓库的特定branch
+nop官方仓库默认的branch是develop，但是有master branch， 我已经clone了代码，但我下载的是develop branch的。但是我只关心master，如何调整？
+查看本地分支
+```
+git branch
+
+# 只看到
+* develop
+  local
+```
+> 本地还没有 master 分支. 说明 master 只存在于远程。
+### way1: 远程有若干分支
+```
+# 查看远程分支
+git branch -r
+
+origin/master
+origin/develop
+...
+```
+从远程拉取master分支，在本地创建并切换到 `master`
+```
+git checkout -b master origin/master
+```
+### way2: fork模式，upstream有若干分支
+```
+# 确保 upstream 是最新的
+git fetch upstream
+
+# 查看远程分支
+git branch -r
+
+origin/develop
+origin/local
+upstream/develop
+upstream/master
+...
+```
+基于 upstream/master 创建本地 master 分支
+```
+git checkout -b master upstream/master
+```
+
+以后只关心 master，删除本地 develop 分支（可选）
+```
+git branch -d develop
+
+# 如果 Git 不让删（提示未合并），你确认不需要：
+git branch -D develop
+```
+设置 `master` 为默认跟踪分支（推荐）
+以后, git pull, git push. 都会默认针对 `master`
+```
+git branch --set-upstream-to=origin/master master
+```
+# Stash #
 ### introduction ###
 
 `Stash` temporarily store changes we have made to your working copy so we can work on something else, and then come back and re-apply these changes later on. stash is a great feature for us to work on multiple branches.
@@ -616,7 +885,7 @@ Clean out the stashing stack
 
 	`git stash clear`
 
-## Merge, Rebase, Squash ##
+# Merge, Rebase, Squash #
 
 In Git, there are two main ways to integrate changes from one branch into another: the merge and the rebase.
 
@@ -671,10 +940,10 @@ In practice, if our team members pushed changes prior you in remote branch. We h
 
 In most cases, we choose `rebase` policy for a clearer git history for code review. 
 
-### Squash ###
+## Squash ##
 Squash option can produce a "squashed" commit. It compress multiple commits into one single commit and simplify git history. Squash is not a command but an option and it is used together with merge or rebate.
 
-#### Merge + Squash ####
+### Merge + Squash ###
 
 e.g. we squash all commits of feature branch and merge to master branch
 
@@ -701,7 +970,9 @@ to
 
 1. enable rebate interactive editing
 
-	`git rebase -i <SHA-1 of commit a>
+```
+git rebase -i <SHA-1 of commit a>
+```
 
 1. edit the instructions to modify b2, b3 from "pick" to "squash"
 
@@ -736,8 +1007,9 @@ fixup option like squash, the only difference is squash keeps all commits' messa
 这时分两种情况。一种情况是，你需要另一个分支的所有代码变动，那么就采用合并（git merge）。另一种情况是，你只需要部分代码变动（某几个提交），这时可以采用 Cherry pick。
 
 git cherry-pick命令的作用，就是将指定的提交（commit）应用于其他分支。
-
-> git cherry-pick <commitHash>
+```
+git cherry-pick <commitHash>
+```
 
 > 该命令就会将指定的提交commitHash，应用于当前分支。这会在当前分支产生一个新的提交，
 > 
@@ -762,8 +1034,9 @@ e.g. 代码仓库有master和feature两个分支。
 
 ## 转移多个提交
 Cherry pick 支持一次转移多个提交。
-
-> git cherry-pick <HashA> <HashB>
+```
+git cherry-pick <HashA> <HashB>
+```
 
 如果想要转移一系列的连续提交，可以使用下面的简便语法。
 
@@ -794,8 +1067,62 @@ Cherry pick 支持一次转移多个提交。
 git add .
 git cherry-pick --continue
 git cherry-pick 806a998
-# And so on
-## References ##
+# FAQ
+## `git checkout -b` 
+是 **创建并切换到新分支** 的命令。
+```
+git checkout -b 新分支名
+```
+默认基于你当前所在的分支创建新分支，并切换到新分支。
+```
+git checkout -b feature/pay main
+```
+基于 `main` 创建新分支（即使你当前不在 main），并切换到新分支。
+新的用法, git 2.23+：
+```
+git switch -c 新分支名
+git switch -c 新分支名 基准分支
+```
+
+| 命令                             | 基于谁创建  |
+| ------------------------------ | ------ |
+| `git checkout -b a`            | 当前分支   |
+| `git checkout -b a main`       | main   |
+| `git checkout -b a origin/dev` | 远程 dev |
+| `git switch -c a`              | 当前分支   |
+| `git switch -c a main`         | main   |
+## git merge
+```
+# 把 分支X 合并进「当前分支」
+git merge X
+X  ──▶  当前分支（HEAD）
+```
+
+| 当前分支    | 执行命令                | 合并方向           |
+| ------- | ------------------- | -------------- |
+| feature | `git merge main`    | main → feature |
+| main    | `git merge feature` | feature → main |
+| develop | `git merge main`    | main → develop |
+## bitbucket创建ssh
+https://bitbucket.org/account/settings/
+- 生成密钥：`ssh-keygen`。
+```
+ssh-keygen -t ed25519 -C "your_email@example.com"
+或
+ssh-keygen -t rsa -b 4096 -C "你的邮箱"
+
+然后一路回车
+```
+![](images/posts/20260121-6.jpeg)
+将 `~/.ssh/id_rsa.pub` 内容复制。粘贴到 Bitbucket 的 **Personal settings -> SSH keys** 中。
+![](images/posts/20260121-5.jpeg)
+查看当前地址.如果是 HTTPS，改为 SSH：
+```
+git remote -v
+
+git remote set-url origin git@bitbucket.org:用户名/项目名.git
+```
+# References #
 
 [Forking Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow)
 

@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "868dafd15518ede3",
+        "id": "c9197a46e293f468",
         "type": "tabs",
         "children": [
           {
-            "id": "3131c5002d020e03",
+            "id": "d6e9c85b04538fbc",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/2017-11-14-Git-fundamentals-branch-fork-stash-merge-rebate-squash.md",
+                "file": "_drafts/20260401-bluetooth-apk-debug.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "2017-11-14-Git-fundamentals-branch-fork-stash-merge-rebate-squash"
+              "title": "20260401-bluetooth-apk-debug"
             }
           }
         ]
@@ -64,7 +64,7 @@
               "type": "search",
               "state": {
                 "query": "",
-                "matchingCase": false,
+                "matchingCase": true,
                 "explainSearch": false,
                 "collapseAll": true,
                 "extraContext": false,
@@ -88,7 +88,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 287.5026054382324
+    "width": 217.50260543823242
   },
   "right": {
     "id": "eb0d77954a5af90c",
@@ -113,6 +113,21 @@
             }
           },
           {
+            "id": "8cbe6b05c090ed54",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "_drafts/20260401-bluetooth-apk-debug.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of 20260401-bluetooth-apk-debug"
+            }
+          },
+          {
             "id": "7629a28b1ef6e2d9",
             "type": "leaf",
             "state": {
@@ -125,21 +140,6 @@
               },
               "icon": "lucide-tags",
               "title": "Tags"
-            }
-          },
-          {
-            "id": "8cbe6b05c090ed54",
-            "type": "leaf",
-            "state": {
-              "type": "outline",
-              "state": {
-                "file": "_drafts/20260113-Avalonia-tutorial.md",
-                "followCursor": false,
-                "showSearch": false,
-                "searchQuery": ""
-              },
-              "icon": "lucide-list",
-              "title": "Outline of 20260113-Avalonia-tutorial"
             }
           },
           {
@@ -180,54 +180,55 @@
       "obsidian-regex-pipeline:Regex Rulesets": false
     }
   },
-  "active": "7629a28b1ef6e2d9",
+  "active": "d6e9c85b04538fbc",
   "lastOpenFiles": [
-    "Untitled 7.base",
-    "_posts/2017-11-14-Git-fundamentals-branch-fork-stash-merge-rebate-squash.md",
-    "_posts/2025-06-26-WPF-tutorial-1-Basics.md",
-    "_drafts/20251003-subtitles-ass.md",
-    "_posts/2024-07-08-Toronto-Hydro-Cost.md",
-    "_posts/2017-11-16-Git-best-practice.md",
-    "_posts/2025-07-08-PropertyGrid-Tutorial.md",
-    "_posts/2025-07-14-DI-Scope-Tutorial.md",
-    "_posts/2025-07-18-.NET-Logging-Serilog-Tutorial.md",
-    "_posts/2025-12-12-同步方法-调用异步方法.md",
-    "_posts/20260106-.net validation校验方案.md",
-    "_drafts/20260113-Avalonia-tutorial.md",
-    "images/posts/20260113-4.jpeg",
-    "images/posts/20260113-3.jpeg",
-    "images/posts/20260113-2.jpeg",
-    "images/posts/20260113-1.jpeg",
-    "images/posts/20260113.jpeg",
-    "_drafts/20260102-.net-desktop-secure-encrypt.md",
-    "_drafts/20260112-.net-version-management.md",
-    "_posts/2025-06-27-WPF-tutorial-5-NET-Community-Toolkit.md",
+    "images/posts/20260402-4.jpeg",
+    "images/posts/20260402-3.jpeg",
+    "images/posts/20260402-2.jpeg",
+    "images/posts/20260402-1.jpeg",
+    "images/posts/20260402.jpeg",
+    "_drafts/Untitled.md",
+    "_drafts/20260401-bluetooth-apk-debug.md",
+    "Untitled 16.base",
+    "Untitled 15.base",
+    "Untitled 14.base",
+    "Untitled.canvas",
+    "Untitled 13.base",
+    "Untitled 12.base",
+    "20260301-shopify-tutorial-setup.md",
+    "_drafts/to release/2026-02-01-tax-self-employed-business-account.md",
     "_drafts/c# regular expression tutorial.md",
-    "_drafts/20250830-ImageMagick-tutorial.md",
-    "_drafts/20250831-Magick.NET.md",
-    "_posts/2025-06-27-WPF-tutorial-4-MVVM.md",
-    "_posts/2025-06-27-WPF-tutorial-3-UI.md",
-    "_posts/2025-06-27-WPF-tutorial-7-Prism.md",
-    "_drafts/20251210-ASP.NET-Configuration-Tutorial.md",
-    "_drafts/20251209-dotnet-package-version-management.md",
-    "_drafts/20260101-template-engine-tutorial.md",
-    "_drafts/20251126-AutoMapper-Tutorial.md",
-    "_drafts/ReactJS tutorial - 7 redux.md",
-    "images/posts/20251219-3.jpeg",
-    "images/posts/20251219-2.jpeg",
-    "images/posts/20251219-1.jpeg",
-    "images/posts/20251219.jpeg",
-    "images/posts/20251214.jpeg",
-    "Untitled 6.base",
-    "Untitled 5.base",
-    "Untitled 4.base",
-    "Untitled.base",
-    "Untitled 3.base",
-    "Untitled 2.base",
-    "Untitled 1.base",
-    "regex-rulesets/fix-image-paths.txt",
-    "/regex-rulesets/index.txt",
-    "Untitled 1.canvas",
-    "Untitled.canvas"
+    "20260301-shopify-tutorial-app.md",
+    "_drafts/20260301-shopify-tutorial-theme.md",
+    "images/posts/20260312.jpeg",
+    "images/posts/20260310-6.jpeg",
+    "images/posts/20260310-5.jpeg",
+    "images/posts/20260310-4.jpeg",
+    "images/posts/20260310-3.jpeg",
+    "images/posts/20260310-2.jpeg",
+    "_drafts/to release/2026-02-01-tax-self-employed-bank-account.md",
+    "20260301-shopify-tutorial-pos.md",
+    "_posts/2025-04-18-nopCommerce tutorial - (2) theme.md",
+    "20260301-shopify-tutorial-develop.md",
+    "_posts/2018-02-03-nopCommerce tutorial - (1) installation and debug.md",
+    "_posts/2018-02-04-nopCommerce tutorial - (4) increase file upload size.md",
+    "_drafts/2026-01-21-nopCommerce tutorial - (5) develop a task.md",
+    "_posts/2026-01-08-nopCommerce tutorial - (4) develop a plugin.md",
+    "_posts/2025-05-11-AI basics-turorial (1).md",
+    "[EQ.md",
+    "_drafts/to release/2020-01-07-tax-self-employed-corporation-income-tax.md",
+    "_drafts/to release/2020-01-09-tax-benefit.md",
+    "_drafts/to release/2020-02-15-finance-mortgage.md",
+    "_drafts/to release/2020-02-09-finance-benefit.md",
+    "_drafts/to release/2020-02-01-finance-fundamentals.md",
+    "_drafts/to release/2020-01-31-tax-faq.md",
+    "_drafts/to release/2020-01-25-tax-heritage.md",
+    "_drafts/to release/2020-01-21-tax-house.md",
+    "Untitled 11.base",
+    "Untitled 10.base",
+    "Untitled 9.base",
+    "Untitled 8.base",
+    "Untitled 7.base",
+    "Untitled 1.canvas"
   ]
 }

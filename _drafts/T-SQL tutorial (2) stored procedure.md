@@ -327,3 +327,5 @@ Then, we create a program to handle the return codes that are returned from the 
 [SQL Tutorial](https://www.techonthenet.com/sql/index.php)
 
 [https://docs.microsoft.com/en-us/sql/relational-databases/stored-procedures/return-data-from-a-stored-procedure?view=sql-server-2017](https://docs.microsoft.com/en-us/sql/relational-databases/stored-procedures/return-data-from-a-stored-procedure?view=sql-server-2017)
+
+https://docs.microsoft.com/en-us/sql/relational-databases/stored-procedures/create-a-stored-procedure

@@ -3,7 +3,6 @@ layout: post
 title: Tax - Self-employed vs. Corporation
 author: Andy Feng
 ---
-
 # Introduction
 在加拿大赚钱，可以大致分为两种情况：为别人打工，赚取工资收入（employment income）；或者为自己打工（Self-employed business owners），自己控制工作时间和进度。简单来说，自雇人士花税前的钱，而非自雇人士花的是税后的钱。
 
@@ -19,12 +18,9 @@ author: Andy Feng
 
 # 注册手续
 在加拿大成立公司有三种形式：独资（sole proprietorship）、合伙（partnership ）、有限公司（corporation）
-
 1. 申请注册成立公司可去安省消费者和商业服务机构（Ministry of Consumer and business services）
-
 	> 地址：393 University Ave， Toronto.
-
-1. 也可在网上申请：http://www.cbs.gov.on.ca/mcbs/English/welcome.Htm
+2. 也可在网上申请：http://www.cbs.gov.on.ca/mcbs/English/welcome.Htm
 
 注册Incorporation，注册手续一般分为查名、准备申请表格和章程(Articles)、向政府提交申请、领取注册文件等几个步骤。假如找公司帮忙申请，2天能完成，包括name search, 所有的paperwork手续都能够完成了。大概300~400左右，含律师费。如果不需要name search，1天完成
 
@@ -117,9 +113,9 @@ Sole Proprielorship 是以个人开办的公司，由个人运营并承担责任
 
 1. 申报自雇收入需要在T1报税表里填写 T2125生意收入表: Statement of Business or Professional Activities。自雇收入的申报截止日期是次年的6月15日，但是如果你欠税局的税款，则应在4月30日前完成申报。
 2. 不能延税，需以当年的最高边际税率交税（安省2017年53.5%，见附个人税率表）。
-2. 销售额三万加币以上必须注册登记并替税务局收取 GST/HST
-3. 个税方面，有雇员的还需要登记工薪 payroll 账号，代扣代缴个人所得税， 4.95% CPP，1.63% EI 等（并支付雇主部分）。自雇人员本人也要交CPP（个人和雇主双份）但没有EI。
-1. 可抵费用类似有限公司
+3. 总销售额(不是利润)三万加币以上必须注册登记并替税务局收取 GST/HST
+4. 个税方面，有雇员的还需要登记工薪 payroll 账号，代扣代缴个人所得税， 4.95% CPP，1.63% EI 等（并支付雇主部分）。自雇人员本人也要交CPP（个人和雇主双份）但没有EI。
+5. 可抵费用类似有限公司
 
 ## 收入报税
 1. 报税时，需要有与客户(个人或公司)之间的合同，或者你完成工作后给客户开的发票。
